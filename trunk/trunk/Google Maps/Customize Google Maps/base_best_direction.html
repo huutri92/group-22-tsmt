@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Draggable directions</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+	<script>
+		var a = [1, 2, 3, 4, 5, 6];
+
+		function generate(){
+			var n = a.length;
+			var i = n - 1;
+			var d = 0;
+			while (i > 0){
+				var s = "";
+				for (i = 0; i < n; ++i)
+					s += " " + a[i];
+				console.log(s);
+				++d;
+				
+				i = n - 2;
+				while ((i > -1) && (a[i] > a[i + 1])) --i;
+				if (i > -1){
+					var k = n - 1;
+					while (a[k] < a[i]) --k;
+					swap(k, i);
+					var x = i + 1;
+					var y = n - 1;
+					while (x < y){
+						swap(x, y);
+						++x;
+						--y;
+					}
+				}
+			}
+			console.log(d);
+		}
+		
+		function swap(i, j){
+			var tmp = a[i];
+			a[i] = a[j];
+			a[j] = tmp;
+		}
+		
+		function demo(){
+			alert(123);
+		}
+    </script>    
+  </head>
+  <body>
+	<button onclick='generate()'>Launch!</button>
+	<button onclick='demo()'>Test!</button>
+  </body>
+</html>
+
