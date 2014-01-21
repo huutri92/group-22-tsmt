@@ -31,21 +31,12 @@
   </types>
   <filters />
   <items>
-    <item id="ddip379577842118719262_868924761589532129" cid="C003" type="class" name="Universities" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 22:51:49">
+    <item id="ddip379577842118719262_868924761589532129" cid="C003" type="class" name="Universities" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 22:51:49">
       <stereotypes />
       <tagged-values />
       <documentation>
         <text>
-          <content>
-            <p index="0">
-              <t />
-              <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                <text>
-                  <solid-brush color="#FF000000" />
-                </text>
-              </style>
-            </p>
-          </content>
+          <content />
         </text>
       </documentation>
       <cooperation>
@@ -62,15 +53,16 @@
         <attribute id="ab08988139be145eba784672791682d06284" name="ExaminationSiteID" type="" type-id="" visibility="private" abstract="false" virtual="false">
           <stereotypes />
         </attribute>
+        <attribute id="a39fd34ff2e2144c394619a0b03f334e5191" name="ExaminationID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+          <stereotypes />
+        </attribute>
       </attributes>
       <operations />
       <template-parameters>
-        <source-codes>
-          <source-code language="Cpp" />
-        </source-codes>
+        <source-codes />
       </template-parameters>
     </item>
-    <item id="di696077530434236510" cid="C006" type="class" name="Class6" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:05:36">
+    <item id="di696077530434236510" cid="C006" type="class" name="Class6" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:05:36">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
@@ -82,16 +74,41 @@
         <source-codes />
       </template-parameters>
     </item>
-    <item id="di560310280163573391" cid="ELEM001" type="association-class-link" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:05:36">
+    <item id="di560310280163573391" cid="ELEM001" type="association-class-link" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:05:36">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
       <owned-items />
       <style class="default" />
     </item>
+    <item id="ddip379577842118719262_661247983279059377" cid="C008" type="class" name="Examinations" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:52:49">
+      <stereotypes />
+      <tagged-values />
+      <associated-diagrams />
+      <owned-items />
+      <style class="default" />
+      <attributes>
+        <attribute id="a50b111b4acbe4940b85d6a2ec434a15088" name="ExaminationID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+          <stereotypes />
+        </attribute>
+        <attribute id="a69201987105c4d789fcd44a1ca250590400" name="Block" type="" type-id="" visibility="private" abstract="false" virtual="false">
+          <stereotypes />
+        </attribute>
+        <attribute id="a8a1ecf512fe94a5a908cbe33d2d24b80830" name="StartDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
+          <stereotypes />
+        </attribute>
+        <attribute id="acbe04c7d7da6468e95526f17b6164806347" name="EndDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
+          <stereotypes />
+        </attribute>
+      </attributes>
+      <operations />
+      <template-parameters>
+        <source-codes />
+      </template-parameters>
+    </item>
   </items>
   <models>
-    <model id="p917632769941805972" name="Model 1" type="" namespace="" order-index="1">
+    <model id="p917632769941805972" name="Model 1" type="model" namespace="" order-index="1">
       <meta>
         <authors>
           <author> </author>
@@ -154,26 +171,17 @@
           </authors>
           <description />
           <creation-date>01/15/2014 21:07:33</creation-date>
-          <change-date>01/16/2014 01:54:56</change-date>
+          <change-date>01/21/2014 08:15:32</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="ddip379577842118719262_100033316523881028" cid="C005" type="class" name="ExaminationSite" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 22:58:55">
+          <item id="ddip379577842118719262_100033316523881028" cid="C005" type="class" name="ExaminationSite" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 22:58:55">
             <stereotypes />
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -196,12 +204,10 @@
             </attributes>
             <operations />
             <template-parameters>
-              <source-codes>
-                <source-code language="Cpp" />
-              </source-codes>
+              <source-codes />
             </template-parameters>
           </item>
-          <item id="ddip379577842118719262_746753026618146504" cid="C007" type="class" name="Candidates" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:14:05">
+          <item id="ddip379577842118719262_746753026618146504" cid="C007" type="class" name="Candidates" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/15/2014 23:14:05">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -238,7 +244,7 @@
               <source-codes />
             </template-parameters>
           </item>
-          <item id="ddip379577842118719262_707444270518841573" cid="REL002" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:40:13">
+          <item id="ddip379577842118719262_707444270518841573" cid="REL002" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:40:13">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -249,7 +255,7 @@
               <end-role id="" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip379577842118719262_997094842937414179" cid="REL003" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:40:19">
+          <item id="ddip379577842118719262_997094842937414179" cid="REL003" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:40:19">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -260,7 +266,7 @@
               <end-role id="" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip379577842118719262_358854971415672217" cid="REL004" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:42:29">
+          <item id="ddip379577842118719262_358854971415672217" cid="REL004" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:42:29">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -271,32 +277,7 @@
               <end-role id="" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip379577842118719262_661247983279059377" cid="C008" type="class" name="Examinations" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:52:49">
-            <stereotypes />
-            <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-            <attributes>
-              <attribute id="a50b111b4acbe4940b85d6a2ec434a15088" name="ExaminationID" type="" type-id="" visibility="private" abstract="false" virtual="false">
-                <stereotypes />
-              </attribute>
-              <attribute id="a69201987105c4d789fcd44a1ca250590400" name="Block" type="" type-id="" visibility="private" abstract="false" virtual="false">
-                <stereotypes />
-              </attribute>
-              <attribute id="a8a1ecf512fe94a5a908cbe33d2d24b80830" name="StartDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
-                <stereotypes />
-              </attribute>
-              <attribute id="acbe04c7d7da6468e95526f17b6164806347" name="EndDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
-                <stereotypes />
-              </attribute>
-            </attributes>
-            <operations />
-            <template-parameters>
-              <source-codes />
-            </template-parameters>
-          </item>
-          <item id="ddip379577842118719262_916127863181061451" cid="REL005" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:54:56">
+          <item id="ddip379577842118719262_916127863181061451" cid="REL005" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P44fac37323454006ac99ca985e007aca" creation-date="01/16/2014 01:54:56">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -304,6 +285,17 @@
             <style class="default" />
             <relation from="ddip379577842118719262_661247983279059377" to="ddip379577842118719262_746753026618146504">
               <start-role id="" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="ddip379577842118719262_984018562581900265" cid="REL001" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/21/2014 08:00:55">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="ddip379577842118719262_868924761589532129" to="ddip379577842118719262_661247983279059377">
+              <start-role id="" name="" multiplicity="1.**" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
@@ -318,14 +310,14 @@
             <class />
           </item>
           <item id="ddip379577842118719262_707444270518841573" iid="0ec98bf72569466bbf821266e4f43775" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:40:13" order-index="3" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="332" y1="306" x2="533" y2="420" start-border-pos="0.738007518223354" end-border-pos="0.819072509079837">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="337" y1="281" x2="533" y2="413" start-border-pos="0.741623960222517" end-border-pos="0.80876386835334">
               <points>
-                <point x="332" y="306" />
-                <point x="533" y="420" />
+                <point x="337" y="281" />
+                <point x="533" y="413" />
               </points>
             </layout>
             <relation from="ddip379577842118719262_868924761589532129" from-iid="611ad5af80ea4119864e74a87e923432" to="ddip379577842118719262_746753026618146504" to-iid="8ee7f5417dfd46d699c2ff93d6e4f454" />
-            <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25.00002,-14.99999" />
+            <role-positions start-role="25.55861,15.82943" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25.00002,-14.99999" />
           </item>
           <item id="ddip379577842118719262_997094842937414179" iid="c675e23098c541ffa45811aed30614d8" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:40:19" order-index="4" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="669" y1="271" x2="634" y2="371" start-border-pos="0.602852210569917" end-border-pos="0.180692945207868">
@@ -338,32 +330,42 @@
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25.00002,-14.99996" />
           </item>
           <item id="ddip379577842118719262_868924761589532129" iid="611ad5af80ea4119864e74a87e923432" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/15/2014 22:51:49" order-index="0" type="entity">
-            <layout ax="199" ay="235" awidth="140" aheight="71" x="199" y="235" width="0" height="71" />
+            <layout ax="202" ay="193" awidth="140" aheight="88" x="202" y="193" width="0" height="88" />
             <class />
           </item>
           <item id="ddip379577842118719262_358854971415672217" iid="a878a36358d24cc7b84c335fb5bee846" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:42:29" order-index="5" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="339" y1="263" x2="596" y2="235" start-border-pos="0.347169580593915" end-border-pos="0.901148520575629">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="342" y1="235" x2="596" y2="228" start-border-pos="0.369703379544345" end-border-pos="0.881584591335721">
               <points>
-                <point x="339" y="263" />
-                <point x="596" y="235" />
+                <point x="342" y="235" />
+                <point x="596" y="228" />
               </points>
             </layout>
             <relation from="ddip379577842118719262_868924761589532129" from-iid="611ad5af80ea4119864e74a87e923432" to="ddip379577842118719262_100033316523881028" to-iid="d60762ce1e764d14a50783c3c8d7185c" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-14.99999" end-multiplicity="25.00003,-15.00001" />
           </item>
-          <item id="ddip379577842118719262_661247983279059377" iid="b450701c74b74d329ed0f0195cc3b542" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:52:49" order-index="6" type="entity">
-            <layout ax="222" ay="411" awidth="140" aheight="106" x="222" y="411" width="0" height="106" />
-            <class />
-          </item>
           <item id="ddip379577842118719262_916127863181061451" iid="58aea087500b4442bf35bfacdd2a6030" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:54:56" order-index="7" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="362" y1="463" x2="533" y2="461" start-border-pos="0.372876581156029" end-border-pos="0.876264507850904">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="362" y1="466" x2="533" y2="462" start-border-pos="0.372122502959935" end-border-pos="0.877528972840041">
               <points>
-                <point x="362" y="463" />
-                <point x="533" y="461" />
+                <point x="362" y="466" />
+                <point x="533" y="462" />
               </points>
             </layout>
             <relation from="ddip379577842118719262_661247983279059377" from-iid="b450701c74b74d329ed0f0195cc3b542" to="ddip379577842118719262_746753026618146504" to-iid="8ee7f5417dfd46d699c2ff93d6e4f454" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25.00002,-14.99999" />
+          </item>
+          <item id="ddip379577842118719262_984018562581900265" iid="15e0bd015e3b406cb4547fec47f68439" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/21/2014 08:00:55" order-index="8" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="276" y1="281" x2="287" y2="411" start-border-pos="0.631802695138114" end-border-pos="0.116187395368304">
+              <points>
+                <point x="276" y="281" />
+                <point x="287" y="411" />
+              </points>
+            </layout>
+            <relation from="ddip379577842118719262_868924761589532129" from-iid="611ad5af80ea4119864e74a87e923432" to="ddip379577842118719262_661247983279059377" to-iid="b450701c74b74d329ed0f0195cc3b542" />
+            <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
+          </item>
+          <item id="ddip379577842118719262_661247983279059377" iid="b450701c74b74d329ed0f0195cc3b542" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 01:52:49" order-index="6" type="entity">
+            <layout ax="222" ay="411" awidth="140" aheight="113" x="222" y="411" width="0" height="113" />
+            <class />
           </item>
         </layer>
       </diagram>
