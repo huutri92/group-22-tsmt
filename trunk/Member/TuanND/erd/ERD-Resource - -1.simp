@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="5.9" multi-file="no">
+  <meta>
+    <name>Model erd1</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <management>
+    <persons>
+      <person id="P6c12c25c40fc4410a0b469a4c9233334">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <tasks />
+    <requirements />
+    <issues />
+    <to-dos />
+  </management>
+  <glossary />
+  <types>
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types />
+  </types>
+  <filters />
+  <items />
+  <models>
+    <model id="p134816810295623975" name="Model 1" type="model" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>01/15/2014 19:20:26</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="p825240861205792480" name="ClassDiagram1" order-index="1">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>01/15/2014 19:20:26</creation-date>
+          <change-date>01/21/2014 09:44:13</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="ddip825240861205792480_300125214584133801" cid="C001" type="class" name="Lodge" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P6c12c25c40fc4410a0b469a4c9233334" creation-date="01/15/2014 19:20:47">
+            <stereotypes />
+            <tagged-values />
+            <documentation>
+              <text>
+                <content />
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes>
+              <attribute id="adfa652211a784fc9b457030cca7ba9c2665" name="HomeLocalID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ac34264e5dc0f4f96a3a65ad73462824b288" name="AccountID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a6c3a6f3619e74cbb843dfe51216b2958464" name="Address" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a5914a9adda7143389198dd8ec4605458440" name="NumberOfRoom" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a295443e97c5046ab9ba44805b6481efd448" name="Type" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="aea5dcdd38c2a42248dc2b79bf8340c5f215" name="Image" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a254079d21df54dcc9a7936bece9387a4688" name="Description" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ac6a0831bdaac41cdb983e4ded9ea000525" name="IsActive" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+            </attributes>
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="ddip825240861205792480_285318688818057727" cid="C002" type="class" name="Class2" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P6c12c25c40fc4410a0b469a4c9233334" creation-date="01/15/2014 19:26:47">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="ddip825240861205792480_535818900379775423" cid="GNR001" type="generalization" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P6c12c25c40fc4410a0b469a4c9233334" creation-date="01/15/2014 19:26:47">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+          </item>
+          <item id="ddip825240861205792480_251131490338560116" cid="C003" type="class" name="Vehicle" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P6c12c25c40fc4410a0b469a4c9233334" creation-date="01/15/2014 19:32:23">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes>
+              <attribute id="ae0d40991c3344f81996ec2daff2a0ad0567" name="VehicleID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a3e95c3578814420fabd2af4a42aced06810" name="AccountID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a3e89a6971d5045a89da52db74b10da5c723" name="NumberPlate" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a9fba16cf371c4b4aa0ddb4acfbe1941333" name="Type" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a72deb6d266b8470a8466157169a708e8857" name="SeatNumber" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a8e9ebfdff3dc4c58b6e38bfe650e78f4262" name="DepartureDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a027e5c0b79734c29be0f0c04d9d454ae790" name="Destination" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="adb85f92922ac41a9bdb8863b2940e126994" name="DepartureTime" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="acfdb5b4588124551be61cb5552e3fa20440" name="ArrivalTime" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="abda902b3b58a4e48a1e2464fe0ca6929336" name="Description" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="adb521b7204b84bf6ab57cd928edabe61422" name="IsActive" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+            </attributes>
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="ddip825240861205792480_763183671229317281" cid="C004" type="class" name="Volunteer" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P6c12c25c40fc4410a0b469a4c9233334" creation-date="01/15/2014 19:51:20">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes>
+              <attribute id="a1285b5eb66e34740ad8b494c48fca43a891" name="AccountID" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ae511cc18a6d34b06af8cee6b7a4ba88f948" name="FullName" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="aa4b0e994d2fc4876802580992abd7084549" name="Address" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a9b97d2ca9a404d47961b9cfbb9ac7197162" name="Phone" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ab2f49020df8b4c24a967a2181f0cb832506" name="Email" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a145a66180f7147f19ddc7e5a4e60a89d512" name="DepartureDate" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ac785da188d44493fa895e9b5bc6d4912610" name="Destination" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="ad0052fe110264d80b1859de6d4d6512c212" name="DepartureTime" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a10bf3a6bc94b4aeaa3c29aad79241d8f548" name="ArrivalTime" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+              <attribute id="a306550bd5b754e91ad94944d0b30b22e260" name="IsActive" type="" type-id="" visibility="private" abstract="false" virtual="false">
+                <stereotypes />
+              </attribute>
+            </attributes>
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+          <item id="ddip825240861205792480_171008629336224698" cid="REL005" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 20:50:05">
+            <stereotypes />
+            <tagged-values />
+            <documentation>
+              <text>
+                <content />
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="ddip825240861205792480_763183671229317281" to="ddip825240861205792480_300125214584133801">
+              <start-role id="" name="" multiplicity="0..1" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="ddip825240861205792480_344146627635805405" cid="REL004" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 20:50:01">
+            <stereotypes />
+            <tagged-values />
+            <documentation>
+              <text>
+                <content />
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="ddip825240861205792480_763183671229317281" to="ddip825240861205792480_251131490338560116">
+              <start-role id="" name="" multiplicity="0..1" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="ddip825240861205792480_300125214584133801" iid="7e296b3a14f44b40b03715d91f338d77" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/15/2014 19:20:47" order-index="0" type="entity">
+            <layout ax="410" ay="385" awidth="140" aheight="163" x="410" y="385" width="0" height="163" />
+            <class />
+          </item>
+          <item id="ddip825240861205792480_251131490338560116" iid="fee1d718ac82460489f0e2576383b0eb" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/15/2014 19:32:23" order-index="1" type="entity">
+            <layout ax="169" ay="319" awidth="140" aheight="210" x="169" y="319" width="0" height="210" />
+            <class />
+          </item>
+          <item id="ddip825240861205792480_763183671229317281" iid="ed3782bdea574a5a921ac96669c138f1" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/15/2014 19:51:20" order-index="2" type="entity">
+            <layout ax="406" ay="43" awidth="137" aheight="211" x="406" y="43" width="137" height="211" />
+            <class />
+          </item>
+          <item id="ddip825240861205792480_344146627635805405" iid="fe5baf49165c4cfbafa213d5330cfb9a" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/20/2014 20:50:01" order-index="7" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="11,-10" x1="406" y1="228" x2="309" y2="342" start-border-pos="0.969032974604747" end-border-pos="0.277127656482515">
+              <points>
+                <point x="406" y="228" />
+                <point x="309" y="342" />
+              </points>
+            </layout>
+            <relation from="ddip825240861205792480_763183671229317281" from-iid="ed3782bdea574a5a921ac96669c138f1" to="ddip825240861205792480_251131490338560116" to-iid="fee1d718ac82460489f0e2576383b0eb" />
+            <role-positions start-role="24.99999,14.99999" end-role="25,15" start-multiplicity="25.43424,14.82973" end-multiplicity="25,-15" />
+          </item>
+          <item id="ddip825240861205792480_171008629336224698" iid="94946e3844ee46c698eab1e753fc8780" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/20/2014 20:50:05" order-index="8" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="476" y1="254" x2="478" y2="385" start-border-pos="0.627737226277372" end-border-pos="0.122270911080497">
+              <points>
+                <point x="476" y="254" />
+                <point x="478" y="385" />
+              </points>
+            </layout>
+            <relation from="ddip825240861205792480_763183671229317281" from-iid="ed3782bdea574a5a921ac96669c138f1" to="ddip825240861205792480_300125214584133801" to-iid="7e296b3a14f44b40b03715d91f338d77" />
+            <role-positions start-role="25,15" end-role="25.00001,14.99998" start-multiplicity="25.00001,-15.00001" end-multiplicity="25,-15" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+  <documents />
+  <document-templates />
+</sim-project>
