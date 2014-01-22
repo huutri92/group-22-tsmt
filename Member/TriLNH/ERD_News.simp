@@ -149,7 +149,7 @@
             <owned-items />
             <style class="default" />
           </item>
-          <item id="di482368919449372600" cid="C001" type="class" name="Account" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 22:21:49">
+          <item id="di482368919449372600" cid="C001" type="class" name="Account" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 22:21:49">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -170,7 +170,7 @@
               <source-codes />
             </template-parameters>
           </item>
-          <item id="di797928134815552603" cid="REL001" type="relationship" name="post" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 22:22:17">
+          <item id="di797928134815552603" cid="REL001" type="relationship" name="post" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/20/2014 22:22:17">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
