@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Students Rooms</title>
+	<script src="Class.js"></script>
+	<script src="SinhVien.js"></script>
+	<script src="Nhom.js"></script>
+	<script src="Phong.js"></script>
+	<script>
+		function letssort(){
+			console.log("LEVEL 1 - Lay danh sach");
+			var sv = [];
+			sv.push(new sinhvien("M01", true, 1));
+			sv.push(new sinhvien("F01", false, 2));
+			sv.push(new sinhvien("F02", false, 3));
+			sv.push(new sinhvien("F03", false, 2));
+			sv.push(new sinhvien("F03", false, 2));
+			sv.push(new sinhvien("M02", true, 5));
+			sv.push(new sinhvien("M03", true, 5));
+			sv.push(new sinhvien("F04", false, 3));
+			sv.push(new sinhvien("F05", false, 3));
+
+			for (var i = 0; i < sv.length; ++i){
+				console.log(sv[i].getDisplay());
+			}
+			console.log("END STEP 1");
+			
+			console.log("STEP 2 - Tach nam nu");
+			var Fsv = [];
+			var Msv = [];
+			for (var i = 0; i < sv.length; ++i){
+				if (sv[i].getGioiTinh()){
+					Msv.push(sv[i]);
+				} else {
+					Fsv.push(sv[i]);
+				}
+			}
+			
+			for (var i = 0; i < Fsv.length; ++i){
+				console.log(Fsv[i].getDisplay());
+			}
+			
+			for (var i = 0; i < Msv.length; ++i){
+				console.log(Msv[i].getDisplay());
+			}
+			console.log("END STEP 2");
+			
+			console.log("STEP 3 - Gom nhom");
+			
+			// Ladies first
+			var DSNhomNu = []; // danh sach cac "nhom" nu
+			
+			for (var i = 0; i < Fsv.length; ++i){
+				var groupOrder = getGroupOrder(DSNhomNu, Fsv[i].getTenNhom());
+				if (groupOrder < 0){ // nhom chua duoc tao
+					DSNhomNu.push(new nhom(Fsv[i].getTenNhom())); // tao nhom moi
+					groupOrder = DSNhomNu.length-1;
+				}
+				DSNhomNu[groupOrder].getDanhSachSV().push(Fsv[i]);
+			}
+			
+			for (var i = 0; i < DSNhomNu.length; ++i){
+				for (var j = 0; j < DSNhomNu[i].getDanhSachSV().length; ++j){
+					console.log(DSNhomNu[i].getDanhSachSV()[j].getDisplay());
+				}
+			}
+			
+			// Gentleman after
+			var DSNhomNam = []; // danh sach cac "nhom" nam
+			
+			for (var i = 0; i < Msv.length; ++i){
+				var groupOrder = getGroupOrder(DSNhomNam, Msv[i].getTenNhom());
+				if (groupOrder < 0){ // nhom chua duoc tao
+					DSNhomNam.push(new nhom(Msv[i].getTenNhom())); // tao nhom moi
+					groupOrder = DSNhomNam.length-1;
+				}
+				DSNhomNam[groupOrder].getDanhSachSV().push(Msv[i]);
+			}
+			
+			for (var i = 0; i < DSNhomNam.length; ++i){
+				for (var j = 0; j < DSNhomNam[i].getDanhSachSV().length; ++j){
+					console.log(DSNhomNam[i].getDanhSachSV()[j].getDisplay());
+				}
+			}
+			console.log("END STEP 3");
+			
+			console.log("STEP 4 - Sap xep nhom theo so luong giam dan");
+			// Ladies first
+			for (var i = 0; i < DSNhomNu.length-1; ++i){
+				for (var j = i+1; j < DSNhomNu.length; ++j){
+					if (DSNhomNu[i].getDanhSachSV().length < DSNhomNu[j].getDanhSachSV().length){
+						var tmp = DSNhomNu[i];
+						DSNhomNu[i] = DSNhomNu[j];
+						DSNhomNu[j] = tmp;
+					}
+				}
+			}
+			
+			for (var i = 0; i < DSNhomNu.length; ++i){
+				for (var j = 0; j < DSNhomNu[i].getDanhSachSV().length; ++j){
+					console.log(DSNhomNu[i].getDanhSachSV()[j].getDisplay());
+				}
+			}
+			
+			// Gentleman after
+			for (var i = 0; i < DSNhomNam.length-1; ++i){
+				for (var j = i+1; j < DSNhomNam.length; ++j){
+					if (DSNhomNam[i].getDanhSachSV().length < DSNhomNam[j].getDanhSachSV().length){
+						var tmp = DSNhomNam[i];
+						DSNhomNam[i] = DSNhomNam[j];
+						DSNhomNam[j] = tmp;
+					}
+				}
+			}
+			
+			for (var i = 0; i < DSNhomNam.length; ++i){
+				for (var j = 0; j < DSNhomNam[i].getDanhSachSV().length; ++j){
+					console.log(DSNhomNam[i].getDanhSachSV()[j].getDisplay());
+				}
+			}
+			console.log("END STEP 4");
+			
+			console.log("STEP 5 - Danh sach phong tro");
+			var rooms = [];
+			rooms.push(new phong("P1", 2));
+			rooms.push(new phong("P2", 4));
+			rooms.push(new phong("P3", 2));
+			rooms.push(new phong("P4", 2));
+			for (var i = 0; i < rooms.length; ++i){
+				console.log(rooms[i].getTenPhong() + " --- " + rooms[i].getSoLuong());
+			}
+			console.log("END STEP 5");
+			
+			console.log("STEP 6 - Sap sinh vien vao phong tro");
+			// Ladies first 	
+			for (var i = 0; i < DSNhomNu.length; ++i){
+				var bug = true;
+				for (var j = 0; j < rooms.length; ++j){
+					if (rooms[j].getSoLuongConTrong() >= DSNhomNu[i].getDanhSachSV().length){
+						if (rooms[j].getGioiTinh() == null){
+							rooms[j].setGioiTinh(false);
+						}
+						if (rooms[j].getGioiTinh() == false){
+							DSNhomNu[i].setTenPhong(rooms[j].getTenPhong());
+							rooms[j].setSoLuongConTrong(rooms[j].getSoLuongConTrong() - DSNhomNu[i].getDanhSachSV().length);
+							console.log("Xep nhom " + DSNhomNu[i].getTenNhom() + " vao phong " + rooms[j].getTenPhong());
+							bug = false;
+							break;
+						}
+					}
+				}
+				
+				if (bug){
+					console.log("Khong the xep nhom " + DSNhomNu[i].getTenNhom());
+				}
+			}
+			
+			for (var i = 0; i < DSNhomNu.length; ++i){
+				console.log(DSNhomNu[i].getTenNhom() + " --- " + DSNhomNu[i].getTenPhong());
+			}
+			
+			// Gentleman after
+			for (var i = 0; i < DSNhomNam.length; ++i){
+				var bug = true;
+				for (var j = 0; j < rooms.length; ++j){
+					if (rooms[j].getSoLuongConTrong() >= DSNhomNam[i].getDanhSachSV().length){
+						if (rooms[j].getGioiTinh() == null){
+							rooms[j].setGioiTinh(true);
+						}
+						if (rooms[j].getGioiTinh() == true){
+							DSNhomNam[i].setTenPhong(rooms[j].getTenPhong());
+							rooms[j].setSoLuongConTrong(rooms[j].getSoLuongConTrong() - DSNhomNam[i].getDanhSachSV().length);
+							console.log("Xep nhom " + DSNhomNu[i].getTenNhom() + " vao phong " + rooms[j].getTenPhong());
+							bug = false;
+							break;
+						}
+					}
+				}
+				
+				if (bug){
+					console.log("Khong the xep nhom " + DSNhomNam[i].getTenNhom());
+				}
+			}
+			
+			for (var i = 0; i < DSNhomNam.length; ++i){
+				console.log(DSNhomNam[i].getTenNhom() + " --- " + DSNhomNam[i].getTenPhong());
+			}
+			console.log("END STEP 6");
+		}
+		
+		function getGroupOrder(groups, name){
+			for (var i = 0; i < groups.length; ++i){
+				if (groups[i].tennhom == name) return i;
+			}
+			return -1;
+		}
+		
+		function demo(){
+			console.log("Demo Test Function");
+		}
+    </script>    
+  </head>
+  <body>
+	<button onclick='letssort()'>Launch!</button>
+	<button onclick='demo()'>Test!</button>
+  </body>
+</html>
