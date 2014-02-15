@@ -57,7 +57,7 @@
         <end-role id="" name="" navigability="" association-type="association" visibility="private" />
       </relation>
     </item>
-    <item id="mdip107264414925432348_444770678455803663" cid="UC009" type="use-case" name="Edit Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+    <item id="mdip107264414925432348_444770678455803663" cid="UC009" type="use-case" name="Edit a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
@@ -167,7 +167,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="ddip285093793629952747_890733811122681176" cid="UC009" type="use-case" name="Edit Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="ddip285093793629952747_890733811122681176" cid="UC009" type="use-case" name="Edit a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -175,7 +175,7 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="ddip285093793629952747_815150446719154953" cid="UC009" type="use-case" name="Delete Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="ddip285093793629952747_815150446719154953" cid="UC009" type="use-case" name="Delete a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -183,7 +183,7 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="ddip285093793629952747_875634664750302858" cid="UC009" type="use-case" name="Add Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="ddip285093793629952747_875634664750302858" cid="UC009" type="use-case" name="Add a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -1289,7 +1289,7 @@
             <end-role id="" name="" navigability="" association-type="association" visibility="private" />
           </relation>
         </item>
-        <item id="mdip107264414925432348_999631988365551823" cid="UC009" type="use-case" name="Approve News" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_999631988365551823" cid="UC009" type="use-case" name="Search News" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -1658,7 +1658,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="mdip107264414925432348_271381594745512700" cid="UC009" type="use-case" name="Add Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_271381594745512700" cid="UC009" type="use-case" name="Add Charity's Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -1884,7 +1884,7 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="mdip107264414925432348_395898536976141494" cid="UC009" type="use-case" name="Edit Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_395898536976141494" cid="UC009" type="use-case" name="Edit Charity's Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -1917,7 +1917,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="mdip107264414925432348_545554887398197854" cid="UC009" type="use-case" name="Delete Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_545554887398197854" cid="UC009" type="use-case" name="Delete Charity's Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -1925,24 +1925,13 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="mdip107264414925432348_272739393212412169" cid="UC002" type="use-case" name="Manage Charity's Information" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 21:53:12">
+        <item id="mdip107264414925432348_272739393212412169" cid="UC002" type="use-case" name="Manage Charity's Resources" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 21:53:12">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
           <owned-items />
           <style class="default" />
           <use-case />
-        </item>
-        <item id="mdip107264414925432348_237550101916493529" cid="REL002" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 21:53:17">
-          <stereotypes />
-          <tagged-values />
-          <associated-diagrams />
-          <owned-items />
-          <style class="default" />
-          <relation from="mdip107264414925432348_304230594855030366" to="mdip107264414925432348_272739393212412169">
-            <start-role id="" name="" navigability="" association-type="association" visibility="private" />
-            <end-role id="" name="" navigability="" association-type="association" visibility="private" />
-          </relation>
         </item>
         <item id="mdip107264414925432348_304230594855030366" cid="AC002" type="actor" name="Charity" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P43c38132a5c24b83bc6da656b8cd0389" creation-date="01/07/2014 22:07:24">
           <stereotypes />
@@ -2736,7 +2725,7 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="mdip107264414925432348_436788207908581584" cid="UC009" type="use-case" name="ApproveNews" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_436788207908581584" cid="UC009" type="use-case" name="Approve News" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -2867,7 +2856,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="mdip107264414925432348_810447405125970536" cid="UC009" type="use-case" name="Add Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_810447405125970536" cid="UC009" type="use-case" name="Add a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -2901,7 +2890,7 @@
           <style class="default" />
           <use-case />
         </item>
-        <item id="mdip107264414925432348_814152790109790871" cid="UC009" type="use-case" name="Delete Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="mdip107264414925432348_814152790109790871" cid="UC009" type="use-case" name="Delete a Banner" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -2975,7 +2964,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="ddip678706553408827665_766778484994100905" cid="UC004" type="use-case" name="Tranfer Money" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 22:23:15">
+        <item id="ddip678706553408827665_766778484994100905" cid="UC004" type="use-case" name="Transfer Money" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 22:23:15">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -3146,7 +3135,7 @@
           <owned-items />
           <style class="default" />
         </item>
-        <item id="ddip396881899761161810_650462458524213829" cid="UC009" type="use-case" name="Search News" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
+        <item id="ddip396881899761161810_650462458524213829" cid="UC009" type="use-case" name="Approve News" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="01/16/2014 23:00:01">
           <stereotypes />
           <tagged-values />
           <associated-diagrams />
@@ -5643,14 +5632,14 @@
             <relation from="ddip678706553408827665_766778484994100905" from-iid="d38b9b07565445dc9eef559cc8edd31a" to="mdip107264414925432348_128208951296414778" to-iid="2ec8d09f5dfa40e4bca25b1e44bc4fcb" />
           </item>
           <item id="ddip678706553408827665_902481140212041615" iid="33e15c4ee48e468d9abc0354c8da9e1d" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 22:23:35" order-index="7" type="entity">
-            <layout ax="466" ay="148" awidth="135" aheight="84" x="466" y="148" width="135" height="84" angle="0" />
+            <layout ax="620" ay="190" awidth="135" aheight="84" x="620" y="190" width="135" height="84" angle="0" />
             <use-case />
           </item>
           <item id="ddip678706553408827665_999678971147468699" iid="d7c33ddc42d44c3f80b0e10eb4638232" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 22:24:52" order-index="8" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="508" y1="229" x2="496" y2="307" start-border-pos="0.656924325448495" end-border-pos="0.157911176805372">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="628" y1="252" x2="534" y2="328" start-border-pos="0.766516549246652" end-border-pos="0.267513593037923">
               <points>
-                <point x="508" y="229" />
-                <point x="496" y="307" />
+                <point x="628" y="252" />
+                <point x="534" y="328" />
               </points>
             </layout>
             <relation from="ddip678706553408827665_902481140212041615" from-iid="33e15c4ee48e468d9abc0354c8da9e1d" to="mdip107264414925432348_128208951296414778" to-iid="2ec8d09f5dfa40e4bca25b1e44bc4fcb" />
@@ -5682,14 +5671,14 @@
             <relation from="ddip678706553408827665_476153262391386749" from-iid="965ccd1da5ee48cda16c2ef1692139d1" to="mdip107264414925432348_128208951296414778" to-iid="2ec8d09f5dfa40e4bca25b1e44bc4fcb" />
           </item>
           <item id="ddip678706553408827665_234908093501685572" iid="144afcdf780e42268a01f723d25e9c25" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 22:23:35" order-index="7" type="entity">
-            <layout ax="643" ay="195" awidth="135" aheight="84" x="643" y="195" width="135" height="84" angle="0" />
+            <layout ax="450" ay="130" awidth="135" aheight="84" x="450" y="130" width="135" height="84" angle="0" />
             <use-case />
           </item>
           <item id="ddip678706553408827665_855370588130307858" iid="7501109355694db3a7e5193415e4ac34" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="02/12/2014 16:26:22" order-index="11" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="649" y1="255" x2="536" y2="331" start-border-pos="0.781835465204148" end-border-pos="0.281314055124919">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="500" y1="213" x2="488" y2="305" start-border-pos="0.646668723777488" end-border-pos="0.147636562198788">
               <points>
-                <point x="649" y="255" />
-                <point x="536" y="331" />
+                <point x="500" y="213" />
+                <point x="488" y="305" />
               </points>
             </layout>
             <relation from="ddip678706553408827665_234908093501685572" from-iid="144afcdf780e42268a01f723d25e9c25" to="mdip107264414925432348_128208951296414778" to-iid="2ec8d09f5dfa40e4bca25b1e44bc4fcb" />
@@ -9111,16 +9100,16 @@
         <abstract-items />
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="mdip107264414925432348_771392848674418833" iid="27520505c059498fabc746c4c3cc4114" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/07/2014 22:07:24" order-index="2" type="entity">
-            <layout ax="145" ay="292" awidth="94.5" aheight="118" x="145" y="292" width="94.5" height="118" angle="0" />
+            <layout ax="140" ay="290" awidth="94.5" aheight="118" x="140" y="290" width="94.5" height="118" angle="0" />
           </item>
           <item id="mdip107264414925432348_381306816605098182" iid="69cb0c9265214be988cecd84bfbdf3ae" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 21:53:12" order-index="3" type="entity">
             <layout ax="410" ay="310" awidth="143" aheight="89" x="410" y="310" width="143" height="89" angle="0" />
             <use-case />
           </item>
           <item id="mdip107264414925432348_918682550582374451" iid="787e7d5ae545435a814283635d0a8b1c" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 21:53:17" order-index="4" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="240" y1="351" x2="410" y2="354" start-border-pos="0.37603009757349" end-border-pos="0.8784967486778">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="234" y1="350" x2="410" y2="354" start-border-pos="0.376687712588553" end-border-pos="0.879832407061973">
               <points>
-                <point x="240" y="351" />
+                <point x="234" y="350" />
                 <point x="410" y="354" />
               </points>
             </layout>
@@ -9205,7 +9194,7 @@
           </authors>
           <description />
           <creation-date>02/12/2014 17:07:25</creation-date>
-          <change-date>02/12/2014 17:07:44</change-date>
+          <change-date>02/15/2014 20:12:37</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -9226,37 +9215,55 @@
             <owned-items />
             <style class="default" />
           </item>
+          <item id="di430650697727352137" cid="GNR001" type="generalization" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="02/15/2014 20:12:09">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+          </item>
+          <item id="di344800702905139665" cid="REL001" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="02/15/2014 20:12:37">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <relation from="mdip107264414925432348_304230594855030366" to="mdip107264414925432348_272739393212412169">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
           <item id="mdip107264414925432348_304230594855030366" iid="bb5c3d187265434ba7693069ad5a5524" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/07/2014 22:07:24" order-index="2" type="entity">
-            <layout ax="115" ay="282" awidth="94.5" aheight="118" x="115" y="282" width="94.5" height="118" angle="0" />
+            <layout ax="115" ay="292" awidth="94.5" aheight="118" x="115" y="292" width="94.5" height="118" angle="0" />
           </item>
           <item id="mdip107264414925432348_272739393212412169" iid="19b993f9369a4f6c8278830d9d51776a" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 21:53:12" order-index="3" type="entity">
-            <layout ax="330" ay="300" awidth="143" aheight="89" x="330" y="300" width="143" height="89" angle="0" />
+            <layout ax="350" ay="310" awidth="143" aheight="89" x="350" y="310" width="143" height="89" angle="0" />
             <use-case />
-          </item>
-          <item id="mdip107264414925432348_237550101916493529" iid="f0d014e2111d4bec88c0fcf33495e83b" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 21:53:17" order-index="4" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="210" y1="342" x2="330" y2="344" start-border-pos="0.376244690458653" end-border-pos="0.878932567124956">
-              <points>
-                <point x="210" y="342" />
-                <point x="330" y="344" />
-              </points>
-            </layout>
-            <relation from="mdip107264414925432348_304230594855030366" from-iid="bb5c3d187265434ba7693069ad5a5524" to="mdip107264414925432348_272739393212412169" to-iid="19b993f9369a4f6c8278830d9d51776a" />
-            <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
           <item id="ddip664682461806015118_745695664860154355" iid="f911c4adb2e14498bd8040ab13bc707a" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 23:00:01" order-index="5" type="entity">
-            <layout ax="620" ay="310" awidth="131" aheight="82" x="620" y="310" width="131" height="82" angle="0" />
+            <layout ax="610" ay="310" awidth="131" aheight="82" x="610" y="310" width="131" height="82" angle="0" />
             <use-case />
           </item>
-          <item id="ddip664682461806015118_440651473200884033" iid="db4ba308cc1a4bef86fbfc5bb71458ec" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="01/16/2014 23:22:36" order-index="9" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="620" y1="350" x2="473" y2="345" start-border-pos="0.879959664693693" end-border-pos="0.378511235955056">
+          <item id="di430650697727352137" iid="99be3c6f48694a93bb689e9b7703fef4" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="02/15/2014 20:12:09" order-index="6" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="610" y1="352" x2="493" y2="354" start-border-pos="0.872623350562119" end-border-pos="0.371239908625571">
               <points>
-                <point x="620" y="350" />
-                <point x="473" y="345" />
+                <point x="610" y="352" />
+                <point x="493" y="354" />
               </points>
             </layout>
             <relation from="ddip664682461806015118_745695664860154355" from-iid="f911c4adb2e14498bd8040ab13bc707a" to="mdip107264414925432348_272739393212412169" to-iid="19b993f9369a4f6c8278830d9d51776a" />
+          </item>
+          <item id="di344800702905139665" iid="1a4ba81c414843619fa5665f807a6912" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="02/15/2014 20:12:37" order-index="7" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" auto-path="" x1="210" y1="352" x2="350" y2="354" start-border-pos="0.376148935091698" end-border-pos="0.87873814614971">
+              <points>
+                <point x="210" y="352" />
+                <point x="350" y="354" />
+              </points>
+            </layout>
+            <relation from="mdip107264414925432348_304230594855030366" from-iid="bb5c3d187265434ba7693069ad5a5524" to="mdip107264414925432348_272739393212412169" to-iid="19b993f9369a4f6c8278830d9d51776a" />
+            <role-positions start-role="25,15" end-role="25,-15" start-multiplicity="25,-15" end-multiplicity="25,15" />
           </item>
         </layer>
       </diagram>
