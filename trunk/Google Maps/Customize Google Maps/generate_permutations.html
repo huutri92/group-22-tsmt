@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Draggable directions</title>
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
+    <title>Permutation</title>
     </style>
 	<script>
-		var a = [1, 2, 3, 4];
+		var a = ['03 hoa binh, quan 11', 
+			'12 nguyen van bao, quan go vap',
+			'100 quang trung, quan 12', 
+			'15 duong d5, quan binh thanh'];
 
+		var aaa = [];
+		
+		function createInput(){
+			for (var i = 0; i < a.length; ++i){
+				var tmp = {
+					index: i,
+					data: a[i]
+				}
+				aaa.push(tmp);
+			}
+		}
+		
 		function generate(){
-			var n = a.length;
+			createInput();
+			var n = aaa.length;
 			var i = n - 1;
 			var d = 0;
 			while (i > 0){
 				var s = "";
 				for (i = 0; i < n; ++i)
-					s += " " + a[i];
+					s += " " + aaa[i].data;
 				console.log(s);
 				++d;
 				
 				i = n - 2;
-				while ((i > -1) && (a[i] > a[i + 1])) --i;
+				while ((i > -1) && (aaa[i].index > aaa[i + 1].index)) --i;
 				if (i > -1){
 					var k = n - 1;
-					while (a[k] < a[i]) --k;
+					while (aaa[k].index < aaa[i].index) --k;
 					swap(k, i);
 					var x = i + 1;
 					var y = n - 1;
@@ -40,13 +48,13 @@
 					}
 				}
 			}
-			console.log(d);
+			console.log(d + " permutations.");
 		}
 		
 		function swap(i, j){
-			var tmp = a[i];
-			a[i] = a[j];
-			a[j] = tmp;
+			var tmp = aaa[i];
+			aaa[i] = aaa[j];
+			aaa[j] = tmp;
 		}
 		
 		function demo(){
