@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html, body {
+        height: 100%;
+		margin: 0;
+		padding: 0;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+		var map;
+		var marker;
+		var circle;
+		var HoConRua = new google.maps.LatLng(10.782911,106.695891);
+		var Marie = new google.maps.LatLng(10.782552,106.691316);
+		var NhaHatBenThanh = new google.maps.LatLng(10.784386,106.700826);
+		var Diamond = new google.maps.LatLng(10.78152,106.698691);
+		var NhaThoDucBa = new google.maps.LatLng(10.780086,106.699088);
+		var blueIcon = 'blue.png';
+		var orangeIcon = 'orange.png';
+		var markers = [];
+		
+      function initialize() {
+        var map_options = {
+          center: HoConRua,
+          zoom: 16,
+	      panControl: false,
+		  mapTypeControl: false,
+		  streetViewControl: false,
+        }
+        map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
+		
+		google.maps.event.addListener(map, 'zoom_changed', function(){
+			document.getElementById('zoom').innerHTML = this.getZoom();
+		});
+		
+		/* MARKERS */
+		addMarker(HoConRua, 'Hồ con rùa!', '');
+		
+		markers.push(addMarker(Marie, 'Trường Marie!', blueIcon));
+		markers.push(addMarker(NhaHatBenThanh, 'Nhà hát Bến Thành!', blueIcon));
+		markers.push(addMarker(Diamond, 'Diamond Plaza!', blueIcon));
+		markers.push(addMarker(NhaThoDucBa, 'Nhà thờ Đức Bà!', blueIcon));
+		
+		/* CIRCLE */
+		var circleOptions = {
+		  strokeWeight: 2,
+		  fillOpacity: 0.15,
+		  center: HoConRua,
+		  map: map,
+		  radius: 300,
+		  editable: true
+		};
+		
+		circle = new google.maps.Circle(circleOptions);
+		
+		google.maps.event.addListener(circle, 'center_changed', function(){
+			if (this.getCenter() !== HoConRua){
+				this.setCenter(HoConRua);
+			}
+		});
+		
+		google.maps.event.addListener(circle, 'radius_changed', function(){
+			document.getElementById('radius').innerHTML = this.getRadius();
+			changeColor(this.getRadius());
+		});
+      }
+	  
+	  
+	  function addMarker(pos, tit, png){
+		marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			title: tit,
+			icon: png
+		});
+		
+		google.maps.event.addListener(marker, 'click', function(){
+			if (this.getAnimation() != null) {
+				this.setAnimation(null);
+			} else {
+				this.setAnimation(google.maps.Animation.BOUNCE);
+			}
+		});
+		
+		return marker;
+	  }
+	  
+	  function changeColor(r){
+		for (var i = 0; i < markers.length; ++i){
+			m = markers[i];
+			d = google.maps.geometry.spherical.computeDistanceBetween(HoConRua, m.getPosition());
+			if (r >= d){
+				m.setIcon(orangeIcon);
+			} else {
+				m.setIcon(blueIcon);
+			}
+		}
+	  }
+	  
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map_canvas" style="float:left;width:70%;height:100%"></div>
+	<div id="panel" style="float:right;width:30%;height 100%">
+		<p>
+			Zoom: <span id="zoom"></span><br/>
+			Circle's radius: <span id="radius"></span>
+		</p>
+    </div>
+  </body>
+</html>
