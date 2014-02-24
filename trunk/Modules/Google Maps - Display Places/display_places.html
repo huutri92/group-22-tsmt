@@ -233,7 +233,7 @@
 				suppressUndo: true,
 			};
 			circle = new google.maps.Circle(circleOptions);
-			document.getElementById('radius').innerHTML = circle.getRadius() + 'm';
+			document.getElementById('radius').innerHTML = circle.getRadius() + 'meters.';
 		
 			google.maps.event.addListener(circle, 'center_changed', function(){
 				if (this.getCenter() !== examVenues[placeName].data){
@@ -242,7 +242,7 @@
 			});
 			
 			google.maps.event.addListener(circle, 'radius_changed', function(){
-				document.getElementById('radius').innerHTML = Math.round(this.getRadius()) + 'm';
+				document.getElementById('radius').innerHTML = Math.round(this.getRadius()) + 'meters.';
 				changeColorMarkers();
 			});
 		} else {
