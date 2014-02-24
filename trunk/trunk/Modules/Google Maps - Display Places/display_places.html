@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Display Places</title>
     <style>
       html, body {
         height: 100%;
 		margin: 0;
 		padding: 0;
       }
+	  #map_canvas{
+		float:left;
+		width:70%;
+		height:100%
+	  }
+	  #panel{
+		float:right;
+		width:30%;
+		height 100%
+	  }
+	  .ExamVenue{
+		margin: 0 0 0 10px;
+		text-decoration: none;
+	  }
+	  .ExamVenue:hover{
+		color:red;
+	  }
+	  .ExamVenue:active{
+		color:blue;
+	  }
+	  #txtSearch{
+		margin-top: 10px;
+        padding: 5px 11px 5px 13px;
+        width: 400px;
+        font-size: 15px;
+        font-weight: 300;
+	  }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&libraries=places&sensor=false"></script>
     <script>
 		var map;
 		var examVenues = [];
 		var logdes = [];
 		var blueIcon = 'blue.png';
 		var orangeIcon = 'orange.png';
+		var violetIcon = 'violet.png';
 		var circle = null;
+		var markers = [];
 		
       function initialize() {
-		/* EXAM'S VENUES INIT */
+		/* INIT EXAM'S VENUES */
 		examVenues['HoConRua'] = {
 			name: 'Hồ con rùa',
 			data: new google.maps.LatLng(10.782911,106.695891), 
@@ -110,21 +142,54 @@
 		
 		/* EXAM VANUES */
 		for (x in examVenues){
-			addLogde(examVenues[x], examVenues[x].data, examVenues[x].name + '!', examVenues[x].description, '');
+			addMarker(examVenues[x], examVenues[x].data, examVenues[x].name + '!', examVenues[x].description, '');
 		}
 		
 		/* LOGDES */
 		for (x in logdes){
-			addLogde(logdes[x], logdes[x].data, logdes[x].name + '!', logdes[x].description, blueIcon);
+			addMarker(logdes[x], logdes[x].data, logdes[x].name + '!', logdes[x].description, blueIcon);
 		}
 
 		listAllExamVenues();
+		initSearchBox();
       }
+	  
+	  function initSearchBox(){
+		var input = (document.getElementById('txtSearch'));
+		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+		
+		var searchBox = new google.maps.places.SearchBox((input));
+		
+		google.maps.event.addListener(searchBox, 'places_changed', function() {
+			var places = searchBox.getPlaces();
+			for (var i = 0, marker; marker = markers[i]; i++) {
+			  marker.setMap(null);
+			}
+
+			markers = [];
+			var bounds = new google.maps.LatLngBounds();
+			for (var i = 0, place; place = places[i]; i++) {
+			  var marker = new google.maps.Marker({
+				map: map,
+				title: place.name,
+				position: place.geometry.location,
+				icon: violetIcon
+			  });
+
+			  markers.push(marker);
+
+			  bounds.extend(place.geometry.location);
+			}
+
+			map.fitBounds(bounds);
+		})
+	  }
 	  
 	  function listAllExamVenues(){
 		var s = '';
+		var d = 0;
 		for (x in examVenues){
-			s += '<a href="#" onclick="moveToCenter(\'' + x + '\')">' + examVenues[x].name + '</a><br/>';
+			s += '<a class=\"ExamVenue\" href="#" onclick="moveToCenter(\'' + x + '\')">' + ++d + '. ' + examVenues[x].name + '</a><br/>';
 		}
 		document.getElementById('examVenues').innerHTML = s;
 	  }
@@ -144,7 +209,7 @@
 		});
 	  }
 	  
-	  function addLogde(logde, pos, tit, des, png){
+	  function addMarker(logde, pos, tit, des, png){
 		var marker = new google.maps.Marker({
 			position: pos,
 			map: map,
@@ -178,7 +243,7 @@
 			
 			google.maps.event.addListener(circle, 'radius_changed', function(){
 				document.getElementById('radius').innerHTML = this.getRadius();
-				changeColorLogdes();
+				changeColorMarkers();
 			});
 		} else {
 			google.maps.event.clearListeners(circle, 'center_changed');
@@ -192,10 +257,10 @@
 			});
 		}
 		
-		changeColorLogdes();
+		changeColorMarkers();
 	  }
 	  
-	  function changeColorLogdes(){
+	  function changeColorMarkers(){
 		for (x in logdes){
 			currentLogde = logdes[x];
 			d = google.maps.geometry.spherical.computeDistanceBetween(circle.getCenter(), currentLogde.data);
@@ -216,8 +281,8 @@
     </script>
   </head>
   <body>
-    <div id="map_canvas" style="float:left;width:70%;height:100%"></div>
-	<div id="panel" style="float:right;width:30%;height 100%">
+    <div id="map_canvas"></div>
+	<div id="panel">
 		<p>
 			Zoom: <span id="zoom"></span><br/>
 			Circle's radius: <span id="radius"></span>
@@ -226,5 +291,6 @@
 			<div id="examVenues"></div>
 		</p>
     </div>
+	<input id="txtSearch" type="text" placeholder="Search Box">
   </body>
 </html>
