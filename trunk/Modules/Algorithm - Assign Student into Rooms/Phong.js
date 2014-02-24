@@ -1,7 +1,8 @@
 phong = Class.extend({
 	NAME: "PHONG TRO",
 	
-	init: function(tenphong, soluong){		this.danhsach = [];
+	init: function(tenphong, soluong){		
+		this.danhsach = [];
 		this.tenphong = tenphong;
 		this.soluong = soluong;
 		this.gioitinh = null;

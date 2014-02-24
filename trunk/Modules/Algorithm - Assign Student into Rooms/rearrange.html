@@ -1,47 +1,68 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Students Rooms</title>
+    <title>Rearrange Students to Rooms</title>
 	<style>
 		#content{
 			width:100%;
-			height:800px;
-			background-color: cyan;
+			height:600px;
+		}
+		.panel{
+			width:48%;
+			height:100%;
+			border-right: 1px solid #d3d3d3;
+			text-align:center;
 		}
 		#left{
-			width:48%;
-			height:100%;
 			float:left;
-			background-color:navy;
 		}
 		#right{
-			width:48%;
-			height:100%;
 			float:right;
-			background-color:yellow;
+		}
+		select[multiple]{
+			margin-top: 10px;
+			padding: 10px;
+			height: 200px;
 		}
 	</style>
   </head>
   <body>
 	<div id='content'>
-		<div id='left'>
+		<div id='left' class='panel'>
 			<select>
-			  <option value="volvo">Volvo</option>
-			  <option value="saab">Saab</option>
-			  <option value="opel">Opel</option>
-			  <option value="audi">Audi</option>
+			  <option value="1">Phòng 01</option>
+			  <option value="2">Phòng 02</option>
+			  <option value="3">Phòng 03</option>
+			  <option value="4">Phòng 04</option>
 			</select>
-			<div></div>
+			<div>
+				<select multiple="" id="waypoints">
+				  <option value="montreal, quebec">Montreal, QBC
+				  </option><option value="toronto, ont">Toronto, ONT
+				  </option><option value="chicago, il">Chicago
+				  </option><option value="winnipeg, mb">Winnipeg
+				  </option><option value="fargo, nd">Fargo
+				  </option><option value="calgary, ab">Calgary
+				  </option><option value="spokane, wa">Spokane
+				  </option>
+				</select>
+			</div>
 		</div>
-		<div id='right'>
+		<div id='right' class='panel'>
 			<select>
-			  <option value="volvo">Volvo</option>
-			  <option value="saab">Saab</option>
-			  <option value="opel">Opel</option>
-			  <option value="audi">Audi</option>
+			  <option value="1">Phòng 01</option>
+			  <option value="2">Phòng 02</option>
+			  <option value="3">Phòng 03</option>
+			  <option value="4">Phòng 04</option>
 			</select>
 			<div></div>
 		</div>
 	</div>
   </body>
 </html>
+
+<!-- 
+	1. uu tien ben trai hon, ben trai chon phong A thi ben phai ko co option phong A
+	2. du lieu cho cac phong (luu trong cac mang). Khi doi phong thi du lieu thay doi
+	3. lam 2 nut qua lai
+-->
