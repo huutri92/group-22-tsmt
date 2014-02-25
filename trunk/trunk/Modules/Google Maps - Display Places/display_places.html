@@ -38,14 +38,15 @@
         font-weight: 300;
 	  }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&libraries=places&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
     <script>
 		var map;
 		var examVenues = [];
 		var logdes = [];
-		var blueIcon = 'blue.png';
-		var orangeIcon = 'orange.png';
-		var violetIcon = 'violet.png';
+		var blueIcon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+		var orangeIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+		var violetIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+		var greenIcon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 		var circle = null;
 		var markers = [];
 		
@@ -158,7 +159,7 @@
 		var input = (document.getElementById('txtSearch'));
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 		
-		var searchBox = new google.maps.places.SearchBox((input));
+		var searchBox = new google.maps.places.Autocomplete((input));
 		
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
 			var places = searchBox.getPlaces();
@@ -216,6 +217,18 @@
 			title: tit,
 			icon: png
 		});
+		
+		/*var pinColor = "99FFCC";
+		var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+			new google.maps.Size(21, 34),
+			new google.maps.Point(0,0),
+			new google.maps.Point(10, 34));
+			
+		var marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			icon: pinImage
+		});*/
 		
 		createInfoWindow(marker, des);
 		logde.marker = marker;
