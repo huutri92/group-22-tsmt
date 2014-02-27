@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html, body {
+        height: 100%;
+		margin: 0;
+		padding: 0;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&sensor=false"></script>
+    <script>
+		var map;
+		var examVenues = [];
+		var logdes = [];
+		var blueIcon = 'blue.png';
+		var orangeIcon = 'orange.png';
+		var circle = null;
+		
+      function initialize() {
+		/* EXAM'S VENUES INIT */
+		examVenues['HoConRua'] = {
+			name: 'Hồ con rùa',
+			data: new google.maps.LatLng(10.782911,106.695891), 
+			description: 'phường 6, District 3, Ho Chi Minh City, Vietnam'
+		}
+		examVenues['ChoBenThanh'] = {
+			name: 'Chợ Bến Thành',
+			data: new google.maps.LatLng(10.772139,106.698284),
+			description: 'Chợ Bến Thành, Bến Thành, Quận 1'
+		}
+		examVenues['SVDQuanKhu7'] = {
+			name: 'Sân vận động Quân Khu 7',
+			data: new google.maps.LatLng(10.802282,106.66731),
+			description: 'I installed the rubbed surface on the track in 2000 for the asian games'
+		}
+		examVenues['UtTich'] = {
+			name: 'Út Tịch',
+			data: new google.maps.LatLng(10.795906,106.658812),
+			description: 'Gần nhà Hiển kute!'
+		}
+		
+		/* LOGDE INIT */
+		logdes['MarieCurie'] = {
+			name: 'Hẻm 15 Điện Biên Phủ, quận 3',
+			data: new google.maps.LatLng(10.782552,106.691316),
+			description: '25 phòng nam, 15 phòng nữ. Mỗi phòng 4 người.'
+		}
+		logdes['NhaHatBenThanh'] = {
+			name: '754 jjav',
+			data: new google.maps.LatLng(10.784386,106.700826),
+			description: 'sgfh fjh'
+		}
+		logdes['Diamond'] = {
+			name: '75afd4 jj6y56av',
+			data: new google.maps.LatLng(10.78152,106.698691),
+			description: 'sgsfgffh fjhhg'
+		}
+		logdes['NhaThoDucBa'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.780086,106.699088),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['HoaBinh'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.767428,106.64126),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['PhamHongThai'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.771423,106.695548),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['LeThiHongGam'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.769093,106.697554),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['NguyenTrungTruc'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.773963,106.699453),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['NguyenThiNghia'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.770379,106.69411),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		logdes['DangThiNhu'] = {
+			name: '7gfg5afd4 jj6y5fhbf6av',
+			data: new google.maps.LatLng(10.770074,106.697758),
+			description: 'sgsfgfdsbfgfh fhfnhhg'
+		}
+		
+		/* MAPS */
+        var map_options = {
+          center: examVenues['ChoBenThanh'].data,
+          zoom: 16,
+	      panControl: false,
+		  mapTypeControl: false,
+		  streetViewControl: false,
+        }
+        map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
+		
+		google.maps.event.addListener(map, 'zoom_changed', function(){
+			document.getElementById('zoom').innerHTML = this.getZoom();
+		});
+		
+		document.getElementById('zoom').innerHTML = map.getZoom();
+		
+		/* EXAM VANUES */
+		for (x in examVenues){
+			addLogde(examVenues[x], examVenues[x].data, examVenues[x].name + '!', examVenues[x].description, '');
+		}
+		
+		/* LOGDES */
+		for (x in logdes){
+			addLogde(logdes[x], logdes[x].data, logdes[x].name + '!', logdes[x].description, blueIcon);
+		}
+
+		listAllExamVenues();
+      }
+	  
+	  function listAllExamVenues(){
+		var s = '';
+		for (x in examVenues){
+			s += '<a href="#" onclick="moveToCenter(\'' + x + '\')">' + examVenues[x].name + '</a><br/>';
+		}
+		document.getElementById('examVenues').innerHTML = s;
+	  }
+	  
+	  function createInfoWindow(lodge, content){
+		 var contentString = content;
+	     var infowindow = new google.maps.InfoWindow({
+			  content: contentString
+		 });
+		  
+		google.maps.event.addListener(lodge, 'click', function() {
+			if (infowindow.view){
+				infowindow.close();
+			} else {
+				infowindow.open(map, lodge);
+			}
+		});
+	  }
+	  
+	  function addLogde(logde, pos, tit, des, png){
+		var marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			title: tit,
+			icon: png
+		});
+		
+		createInfoWindow(marker, des);
+		logde.marker = marker;
+	  }
+	  
+	  function moveTheCircle(placeName){
+		if (circle == null){
+			var circleOptions = {
+				strokeWeight: 2,
+				fillOpacity: 0.15,
+				center: examVenues[placeName].data,
+				map: map,
+				radius: 400,
+				editable: true,
+				
+			};
+			circle = new google.maps.Circle(circleOptions);
+			document.getElementById('radius').innerHTML = circle.getRadius();
+		
+			
+			
+			google.maps.event.addListener(circle, 'radius_changed', function(){
+				document.getElementById('radius').innerHTML = this.getRadius();
+				changeColorLogdes();
+			});
+		} else {
+			google.maps.event.clearListeners(circle, 'center_changed');
+			
+			circle.setCenter(examVenues[placeName].data);
+			circle.setRadius(400);
+			google.maps.event.addListener(circle, 'center_changed', function(){
+				if (this.getCenter() !== examVenues[placeName].data){
+					this.setCenter(examVenues[placeName].data);
+				}
+			});
+		}
+		
+		changeColorLogdes();
+	  }
+	  
+	  function changeColorLogdes(){
+		for (x in logdes){
+			currentLogde = logdes[x];
+			d = google.maps.geometry.spherical.computeDistanceBetween(circle.getCenter(), currentLogde.data);
+			if (circle.getRadius() >= d){
+				currentLogde.marker.setIcon(orangeIcon);
+			} else {
+				currentLogde.marker.setIcon(blueIcon);
+			}
+		}
+	  }
+	  
+	  function moveToCenter(placeName){
+		map.setCenter(examVenues[placeName].data);
+		moveTheCircle(placeName);
+	  }
+	  
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map_canvas" style="float:left;width:70%;height:100%"></div>
+	<div id="panel" style="float:right;width:30%;height 100%">
+		<p>
+			Zoom: <span id="zoom"></span><br/>
+			Circle's radius: <span id="radius"></span>
+		</p>
+		<p>
+			<div id="examVenues"></div>
+		</p>
+    </div>
+  </body>
+</html>
