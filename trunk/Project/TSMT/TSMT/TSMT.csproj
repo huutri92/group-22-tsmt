@@ -122,6 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,6 +130,122 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\css\bootstrap-switch.css" />
+    <Content Include="Content\Admin\css\bootstrap.min.css" />
+    <Content Include="Content\Admin\css\font-awesome.min.css" />
+    <Content Include="Content\Admin\css\fullcalendar.css" />
+    <Content Include="Content\Admin\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\Admin\css\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\Admin\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Admin\css\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\Admin\css\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\Admin\css\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\Admin\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Admin\css\jquery-ui.css" />
+    <Content Include="Content\Admin\css\jquery.dataTables.css" />
+    <Content Include="Content\Admin\css\jquery.gritter.css" />
+    <Content Include="Content\Admin\css\prettyPhoto.css" />
+    <Content Include="Content\Admin\css\rateit.css" />
+    <Content Include="Content\Admin\css\style.css" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular-2.html" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular-3.html" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular-4.html" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.html" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regulard41d.html" />
+    <Content Include="Content\Admin\font\fontawesome-webfont.svg" />
+    <Content Include="Content\Admin\img\blue-back.png" />
+    <Content Include="Content\Admin\img\body-back.png" />
+    <Content Include="Content\Admin\img\cream-back.png" />
+    <Content Include="Content\Admin\img\data-tables\back_disabled.png" />
+    <Content Include="Content\Admin\img\data-tables\back_enabled.png" />
+    <Content Include="Content\Admin\img\data-tables\back_enabled_hover.png" />
+    <Content Include="Content\Admin\img\data-tables\forward_disabled.png" />
+    <Content Include="Content\Admin\img\data-tables\forward_enabled.png" />
+    <Content Include="Content\Admin\img\data-tables\forward_enabled_hover.png" />
+    <Content Include="Content\Admin\img\data-tables\sort_asc.png" />
+    <Content Include="Content\Admin\img\data-tables\sort_asc_disabled.png" />
+    <Content Include="Content\Admin\img\data-tables\sort_both.png" />
+    <Content Include="Content\Admin\img\data-tables\sort_desc.png" />
+    <Content Include="Content\Admin\img\data-tables\sort_desc_disabled.png" />
+    <Content Include="Content\Admin\img\delete.gif" />
+    <Content Include="Content\Admin\img\greyzz.png" />
+    <Content Include="Content\Admin\img\gritter\gritter-light.html" />
+    <Content Include="Content\Admin\img\gritter\gritter.png" />
+    <Content Include="Content\Admin\img\gritter\ie-spacer.gif" />
+    <Content Include="Content\Admin\img\map.png" />
+    <Content Include="Content\Admin\img\portfolio\1.jpg" />
+    <Content Include="Content\Admin\img\portfolio\2.jpg" />
+    <Content Include="Content\Admin\img\portfolio\3.jpg" />
+    <Content Include="Content\Admin\img\portfolio\4.jpg" />
+    <Content Include="Content\Admin\img\portfolio\5.jpg" />
+    <Content Include="Content\Admin\img\portfolio\6.jpg" />
+    <Content Include="Content\Admin\img\portfolio\7.jpg" />
+    <Content Include="Content\Admin\img\portfolio\8.jpg" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\default_thumb.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\loader.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\sprite.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\sprite_next.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\sprite_prev.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\sprite_x.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\default\sprite_y.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\loader.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\facebook\sprite.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="Content\Admin\img\prettyPhoto\light_square\sprite.png" />
+    <Content Include="Content\Admin\img\red-back.png" />
+    <Content Include="Content\Admin\img\star.gif" />
+    <Content Include="Content\Admin\img\subtle_dots.png" />
+    <Content Include="Content\Admin\img\user-big.jpg" />
+    <Content Include="Content\Admin\img\user.jpg" />
+    <Content Include="Content\Admin\img\user2.jpg" />
+    <Content Include="Content\Admin\img\white-back.png" />
+    <Content Include="Content\Admin\js\bootstrap-switch.min.js" />
+    <Content Include="Content\Admin\js\bootstrap.min.js" />
+    <Content Include="Content\Admin\js\custom.js" />
+    <Content Include="Content\Admin\js\custom.notification.js" />
+    <Content Include="Content\Admin\js\fullcalendar.min.js" />
+    <Content Include="Content\Admin\js\html5shiv.js" />
+    <Content Include="Content\Admin\js\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="Content\Admin\js\jquery.dataTables.min.js" />
+    <Content Include="Content\Admin\js\jquery.flot.min.js" />
+    <Content Include="Content\Admin\js\jquery.flot.pie.min.js" />
+    <Content Include="Content\Admin\js\jquery.flot.resize.min.js" />
+    <Content Include="Content\Admin\js\jquery.gritter.min.js" />
+    <Content Include="Content\Admin\js\jquery.js" />
+    <Content Include="Content\Admin\js\jquery.knob.js" />
+    <Content Include="Content\Admin\js\jquery.prettyPhoto.js" />
+    <Content Include="Content\Admin\js\jquery.rateit.min.js" />
+    <Content Include="Content\Admin\js\jquery.slimscroll.min.js" />
+    <Content Include="Content\Admin\js\respond.min.js" />
+    <Content Include="Content\Admin\js\sparkline.js" />
     <Content Include="Content\assets\arrowleft.png" />
     <Content Include="Content\assets\arrowright.png" />
     <Content Include="Content\assets\arrow_left.png" />
@@ -293,6 +410,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Admin\font\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\Admin\font\fontawesome-webfontf77b.eot" />
+    <Content Include="Content\Admin\font\fontawesome-webfontf77b.ttf" />
+    <Content Include="Content\Admin\font\fontawesome-webfontf77b.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
