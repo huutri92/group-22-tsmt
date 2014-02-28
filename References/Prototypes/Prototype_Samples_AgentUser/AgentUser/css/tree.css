@@ -1,0 +1,66 @@
+.ygtvtn {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/tn.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvtm {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/tm.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtmh {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/tmh.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtp {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/tp.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtph {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/tph.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvln {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/ln.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvlm {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/lm.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlmh {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/lmh.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlp {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/lp.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlph {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/lph.gif) no-repeat 0px 0px; WIDTH: 17px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvloading {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/loading.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvdepthcell {
+	FONT-SIZE: 8pt; BACKGROUND: url(../images/vline.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvblankdepthcell {
+	WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvitem {
+	
+}
+.ygtvchildren {
+	
+}
+ HTML .ygtvchildren {
+	HEIGHT: 2%
+}
+.ygtvlabel {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 2px; COLOR: #000000; TEXT-DECORATION: none
+}
+.ygtvlabel:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 2px; COLOR: #000000; TEXT-DECORATION: none
+}
+.ygtvlabel:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 2px; COLOR: #000000; TEXT-DECORATION: none
+}
+.ygtvlabel:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 2px; COLOR: #000000; TEXT-DECORATION: none
+}
+.ygtvlabel:hover {
+	FONT-SIZE: 8pt; COLOR: #919296
+}
+.ygtvlabel:active {
+	FONT-SIZE: 8pt; COLOR: #cd0000
+}

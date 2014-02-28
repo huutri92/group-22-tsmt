@@ -1,0 +1,577 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3c.org/tr/1999/rec-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>.:: Dubai Trade ::.</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+	<script language="JavaScript" type="text/javascript" src="../../js/YAHOO.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/common.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/simpletreemenu.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/service.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/LogoffLoader.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/treeview.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+	<script type="text/javascript" src="../../js/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../js/ext-all.js"></script>
+	<script type="text/javascript" src="../../js/yahoo-dom-event.js"></script>
+	<script type="text/javascript" src="../../js/animation.js"></script>
+
+	<script language="javascript" src="../../js/submit-confirm.js"></script>
+
+	<script type="text/javascript" src="../../js/popup-vessel.js"></script>
+	<script type="text/javascript" src="../../js/popup-rotation.js"></script>
+	<script type="text/javascript" src="../../js/popup-port.js"></script>
+
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/main.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/tree.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/simpletree.css" rel="stylesheet" type="text/css" />
+
+
+	<script type="text/javascript" src="../../js/popup-shipper.js"></script>	
+</head>
+<script type="text/javascript">
+function confirmOK(btn, text){
+	if(btn == "ok"){
+		window.location='../ExportBooking/NewExportBookingInform.html';
+		//alert(text);
+	}
+}
+
+	function HideExport(){
+		document.getElementById("tradeType").value="Export";		
+		document.getElementById("arrivalDate").style.display="none";
+		document.getElementById("arrivalDateValue").style.display="none";
+		document.getElementById("exVessel").style.display="none";
+		document.getElementById("exVesselValue").style.display="none";
+		document.getElementById("exRotation").style.display="none";
+		document.getElementById("exRotationValue").style.display="none";								
+	}
+	
+	function ShowExport(){
+		document.getElementById("arrivalDate").style.display="inline";
+		document.getElementById("arrivalDateValue").style.display="inline";
+		document.getElementById("exVessel").style.display="inline";
+		document.getElementById("exVesselValue").style.display="inline";
+		document.getElementById("exRotation").style.display="inline";
+		document.getElementById("exRotationValue").style.display="inline";								
+
+	}
+	
+	function showHideExport() {
+		if (document.getElementById("tradeType").value=="Export") {
+			HideExport();
+		} else {
+			ShowExport();
+		}
+	}
+	
+</script>
+<body onload="HideExport();">
+<!-- InstanceBeginEditable name="lookup" -->
+<div id="search-win-vessel" class="x-hidden" style="width:600px; height:400px;">
+  <div class="x-window-header"></div>
+  <div id="search-tabs-vessel" style="width:600px; height:400px;">
+    <!-- Auto create tab 1 -->
+    <div class="x-tab" id="dialogMainTitle">
+      <iframe src="#" id="searchFrameVessel" name="searchFrameVessel" frameborder="0" scrolling="auto" width="800" height="400"></iframe>
+    </div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="lookup" -->
+<div id="search-win-rotation" class="x-hidden" style="width:600px; height:400px;">
+  <div class="x-window-header"></div>
+  <div id="search-tabs-rotation" style="width:600px; height:400px;">
+    <!-- Auto create tab 1 -->
+    <div class="x-tab" id="dialogMainTitle">
+      <iframe src="#" id="searchFrameRotation" name="searchFrameRotation" frameborder="0" scrolling="auto" width="800" height="400"></iframe>
+    </div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="lookup" -->
+<div id="search-win-shipper" class="x-hidden" style="width:600px; height:400px;">
+  <div class="x-window-header"></div>
+  <div id="search-tabs-shipper" style="width:600px; height:400px;">
+    <!-- Auto create tab 1 -->
+    <div class="x-tab" id="dialogMainTitle">
+      <iframe src="#" id="searchFrameShipper" name="searchFrameShipper" frameborder="0" scrolling="auto" width="800" height="400"></iframe>
+    </div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceBeginEditable name="lookup" -->
+<div id="search-win-port" class="x-hidden" style="width:600px; height:400px;">
+  <div class="x-window-header"></div>
+  <div id="search-tabs-port" style="width:600px; height:400px;">
+    <!-- Auto create tab 1 -->
+    <div class="x-tab" id="dialogMainTitle">
+      <iframe src="#" id="searchFramePort" name="searchFramePort" frameborder="0" scrolling="auto" width="800" height="200"></iframe>
+    </div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+
+<form name="mainForm" action="" method="get">
+<table cellSpacing="0" cellPadding="0" width="99%" border="0">
+	<tbody>
+	<tr>
+		<td valign="top" width="5">&nbsp;</td>
+		<td valign="top" width="188">
+			<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tbody>
+				<tr>
+					<td >
+					<img src="../../images/logo.gif"></td>
+				</tr>
+				<tr>
+					<td>
+					<img src="../../images/nav_section_top.gif"></td>
+				</tr>
+				</tbody>
+			</table>
+		</td>
+		<td class="headerBg">
+			<table cellSpacing="1" cellPadding="0" width="100%" border="0">
+				<tbody>
+				<tr>
+					<td class="linksHolder" colSpan="2">
+					<a class="linkTitle" href="#">About Dubai Trade </a>| <a class="linkTitle" href="#">FAQ </a>| <a class="linkTitle" href="#" target=contentFrame>Sitemap</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id=bannerHolder><a href="mailto:customercare@dubaitrade.ae">
+							<img src="../../images/banner_portal_home.gif" border="0"></a></div>
+					</td>
+					<td>
+						<div id=bannerHolder><a href="#">
+							<img src="../../images/feedback_banner.gif" border="0"></a></div>
+					</td>
+					<td class=linksHolder>
+						<a href="#">
+						<img src="../../images/ar.gif" border="0"></a>
+					</td>
+				</tr></tbody>
+			</table>
+		</td>
+		<td width="1">&nbsp;</td></tr>
+	<tr>
+		<td valign="top">
+			<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tbody>
+				<tr>
+					<td class="pageBg">&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr></tbody>
+			</table>
+		</td>
+
+		<!-- start left menu-->
+		<td class="navBottomBg" valign="top">
+			<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tbody>
+				<tr>
+				<td class="navTopBg" valign="top">
+					<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+						<tbody>
+						<tr>
+							<td>
+								<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+									<tbody>
+									<tr>
+										<td>
+											<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+												<tbody>
+												<tr>
+													<td width="44">
+													<img src="../../images/title_user_profile.gif"></td>
+													<td width="3">&nbsp;</td>
+													<td class="bgProfile">&nbsp;</td></tr>
+												</tbody>
+											</table>
+										</td>
+										<td align="center" width="19">
+											<a href="">
+											<img id="showHideUserImg" height="17" alt="Collapse User Profile" src="../../images/bttn_collapse.gif" width="17" border="0"></a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr id="userInfo">
+							<td class="leftPanel">
+								<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+									<tbody>
+									<tr>
+										<td>
+											<div align="center">Welcome <span class="redTitle">Mirza </span><br/><span class="redTitle" id=selectedCustomer></span></div>
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td></tr>
+									<tr>
+									<td align="center"><a href="#">
+									<img height="20" src="../../images/button_logout.gif" width="77" border="0"></a></td></tr>
+									<tr>
+										<td class="redTitle"></td>
+									</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<div class="shortcutHolder">
+								<select name="display">
+									<option value=BY_SERVICE selected>View By Service</option>
+									<option value=BY_BU>View By Business</option>
+								</select>
+							</div>
+							<div width="180" style="overflow-x: scroll; scroll;width:215px;">
+							<div class="treeHolder" width="188" style="overflow-x: scroll;">
+								<script type="text/javascript">
+								initTreeMenu()								
+								ddtreemenu.createTree("treemenu1", true)
+								</script>
+							</div>
+							</div>
+							<div class="shortcutHolder">
+								<select style="width: 185px" name="service">
+									<option value="" selected>Shortcut To Services</option>
+								</select>
+							</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</td>
+				</tr>
+				</tbody>
+			</table>
+		</td>
+		<!-- end left menu-->
+		<!-- start content-->
+		<td valign="top">
+			<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tbody>
+				<tr>
+					<td class="pageBg pageBgIn" valign="top" height="600">
+						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+							<tbody>
+							<tr>
+								<td>
+									<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+										<tbody>
+										<tr>
+											<td width="5">
+											<img height="26" src="../../images/bc_box_l.gif" width="5"></td>
+											<td background=../../images/bc_box_bg.gif>
+												<table cellSpacing="4" cellPadding="0" border="0">
+													<tbody>
+													<tr>
+														<td>
+														<a class="linkNormal" href="#">Home</a>
+														<img height="5" alt="tt" src="../../images/arrow02.gif" width="3"> New Export Booking</td>
+													</tr>
+													</tbody>
+												</table>
+											</td>
+											<td width="5">
+											<img height="26" src="../../images/bc_box_r.gif" width="5"></td>
+										</tr></tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
+									<div id=helpPrintHolder>
+										<a href="#"><img alt="Print this page" src="../../images/icon_print.gif" border="0"></a>
+										<a href="#"><img alt="Help" src="../../images/icon_help.gif" border="0"></a>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+						<!--tab content-->
+
+						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+							<tbody>
+							<tr>
+								<td valign="bottom">
+								<img height="6" src="../../images/spacer.gif" width="1"></td>
+								<td>
+								<img height="1" src="../../images/spacer.gif" width="1"></td>
+								<td valign="bottom">
+								<img height="1" src="../../images/spacer.gif" width="1"></td>
+							</tr>
+							<tr>
+								<td valign="bottom" width="12">
+								<img height="40" src="../../images/form_box_tl.gif" width="12"></td>
+								<td class="formBoxTop">
+									<table cellSpacing="0" cellPadding="0" border="0">
+										<tbody>
+										<tr>
+											<td valign="bottom">
+											<img height="40" src="../../images/form_box_title_l.gif" width="6"></td>
+											<td>
+											<img height="40" src="../../images/form_box_logo_dpworld.gif" width="32"></td>
+											<td class="formBoxLogoBg formBoxLogoText" valign="top">New Export Booking</td>
+											<td valign="bottom">
+											<img height="40" src="../../images/form_box_title_r.gif" width="6"></td>
+										</tr>
+										</tbody>
+									</table>
+								</td>
+								<td valign="bottom" width="2">
+								<img height="40" src="../../images/form_box_tr.gif" width="2"></td>
+							</tr>
+							<tr>
+								<td background=../../images/content_box_l.gif>&nbsp;</td>
+								<td class="contentBoxIn">
+		<div class="formHolderBox">
+			<span>Please complete the form below. Fields marked with an asterisk </span>
+						<span class="red-asterisk">* </span><span> are required.</span>
+			  <br>
+			  <table cellSpacing="2" cellPadding="2" width="100%" border="0">
+				  <colgroup>
+					  <col width="25%">
+					  <col width="25%">
+					  <col width="25%">
+					  <col width="25%">
+				  </colgroup>
+				  <tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Date of Creation:</td>
+					<td>25-07-2008</td>
+					<td class="formLabels">Direct Loading?:</td>
+					<td><select name="directLoading">
+							<option>Yes</option>
+							<option selected>No</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>BRN:</td>
+					<td><input name=exVesselName0 size="20"></td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Shipper Name:</td>
+					<td><input name=exVesselName1 size="20" readonly>
+					<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogShipper" id="selectVessel4" link="../MasterData/SearchShipper.html" dialogtitle="Search Shipper" align="absmiddle"></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Vessel Name:</td>
+					<td><input name=exVesselName size="20" readonly>
+					<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogVessel" id="selectVessel2" link="../MasterData/SearchVessel.html" dialogtitle="Search Vessel" align="absmiddle"></td>
+					<td class="formLabels">Shipper Phone No:</td>
+					<td><input name=exVesselName2 size="20"></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Rotation No:</td>
+					<td><input name=rotationNo0 size="20" readonly>
+					<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogRotation" id="selectVessel3" link="../MasterData/SearchRotationNo.html" dialogtitle="Search Rotation" align="absmiddle"></td>
+					<td class="formLabels">C & F Agent:</td>
+					<td><input name="cnfAgent" size="20" readonly>
+						<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogAgent" id="popupSearch21" link="../MasterData/SearchAgent.html" dialogtitle="Search C&F Agent" align="absmiddle">
+					</td>
+				</tr>
+				<tr>
+					<td class="formLabels">ETA:</td>
+					<td><table border="0" cellpadding="0" cellspacing="0"><tr><td><input name="eta" maxlength="10" size="15" readonly>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td></td></tr>
+							<tr><td><span class="tip">(dd-mm-yyyy HH24:MM)</span></td><td>&nbsp;</td><td></td></tr></table>
+						</td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Hazardous Cargo?:</td>
+					<td><select name="hazardousCargo">
+							<option selected="true">No</option>
+							<option>Yes</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Trade Type:</td>
+					<td><select name="type" onchange="showHideExport()" id="tradeType">
+							<option value="Export">Export</option>
+							<option value="Re-Export">Re-Export</option>
+							<option value="Transshipment">Transshipment</option>
+						</select></td>
+					<td class="formLabels">IMO Class:</td>
+					<td><select name="imoClass" style="width:200px">
+							<option selected>Please Select</option>
+							<option>1.1 - Explosives - Explosion Hazard</option>
+							<option>1.2 - Explosives - Projection Hazard</option>
+							<option>1.3 - Explosives - Fire Hazard</option>
+							<option>1.4 - Explosives - No Hazard</option>
+							<option>1.5 - Explosives - Insensitive Matls</option>
+							<option>2.0 - IMCO 2.0</option>
+							<option>2.1 - Gases - Flammable Red Label</option>
+							<option>2.2 - Non Flammable - Green Label</option>
+							<option>2.3 - Gases - Poisonous</option>
+							<option>3.0 - IMCO 3.0</option>
+							<option>3.1 - Liquids - Low Flash Point</option>
+							<option>3.2 - Liquids - Inter Flash Point</option>
+							<option>3.3 - Liquids - High Flash Point</option>
+							<option>4.0 - IMCO 4.0</option>
+							<option>4.1 - Solids - Easily Ignited</option>
+							<option>4.2 - Solids-Spontaneous Combustion</option>
+							<option>4.3 - Solids-Emits Gases With Water</option>
+							<option>5.0 - IMCO 5.0</option>
+							<option>5.1 - Oxidising Substances</option>
+							<option>5.2 - Oxidising Substances</option>
+							<option>6.0 - IMCO 6.0</option>
+							<option>6.1 - Toxic - Harmful</option>
+							<option>6.2 - Toxic - Causes Deseases</option>
+							<option>7.0 - Radioactive</option>
+							<option>8.0 - Corrosives</option>
+							<option>9.0 - Miscellaneous</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><div id="exVessel"><span class="red-asterisk">* </span>Ex-Vessel Name:</div></td>
+					<td><div id="exVesselValue"><input name=exVesselName3 size="20" readonly>
+					<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogVessel" id="selectVessel5" link="../MasterData/SearchVessel.html" dialogtitle="Search Vessel" align="absmiddle"></div></td>
+					<td class="formLabels">UN Number:</td>
+					<td><input name="unNumber" size="5" maxlength="4"></td>
+				</tr>
+					<tr>
+					<td class="formLabels"><div id="exRotation"><span class="red-asterisk">* </span>Ex-Rotation No:</div></td>
+					<td><div id="exRotationValue"><input name=exVesselName4 size="20" readonly>
+					<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogRotation" id="selectVessel6" link="../MasterData/SearchRotationNo.html" dialogtitle="Search Rotation" align="absmiddle"></div></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					</tr>
+				<tr>
+					<td class="formLabels"><div id="arrivalDate">Arrival Date:</div></td>
+					<td valign="center"><div id="arrivalDateValue">
+						<table border="0" cellpadding="0" cellspacing="0" id="table1"><tr><td>
+						<input name="eta0" maxlength="10" size="15" readonly>&nbsp;</td>
+							<td valign="center">&nbsp;</td>
+							</tr><tr>
+							<td><span class="tip">(dd-mm-yyyy)</span></td></tr></div></table>
+						</td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Cargo Description:</td>
+					<td><input name=vesselName4 size="30" maxlength="100"></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Port of Loading:</td>
+					<td>Jebel Ali</td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Quantity:</td>
+					<td><input name="numberOfPackage" size="7" maxlength="7">
+													<select name="type2">
+														<option>BDL</option>
+														<option>PLT</option>
+														<option>PCS</option>
+														<option>SKID</option>
+														<option>COLLI</option>
+														<option>PKG</option>
+														<option>CRT</option>
+														<option>UNIT</option>
+														<option>CTN</option>
+														<option>COILS</option>
+													</select></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Port of Discharge:</td>
+					<td><input name="dischargePort" size="20" maxlength="100" readonly>
+						<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogPort" id="popupPortDisc" link="../MasterData/SearchPort.html" dialogtitle="Search Port" align="absmiddle">
+					</td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Weight:</td>
+					<td><input name="grossWeight" size="7" maxlength="10">
+						<select name="type1">
+							<option>KGS</option>
+							<option>MT</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td class="formLabels"><span class="red-asterisk">* </span>Port of Destination:</td>
+					<td><input name=vesselName3 size="20" maxlength="50" readonly>
+						<img src="../../images/magnify.gif" width="19" height="17" border="0" class="openDialogPort" id="popupPortDest" link="../MasterData/SearchPort.html" dialogtitle="Search Port" align="absmiddle">
+					</td>
+					<td class="formLabels"><span class="red-asterisk">* </span>Volume:</td>
+					<td><input name="grossVolume" size="7" maxlength="10">&nbsp;CBM</td>
+				</tr>
+				<tr>
+					<td class="formLabels" valign="top">Instruction to Port:</td>
+					<td><textarea rows="5" class="w200" name="instruction"></textarea></td>
+					<td class="formLabels" valign="top">Remarks:</td>
+					<td><textarea rows="5" class="w200" name="remarks"></textarea></td>
+				</tr>
+				<tr>
+					<td class="formLabels" valign="top"></td>
+					<td valign="top"></td>
+				</tr>
+			  </table>
+
+		</div>
+		<div>
+			<table cellSpacing="2" cellPadding="2" width="100%" border="0">
+			  <tr>
+					<td class="formLabels">
+						<input type="button" name="seach1" value="Submit" class="bttn-submit" title="Submit Confirmation" id="submit" /></td>
+					<td>
+					<input type="button" name="seach3" value="Cancel" class="cancelButton" onclick="window.location='../HomePage.html'" /></td>
+			</tr>
+			</table>
+		</div>
+
+								</td>
+								<td background=../../images/content_box_r.gif>
+								<img height="1" src="../../images/spacer.gif" width="1"></td></tr>
+							<tr>
+								<td>
+								<img height="19" src="../../images/content_box_bl.gif" width="12"></td>
+								<td align="right" background=../../images/content_box_b.gif>
+								<img height="1" src="../../images/spacer.gif" width="1"></td>
+								<td>
+								<img height="19" src="../../images/content_box_br.gif" width="2"></td>
+							</tr>
+							</tbody>
+						</table>
+
+						<!--end tab content-->
+					</td>
+					<td class="pageBg" valign="top" width="2">
+					<img height="25" src="../../images/in_page_right.gif" width="2"></td>
+				</tr></tbody>
+			</table>
+		</td>
+
+	<!-- end content-->
+
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="footerBg" valign="top">&nbsp;</td>
+		<td valign="top">
+		<img src="../../images/nav_section_bottom.gif"></td>
+		<td class="footerBg" valign="top" align="right">
+			<table dir="ltr" cellSpacing="0" cellPadding="0" border="0">
+				<tbody>
+				<tr>
+					<td>
+					<img height="24" src="../../images/footer_content_l.gif" width="10"></td>
+					<td class="footerContent">Copyright © 2006 - Ports Customs and Free Zone Corporation. All rights reserved. &nbsp;&nbsp;&nbsp;&nbsp;
+							<a class="linkNormal" href="#" target="_new">Privacy Policy</a> | <a class=linkNormal href="#" target="_new">Terms and Conditions</a>
+					</td>
+					<td>
+					<img height="24" src="../../images/footer_content_r.gif" width="10"></td>
+					<td width="10">&nbsp;</td>
+				</tr>
+				</tbody>
+			</table>
+		</td>
+		<td valign="top">
+		<img height="40" src="../../images/footer_right.gif" width="1"></td>
+	</tr>
+	</tbody>
+</table>
+</form>
+</body>
+</html>

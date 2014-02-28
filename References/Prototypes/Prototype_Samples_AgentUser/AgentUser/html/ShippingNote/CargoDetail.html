@@ -1,0 +1,298 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3c.org/tr/1999/rec-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>.:: Dubai Trade ::.</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+	<script language="JavaScript" type="text/javascript" src="../../js/YAHOO.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/common.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/simpletreemenu.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/service.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/LogoffLoader.js"></script>
+
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/main.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/tree.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/simpletree.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+	html, body {
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+</style>
+<script language="javascript">
+	function HideFrame(){
+		var fr = parent.getElementById ("searchFrame");
+		fr.style.display="none";
+	}
+	function HideVehicleCargo(){
+		document.getElementById("GeneralCargo").style.display="inline";
+		document.getElementById("VehicleCargo").style.display="none";
+
+//		document.getElementById("cargoType1").selectedvalue="General";
+		document.getElementById("cargoType1").removeAttribute('selected');
+		document.getElementById("cargoType1").value="General";
+		document.getElementById("cargoType2").value="General";
+	}
+	function HideGeneralCargo(){
+		document.getElementById("VehicleCargo").style.display="inline";
+		document.getElementById("GeneralCargo").style.display="none";
+//		document.getElementById("cargoType2").selectedvalue="Vehicle";
+		document.getElementById("cargoType2").removeAttribute('selected');
+		document.getElementById("cargoType1").value="Vehicle";
+		document.getElementById("cargoType2").value="Vehicle";
+	}
+
+	function changeCargo() {
+		if (document.getElementById("cargoType").value=="General") {
+			HideVehicleCargo();
+		} else {
+			HideGeneralCargo();
+		}
+	}
+	function showVihicleCargo() {
+			HideGeneralCargo();
+	}
+	function showGeneralCargo() {
+				HideVehicleCargo();
+	}
+</script>
+
+</head>
+<body onload="HideVehicleCargo();">
+<form name="mainForm" action="" method="get">
+<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+	<tbody>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">
+		<div id="GeneralCargo">
+		<table cellSpacing="2" cellPadding="2" width="100%" border="0">
+		  <colgroup>
+		      <col width="25%">
+		      <col width="25%">
+		      <col width="20%">
+		      <col width="30%">
+		  </colgroup>
+		  <tr>
+			<td>
+				Cargo Information Detail.</td>
+			<td>
+		    &nbsp;</td>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+			</tr>
+		  
+		  <tr>
+			<td class="formLabels">
+				<span class="red-asterisk">* </span>Cargo Type:
+			</td>
+			<td>
+		    <select id="cargoType1" name="cargoType2" onchange="showVihicleCargo()" size="1">
+		      <option value="Vehicle" selected>Vehicle Cargo</option>
+		      <option value="General">General Cargo</option>
+		    </select></td>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+			</tr>
+  <tr>
+	<td class="formLabels"><span class="red-asterisk">* </span>Quantity:</td>
+	<td><input name="" class="w100" type="text" size="15" />
+                <select name="vesselName1">
+                  <option>BDL</option>
+                  <option>PLT</option>
+                  <option>SKID</option>
+                  <option>COLLI</option>
+                  <option>PKG</option>
+                  <option>CRT</option>
+                  <option>UNIT</option>
+                  <option>CTN</option>
+                  <option>COILS</option>
+                </select></td>
+	<td class="formLabels">Volume:</td>
+	<td><input name=vesselName10 size="15">&nbsp;CBM</td>
+  </tr>
+  <tr>
+	<td class="formLabels"><span class="red-asterisk">* </span>Masks &amp; Nos:</td>
+	<td><input name="" class="w200" type="text" /></td>
+	<td class="formLabels">Gross Weight:</td>
+	<td><input name="Input35" type="text" class="w75 "/> <select name="vesselName3">
+                  <option>KGS</option>
+                  <option>MT</option>
+                </select></td>
+  </tr>
+  <tr>
+	<td class="formLabels"><span class="red-asterisk">* </span>Commodity Description:</td>
+	<td><input name=vesselName8 class="w200" readonly> </td>
+	<td class="formLabels">Net Weight:</td>
+	<td><input name="Input33" type="text" class="w75 "/> <select name="vesselName2">
+                  <option>KGS</option>
+                  <option>MT</option>
+                </select></td>
+  </tr>
+  <tr>
+	<td class="formLabels">Width</td>
+	<td><input name="Input36" type="text" class="w75 "/> <select name="vesselName5">
+                  <option>m</option>
+                  <option>cm</option>
+                </select></td>
+    <td class="formLabels"><span class="red-asterisk">* </span>Required Temperature?</td>
+	<td><select name="RequiredTemperature">
+                  <option value="Yes">Yes</option>
+                  <option value="No" selected="selected">No</option>
+                </select></td>
+  </tr>
+  <tr>
+	<td class="formLabels">Length:</td>
+	<td><input name="Input34" type="text" class="w75 "/> <select name="vesselName7">
+          <option>m</option>
+          <option>cm</option>
+        </select></td>
+	<td class="formLabels">Min Temperature:</td>
+	<td><input name="txtDegree" type="text" size="5" maxlength="3"/>&nbsp;oC</td>
+  </tr>
+  <tr>
+	<td class="formLabels">Height:</td>
+	<td><input name="Input34" type="text" class="w75 "/> <select name="vesselName7">
+          <option>m</option>
+          <option>cm</option>
+        </select></td>
+	<td class="formLabels">Max Temperature:</td>
+	<td><input name="txtDegree" type="text" size="5" maxlength="3"/>&nbsp;oC</td>
+  </tr>
+			
+		</table>
+		</div>
+		
+		<div id="VehicleCargo">
+		<table cellSpacing="2" cellPadding="2" width="100%" border="0">
+		  <colgroup>
+		      <col width="25%">
+		      <col width="25%">
+		      <col width="20%">
+		      <col width="30%">
+		  </colgroup>
+		  <tr>
+			<td>
+				Cargo Information Detail.</td>
+			<td>
+		    &nbsp;</td>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+			</tr>  
+		  <tr>
+			<td class="formLabels">
+				<span class="red-asterisk">* </span>Cargo Type:
+			</td>
+			<td>
+		        <select id="cargoType2" name="cargoType3" onchange="showGeneralCargo()" size="1">
+		          <option value="Vehicle" selected>Vehicle Cargo</option>
+		          <option value="General">General Cargo</option>
+		        </select>
+		    </td>
+			<td class="formLabels">
+				&nbsp;</td>
+			<td>
+				&nbsp;</td>
+			</tr>
+
+		  <tr>
+		  	<td class="formLabels"><span class="red-asterisk">* </span>Marks & Nos:</td>
+		  	<td><input name="txtMasrkNos" type="text" maxlength="200" size="30"/></td>
+			<td class="formLabels"><span class="red-asterisk">* </span>Commodity Description:</td>
+			<td><input name="txtCommodityDescription" size="30"  maxlength="200" maxlength="200"> </td>
+		  </tr>
+		  <tr>
+			<td class="formLabels">Width:</td>
+			<td><input name="txtWidth" type="text" class="w75" maxlength="7"/>
+					<select name="ddlWidth">
+		                  <option>m</option>
+		                  <option>cm</option>
+		                </select></td>
+			<td class="formLabels"><span class="red-asterisk">* </span>Gross Weight:</td>
+			<td><input name="txtGrossWeight" size="15" value="" maxlength="10"></td>
+		  </tr>
+		  <tr>
+			<td class="formLabels">Length:</td>
+			<td><input name="txtLength" type="text" class="w75" maxlength="7" />
+		        <select name="ddlLength">
+		          <option>m</option>
+		          <option>cm</option>
+		        </select>
+			</td>
+			<td class="formLabels"><font color=red><B>*</B></font>Gross Volume:</td>
+			<td><input name="txtGrossVolume" size="15" value="" maxlength="10"></td>
+		  </tr>
+		  <tr>
+			<td class="formLabels">Height:</td>
+			<td><input name="txtHeight" type="text" class="w75" maxlength="7" />
+				<select name="ddlHeight">
+		                  <option>m</option>
+		                  <option>cm</option>
+		                </select></td>
+			<td class="formLabels">Vehicle Type:</td>
+			<td><select name="agentReference0">
+		          <option value="" selected="selected">Please select</option>
+		          <option value="GC">Heavy Vehicle</option>
+		          <option value="VC">Light Vehicle</option>
+		        </select>
+				</td>
+			</tr>
+			<tr>
+				<td class="formLabels">VIN No:</td>
+				<td><input name="" type="text" class="w75" size="20"/></td>
+			    <td class="formLabels">Chassis No:</td>
+				<td><input name="" type="text" class="w75" size="20"/></td>
+			</tr>
+		
+			<tr>
+				<td class="formLabels">Year Made:</td>
+				<td><input name="" type="text" class="w75" size="20"/></td>
+			    <td class="formLabels">Color:</td>
+				<td><input name="" type="text" class="w75" size="20"/></td>
+			</tr>
+			<tr>
+				<td class="formLabels">&nbsp;</td>
+				<td>&nbsp;</td>
+			    <td class="formLabels">Is New?</td>
+				<td><input type="checkbox" name="C2" value="ON"></td>
+			</tr>
+		
+		</table>
+		</div>
+	</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	</tbody>
+</table>
+</form>
+</body>
+</html>
