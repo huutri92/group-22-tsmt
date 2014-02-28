@@ -28,3 +28,33 @@ c:\users\tri le nguyen huu\documents\visual studio 2012\Projects\TSMT\TSMT\bin\S
 c:\users\tri le nguyen huu\documents\visual studio 2012\Projects\TSMT\TSMT\obj\Debug\TSMT.csprojResolveAssemblyReference.cache
 c:\users\tri le nguyen huu\documents\visual studio 2012\Projects\TSMT\TSMT\obj\Debug\TSMT.dll
 c:\users\tri le nguyen huu\documents\visual studio 2012\Projects\TSMT\TSMT\obj\Debug\TSMT.pdb
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\TSMT.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\TSMT.pdb
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\Antlr3.Runtime.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\EntityFramework.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\Newtonsoft.Json.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Net.Http.Formatting.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Http.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Http.WebHost.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Mvc.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Optimization.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Providers.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Razor.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.Razor.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\WebGrease.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\EntityFramework.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\Newtonsoft.Json.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Net.Http.Formatting.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Http.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Http.WebHost.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Mvc.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.Razor.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\bin\System.Web.WebPages.Razor.xml
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\obj\Debug\TSMT.csprojResolveAssemblyReference.cache
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\obj\Debug\TSMT.dll
+C:\Users\Tri Le Nguyen Huu\Desktop\TSMT\trunk\Project\TSMT\TSMT\obj\Debug\TSMT.pdb
