@@ -1,0 +1,203 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3c.org/tr/1999/rec-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>.:: Dubai Trade ::.</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+	<script language="JavaScript" type="text/javascript" src="../../js/YAHOO.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/common.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/simpletreemenu.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/service.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/LogoffLoader.js"></script>
+
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/main.css" rel="stylesheet" type="text/css" />        
+    <link href="../../css/tree.css" rel="stylesheet" type="text/css" />    
+    <link href="../../css/simpletree.css" rel="stylesheet" type="text/css" />    
+
+<style type="text/css">
+	html, body {
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+</style>
+<script language="javascript">
+	function HideFrame(){
+		var fr = parent.getElementById ("searchFrame");
+		fr.style.display="none";
+	}
+	function HideVehicleCargo(){
+		document.getElementById("GeneralCargo").style.display="inline";
+		document.getElementById("VehicleCargo").style.display="none";
+		
+//		document.getElementById("cargoType1").selectedvalue="General";
+		document.getElementById("cargoType1").removeAttribute('selected');
+		document.getElementById("cargoType1").value="General";		
+		document.getElementById("cargoType2").value="General";
+	}
+	function HideGeneralCargo(){
+		document.getElementById("VehicleCargo").style.display="inline";
+		document.getElementById("GeneralCargo").style.display="none";
+//		document.getElementById("cargoType2").selectedvalue="Vehicle";
+		document.getElementById("cargoType2").removeAttribute('selected');
+		document.getElementById("cargoType1").value="Vehicle";		
+		document.getElementById("cargoType2").value="Vehicle";
+	}
+
+	function changeCargo() {
+		if (document.getElementById("cargoType").value=="General") {
+			HideVehicleCargo();
+		} else {
+			HideGeneralCargo();
+		}
+	}
+	function showVihicleCargo() {
+			HideGeneralCargo();
+	}	
+	function showGeneralCargo() {
+				HideVehicleCargo();
+	}
+</script>
+
+</head>
+<body onload="HideVehicleCargo();">
+<form name="mainForm" action="" method="get">
+<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+	<tbody>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<td class="contentBoxIn">
+		<div id="GeneralCargo"><span>Cargo Information Detail:</span>
+		<table cellSpacing="2" cellPadding="2" width="100%" border="0">
+		  <colgroup>
+		      <col width="25%">
+		      <col width="25%">
+		      <col width="25%">
+		      <col width="25%">
+		  </colgroup>
+		  <tr>
+			<td class="formLabels">
+				<span class="red-asterisk">* </span>Operation Type:
+			</td>
+			<td>
+			            <select id="cargoType1" name="cargoType2" size="1">
+							<option value="Discharge" selected>Discharge</option>
+							<option value="Load">Load</option>
+		                </select></td>
+			<td class="formLabels">
+				&nbsp;</td>
+			<td>
+			            &nbsp;</td>
+			</tr>
+		  <tr>
+			<td class="formLabels">
+				<span class="red-asterisk">* </span>Cargo Description:
+			</td>
+			<td>
+			            <select id="cargoType2" name="cargoType3" size="1">
+							<option value="Vehicle">Vehicle</option>
+							<option value="General">General Cargo</option>
+							<option value="Vehicle">Steel</option>
+							<option value="General">Timber</option>
+							<option value="Vehicle">Plywood</option>
+							<option value="General">Timber/Plywood</option>
+							<option value="General">Bagged Cargo</option>
+							<option value="General" selected>Bagged Cargo J</option>
+		                </select></td>
+			<td class="formLabels">
+				Hatch No:</td>
+			<td>
+			            <input name="" class="w100" type="text" size="20" /></td>
+			</tr>
+		  <tr>
+			<td class="formLabels"> <span class="red-asterisk">* </span>Gross Weight:</td>
+			<td>
+		                <input name="" class="w100" type="text" size="15" /><span class="span">
+						</span>
+			            <select id="cargoType3" name="cargoType4" size="1">
+							<option value="Import" selected>MT</option>
+							<option value="Export">KGS</option>
+		                </select></td>
+			<td class="formLabels"><span class="red-asterisk">*</span>Gross 
+			Volume:</td>
+			<td>
+				        <input name=vesselName11 size="15"><span class="span">&nbsp;CBM</span></td>
+			</tr>
+		  <tr>
+			<td class="formLabels">Dangerous Cargo Declaration:</td>
+			<td>
+		                <textarea class="w200" name="S3" rows="4" cols="35"></textarea></td>
+			<td class="formLabels">Other Information:</td>
+			<td>
+			<textarea class="w200" name="S2" rows="4" cols="35"></textarea></td>
+			</tr>
+		  <tr>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+			&nbsp;</td>
+			<td class="formLabels">&nbsp;<td>
+			
+		                &nbsp;</tr>
+			</tr>
+		  <tr>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+			            &nbsp;</td>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+			            &nbsp;</td>
+			<tr>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+		        
+		    <td class="formLabels">&nbsp;</td>
+			<td>
+		        		&nbsp;</td>
+			
+			</tr>
+		  	<tr>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+		        
+		    <td class="formLabels">&nbsp;</td>
+			<td>
+		        		&nbsp;</td>
+			
+			</tr>
+		  	<tr>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+			            &nbsp;</td>
+			<td class="formLabels">&nbsp;</td>
+			<td>
+		        &nbsp;</td>
+			
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="contentBoxIn">&nbsp;</td>
+	</tr>
+	
+	</tbody>
+</table>
+</form>
+</body>
+</html>

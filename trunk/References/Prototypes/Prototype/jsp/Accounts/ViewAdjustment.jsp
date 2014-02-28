@@ -1,0 +1,164 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script language="javascript" src="../js/menu.js"></script>	
+	<script language="javascript" src="../js/common.js"></script>	
+	<link type="text/css" rel="stylesheet" href="../style/common.css">
+
+	<script type="text/javascript" src="../js/calendar/calendar.js"></script>
+	<script type="text/javascript" src="../js/calendar/calendar-setup.js"></script>
+	<script type="text/javascript" src="../js/calendar/lang/calendar-en.js"></script>	
+	<link type="text/css" rel="stylesheet" href="../style/calendar/calendar-blue.css">
+	<title>View Adjustment Detail</title>
+</head>
+
+<body class="body" onload="javascript:disableForm();doDisabled();">
+<form name="frmMorses" method="post">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" class="Form">
+		<colgroup>
+			<col width="5">
+			<col width="240">
+			<col width="600">
+			<col width="5">
+		</colgroup>
+		<tr>
+			<td colspan="4"></td>
+		</tr>
+		<tr>
+			<td height="20" valign="top" colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" class="buttontop">
+					<colgroup>
+						<col width="4">
+						<col width="130">
+						<col width="5">									
+						<col>
+					</colgroup>
+					<tr>
+						<td><img src="../images/tab_01_01.gif" width="5" height="21" border="0"></td>
+						<td align="center" background="../images/tab_01_02.gif" class="selected"><b>Adjustment Detail</b></td>
+						<td><img src="../images/tab_01_03.gif" width="5" height="21" border="0"></td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" class="FormWithBorder">
+					<colgroup>
+						<col width="23%">
+						<col width="1px">
+						<col width="1px">
+						<col width="27%">
+						<col width="1px">
+						<col width="23%">
+						<col width="1px">
+						<col width="27%">
+					</colgroup>
+					<tr>
+						<td height="20" class="Field">Account ID</td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td class="Field"><input class="FieldShort" tabindex="7" type="text" name="itemIdentifier1" size="20" value="123456789" readonly></td>
+						<td>&nbsp;</td>
+						<td class="Field">Memo</td>
+						<td>&nbsp;</td>
+						<td class="Field" rowspan="5"><textarea class="FieldLong" cols="50" rows="7">Memo</textarea></td>
+					</tr>
+					<tr>
+						<td height="20" class="Field">Adjustment Date&nbsp;<font color=#FF0000>*</font></td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td class="Field">
+							<input class="FieldDate" tabindex="3" type="text" name="agreementDate" size="20" value="10/05/2005">&nbsp;
+							<a href="javascript:doDisabled();" tabindex="4"><img id="btAgreementDate" src="../images/calendar.gif" border="0" width="16" height="14"></a>
+							<script type="text/javascript">
+								<!--
+									Calendar.setup({
+									  inputField	: "agreementDate",
+									  button		: "btAgreementDate",
+									  align		 : "Tr",
+									  ifFormat	  : "%d/%m/%Y",
+									  daFormat	  : "%d/%m/%Y",
+									  timeFormat	: "24",
+									  showsTime	 : false,
+									  singleClick   : true
+									});
+								//-->
+							</script>
+						</td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td height="20" class="Field">Adjustment Status&nbsp;<font color=#FF0000>*</font></td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td class="Field">
+							<select class="FieldDate" tabindex="1" size="1" name="product3">
+								<option>&nbsp;</option>
+								<option selected>New</option>
+								<option>Amended</option>
+								<option>Archived</option>
+							</select>
+						</td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td height="20" class="Field">Adjustment Type&nbsp;<font color=#FF0000>*</font></td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td class="Field">
+							<select class="FieldDate" tabindex="1" size="1" name="product2" >
+								<option>Credit</option>
+								<option>Debit</option>
+							</select>
+						</td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td height="20" class="Field">Amount</td>
+						<td>&nbsp;</td>
+						<td class="Field">&pound;</td>
+						<td class="Field"><input class="FieldDR" tabindex="7" type="text" name="itemIdentifier3" size="20" value="234,354.00"></td>
+						<td>&nbsp;</td>
+						<td class="Field">&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+			<td></td>
+		</tr>
+		<tr class="btnormal">
+			<td>&nbsp;</td>
+			<td colspan="2"><a href="javascript:doClose();" class="btnormal" tabindex="26">Close</a></td>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</form>
+
+<script language="javascript">
+	function doClose() {
+		window.close();
+	}
+	function doDisabled() {
+		var thisForm = document.forms["frmMorses"];
+		thisForm.btAgreementDate.disabled = true;
+	}
+</script>
+</body>
+
+</html>
