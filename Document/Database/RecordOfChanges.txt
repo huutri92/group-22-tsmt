@@ -1,0 +1,8 @@
+***** 20140303
+- Thêm column ProvinceID trong bảng Profiles
+- Tạo mới bảng Provinces có quan hệ với bảng Profiles
+- Thêm column DateTimeTransfered, TypeOfTransferedID, IsReceived trong bảng Funds
+- Tạo mới bảng TypeOfTransfers có quan hệ với bảng Funds
+
+*****
+
