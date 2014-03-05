@@ -541,7 +541,7 @@ form button{
    font-size:55px;
    line-height:50px;
    color:#fff;
-   font-family:'Times New Roman',sans-serif;
+   font-family:"Open Sans Condensed",sans-serif;
 }
 
 .sidebar-weather .sidebar-weather-footer{
@@ -695,7 +695,7 @@ form button{
 	color:#fff;
 	font-weight:bold;
 	font-size:15px;
-	font-family:"Open Sans", sans-serif;
+	font-family:"Open Sans Condensed", sans-serif;
 	padding:3px 15px 3px 30px;
 	border-top-right-radius:3px;
 	border-bottom-right-radius:3px;
@@ -713,7 +713,7 @@ form button{
 	color:#fff;
 	font-weight:bold;
 	font-size:15px;
-	font-family:"Open Sans", sans-serif;
+	font-family:"Open Sans Condensed", sans-serif;
 	padding:3px 15px 3px 30px;
 	border-top-right-radius:3px;
 	border-bottom-right-radius:3px;
@@ -772,7 +772,7 @@ form button{
 	color:#fff;
 	box-shadow:0px 0px 2px #999;
 	padding:3px 0px;
-	font-family:"Open Sans", sans-serif;
+	font-family:"Open Sans Condensed", sans-serif;
 	font-size:15px;
 	font-weight:bold;
 	border-radius:20px;
@@ -836,7 +836,7 @@ form button{
    -o-transition: background 0.7s ease;
    -ms-transition: background 0.7s ease;
    transition: background 0.7s ease;   
-   font-family:"Open Sans", sans-serif;
+   font-family:"Open Sans Condensed", sans-serif;
    font-size:15px !important;
    font-weight:bold;
    text-transform:uppercase;
@@ -975,7 +975,7 @@ form button{
 }
 
 .banner .tp-caption.heading{
-	font-family:"Times New Roman", sans-serif;
+	font-family:"Open Sans Condensed", sans-serif;
 	letter-spacing: 0.02em;
 	text-shadow:0px 2px 3px rgba(0, 0, 0, 0.5);
 }
@@ -1033,7 +1033,7 @@ form button{
 .banner .tp-caption.paragraph{
 	line-height: 30px;
 	text-shadow: none;
-	font-family:"Open Sans", sans-serif; /*'Times New Roman'*/
+	font-family:"Open Sans", sans-serif;
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 23px;
