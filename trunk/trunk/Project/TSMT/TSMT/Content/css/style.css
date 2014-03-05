@@ -6,7 +6,7 @@ Designed by : http://responsivewebinc.com
 /* Basic CSS starts */
 
 body{
-   font-family:'Times New Roman', sans-serif;
+   font-family:"Open Sans", sans-serif;
    font-size:13px;
    line-height:23px;
    color:#555;
@@ -14,7 +14,7 @@ body{
 }
 
 h1,h2,h3,h4,h5,h6{
-   font-family:'Times New Roman', sans-serif;
+   font-family:"Open Sans Condensed", sans-serif;
    font-weight:700;
    margin:0px;
    padding:0px;
@@ -695,7 +695,7 @@ form button{
 	color:#fff;
 	font-weight:bold;
 	font-size:15px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	padding:3px 15px 3px 30px;
 	border-top-right-radius:3px;
 	border-bottom-right-radius:3px;
@@ -713,7 +713,7 @@ form button{
 	color:#fff;
 	font-weight:bold;
 	font-size:15px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	padding:3px 15px 3px 30px;
 	border-top-right-radius:3px;
 	border-bottom-right-radius:3px;
@@ -738,7 +738,7 @@ form button{
 .lock-block .unlock-form h5{
 	font-size:18px;
 	color:#fff;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	margin:0px;
 }
 
@@ -772,7 +772,7 @@ form button{
 	color:#fff;
 	box-shadow:0px 0px 2px #999;
 	padding:3px 0px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	font-size:15px;
 	font-weight:bold;
 	border-radius:20px;
@@ -836,7 +836,7 @@ form button{
    -o-transition: background 0.7s ease;
    -ms-transition: background 0.7s ease;
    transition: background 0.7s ease;   
-   font-family:'Times New Roman', sans-serif;
+   font-family:"Open Sans", sans-serif;
    font-size:15px !important;
    font-weight:bold;
    text-transform:uppercase;
@@ -1033,7 +1033,7 @@ form button{
 .banner .tp-caption.paragraph{
 	line-height: 30px;
 	text-shadow: none;
-	font-family:'Times New Roman', sans-serif; /*'Times New Roman'*/
+	font-family:"Open Sans", sans-serif; /*'Times New Roman'*/
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 23px;
@@ -1316,7 +1316,7 @@ form button{
 	margin-bottom: 10px;
 	font-weight: normal;
 	font-size: 14px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	color: #fff;
 }
 
@@ -1362,7 +1362,7 @@ form button{
 	margin-bottom: 0px;
 	font-size: 14px;
 	line-height: 25px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	color: #919191;
 	clear: both;
 }
@@ -2909,7 +2909,7 @@ padding: 30px;
 	margin-bottom: 5px;
 	padding: 5px 0px;
 	font-size: 12px;
-	font-family:'Times New Roman', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	color: #9d9d9d;
 	text-transform: uppercase;
 	border-bottom: 1px solid #eaeaea;
