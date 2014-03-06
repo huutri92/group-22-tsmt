@@ -1,7 +1,9 @@
-﻿@{
+﻿@using TSMT.Models
+@model TSMT.Models.RegistrationModel
+
+@{
     ViewBag.Title = "Registration";
 }
-
 
 <form method="post" action="/Home/Registration">
     <div id="Account">
@@ -43,7 +45,7 @@
             <tr>
                 <td>Gender:</td>
                 <td>
-                    <select id="gender">
+                    <select id="gender" name="gender">
                         <option value="null">---</option>
                         <option value="false">Male</option>
                         <option value="true">Female</option>
@@ -68,43 +70,84 @@
             <tr>
                 <td>Province:</td>
                 <td>
-                    <select id="province">
+                    <select id="province" name="province">
                         <option value="null">---</option>
-                        <option value="1">Hà Nội</option>
-                        <option value="2">Hồ Chí Minh</option>
+                        @foreach (var item in (List<Province>)ViewData["getAllProvinces"])
+                        {
+                            <option value="@item.ProvinceID">@item.Name</option>
+                        }
+
                     </select></td>
             </tr>
             <tr>
                 <td>City:</td>
                 <td>
-                    <select id="city">
+                    <select id="city" name="district">
                         <option value="null">---</option>
-                        <option value="1">Quận 1</option>
-                        <option value="2">Quận 2</option>
-                    </select></td>
+                        @foreach (var item in (List<District>)ViewData["getAllDistricts"])
+                        {
+                            <option value="@item.DistrictID">@item.Name</option>
+                        }
+                    </select>
+
+                </td>
             </tr>
         </table>
     </div>
-    <div id="Candidate">
+
+
+    <label>You are: </label>
+    <select id="cbbSpecificRole" onchange="changeRole(this.options[this.selectedIndex].text);" name="specificRole">
+        <option value="null" selected>-----</option>
+        @foreach (var item in (List<Role>)ViewData["getAllRoles"])
+        {
+            <option value="@item.RoleID">@item.RoleName</option>
+        }
+    </select>
+
+
+    <div id="Candidate" style="display: none">
         <table>
             <tr>
                 <td>High school's name:</td>
                 <td>
                     <input type="text" name="highschool" /></td>
             </tr>
+
+
         </table>
     </div>
-    <div id="Volunteer">
-        <table>
-            <tr>
-                <td>Job's name:</td>
-                <td>
-                    <input type="text" name="job" /></td>
-            </tr>
-        </table>
+
+    <div id="Sponsor" style="display: none">
+        Not addtional information for Sponsor
+        <br />
+
+    </div>
+
+    <div id="Volunteer" style="display: none">
+        Not addtional information for Volunteer
+        <br />
+
+    </div>
+
+    <div id="Chairity" style="display: none">
+        Not addtional information for Charity
+        <br />
+
     </div>
     <input type="hidden" id="roleID" />
+    <input type="submit" value="Submit" />
+    <input type="reset" value="Reset" />
+    <input type="button" value="Cancel" />
 </form>
 
 <script type="text/javascript">
+    var currentRole = "null";
+    function changeRole(newRole) {
+        if (currentRole !== "null") {
+            document.getElementById(currentRole).style.display = 'none';
+        }
+        document.getElementById(newRole).style.display = 'inline';
+        currentRole = newRole;
+    }
 </script>
