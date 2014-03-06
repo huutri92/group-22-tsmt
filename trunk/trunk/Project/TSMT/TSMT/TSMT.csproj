@@ -124,9 +124,119 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Article.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ArticlesTag.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Candidate.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Car.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChairitiesExam.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Charity.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailsScheduleExam.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailsSchedulesCar.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Examination.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExaminationsPaper.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fund.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JoinsIn.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lodge.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Room.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SchedulesCar.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SchedulesVolunteer.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sponsor.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TSMT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TSMT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TSMT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TSMT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TSMT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UniversitiesExamination.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\University.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Venue.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Volunteer.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -404,7 +514,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +539,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Registration.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\TSMT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\TSMT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TSMT.edmx</DependentUpon>
+      <LastGenOutput>TSMT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TSMT.edmx.diagram">
+      <DependentUpon>TSMT.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\TSMT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TSMT.edmx</DependentUpon>
+      <LastGenOutput>TSMT.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\RegistrationWithRazor.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

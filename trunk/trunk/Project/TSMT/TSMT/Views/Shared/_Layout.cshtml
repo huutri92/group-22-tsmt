@@ -51,6 +51,23 @@
                 </div>
                 <!-- Logo ends -->
 
+                
+                <!-- Sidebar buttons starts -->
+                <div class="sidebar-buttons text-center">
+                    <!-- User button -->
+                    <div class="btn-group">
+                        <a href="@Url.Action("Entrance","Home")" class="btn btn-black btn-xs"><i class="icon-user"></i></a>
+                        <a href="@Url.Action("Entrance","Home")" class="btn btn-danger btn-xs">Sign In</a>
+                    </div>
+                    <!-- Lock button -->
+                    <div class="btn-group">
+                        <a href="@Url.Action("Registration","Home")" class="btn btn-black btn-xs"><i class="icon-lock"></i></a>
+                        <a href="@Url.Action("Registration","Home")" class="btn btn-danger btn-xs">Sign Up</a>
+                    </div>
+                  
+                </div>
+                <!-- Sidebar buttons ends -->
+
 
                 <!-- Sidebar search -->
                 <div class="sidebar-search">
@@ -75,9 +92,7 @@
                         <!-- Main navigation. Refer Notes.txt files for reference. -->
 
                         <!-- Use the class "current" in main menu to hightlight current main menu -->
-                        @*<li class="current"><i class="icon-home">@Html.ActionLink(" Trang Chủ", "Index", "Home")</i></li>*@
-                        @*<li class="current"><a href="~/Views/Home/Index"><i class="icon-home"></i>Trang Chủ</a></li>
-                        <li class="@(ViewBag.Active == "Home" ? "active" : "")"><i class="@Html.ActionLink(" Trang Chủ", "Index", "Home")</li>*@
+                      
                         <li class="current"><a href="@Url.Action("Index", "Home")"><i class="icon-home"></i>Trang Chủ </a></li>
                         <li class="has_submenu">
                             <a href="#">
@@ -90,13 +105,7 @@
                                 <!-- Use the class "active" in sub menu to hightlight current sub menu -->
                                 <li><a href="gallery.html"><i class="icon-double-angle-right"></i>Thông tin kỳ thi</a></li>
                                 <li><a href="login.html"><i class="icon-double-angle-right"></i>Địa điểm thi</a></li>
-                                @*<li><a href="careers.html"><i class="icon-double-angle-right"></i>Careers</a></li>
-                                <li><a href="portfolio.html"><i class="icon-double-angle-right"></i>Portfolio</a></li>
-                                <li><a href="pricing.html"><i class="icon-double-angle-right"></i>Pricing</a></li>
-                                <li><a href="testimonial.html"><i class="icon-double-angle-right"></i>Testimonial</a></li>
-                                <li><a href="service.html"><i class="icon-double-angle-right"></i>Services</a></li>
-                                <li><a href="feature.html"><i class="icon-double-angle-right"></i>Feature</a></li>
-                                <li><a href="faq.html"><i class="icon-double-angle-right"></i>Faq</a></li>*@
+                           
                             </ul>
                         </li>
 
@@ -116,83 +125,13 @@
                         </li>
                         <li><a href="aboutus.html"><i class="icon-user"></i>Liên hệ</a></li>
                         <li><a href="@Url.Action("ManageCategories", "Home")"><i class="icon-user"></i>Manage Catagories</a></li>
-                        @* <li><a href="contactus.html"><i class="icon-phone"></i>Contact Us</a></li>
-                        <li class="has_submenu">
-                            <a href="#">
-                                <i class="icon-bug"></i>Extras <span class="label label-darky">3</span>
-                                <span class="caret pull-right"></span>
-                            </a>
-                            <ul>
-                                <li><a href="0-base.html"><i class="icon-double-angle-right"></i>Blank Page</a></li>
-                                <li><a href="404.html"><i class="icon-double-angle-right"></i>404</a></li>
-                                <li><a href="lock.html"><i class="icon-double-angle-right"></i>Lock</a></li>
-                            </ul>
-                        </li>*@
+                      
 
                     </ul>
                 </div>
                 <!-- Sidebar navigation ends -->
 
-                <!-- Sidebar weather starts -->
-                <div class="sidebar-weather hidden-xs">
-                    <div class="sidebar-weather-header">
-                        <!-- Title -->
-                        <h6>New York, Weather</h6>
-                    </div>
-                    <div class="sweather-left">
-                        <!-- Cloud icon -->
-                        <i class="icon-cloud"></i>
-                    </div>
-                    <div class="sweather-right">
-                        <!-- Weather -->
-                        <span class="sweather-big">28&deg;C</span><br />
-                    </div>
-                    <div class="clearfix"></div>
-                    <!-- Footer -->
-                    <div class="sidebar-weather-footer">
-                        <p>Wind : 55 KM/hr - Humidity : 55%</p>
-                    </div>
-                </div>
-                <!-- Sidebar weather ends -->
 
-                <!-- Sidebar status starts -->
-                <div class="sidebar-status hidden-xs">
-
-                    <!-- Status item -->
-                    <div class="sidebar-status-item">
-                        <!-- Title -->
-                        <div class="sidebar-status-title">Disk Space <span class="pull-right">20.00 GB / 50.00 GB</span></div>
-                        <!-- Progress bar -->
-                        <div class="progress progress-striped">
-                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Status item -->
-                    <div class="sidebar-status-item">
-                        <!-- Title -->
-                        <div class="sidebar-status-title">Users <span class="pull-right">5000 / 800000</span></div>
-                        <!-- Progress bar -->
-                        <div class="progress progress-striped">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Status item -->
-                    <div class="sidebar-status-item">
-                        <!-- Title -->
-                        <div class="sidebar-status-title">Income <span class="pull-right">$25,000 / $50,000</span></div>
-                        <!-- Progress bar -->
-                        <div class="progress progress-striped">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Sidebar status ends -->
 
             </div>
             <!-- Sidebar ends -->
