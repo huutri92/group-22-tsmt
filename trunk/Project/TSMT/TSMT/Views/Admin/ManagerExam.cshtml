@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "ManagerExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+
+
+<h2>ManagerExam</h2>
+<div id="breadcrumb">
+    <a href="@Url.Action("Index", "Home")" title="Tới trang chủ" class="tip-bottom"><i class="icon-home"></i>Trang chủ</a>
+    <a href="@Url.Action("ManagerExam", "Admin")" title="Tới quản lí người dùng" class="tip-bottom">Quản lí kỳ thi</a>
+    <a href="@Url.Action("AddExam", "Admin")" class="current">Thêm kỳ thi mới</a>
+    <a href="@Url.Action("ManageUniversity", "Admin")" class="current">Quản lý trường Đại học</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr class="active">
+            <th>
+                <input type="checkbox"></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    <input type="checkbox"></th>
+                <td>@item.ExaminationID</td>
+                <td>@item.Name</td>
+                <td>@item.BeginDate</td>
+                <td>@item.EndDate</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditExamination",  new { examId = @item.ExaminationID })
+                    @Html.ActionLink("Delete", "DeleteExamination", new { id=@item.ExaminationID })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

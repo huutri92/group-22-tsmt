@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "ManageUniversity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+@model List<University>
+<h2>ManageUniversity</h2>
+<div id="breadcrumb">
+    <a href="@Url.Action("Index", "Home")" title="Tới trang chủ" class="tip-bottom"><i class="icon-home"></i>Trang chủ</a>
+    <a href="@Url.Action("ManagerExam", "Admin")" title="Tới quản lí người dùng" class="tip-bottom">Quản lí kỳ thi</a>
+    <a href="@Url.Action("AddExam", "Admin")" class="current">Thêm kỳ thi mới</a>
+    <a href="@Url.Action("ManageUniversity", "Admin")" class="current">Quản lý trường Đại học</a>
+    <a href="@Url.Action("AddUniversity", "Admin")" class="current">Thêm trường Đại học</a>
+    <a href="@Url.Action("ManageVenue", "Admin")" class="current">Quản lý điểm trọ</a>
+</div>
+<div class="container">
+    <div class="page-content page-posts">
+
+        <div class="page-tabs">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#posts" data-toggle="tab">Quản lý trường đại học</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!-- Posts tab -->
+                <div class="tab-pane fade active in" id="posts">
+
+                    <div class="widget">
+
+                        <div class="widget-head">
+                            <div class="widget-head-btns pull-right">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="widget-body no-padd">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên trường</th>
+                                            <th>Mã trường</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Website</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.Name</td>
+                                                <td>@item.UnversityCode</td>
+                                                <td>@item.Address</td>
+                                                <td>@item.Website</td>
+                                                <td>@item.Phone</td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-danger"><i class="icon-pencil"></i></button>
+                                                    <button class="btn btn-xs btn-info"><i class="icon-remove"></i></button>
+                                                    <button class="btn btn-xs btn-success"><i class="icon-trash"></i></button>
+                                                    @Html.ActionLink("Edit", "EditUni",  new { uniId = @item.UniversityID })
+                                                    @Html.ActionLink("Delete", "DeleteUni",  new { uniId = @item.UniversityID })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Make post tab -->
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Content ends -->
