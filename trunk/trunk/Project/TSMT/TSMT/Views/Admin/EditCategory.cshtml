@@ -1,0 +1,35 @@
+﻿@model TSMT.Models.DataAccess
+
+@{
+    ViewBag.Title = "EditCategory";
+}
+
+<div style="text-align: center">
+    <h2>Chỉnh Sửa Thông Tin Danh Sách</h2>
+</div>
+@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
+    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
+    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
+    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
+@using (Html.BeginForm("EditCategoryInfo", "Admin", FormMethod.Post, new {@class = "form-horizontal", style = "margin-left: 15%; margin-right: 15%"}))
+{
+    
+    @Html.HiddenFor(model => model.CategoryID)
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="email" class="col-md-2 control-label">Tên Dannh Mục: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CategoryName, new {@style = "width: 70% !important"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-info">Chỉnh Sửa</button>
+                <button type="reset" class="btn btn-default">Làm Lại</button>
+                <button type="button" class="btn btn-default" onclick=" history.back(-1); ">Quay Lại</button>
+            </div>
+        </div>
+    </form>
+}

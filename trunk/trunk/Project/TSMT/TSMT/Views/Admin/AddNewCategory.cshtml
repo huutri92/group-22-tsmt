@@ -1,0 +1,39 @@
+﻿@model TSMT.Models.Category
+
+@{
+    ViewBag.Title = "AddNewCategory";
+}
+
+<div style="text-align: center">
+    <h2>Tạo Mới Danh Mục Tin Tức</h2>
+</div>
+@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
+    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
+    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
+    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Category</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CategoryName)
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Quay Lại", "ManagerCategory")
+</div>
+
