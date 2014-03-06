@@ -17,5 +17,10 @@ namespace DemoInterface2.Controllers
         {
             return View();
         }
+
+        public ActionResult Registration()
+        {
+            return View();
+        }
     }
 }
