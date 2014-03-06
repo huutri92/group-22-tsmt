@@ -10,8 +10,12 @@ namespace TSMT.Controllers
 {
     public class CharityController : Controller
     {
-        //
-        // GET: /Charity/
+        private readonly TSMTEntities db = new TSMTEntities();
+
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         public ActionResult ManageCar()
         {
@@ -71,24 +75,20 @@ namespace TSMT.Controllers
             _charityVolunteer.RemoveVolunteer(volunteerId);
             return RedirectToAction("ManageVolunteer");
         }
+
         public ActionResult AddCharityExam()
         {
-            var da = new CharityExamModel();
-            da.GetListCharity();
-            da.GetListExam();
-            return View(da);
-            
+            var exams = db.Examinations;
+            return View(exams);
         }
-        public ActionResult EditCharityExam()
-        {
-            return View();
-        }
+
         public ActionResult ManageCharityExam()
         {
-            var da = new CharityExamModel();
-            var list = da.SelectVenuesChairitiesExams();
-            return View(list);
+            Account acc = (Account)Session["acc"];
+            var listCE = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID);
+            return View(listCE);
         }
+
         public ActionResult LoadCharityId()
         {
             var da = new CharityExamModel();
@@ -105,16 +105,18 @@ namespace TSMT.Controllers
                 var ceModel = new CharityExamModel();
                 ce.ChairitiesExam.ExamID = ce.ExamId;
                 ce.ChairitiesExam.CharityID = ce.CharityId;
+                ce.ChairitiesExam.AvailableSlotsLodges = ce.ChairitiesExam.TotalSlotsLodges;
+                ce.ChairitiesExam.AvailableSlotsVehicles = ce.ChairitiesExam.TotalSlotsVehicles;
                 ceModel.AddCharityExam(ce.ChairitiesExam);
                 return RedirectToAction("ManageCharityExam");
             }
 
             return PartialView("CharityExamModel", ce);
         }
-        public ActionResult DeleteCharityExam(int id)
+        public ActionResult DeleteCharityExam(int ceId)
         {
             var ceModel = new CharityExamModel();
-            ceModel.DeleteCharityExam(id);
+            ceModel.DeleteCharityExam(ceId);
             return RedirectToAction("ManageCharityExam");
         }
         public ActionResult EditCharityExam(int ceId)

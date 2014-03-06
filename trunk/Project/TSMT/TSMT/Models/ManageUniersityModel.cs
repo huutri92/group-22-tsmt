@@ -60,7 +60,7 @@ namespace TSMT.Models
         {
             var oldUni = db.Universities.Find(uniId);
             oldUni.Name = uni.Name;
-            oldUni.UnversityCode = uni.UnversityCode;
+            oldUni.UniversityCode = uni.UniversityCode;
             oldUni.Address = uni.Address;
             oldUni.Website = uni.Website;
             oldUni.Phone = uni.Phone;

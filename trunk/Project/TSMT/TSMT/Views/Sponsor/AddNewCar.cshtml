@@ -7,12 +7,6 @@
 <div style="text-align: center">
     <h2>Tài Trợ Thêm Xe</h2>
 </div>
-@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
-    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
-    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
@@ -49,14 +43,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.TotalSlots)
             @Html.ValidationMessageFor(model => model.TotalSlots)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AvailableSlots)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AvailableSlots)
-            @Html.ValidationMessageFor(model => model.AvailableSlots)
         </div>
 
         <p>

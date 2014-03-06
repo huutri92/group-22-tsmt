@@ -9,8 +9,12 @@ namespace TSMT.Controllers
 {
     public class AdminController : Controller
     {
-        //
-        // GET: /Admin/
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
 		public ActionResult ManagerExam()
         {
             var da = new ManageExamModel();
@@ -56,7 +60,7 @@ namespace TSMT.Controllers
 		
         public ActionResult Index()
         {
-            return View("ControlPanelPage");
+            return View();
         }
 
         public ActionResult ManageUniversityExam()

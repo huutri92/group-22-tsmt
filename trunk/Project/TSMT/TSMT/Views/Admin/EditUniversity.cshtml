@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "EditUniversity";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @model TSMT.Models.ManageUniersityModel
 <h2>EditUniversity</h2>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="username" class="col-md-2 control-label">Mã trường</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.UnversityCode)
+                    @Html.EditorFor(model => model.University.UniversityCode)
                     @*<input type="date" class="form-control" id="username">*@
                 </div>
             </div>
