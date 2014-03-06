@@ -6,12 +6,6 @@
 <div style="text-align: center">
     <h2>Quản Lý Hỗ Trợ</h2>
 </div>
-@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
-    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
-    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
 <!-- inner page content start -->
 <div class="inner-page-content inner-careers">
     <div class="container">
@@ -30,9 +24,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>
-                                    <input type='checkbox' value='check1' />
-                                </th>
+                          
                                 <th>Tổ Chức Từ Thiện</th>
                                 <th>Kì Thi</th>
                                 <th>Số Tiền</th>
@@ -47,18 +39,16 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
-                                        <input type='checkbox' value='check1' />
-                                    </td>
+                                    
                                     <td><a href="#">@item.CharityExamID</td>
                                     <td>@item.CharityExamID</td>
                                     <td>@item.FundSponsored</td>
                                     
                                     <td>
-                                        @Html.ActionLink("Delete", "DeleteCategory", new { id = @item.FundID })
+                                        @Html.ActionLink("Delete", "DeleteFund", new { id = @item.FundID })
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "EditCategory")
+                                        @Html.ActionLink("Edit", "EditFund")
                                     </td>
                                 </tr>
                             }

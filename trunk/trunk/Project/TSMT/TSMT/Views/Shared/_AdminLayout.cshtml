@@ -1,0 +1,87 @@
+﻿@using TSMT.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Admin - TSMT</title>
+
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/css/settings.css" rel="stylesheet">
+    <link href="/Content/css/animate.min.css" rel="stylesheet">
+    <link href="/Content/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/Content/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <div class="out-container">
+        <div class="outer">
+            <div class="sidebar">
+                <div class="logo">
+                    <h1><a href="/">TSMT</a></h1>
+                </div>
+                <div class="sidebar-buttons text-center">
+                    <div class="btn-group">
+                        <a href="@Url.Action("Logout", "Admin")" class="btn btn-black btn-xs"><i class="icon-lock"></i></a>
+                        <a href="@Url.Action("Logout", "Admin")" class="btn btn-danger btn-xs">Sign Out</a>
+                    </div>
+                </div>
+                <div class="sidebar-search">
+                    <form class="form-inline" role="form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="s" placeholder="Type Here to Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+
+                <div class="sidey">
+                    <ul class="nav">
+                        <li><a href="@Url.Action("Index", "Admin")"><i class="icon-home"></i>Home</a></li>
+                        <li><a href="@Url.Action("Index", "Admin")"><i class="icon-home"></i>Admin</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mainbar">
+                @RenderBody()
+                <div class="footer">
+                    <div class="container">
+                        <div class="footer-content">
+                        </div>
+                        <div class="footer-copyright">
+                            <p>Project <a href="https://www.facebook.com/groups/group22.tsmt/" style="color: blue;">"Tiếp sức mùa thi"</a> - Group 22</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+    <script src="Content/js/jquery.js"></script>
+    <script src="Content/js/bootstrap.min.js"></script>
+    <script src="Content/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="Content/js/jquery.themepunch.plugins.min.js"></script>
+    <script src="Content/js/waypoints.min.js"></script>
+    <script type="text/javascript" src="Content/js/isotope.js"></script>
+    <script type="text/javascript" src="Content/js/jquery.prettyPhoto.js"></script>
+    <script src="Content/js/respond.min.js"></script>
+    <script src="Content/js/html5shiv.js"></script>
+    <script src="Content/js/custom.js"></script>
+</body>
+</html>

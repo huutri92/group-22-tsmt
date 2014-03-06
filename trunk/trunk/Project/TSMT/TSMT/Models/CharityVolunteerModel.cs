@@ -31,7 +31,7 @@ namespace TSMT.Models
 
             //ListVolunteer = ListVolunteer.Distinct().ToList();
 
-            ListVolunteer = db.Volunteers.Where(v => v.CharityExamId == charityExamId).ToList();
+            ListVolunteer = db.Volunteers.Where(v => v.CharityExamID == charityExamId).ToList();
 
         }
 
@@ -39,7 +39,7 @@ namespace TSMT.Models
         {
             Volunteer = new Volunteer();
             Volunteer = db.Volunteers.Find(volunteerId);
-            Volunteer.CharityExamId = null;
+            Volunteer.CharityExamID = null;
             db.SaveChanges();
         }
     }

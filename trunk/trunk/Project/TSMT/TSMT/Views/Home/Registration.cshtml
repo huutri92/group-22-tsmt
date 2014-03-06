@@ -1,5 +1,4 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.RegistrationModel
 
 @{
     ViewBag.Title = "Registration";
@@ -9,70 +8,46 @@
     <div id="Account">
         <table>
             <tr>
-                <td>Email:</td>
+                <td>Email</td>
                 <td>
                     <input type="text" name="email" /></td>
             </tr>
             <tr>
-                <td>Password:</td>
+                <td>Password</td>
                 <td>
                     <input type="password" name="password" /></td>
-            </tr>
-            <tr>
-                <td>Re-type password:</td>
-                <td>
-                    <input type="password" name="repassword" /></td>
             </tr>
         </table>
     </div>
     <div id="Profile">
         <table>
             <tr>
-                <td>Firstname:</td>
+                <td>Firstname</td>
                 <td>
                     <input type="text" name="fname" /></td>
             </tr>
             <tr>
-                <td>Middlename:</td>
-                <td>
-                    <input type="text" name="mname" /></td>
-            </tr>
-            <tr>
-                <td>Lastname:</td>
+                <td>Lastname</td>
                 <td>
                     <input type="text" name="lname" /></td>
             </tr>
             <tr>
-                <td>Gender:</td>
+                <td>Gender</td>
                 <td>
                     <select id="gender" name="gender">
-                        <option value="null">---</option>
+                        <option value="null" selected>---</option>
                         <option value="false">Male</option>
                         <option value="true">Female</option>
                     </select>
                 </td>
             </tr>
+            @*
             <tr>
-                <td>Date of Birth:</td>
-                <td>
-                    <input type="text" name="dayOfBirth" /></td>
-            </tr>
-            <tr>
-                <td>Phone number:</td>
-                <td>
-                    <input type="text" name="phonenumber" /></td>
-            </tr>
-            <tr>
-                <td>Address:</td>
-                <td>
-                    <input type="text" name="address" /></td>
-            </tr>
-            <tr>
-                <td>Province:</td>
+                <td>Province</td>
                 <td>
                     <select id="province" name="province">
-                        <option value="null">---</option>
-                        @foreach (var item in (List<Province>)ViewData["getAllProvinces"])
+                        <option value="null" selected>---</option>
+                        @foreach (var item in (List<Province>)ViewData["provinces"])
                         {
                             <option value="@item.ProvinceID">@item.Name</option>
                         }
@@ -80,11 +55,11 @@
                     </select></td>
             </tr>
             <tr>
-                <td>City:</td>
+                <td>City</td>
                 <td>
                     <select id="city" name="district">
-                        <option value="null">---</option>
-                        @foreach (var item in (List<District>)ViewData["getAllDistricts"])
+                        <option value="null" selected>---</option>
+                        @foreach (var item in (List<District>)ViewData["districts"])
                         {
                             <option value="@item.DistrictID">@item.Name</option>
                         }
@@ -92,18 +67,20 @@
 
                 </td>
             </tr>
+            *@
+            <tr>
+                <td>Role</td>
+                <td>
+                    <select id="role" name="role" onchange="changeRole(this.options[this.selectedIndex].text);">
+                        <option value="null" selected>---</option>
+                        @foreach (var item in (List<Role>)ViewData["roles"])
+                        {
+                            <option value="@item.RoleID">@item.RoleName</option>
+                        }
+                    </select></td>
+            </tr>
         </table>
     </div>
-
-
-    <label>You are: </label>
-    <select id="cbbSpecificRole" onchange="changeRole(this.options[this.selectedIndex].text);" name="specificRole">
-        <option value="null" selected>-----</option>
-        @foreach (var item in (List<Role>)ViewData["getAllRoles"])
-        {
-            <option value="@item.RoleID">@item.RoleName</option>
-        }
-    </select>
 
 
     <div id="Candidate" style="display: none">
@@ -113,32 +90,36 @@
                 <td>
                     <input type="text" name="highschool" /></td>
             </tr>
-
-
         </table>
     </div>
 
     <div id="Sponsor" style="display: none">
-        Not addtional information for Sponsor
-        <br />
-
+        <p>Not addtional information for Sponsor</p>
     </div>
 
     <div id="Volunteer" style="display: none">
-        Not addtional information for Volunteer
-        <br />
-
+       <table>
+            <tr>
+                <td>Job's name:</td>
+                <td>
+                    <input type="text" name="job" /></td>
+            </tr>
+           <tr>
+                <td>Self-Description</td>
+                <td>
+                    <input type="text" name="des" /></td>
+            </tr>
+        </table>
     </div>
 
     <div id="Chairity" style="display: none">
-        Not addtional information for Charity
-        <br />
-
+        <p>Not addtional information for Charity</p>
     </div>
-    <input type="hidden" id="roleID" />
-    <input type="submit" value="Submit" />
-    <input type="reset" value="Reset" />
-    <input type="button" value="Cancel" />
+
+    <div>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+    </div>
 </form>
 
 <script type="text/javascript">

@@ -1,37 +1,28 @@
 ﻿@model IEnumerable<TSMT.Models.Category>
 @{
-    ViewBag.Title = "ManagerCategory";
-    
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div style="text-align: center">
     <h2>Quản Lý Danh Mục Tin Tức</h2>
 </div>
-<div id ="breadcurmb">
-    <a href="@Url.Action("","") title ="" class="tip-bottom"> </a>
+<div id="breadcurmb">
+    <a href="@Url.Action("", "") title ="" class="tip-bottom"></a>
 </div>
-    
-    @Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
-    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
-    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
-<!-- inner page content start -->
+@Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory", "Admin")|
+    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund", "Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund", "Sponsor")|
+    @Html.ActionLink("Quản Lý Car", "ManagerCar", "Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar", "Sponsor")
+
 <div class="inner-page-content inner-careers">
-    <div class="container"> 
+    <div class="container">
         <div class="inner-tab">
-            <!-- Nab Bar Tan Menu list -->
             <ul id="mytab" class="nav nav-tabs">
                 <li class="active"><a href="#one" data-toggle="tab">Danh Mục</a></li>
-               @* <li><a href="#two" data-toggle="tab">Tạo Mới Danh Mục</a></li>*@
-
             </ul>
-            <!-- Content for each menu item -->
             <div class="tab-content">
-                <!-- First Content for Nav bar -->
                 <div class="tab-pane fade in active" id="one">
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -40,25 +31,18 @@
                                 </th>
                                 <th>STT</th>
                                 <th>Tên Danh Mục</th>
-
-
-                                
                             </tr>
                         </thead>
                         <tbody>
-
                             @{int i = 1;
-                            foreach (var item in Model)
-                            {
-                                
+                              foreach (var item in Model)
+                              {
                                 <tr>
                                     <td>
                                         <input type='checkbox' value='check1' />
                                     </td>
                                     <td><a href="#">@i</td>
                                     <td>@item.CategoryName</td>
-
-                                    
                                     <td>
                                         @Html.ActionLink("Delete", "DeleteCategory", new { id = @item.CategoryID })
                                     </td>
@@ -66,29 +50,14 @@
                                         @Html.ActionLink("Edit", "EditCategory", new { id = @item.CategoryID })
                                     </td>
                                 </tr>
-                                i= i+1;
+                                  i = i + 1;
+                              }
                             }
-                            }
-
-
-
                         </tbody>
                     </table>
-
-
-                    <!-- Second Content for Nav bar -->
-                    @*<div class="tab-pane fade" id="two">
-                        Trang 2
-                        <a href="#" class="btn btn-info btn-sm">Apply Now</a>
-                    </div>*@
-
-
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <!-- inner page content end -->
+</div>
 @Html.ActionLink("Tạo Mới", "AddNewCategory")
-
-   

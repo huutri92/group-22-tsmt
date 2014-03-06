@@ -1,158 +1,105 @@
-﻿<!DOCTYPE html>
+﻿@using TSMT.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - TiepSucMuaThi</title>
+    <title>@ViewBag.Title - TSMT</title>
 
-    <!-- Description, Keywords and Author -->
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
     <meta name="author" content="ResponsiveWebInc">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google web fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 
-    <!-- Styles -->
-    <!-- Bootstrap CSS -->
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Slider Revolution CSS -->
-    <link href="~/Content/css/settings.css" rel="stylesheet">
-    <!--[if IE 8]>
-		<link rel="stylesheet" href="css/settings-ie8.css">
-		<![endif]-->
-    <!-- Animate CSS -->
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
-    <!-- jQuery prettyPhoto -->
-    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet">
-    <!-- Font awesome CSS -->
-    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="~/Content/css/style.css" rel="stylesheet">
-    <!--[if IE]>
-			<link rel="stylesheet" type="text/css" href="css/style-ie.css" />
-		<![endif]-->
-
-    <!-- Favicon -->
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/css/settings.css" rel="stylesheet">
+    <link href="/Content/css/animate.min.css" rel="stylesheet">
+    <link href="/Content/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/Content/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="#">
 </head>
 <body>
-
     <div class="out-container">
         <div class="outer">
-            <!-- Sidebar starts -->
             <div class="sidebar">
-                <!-- Logo starts -->
                 <div class="logo">
                     <h1><a href="/">TSMT</a></h1>
                 </div>
-                <!-- Logo ends -->
-
-                
-                <!-- Sidebar buttons starts -->
-                <div class="sidebar-buttons text-center">
-                    <!-- User button -->
-                    <div class="btn-group">
-                        <a href="@Url.Action("Entrance","Home")" class="btn btn-black btn-xs"><i class="icon-user"></i></a>
-                        <a href="@Url.Action("Entrance","Home")" class="btn btn-danger btn-xs">Sign In</a>
+                @if (Session["acc"] != null)
+                { 
+                    <div class="sidebar-buttons text-center">
+                        <div class="btn-group">
+                            <a href="@Url.Action("Logout", "Home")" class="btn btn-black btn-xs"><i class="icon-lock"></i></a>
+                            <a href="@Url.Action("Logout", "Home")" class="btn btn-danger btn-xs">Sign Out</a>
+                        </div>
                     </div>
-                    <!-- Lock button -->
-                    <div class="btn-group">
-                        <a href="@Url.Action("Registration","Home")" class="btn btn-black btn-xs"><i class="icon-lock"></i></a>
-                        <a href="@Url.Action("Registration","Home")" class="btn btn-danger btn-xs">Sign Up</a>
+                }
+                else
+                {
+                    <div class="sidebar-buttons text-center">
+                        <div class="btn-group">
+                            <a href="@Url.Action("Entrance", "Home")" class="btn btn-black btn-xs"><i class="icon-user"></i></a>
+                            <a href="@Url.Action("Entrance", "Home")" class="btn btn-danger btn-xs">Sign In</a>
+                        </div>
+                        <div class="btn-group">
+                            <a href="@Url.Action("Registration", "Home")" class="btn btn-black btn-xs"><i class="icon-lock"></i></a>
+                            <a href="@Url.Action("Registration", "Home")" class="btn btn-danger btn-xs">Sign Up</a>
+                        </div>
                     </div>
-                  
-                </div>
-                <!-- Sidebar buttons ends -->
-
-
-                <!-- Sidebar search -->
+                }
                 <div class="sidebar-search">
                     <form class="form-inline" role="form">
                         <div class="input-group">
                             <input type="text" class="form-control" id="s" placeholder="Type Here to Search...">
-                            <!-- Search button -->
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
                             </span>
                         </div>
                     </form>
                 </div>
-                <!-- Sidebar search -->
-
-                <!-- Sidebar navigation starts -->
-
                 <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
 
                 <div class="sidey">
                     <ul class="nav">
-                        <!-- Main navigation. Refer Notes.txt files for reference. -->
-
-                        <!-- Use the class "current" in main menu to hightlight current main menu -->
-                      
-                        <li class="current"><a href="@Url.Action("Index", "Home")"><i class="icon-home"></i>Trang Chủ </a></li>
-                        <li class="has_submenu">
-                            <a href="#">
-                                <i class="icon-file"></i>Kỳ thi @*<span class="label label-darky">9</span>*@
-                                <!-- Icon to show dropdown -->
-                                <span class="caret pull-right"></span>
-                            </a>
-                            <!-- Sub navigation -->
-                            <ul>
-                                <!-- Use the class "active" in sub menu to hightlight current sub menu -->
-                                <li><a href="gallery.html"><i class="icon-double-angle-right"></i>Thông tin kỳ thi</a></li>
-                                <li><a href="login.html"><i class="icon-double-angle-right"></i>Địa điểm thi</a></li>
-                           
-                            </ul>
-                        </li>
-
-                        <li class="has_submenu">
-                            <a href="#">
-                                <i class="icon-comments"></i>Tin tức
-                                
-                                <!-- Icon to show dropdown -->
-                                <span class="caret pull-right"></span>
-                            </a>
-                            <!-- Sub navigation -->
-                            <ul>
-                                <!-- Use the class "active" in sub menu to hightlight current sub menu -->
-                                <li><a href="blog.html"><i class="icon-double-angle-right"></i>Blog Page</a></li>
-                                <li><a href="blog-single.html"><i class="icon-double-angle-right"></i>Single Blog Page</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="aboutus.html"><i class="icon-user"></i>Liên hệ</a></li>
-                        <li><a href="@Url.Action("ManageCategories", "Home")"><i class="icon-user"></i>Manage Catagories</a></li>
-                      
-
+                        <li><a href="@Url.Action("Index", "Home")"><i class="icon-home"></i>Trang Chủ</a></li>
+                        @if (Session["acc"] != null)
+                        {
+                            int roleId = ((Account)Session["acc"]).RoleID;
+                            switch (roleId)
+                            {
+                                case 1:
+                            @:<li><a href="@Url.Action("Index", "Candidate")"><i class="icon-user"></i>Candidate</a></li>
+                                        break;
+                                case 2:
+                            @:<li><a href="@Url.Action("Index", "Charity")"><i class="icon-user"></i>Charity</a></li>
+                                        break;
+                                case 3:
+                            @:<li><a href="@Url.Action("Index", "Sponsor")"><i class="icon-user"></i>Sponsor</a></li>
+                                        break;
+                                case 4:
+                            @:<li><a href="@Url.Action("Index", "Volunteer")"><i class="icon-user"></i>Volunteer</a></li>
+                                        break;
+                            }
+                        }
                     </ul>
                 </div>
-                <!-- Sidebar navigation ends -->
-
-
-
             </div>
-            <!-- Sidebar ends -->
-
-            <!-- Mainbar starts -->
             <div class="mainbar">
                 @RenderBody()
-
-                <!-- Footer Start -->
                 <div class="footer">
                     <div class="container">
-                        <!-- Footer content -->
                         <div class="footer-content">
                             <div class="row">
                                 <div class="col-md-3 col-xs-12">
                                     <div class="footer-widget">
-                                        <!-- Heading -->
                                         <h5><span><i class="icon-puzzle-piece"></i></span>Navigation Menu</h5>
-                                        <!-- Navigate menu -->
                                         <ul class="menu">
-                                            <!-- Menu list -->
                                             <li><a href="#"><i class="icon-home"></i>Home</a></li>
                                             <li><a href="#"><i class="icon-book"></i>Careers</a></li>
                                             <li><a href="#"><i class="icon-picture"></i>Gallery</a></li>
@@ -162,14 +109,11 @@
                                 </div>
                                 <div class="col-md-3 col-xs-12">
                                     <div class="footer-widget">
-                                        <!-- Heading -->
                                         <h5><span><i class="icon-phone"></i></span>Contact Us</h5>
-                                        <!-- Email and Phone number -->
                                         <p>
                                             <i class="icon-envelope"></i><a href="#">khoandse@gmail.com</a><br />
                                             <i class="icon-phone"></i>(+840)169.968.1992
                                         </p>
-                                        <!-- Social icons -->
                                         <div class="social">
                                             <a href="https://www.facebook.com/groups/group22.tsmt/" class="facebook"><i class="icon-facebook"></i></a>
                                             <a href="#" class="twitter"><i class="icon-twitter"></i></a>
@@ -180,11 +124,8 @@
                                 </div>
                                 <div class="col-md-3 col-xs-12">
                                     <div class="footer-widget">
-                                        <!-- Heading -->
                                         <h5><span><i class="icon-gears"></i></span>Dolor Sitamet</h5>
-                                        <!-- Navigate menu -->
                                         <ul>
-                                            <!-- navigation menu item -->
                                             <li><a href="#">Sed do eiusmod</a></li>
                                             <li><a href="#">Excepteur sint occaeca</a></li>
                                             <li><a href="#">Nemo enim ipsam</a></li>
@@ -194,16 +135,12 @@
                                 </div>
                                 <div class="col-md-3 col-xs-12">
                                     <div class="footer-widget">
-                                        <!-- Heading -->
                                         <h5><span><i class="icon-envelope"></i></span>Subscribe Now</h5>
                                         <p>At vero eos et accus odiusantiuo dign amus et iustod.</p>
-                                        <!-- form -->
                                         <form>
                                             <div class="input-group">
-                                                <!-- form input -->
                                                 <input type="text" class="form-control" placeholder="Email">
                                                 <span class="input-group-btn">
-                                                    <!-- join button -->
                                                     <button class="btn btn-info" type="button"><i class="icon-envelope"></i></button>
                                                 </span>
                                             </div>
@@ -212,53 +149,26 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Footer Copyright -->
                         <div class="footer-copyright">
                             <p>Project <a href="https://www.facebook.com/groups/group22.tsmt/" style="color: blue;">"Tiếp sức mùa thi"</a> - Group 22</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Footer End -->
-
             </div>
-            <!-- Mainbar ends -->
-
             <div class="clearfix"></div>
         </div>
     </div>
 
-
-
-    <!-- Scroll to top -->
     <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
-
-    <!-- Javascript files -->
-    <!-- jQuery -->
     <script src="Content/js/jquery.js"></script>
-    <!-- Bootstrap JS -->
     <script src="Content/js/bootstrap.min.js"></script>
-    <!-- Revolution Slider JS -->
     <script src="Content/js/jquery.themepunch.revolution.min.js"></script>
     <script src="Content/js/jquery.themepunch.plugins.min.js"></script>
-    <!-- jQuery way points -->
     <script src="Content/js/waypoints.min.js"></script>
-    <!-- Pretty Photo And Isotope JS -->
     <script type="text/javascript" src="Content/js/isotope.js"></script>
     <script type="text/javascript" src="Content/js/jquery.prettyPhoto.js"></script>
-    <!-- Respond JS for IE8 -->
     <script src="Content/js/respond.min.js"></script>
-    <!-- HTML5 Support for IE -->
     <script src="Content/js/html5shiv.js"></script>
-    <!-- Custom JS -->
     <script src="Content/js/custom.js"></script>
-
-    <!-- This page JS -->
-    <script type="text/javascript">
-        //code here....
-    </script>
-
-
-
 </body>
 </html>
