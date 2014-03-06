@@ -1,0 +1,69 @@
+﻿@using TSMT.Models
+@model TSMT.Models.CharityCarModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thêm Mới Xe</h2>
+
+@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post, new {@class = "form-horizontal", style = "margin-left: 15%; margin-right: 15%"}))
+{
+    <!-- Add new user -->
+    @Html.HiddenFor(model => model.CharityExamId)
+    <form class="form-horizontal" role="form">
+
+        @*   <div class="form-group">
+            <label class="col-md-2 control-label">CharityExamId</label>
+            <div class="col-md-10">
+                 @Html.LabelFor(model => model.CharityExamId, new { @class = "control-label" })
+            </div>
+        </div>*@
+
+        @*    <div class="form-group">
+            <label for="username" class="col-md-2 control-label">SponsorId</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label for="email" class="col-md-2 control-label">Biển Số Xe: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberPlate, new {@style = "width: 70% !important"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="col-md-2 control-label">Tổng Số Chỗ Ngồi: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalSlot, new {@style = "width: 70% !important"})
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password" class="col-md-2 control-label">Tên Tài Xế: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DriverName, new {@style = "width: 70% !important"})
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password" class="col-md-2 control-label">Số Điện Thoại: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DriverPhone, new {@style = "width: 70% !important"})
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-info">Thêm Mới</button>
+                <button type="reset" class="btn btn-default">Làm Lại</button>
+                <button type="button" class="btn btn-default" onclick="history.back(-1);">Quay Lại</button>
+            </div>
+        </div>
+    </form>
+
+}
+
