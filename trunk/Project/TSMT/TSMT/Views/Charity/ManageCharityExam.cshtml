@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "ManageCharityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+<h2>ManageCharityExam</h2>
+<div id="breadcrumb">
+    <a href="@Url.Action("Index", "Home")" title="Tới trang chủ" class="tip-bottom"><i class="icon-home"></i>Trang chủ</a>
+    <a href="@Url.Action("ManagerExam", "Admin")" title="Tới quản lí người dùng" class="tip-bottom">Quản lí kỳ thi</a>
+    <a href="@Url.Action("Admin", "Admin")" class="current">Thêm kỳ thi mới</a>
+    <a href="@Url.Action("ManageUniversity", "Admin")" class="current">Quản lý trường Đại học</a>
+    <a href="@Url.Action("AddUniversity", "Admin")" class="current">Thêm trường Đại học</a>
+    <a href="@Url.Action("ManageVenue", "Admin")" class="current">Quản lý điểm trọ</a>
+</div>
+<div class="container">
+    <div class="page-content page-posts">
+
+        <div class="page-tabs">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#posts" data-toggle="tab">Quản lý tài nguyên kỳ thi</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!-- Posts tab -->
+                <div class="tab-pane fade active in" id="posts">
+
+                    <div class="widget">
+
+                        <div class="widget-head">
+                            <div class="widget-head-btns pull-right">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="widget-body no-padd">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã kỳ thi</th>
+                                            <th>Mã nhà hảo tâm</th>
+                                            <th>Tổng số chỗ trọ</th>
+                                            <th>Chỗ trống</th>
+                                            <th>Tổng số phương tiện</th>
+                                            <th>Phương tiện trống</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.ExamID</td>
+                                                <td>@item.CharityID</td>
+                                                <td>@item.TotalSlotsLodges</td>
+                                                <td>@item.AvailableSlotsLodges</td>
+                                                <td>@item.TotalSlotsVehicles</td>
+                                                <td>@item.AvailableSlotsVehicles</td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-danger"><i class="icon-pencil"></i></button>
+                                                    <button class="btn btn-xs btn-info"><i class="icon-remove"></i></button>
+                                                    <button class="btn btn-xs btn-success"><i class="icon-trash"></i></button>
+                                                    @Html.ActionLink("Edit", "EditCharityExam",  new { uniId = @item.CharityExamID })
+                                                    @Html.ActionLink("Delete", "DeleteCharityExam",  new { uniId = @item.CharityExamID })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Make post tab -->
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
