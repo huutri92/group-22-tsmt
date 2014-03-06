@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Registration";
+}
+
+
+<form method="post" action="/Home/Registration">
+    <div id="Account">
+        <table>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" name="email" /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>
+                    <input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td>Re-type password:</td>
+                <td>
+                    <input type="password" name="repassword" /></td>
+            </tr>
+        </table>
+    </div>
+    <div id="Profile">
+        <table>
+            <tr>
+                <td>Firstname:</td>
+                <td>
+                    <input type="text" name="fname" /></td>
+            </tr>
+            <tr>
+                <td>Middlename:</td>
+                <td>
+                    <input type="text" name="mname" /></td>
+            </tr>
+            <tr>
+                <td>Lastname:</td>
+                <td>
+                    <input type="text" name="lname" /></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <select id="gender">
+                        <option value="null">---</option>
+                        <option value="false">Male</option>
+                        <option value="true">Female</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Date of Birth:</td>
+                <td>
+                    <input type="text" name="dayOfBirth" /></td>
+            </tr>
+            <tr>
+                <td>Phone number:</td>
+                <td>
+                    <input type="text" name="phonenumber" /></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>
+                    <input type="text" name="address" /></td>
+            </tr>
+            <tr>
+                <td>Province:</td>
+                <td>
+                    <select id="province">
+                        <option value="null">---</option>
+                        <option value="1">Hà Nội</option>
+                        <option value="2">Hồ Chí Minh</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    <select id="city">
+                        <option value="null">---</option>
+                        <option value="1">Quận 1</option>
+                        <option value="2">Quận 2</option>
+                    </select></td>
+            </tr>
+        </table>
+    </div>
+    <div id="Candidate">
+        <table>
+            <tr>
+                <td>High school's name:</td>
+                <td>
+                    <input type="text" name="highschool" /></td>
+            </tr>
+        </table>
+    </div>
+    <div id="Volunteer">
+        <table>
+            <tr>
+                <td>Job's name:</td>
+                <td>
+                    <input type="text" name="job" /></td>
+            </tr>
+        </table>
+    </div>
+    <input type="hidden" id="roleID" />
+</form>
+
+<script type="text/javascript">
+</script>

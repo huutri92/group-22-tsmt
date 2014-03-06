@@ -120,114 +120,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Article.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ArticlesTag.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Candidate.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Car.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ChairitiesExam.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Charity.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Comment.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DetailsScheduleExam.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DetailsSchedulesCar.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Examination.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExaminationsPaper.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Fund.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="JoinsIn.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Lodge.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Profile.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rating.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Role.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Room.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchedulesCar.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchedulesVolunteer.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sponsor.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Tag.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TSMT.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TSMT.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TSMT.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TSMT.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TSMT.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="UniversitiesExamination.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="University.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Venue.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Volunteer.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\css\bootstrap-switch.css" />
@@ -525,28 +426,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="TSMT.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TSMT.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TSMT.edmx</DependentUpon>
-      <LastGenOutput>TSMT.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="TSMT.edmx.diagram">
-      <DependentUpon>TSMT.edmx</DependentUpon>
-    </Content>
-    <Content Include="TSMT.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TSMT.edmx</DependentUpon>
-      <LastGenOutput>TSMT.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Entrance.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Registration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
