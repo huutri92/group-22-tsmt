@@ -1,0 +1,64 @@
+﻿@model TSMT.Models.Fund
+
+@{
+    ViewBag.Title = "AddNewFund";
+}
+
+<div style="text-align: center">
+    <h2>Quyên Góp Tiền</h2>
+</div>
+@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
+    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
+    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
+    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
+    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Fund</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SponsorID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SponsorID)
+            @Html.ValidationMessageFor(model => model.SponsorID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CharityExamID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CharityExamID)
+            @Html.ValidationMessageFor(model => model.CharityExamID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FundSponsored)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FundSponsored)
+            @Html.ValidationMessageFor(model => model.FundSponsored)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsOnlineFunding)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsOnlineFunding)
+            @Html.ValidationMessageFor(model => model.IsOnlineFunding)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Quay Lại", "ManagerFund")
+</div>
+
+
