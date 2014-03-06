@@ -71,6 +71,64 @@ namespace TSMT.Controllers
             _charityVolunteer.RemoveVolunteer(volunteerId);
             return RedirectToAction("ManageVolunteer");
         }
-        
+        public ActionResult AddCharityExam()
+        {
+            var da = new CharityExamModel();
+            da.GetListCharity();
+            da.GetListExam();
+            return View(da);
+            
+        }
+        public ActionResult EditCharityExam()
+        {
+            return View();
+        }
+        public ActionResult ManageCharityExam()
+        {
+            var da = new CharityExamModel();
+            var list = da.SelectVenuesChairitiesExams();
+            return View(list);
+        }
+        public ActionResult LoadCharityId()
+        {
+            var da = new CharityExamModel();
+            da.GetListCharity();
+            return View("AddCharityExam", da);
+        }
+
+
+        [HttpPost]
+        public ActionResult AddNewCharityExam(CharityExamModel ce)
+        {
+            if (ModelState.IsValid)
+            {
+                var ceModel = new CharityExamModel();
+                ce.ChairitiesExam.ExamID = ce.ExamId;
+                ce.ChairitiesExam.CharityID = ce.CharityId;
+                ceModel.AddCharityExam(ce.ChairitiesExam);
+                return RedirectToAction("ManageCharityExam");
+            }
+
+            return PartialView("CharityExamModel", ce);
+        }
+        public ActionResult DeleteCharityExam(int id)
+        {
+            var ceModel = new CharityExamModel();
+            ceModel.DeleteCharityExam(id);
+            return RedirectToAction("ManageCharityExam");
+        }
+        public ActionResult EditCharityExam(int ceId)
+        {
+            var ceModel = new CharityExamModel();
+            ceModel.GetCharityExam(ceId);
+            return View("EditCharityExam", ceModel);
+        }
+
+        public ActionResult EditCharityExamInfor(CharityExamModel model, int ceId)
+        {
+            model.UpdateCharityExam(model.ChairitiesExam, model.CharityExamId);
+            return RedirectToAction("ManageCharityExam");
+        }
+
 }
 }
