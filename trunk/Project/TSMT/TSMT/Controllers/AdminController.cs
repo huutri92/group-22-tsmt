@@ -11,7 +11,49 @@ namespace TSMT.Controllers
     {
         //
         // GET: /Admin/
+		public ActionResult ManagerExam()
+        {
+            var da = new ManageExamModel();
+            var list = da.SelectExams();
+            return View(list);
+        }
 
+        public ActionResult AddExam()
+        {
+            return View();
+        }
+        public ActionResult EditExam()
+        {
+            return View();
+        }
+
+        public ActionResult ManageUniversity()
+        {
+            var da = new ManageUniersityModel();
+            var list = da.SelectUniversities();
+            return View(list);
+        }
+
+        public ActionResult AddUniversity()
+        {
+            return View();
+        }
+        public ActionResult EditUniversity()
+        {
+            return View();
+        }
+
+        public ActionResult ManageVenue()
+        {
+            var da = new ManageVenueModel();
+            var list = da.SelectVenues();
+            return View(list);
+        }
+        public ActionResult AddVenue()
+        {
+            return View();
+        }
+		
         public ActionResult Index()
         {
             return View("ControlPanelPage");
@@ -81,5 +123,102 @@ namespace TSMT.Controllers
             model.EditCategory(model);
             return RedirectToAction("ManagerCategory", model);
         }
+		
+		public ActionResult AddNewExam(ManageExamModel exam)
+        {
+            if (ModelState.IsValid)
+            {
+                var examModel = new ManageExamModel();
+                examModel.AddExamination(exam.Examination);
+                return RedirectToAction("ManagerExam");
+            }
+
+            return PartialView("ManageExamModel", exam);
+        }
+        public ActionResult DeleteExamination(int id)
+        {
+            var examModel = new ManageExamModel();
+            examModel.DeleteExam(id);
+            return RedirectToAction("ManagerExam");
+        }
+        public ActionResult EditExamination(int examId)
+        {
+            var examModel = new ManageExamModel();
+            examModel.GetExam(examId);
+            return View("EditExam", examModel);
+        }
+
+        public ActionResult EditExamInfo(ManageExamModel model, int examId)
+        {
+            model.UpdateExam(model.Examination, model.ExamId);
+            return RedirectToAction("ManagerExam");
+        }
+
+        public ActionResult AddNewUni(ManageUniersityModel uni)
+        {
+            if (ModelState.IsValid)
+            {
+                var uniModel = new ManageUniersityModel();
+                uniModel.AddUnversity(uni.University);
+                return RedirectToAction("ManageUniversity");
+            }
+
+            return PartialView("ManageUniersityModel", uni);
+        }
+
+        public ActionResult EditUni(int uniId)
+        {
+            var uniModel = new ManageUniersityModel();
+            uniModel.GetUni(uniId);
+            return View("EditUniversity", uniModel);
+        }
+
+        public ActionResult EditUniInfo(ManageUniersityModel model, int uniId)
+        {
+            model.UpdateUni(model.University, model.UniId);
+            return RedirectToAction("ManageUniversity");
+        }
+
+        public ActionResult DeleteUni(int uniId)
+        {
+            var uniModel = new ManageUniersityModel();
+            uniModel.DeleteUni(uniId);
+            return RedirectToAction("ManageUniversity");
+        }
+
+        public ActionResult AddNewVenue(ManageVenueModel ven)
+        {
+            if (ModelState.IsValid)
+            {
+                var venueModel = new ManageVenueModel();
+                venueModel.AddVenue(ven.Venue);
+                return RedirectToAction("ManageVenue");
+            }
+
+            return PartialView("ManageVenueModel", ven);
+        }
+
+        public ActionResult EditVenue(int venueId)
+        {
+            var uniModel = new ManageVenueModel();
+            uniModel.GetVenue(venueId);
+            return View("EditVenue", uniModel);
+        }
+
+        public ActionResult EditVenueInfo(ManageVenueModel model, int venueId)
+        {
+            model.UpdateVenue(model.Venue, model.VenueId);
+            return RedirectToAction("ManageVenue");
+        }
+
+        public ActionResult DeleteVenue(int venueId)
+        {
+            var uniModel = new ManageVenueModel();
+            uniModel.DeleteVenue(venueId);
+            return RedirectToAction("ManageVenue");
+        }
+
+        
+		
     }
 }
