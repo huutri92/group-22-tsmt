@@ -100,11 +100,14 @@ namespace TSMT.Controllers
         [HttpPost]
         public ActionResult AddNewCharityExam(CharityExamModel ce)
         {
+            Account acc = (Account)Session["acc"];
+            Charity cha = acc.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
             if (ModelState.IsValid)
             {
                 var ceModel = new CharityExamModel();
                 ce.ChairitiesExam.ExamID = ce.ExamId;
-                ce.ChairitiesExam.CharityID = ce.CharityId;
+                if (cha != null) ce.ChairitiesExam.CharityID = cha.CharityID;
+                ce.ChairitiesExam.DistrictID = ce.DistrictId;
                 ce.ChairitiesExam.AvailableSlotsLodges = ce.ChairitiesExam.TotalSlotsLodges;
                 ce.ChairitiesExam.AvailableSlotsVehicles = ce.ChairitiesExam.TotalSlotsVehicles;
                 ceModel.AddCharityExam(ce.ChairitiesExam);
@@ -122,13 +125,24 @@ namespace TSMT.Controllers
         public ActionResult EditCharityExam(int ceId)
         {
             var ceModel = new CharityExamModel();
+            ceModel.GetListCharity();
+            ceModel.GetListDistrict();
+            ceModel.GetListExam();
             ceModel.GetCharityExam(ceId);
             return View("EditCharityExam", ceModel);
         }
 
         public ActionResult EditCharityExamInfor(CharityExamModel model, int ceId)
         {
-            model.UpdateCharityExam(model.ChairitiesExam, model.CharityExamId);
+            Account acc = (Account)Session["acc"];
+            Charity cha = acc.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            var ceModel = new CharityExamModel();
+            ce.ChairitiesExam.ExamID = ce.ExamId;
+            if (cha != null) ce.ChairitiesExam.CharityID = cha.CharityID;
+            ce.ChairitiesExam.DistrictID = ce.DistrictId;
+            ce.ChairitiesExam.AvailableSlotsLodges = ce.ChairitiesExam.TotalSlotsLodges;
+            ce.ChairitiesExam.AvailableSlotsVehicles = ce.ChairitiesExam.TotalSlotsVehicles;
+            ceModel.UpdateCharityExam(ce.ChairitiesExam, ce.CharityExamId);
             return RedirectToAction("ManageCharityExam");
         }
 
