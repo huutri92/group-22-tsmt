@@ -1,0 +1,46 @@
+﻿@model TSMT.Models.CharityExamModel
+@{
+    ViewBag.Title = "EditCharityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>EditCharityExam</h2>
+@using (Html.BeginForm("EditCharityExamInfor", "Charity", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <form class="form-horizontal" role="form">
+        @Html.HiddenFor(model => model.CharityExamId)
+        <div class="form-group">
+            <label for="name" class="col-md-2 control-label">Kỳ thi</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ExamId, new SelectList(Model.ListExamination, "ExaminationID", "Name"))
+                @*<input type="text" class="form-control" id="name" placeholder="Nhập tên kỳ thi">*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-md-2 control-label">Kỳ thi</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.ListDistricts, "DistrictID", "Name"))
+                @*<input type="text" class="form-control" id="name" placeholder="Nhập tên kỳ thi">*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-md-2 control-label">Tổng slot trọ</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ChairitiesExam.TotalSlotsLodges)
+                @*<input type="date" class="form-control" id="email">*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-md-2 control-label">Tổng slot xe</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ChairitiesExam.TotalSlotsVehicles)
+                @*<input type="date" class="form-control" id="email">*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu lại" class="btn btn-info" style="width: 100px; font-weight: bold" />
+                <input type="reset" value="Làm lại" class="btn btn-primary" style="width: 100px; font-weight: bold" />
+            </div>
+        </div>
+    </form>
+}
