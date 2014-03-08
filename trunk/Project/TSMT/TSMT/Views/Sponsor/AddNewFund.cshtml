@@ -1,56 +1,36 @@
-﻿@model TSMT.Models.Fund
+﻿@model IEnumerable<TSMT.Models.ChairitiesExam>
 
 @{
     ViewBag.Title = "AddNewFund";
 }
 
 <div style="text-align: center">
-    <h2>Quyên Góp Tiền</h2>
+    <h2>Tài Trợ Tiền</h2>
 </div>
-@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
-    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
-    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Fund</legend>
+        <legend>Tài Trợ Tiền</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SponsorID)
+           Ki thi + Nha tai tro + Dia diem
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SponsorID)
-            @Html.ValidationMessageFor(model => model.SponsorID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CharityExamID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CharityExamID)
-            @Html.ValidationMessageFor(model => model.CharityExamID)
+            <select id="CharityName" name="CharityName">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.CharityExamID">@item.Examination.Name -- @item.Charity.Account.Profile.Lastname @item.Charity.Account.Profile.Firstname -- @item.District.Name</option>
+                }
+            </select>
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FundSponsored)
+           Tiền Tài Trợ <input type="text" name="fundSponsored" />
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FundSponsored)
-            @Html.ValidationMessageFor(model => model.FundSponsored)
+           
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsOnlineFunding)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsOnlineFunding)
-            @Html.ValidationMessageFor(model => model.IsOnlineFunding)
-        </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

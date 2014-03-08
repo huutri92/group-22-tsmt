@@ -2,85 +2,49 @@
 @{
     ViewBag.Title = "ManagerFund";
 }
-
 <div style="text-align: center">
-    <h2>Quản Lý Hỗ Trợ</h2>
+    <h2>Tài Trợ Tiền</h2>
 </div>
-<!-- inner page content start -->
 <div class="inner-page-content inner-careers">
     <div class="container">
         <div class="inner-tab">
-            <!-- Nab Bar Tan Menu list -->
             <ul id="mytab" class="nav nav-tabs">
                 <li class="active"><a href="#one" data-toggle="tab">Tiền Đã Đóng Góp</a></li>
-                <li><a href="#two" data-toggle="tab">Đóng Góp Thêm</a></li>
-
             </ul>
-            <!-- Content for each menu item -->
             <div class="tab-content">
-                <!-- First Content for Nav bar -->
                 <div class="tab-pane fade in active" id="one">
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                          
-                                <th>Tổ Chức Từ Thiện</th>
+                                <th>STT</th>
                                 <th>Kì Thi</th>
-                                <th>Số Tiền</th>
-
-
-                                
+                                <th>Tên Nhà Tài Trợ</th>
+                                <th>Quận</th>
+                                <th>Tiền Đã Tài Trợ</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            @foreach (var item in Model)
+                            @{int i=1;
+                                
+                            foreach (var item in Model)
                             {
                                 <tr>
-                                    
-                                    <td><a href="#">@item.CharityExamID</td>
-                                    <td>@item.CharityExamID</td>
+                                    <td>@i</td>
+                                    <th>@item.ChairitiesExam.Examination.Name</th>
+                                    <td>@item.ChairitiesExam.Charity.Account.Profile.Lastname @item.ChairitiesExam.Charity.Account.Profile.Firstname</td>
+                                    <td>@item.ChairitiesExam.District.Name</td>
                                     <td>@item.FundSponsored</td>
-                                    
-                                    <td>
-                                        @Html.ActionLink("Delete", "DeleteFund", new { id = @item.FundID })
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "EditFund")
-                                    </td>
+                                   
                                 </tr>
+                                i++;
                             }
-
-
-
+                            }
                         </tbody>
                     </table>
-
-
-                    <!-- Second Content for Nav bar -->
-                    <div class="tab-pane fade" id="two">
-                        Trang 2
-                        <a href="#" class="btn btn-info btn-sm">Apply Now</a>
-                    </div>
-
-
                 </div>
             </div>
         </div>
     </div>
     </div>
-    <!-- inner page content end -->
-
-
-
-
-
-
-
-
-
-
-
-@Html.ActionLink("Đóng Góp Thêm", "AddNewFund")
+@Html.ActionLink("Tài Trợ Thêm", "AddNewFund", null,new { @class="btn btn-info" } )
+@Html.ActionLink("Quay Lại", "Index", null,new { @class="btn btn-info" } )

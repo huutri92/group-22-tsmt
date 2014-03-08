@@ -6,15 +6,6 @@
 <div style="text-align: center">
     <h2>Quản Lý Danh Mục Tin Tức</h2>
 </div>
-<div id="breadcurmb">
-    <a href="@Url.Action("", "") title ="" class="tip-bottom"></a>
-</div>
-@Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory", "Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund", "Sponsor")|
-    @Html.ActionLink("Quản Lý Car", "ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar", "Sponsor")
-
 <div class="inner-page-content inner-careers">
     <div class="container">
         <div class="inner-tab">
@@ -26,9 +17,6 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>
-                                    <input type='checkbox' value='check1' />
-                                </th>
                                 <th>STT</th>
                                 <th>Tên Danh Mục</th>
                             </tr>
@@ -38,15 +26,12 @@
                               foreach (var item in Model)
                               {
                                 <tr>
-                                    <td>
-                                        <input type='checkbox' value='check1' />
-                                    </td>
+                                   
                                     <td><a href="#">@i</td>
                                     <td>@item.CategoryName</td>
                                     <td>
                                         @Html.ActionLink("Delete", "DeleteCategory", new { id = @item.CategoryID })
-                                    </td>
-                                    <td>
+                                    
                                         @Html.ActionLink("Edit", "EditCategory", new { id = @item.CategoryID })
                                     </td>
                                 </tr>
@@ -60,4 +45,5 @@
         </div>
     </div>
 </div>
-@Html.ActionLink("Tạo Mới", "AddNewCategory")
+@Html.ActionLink("Tạo Mới", "AddNewCategory",null, new { @class="btn btn-info" })
+@Html.ActionLink("Quay Lại", "Index",null, new { @class="btn btn-info" })

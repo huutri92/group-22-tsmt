@@ -8,8 +8,7 @@ namespace TSMT.Controllers
 {
     public class SponsorController : Controller
     {
-        //
-        // GET: /Sponsor/
+        private readonly TSMTEntities db = new TSMTEntities();
 
         public ActionResult Index()
         {
@@ -17,26 +16,28 @@ namespace TSMT.Controllers
         }
         public ActionResult ManagerFund()
         {
-            DataAccess da = new DataAccess();
-            List<Fund> list = da.SelectFunds();
-            return View(list);
+            Account acc = (Account)Session["acc"];
+            var funds = db.Funds.Where(r => r.Sponsor.AccountID == acc.AccountID).ToList();
+            return View(funds);
         }
         public ActionResult AddNewFund()
         {
-            return View();
+            var listFunds = db.ChairitiesExams.ToList();
+            return View(listFunds);
         }
 
         [HttpPost]
-        public ActionResult AddNewFund(Fund fund)
+        public ActionResult AddNewFund(FormCollection f)
         {
-            DataAccess da = new DataAccess();
-            if (ModelState.IsValid)
-            {
-                int result = da.InsertFund(fund);
-                return RedirectToAction("ManagerFund");
-
-            }
-            return View(fund);
+            Account acc = (Account)Session["acc"];
+            Sponsor sp = acc.Sponsors.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            Fund fund = new Fund();
+            fund.CharityExamID = int.Parse(f["CharityName"]);
+            fund.SponsorID = sp.SponsorID;
+            fund.FundSponsored = int.Parse(f["fundSponsored"]);
+            db.Funds.Add(fund);
+            db.SaveChanges();
+            return RedirectToAction("ManagerFund");
         }
         public ActionResult DeleteFund(int id)
         {
@@ -54,26 +55,31 @@ namespace TSMT.Controllers
         
         public ActionResult ManagerCar()
         {
-            CarDBModel da = new CarDBModel();
-            List<Car> list = da.SelectCar();
-            return View(list);
+            Account acc = (Account)Session["acc"];
+            var cars = db.Cars.Where(r => r.Sponsor.AccountID == acc.AccountID).ToList();
+            return View(cars);
         }
+
         public ActionResult AddNewCar()
         {
-            return View();
+            var listCE = db.ChairitiesExams.ToList();
+            return View(listCE);
         }
 
         [HttpPost]
-        public ActionResult AddNewCar(Car car)
+        public ActionResult AddNewCar(FormCollection f)
         {
-            CarDBModel da = new CarDBModel();
-            if (ModelState.IsValid)
-            {
-                int result = da.InsertCar(car);
-                return RedirectToAction("ManagerCar");
+            Account acc = (Account)Session["acc"];
+            Sponsor sp = acc.Sponsors.SingleOrDefault(r => r.AccountID == acc.AccountID);
 
-            }
-            return View(car);
+            Car car = new Car();
+            car.CharityExamID = int.Parse(f["CharityName"]);
+            car.SponsorID = sp.SponsorID;
+            car.TotalSlots = int.Parse(f["totalSlots"]);
+            car.AvailableSlots = car.TotalSlots;
+            db.Cars.Add(car);
+            db.SaveChanges();
+            return RedirectToAction("ManagerCar");
         }
         public ActionResult DeleteCar(int id)
         {
@@ -81,5 +87,6 @@ namespace TSMT.Controllers
             int result = da.DeleteCar(id);
             return RedirectToAction("ManagerCar");
         }
+        
     }
 }
