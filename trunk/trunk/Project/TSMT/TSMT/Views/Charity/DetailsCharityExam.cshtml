@@ -1,0 +1,99 @@
+﻿@model TSMT.Models.ChairitiesExam
+
+@{
+    ViewBag.Title = "DetailsCharityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Details Charity Exam</h2>
+
+<table>
+    <tr>
+        <td>Kỳ thi</td>
+        <td>@Model.Examination.Name</td>
+    </tr>
+    <tr>
+        <td>Total slots Lodges</td>
+        <td>@Model.TotalSlotsLodges</td>
+    </tr>
+    <tr>
+        <td>Available slots Lodges</td>
+        <td>@Model.AvailableSlotsLodges</td>
+    </tr>
+    <tr>
+        <td>Total slots Vehicles</td>
+        <td>@Model.TotalSlotsVehicles</td>
+    </tr>
+    <tr>
+        <td>Available slots Vehicles</td>
+        <td>@Model.AvailableSlotsVehicles</td>
+    </tr>
+</table>
+<p>
+    @Html.ActionLink("Edit", "EditCharityExam", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+</p>
+
+<div class="service-one">
+    <div class="service-one-inner">
+        <div class="container">
+		<div class="row">
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-one">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Sponsors", "ManageSponsor", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-two">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Volunteers", "ManageVolunteer", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-4">
+                    <div class="s-one-item sitem-three">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Candidates", "ManageCandidate", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-one">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Lodges", "ManageLodge", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-two">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Cars", "ManageCar", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-4">
+                    <div class="s-one-item sitem-three">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Funds", "ManageFund", new { ceId = @Model.CharityExamID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

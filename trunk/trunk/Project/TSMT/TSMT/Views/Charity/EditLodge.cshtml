@@ -1,0 +1,29 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Lodge
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Edit Lodge</h2>
+@using (Html.BeginForm("EditLodge", "Charity", FormMethod.Post))
+{
+    <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
+    <table>
+        <tr>
+            <td>Địa chỉ</td>
+            <td>
+                <input type="text" name="Address" value="@Model.Address"/></td>
+        </tr>
+        <tr>
+            <td>Khu vực</td>
+            <td>
+                <input type="text" name="District" value="@Model.District"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

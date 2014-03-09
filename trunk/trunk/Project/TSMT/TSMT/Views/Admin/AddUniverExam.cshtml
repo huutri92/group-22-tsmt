@@ -1,137 +1,38 @@
-﻿
-@model TSMT.Models.AdminUniExaModel
-
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-<h2>Tạo Kỳ Thi Cho Trường Đại Học</h2>
-<!-- Black block starts -->
-<div class="blue-block">
-    <div class="page-title">
-        <h3 class="pull-left"><i class="icon-desktop"></i>Tables <span>Hello how are you</span></h3>
-        <div class="breads pull-right">
-            <a href="#">Home </a>/ <a href="#">Pages </a>/ Title
-					
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<!-- Black block ends -->
-
-
-
-<!-- Content starts -->
-
-<div class="container">
-    <div class="page-content page-tables">
-
-        <div class="widget">
-            <div class="widget-head">
-                <h5>Table #1</h5>
-            </div>
-            <div class="widget-body no-padd">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered ">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>University</th>
-                                <th>Examination</th>
-                                <th>BeginDay</th>
-                                <th>EndDay</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.ListUniverExam)
-                            {
-                                <tr>
-                                <td>@item.UniExamID</td>
-                                <td>@item.University.Name</td>
-                                <td>@item.Examination.Name</td>
-                                <td>@item.Examination.BeginDate</td>
-                                <td>@item.Examination.EndDate</td>
-                            </tr>
-                            }
-                            
-                            @*   <tr>
-                                <td>2</td>
-                                <td>Kumarasamy</td>
-                                <td>USA</td>
-                                <td>22</td>
-                                <td>BE</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Babura</td>
-                                <td>UK</td>
-                                <td>43</td>
-                                <td>PhD</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Ravi Kumar</td>
-                                <td>China</td>
-                                <td>73</td>
-                                <td>PUC</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Santhosh</td>
-                                <td>Japan</td>
-                                <td>43</td>
-                                <td>M.Tech</td>
-                            </tr>*@
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-
-            <div class="widget-foot">
-
-                <ul class="pagination pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-
-                <div class="clearfix"></div>
-            </div>
-
-        </div>
-
-    </div>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     
-     @using (Html.BeginForm("AddUniverExam", "Admin", FormMethod.Post, new {@class = "form-horizontal"}))
-     {
-         <div class="control-group span6">
-             <div class="editor-label">
-                 Trường Đại Học
-             </div>
-             <div class="controls">
-                 <div class="editor-field">
-                     <div>@Html.DropDownListFor(model => model.UniversityId, new SelectList(Model.ListUniversitites, "UniversityId", "Name"))
-                     </div>
-                 </div>
-             </div>
-         </div>
+}
+@using TSMT.Models;
 
-         <div class="control-group span6">
-             <div class="editor-label">
-                 Kỳ thi
-             </div>
-             <div class="controls">
-                 <div class="editor-field">
-                     <div>@Html.DropDownListFor(model => model.ExaminationId, new SelectList(Model.ListExaminations, "ExaminationId", "Name"))
-                     </div>
-                 </div>
-             </div>
-         </div>
-         <button type="submit" class="btn btn-info">Tạo</button>
-     }
-</div>
+<h2 class="title_of_page">Add University Examination</h2>
+@using (Html.BeginForm("AddUniverExam", "Admin", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Trường</td>
+            <td>
+                <select name="UniversityID">
+                    @foreach (var item in ViewData["unis"] as IEnumerable<University>)
+                    {
+                        <option value="@item.UniversityID">@item.Name</option>
+                    }
+                </select></td>
+        </tr>
+        <tr>
+            <td>Kỳ thi</td>
+            <td>
+                <select name="ExaminationID">
+                    @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
+                    {
+                        <option value="@item.ExaminationID">@item.Name</option>
+                    }
+                </select></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+            </td>
+        </tr>
+    </table>
+}

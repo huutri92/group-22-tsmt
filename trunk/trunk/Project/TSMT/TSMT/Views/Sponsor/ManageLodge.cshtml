@@ -1,0 +1,52 @@
+﻿@using TSMT.Models
+@model IEnumerable<Lodge>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Manage Lodges of Sponsor</h2>
+
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Kỳ thi</th>
+                <th>Tô chức</th>
+                <th>Address</th>
+                <th>Tổng số phòng</th>
+                <th>Tổng số chỗ trọ</th>
+                <th>Số chỗ còn trống</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.ChairitiesExam.Examination.Name</td>
+                    <td>@item.ChairitiesExam.CharityExamName</td>
+                    <td>@item.Address</td>
+                    <td>@item.TotalRooms</td>
+                    <td>@item.TotalSlots</td>
+                    <td>@item.AvailableSlots</td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                        @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
+                        @Html.ActionLink("Delete", "DeleteLodge", new { lodgeId = @item.LodgeID })
+                    </td>
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.ActionLink("Sponsor Lodge", "AddLodge", null, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })

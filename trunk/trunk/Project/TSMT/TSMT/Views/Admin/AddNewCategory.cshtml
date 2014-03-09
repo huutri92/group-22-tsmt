@@ -5,21 +5,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div style="text-align: center">
-    <h2>Tạo Mới Danh Mục Tin Tức</h2>
-</div>
-@Html.ActionLink("Quản Lý Danh Mục Tin Tức","ManagerCategory","Admin") |
-    @Html.ActionLink("Tạo Mới Danh Mục", "AddNewCategory","Admin")|
-    @Html.ActionLink("Quản Lý Quỹ Đóng Góp ", "ManagerFund","Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewFund","Sponsor")|
-    @Html.ActionLink("Quản Lý Car","ManagerCar", "Sponsor")|
-    @Html.ActionLink("Đóng Góp Thêm ", "AddNewCar","Sponsor")
+<h2 class="title_of_page">Tạo Mới Danh Mục Tin Tức</h2>
+
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-
     <fieldset>
-        <legend>Category</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.CategoryName)
         </div>
@@ -27,14 +17,9 @@
             @Html.EditorFor(model => model.CategoryName)
             @Html.ValidationMessageFor(model => model.CategoryName)
         </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" class="btn btn-info" value="Create" />
+			<button class="btn btn-info" onclick="window.history.back(-1);return false;">Back</button>
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Quay Lại", "ManagerCategory")
-</div>
-

@@ -1,0 +1,39 @@
+﻿@using TSMT.Models
+@model IEnumerable<UniversitiesExamination>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2 class="title_of_page">Manage Uni-Exam</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>University</th>
+                <th>Examination</th>
+                <th>Day begin</th>
+                <th>Day end</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.University.Name</td>
+                    <td>@item.Examination.Name</td>
+                    <td>@item.Examination.BeginDate</td>
+                    <td>@item.Examination.EndDate</td>
+                    <td>@Html.ActionLink("Details", "DetailsUE", new { ueId = @item.UniExamID })</td>
+                </tr>
+                }
+                i = i + 1;
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Create", "AddUniverExam", null, new { @class = "btn btn-info" })
+<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
