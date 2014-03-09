@@ -9,53 +9,12 @@ namespace TSMT.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly TSMTEntities db = new TSMTEntities();
+
         public ActionResult Logout()
         {
             Session.Clear();
             return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult ManagerExam()
-        {
-            var da = new ManageExamModel();
-            var list = da.SelectExams();
-            return View(list);
-        }
-
-        public ActionResult AddExam()
-        {
-            return View();
-        }
-        public ActionResult EditExam()
-        {
-            return View();
-        }
-
-        public ActionResult ManageUniversity()
-        {
-            var da = new ManageUniersityModel();
-            var list = da.SelectUniversities();
-            return View(list);
-        }
-
-        public ActionResult AddUniversity()
-        {
-            return View();
-        }
-        public ActionResult EditUniversity()
-        {
-            return View();
-        }
-
-        public ActionResult ManageVenue()
-        {
-            var da = new ManageVenueModel();
-            var list = da.SelectVenues();
-            return View(list);
-        }
-        public ActionResult AddVenue()
-        {
-            return View();
         }
 
         public ActionResult Index()
@@ -63,166 +22,174 @@ namespace TSMT.Controllers
             return View();
         }
 
-        public ActionResult ManageUniversityExam()
+        #region ACCOUNTS
+        #endregion
+        #region CATEGORIES
+        #endregion
+        #region POSTS
+        #endregion
+        #region UNIVERSITIES
+        public ActionResult ManageUniversity()
         {
-            var _adminUniExam = new AdminUniExaModel();
-            _adminUniExam.GetUniversityAndExam();
-            return View("AddUniverExam", _adminUniExam);
-        }
-
-        [HttpPost]
-        public ActionResult AddUniverExam(AdminUniExaModel model)
-        {
-            model.AddUniversityExam(model.UniversityId, model.ExaminationId);
-            return RedirectToAction("ManageUniversityExam", model);
-        }
-
-
-        public ActionResult ManagerCategory()
-        {
-            DataAccess da = new DataAccess();
-            List<Category> list = da.SelectCategories();
-            return View(list);
-        }
-        public ActionResult AddNewCategory()
+            var unis = db.Universities.ToList();
+            return View(unis);
+        } 
+        public ActionResult AddUniversity()
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult AddNewCategory(Category cat)
+        public ActionResult AddUniversity(FormCollection f)
         {
-            DataAccess da = new DataAccess();
-            if (ModelState.IsValid)
-            {
-                int result = da.InsertCategory(cat);
-                return RedirectToAction("ManagerCategory");
+            University uni = new University();
+            uni.Name = f["Name"];
+            uni.Address = f["Address"];
+            uni.UniversityCode = f["UniversityCode"];
+            uni.Website = f["Website"];
+            uni.Phone = int.Parse(f["Phone"]);
 
-            }
-            return View(cat);
-        }
-        public ActionResult DeleteCategory(int id)
-        {
-            DataAccess da = new DataAccess();
-            int result = da.DeleteCategory(id);
-            return RedirectToAction("ManagerCategory");
-        }
+            db.Universities.Add(uni);
+            db.SaveChanges();
 
-        //public ActionResult EditCategory()
-        //{
-
-
-        //    return RedirectToAction("ManagerCategory");
-        //}
-        public ActionResult EditCategory(int id)
-        {
-            var _charityCateogory = new DataAccess();
-            _charityCateogory.GetCategoryInfo(id);
-            return View("EditCategory", _charityCateogory);
-        }
-
-        [HttpPost]
-        public ActionResult EditCategoryInfo(DataAccess model)
-        {
-            model.EditCategory(model);
-            return RedirectToAction("ManagerCategory", model);
-        }
-
-        public ActionResult AddNewExam(ManageExamModel exam)
-        {
-            if (ModelState.IsValid)
-            {
-                var examModel = new ManageExamModel();
-                examModel.AddExamination(exam.Examination);
-                return RedirectToAction("ManagerExam");
-            }
-
-            return PartialView("ManageExamModel", exam);
-        }
-        public ActionResult DeleteExamination(int id)
-        {
-            var examModel = new ManageExamModel();
-            examModel.DeleteExam(id);
-            return RedirectToAction("ManagerExam");
-        }
-        public ActionResult EditExamination(int examId)
-        {
-            var examModel = new ManageExamModel();
-            examModel.GetExam(examId);
-            return View("EditExam", examModel);
-        }
-
-        public ActionResult EditExamInfo(ManageExamModel model, int examId)
-        {
-            model.UpdateExam(model.Examination, model.ExamId);
-            return RedirectToAction("ManagerExam");
-        }
-
-        public ActionResult AddNewUni(ManageUniersityModel uni)
-        {
-            if (ModelState.IsValid)
-            {
-                var uniModel = new ManageUniersityModel();
-                uniModel.AddUnversity(uni.University);
-                return RedirectToAction("ManageUniversity");
-            }
-
-            return PartialView("ManageUniersityModel", uni);
-        }
-
-        public ActionResult EditUni(int uniId)
-        {
-            var uniModel = new ManageUniersityModel();
-            uniModel.GetUni(uniId);
-            return View("EditUniversity", uniModel);
-        }
-
-        public ActionResult EditUniInfo(ManageUniersityModel model, int uniId)
-        {
-            model.UpdateUni(model.University, model.UniId);
             return RedirectToAction("ManageUniversity");
         }
-
         public ActionResult DeleteUni(int uniId)
         {
-            var uniModel = new ManageUniersityModel();
-            uniModel.DeleteUni(uniId);
+            University uni = db.Universities.SingleOrDefault(r => r.UniversityID == uniId);
+            db.Universities.Remove(uni);
+            db.SaveChanges();
             return RedirectToAction("ManageUniversity");
         }
-
-        public ActionResult AddNewVenue(ManageVenueModel ven)
+        #endregion
+        #region EXAMINATIONS
+        public ActionResult ManageExam()
         {
-            if (ModelState.IsValid)
+            var exams = db.Examinations.ToList();
+            return View(exams);
+        }
+        public ActionResult AddExam()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddExam(FormCollection f)
+        {
+            Examination exam = new Examination();
+            exam.Name = f["Name"];
+            exam.BeginDate = DateTime.Parse(f["BeginDate"]);
+            exam.EndDate = DateTime.Parse(f["EndDate"]);
+            db.Examinations.Add(exam);
+
+            for (DateTime date = exam.BeginDate; date <= exam.EndDate; date = date.AddDays(1))
             {
-                var venueModel = new ManageVenueModel();
-                venueModel.AddVenue(ven.Venue);
-                return RedirectToAction("ManageVenue");
+                DetailsScheduleExam scheduleExam = new DetailsScheduleExam();
+                scheduleExam.Day = date;
+                scheduleExam.BeginHour = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);
+                scheduleExam.EndHour = new DateTime(date.Year, date.Month, date.Day, 16, 0, 0);
+                db.DetailsScheduleExams.Add(scheduleExam);
             }
 
-            return PartialView("ManageVenueModel", ven);
-        }
+            db.SaveChanges();
 
-        public ActionResult EditVenue(int venueId)
+            return RedirectToAction("ManageExam");
+        }
+        public ActionResult DeleteExam(int examId)
         {
-            var uniModel = new ManageVenueModel();
-            uniModel.GetVenue(venueId);
-            return View("EditVenue", uniModel);
-        }
+            Examination exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == examId);
 
-        public ActionResult EditVenueInfo(ManageVenueModel model, int venueId)
+            var scheduleExams = db.DetailsScheduleExams.Where(r => r.ExamID == examId);
+            foreach (var scheduleExam in scheduleExams)
+            {
+                db.DetailsScheduleExams.Remove(scheduleExam);
+            }
+
+            db.Examinations.Remove(exam);
+            db.SaveChanges();
+            return RedirectToAction("ManageExam");
+        }
+        #endregion
+        #region SCHEDULE-EXAMS
+        public ActionResult ManageScheduleExam(int examId)
         {
-            model.UpdateVenue(model.Venue, model.VenueId);
-            return RedirectToAction("ManageVenue");
+            var scheduleExams = db.DetailsScheduleExams.Where(r => r.ExamID == examId);
+            return View(scheduleExams);
         }
-
-        public ActionResult DeleteVenue(int venueId)
+        public ActionResult EditScheduleExam(int scheduleExamId)
         {
-            var uniModel = new ManageVenueModel();
-            uniModel.DeleteVenue(venueId);
-            return RedirectToAction("ManageVenue");
+            DetailsScheduleExam scheduleExam = db.DetailsScheduleExams.SingleOrDefault(r => r.DetailsScheduleExamID == scheduleExamId);
+            return View(scheduleExam);
         }
+        [HttpPost]
+        public ActionResult EditScheduleExam(FormCollection f)
+        {
+            int scheduleExamId = int.Parse(f["scheduleExamId"]);
+            DetailsScheduleExam scheduleExam = db.DetailsScheduleExams.SingleOrDefault(r => r.DetailsScheduleExamID == scheduleExamId);
+            scheduleExam.BeginHour = DateTime.Parse(f["BeginHour"]);
+            scheduleExam.EndHour = DateTime.Parse(f["EndHour"]);
+            db.SaveChanges();
+            return RedirectToAction("ManageScheduleExam", new { examId = scheduleExam.ExamID });
+        }
+        #endregion
+        #region UNI-EXAMS
+        public ActionResult ManageUniversityExam()
+        {
+            var uniExams = db.UniversitiesExaminations.ToList();
+            return View(uniExams);
+        }
+        public ActionResult AddUniverExam()
+        {
+            ViewData["unis"] = db.Universities.ToList();
+            ViewData["exams"] = db.Examinations.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddUniverExam(FormCollection f)
+        {
+            UniversitiesExamination ue = new UniversitiesExamination();
+            ue.UniversityID = int.Parse(f["UniversityID"]);
+            ue.ExaminationID = int.Parse(f["ExaminationID"]);
+            db.UniversitiesExaminations.Add(ue);
+            db.SaveChanges();
 
+            return RedirectToAction("ManageUniversityExam");
+        }
+        public ActionResult DetailsUE(int ueId)
+        {
+            UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == ueId);
+            return View(ue);
+        }
+        #endregion
+        #region VENUES
+        public ActionResult ManageVenue(int ueId)
+        {
+            var ves = db.Venues.Where(r => r.UniExamID == ueId);
+            ViewData["ueId"] = ueId;
+            return View(ves);
+        }
+        public ActionResult AddVenue(int ueId)
+        {
+            ViewData["ueId"] = ueId;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddVenue(FormCollection f)
+        {
+            Venue ve = new Venue();
+            ve.Address = f["Address"];
+            ve.UniExamID = int.Parse(f["ueId"]);
+            db.Venues.Add(ve);
+            db.SaveChanges();
 
-
+            return RedirectToAction("ManageVenue", new { ueId = ve.UniExamID });
+        }
+        public ActionResult DeleteVenue(int veId)
+        {
+            Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == veId);
+            int ueId = ve.UniExamID;
+            db.Venues.Remove(ve);
+            db.SaveChanges();
+            return RedirectToAction("ManageVenue", new { ueId = ve.UniExamID });
+        }
+        #endregion
     }
 }

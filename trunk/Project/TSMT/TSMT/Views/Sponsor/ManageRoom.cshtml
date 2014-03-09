@@ -1,0 +1,41 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Lodge
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Manage Rooms Sponsored</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tổng số chỗ</th>
+                <th>Số chỗ còn trống</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                {
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.TotalSlots</td>
+                    <td>@item.AvailableSlots</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
+                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                    </td>
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage Lodge", "ManageLodge", null, new { @class = "btn btn-info" })

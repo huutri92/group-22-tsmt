@@ -1,0 +1,26 @@
+﻿@using TSMT.Models
+@model TSMT.Models.ChairitiesExam
+@{
+    ViewBag.Title = "AddCharityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<h2 class="title_of_page">Add Lodge</h2>
+@using (Html.BeginForm("AddLodge", "Charity", FormMethod.Post))
+{
+    <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
+    <table>
+        <tr>
+            <td>Địa chỉ</td>
+            <td>
+                <input type="text" name="Address" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

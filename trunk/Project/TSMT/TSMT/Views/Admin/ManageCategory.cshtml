@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="title_of_page">Quản Lý Danh Mục Tin Tức</h2>
+<div class="inner-page-content inner-careers">
+	<table class="table table-hover table-bordered ">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Tên Danh Mục</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{
+				int i = 1;
+				foreach (var item in Model)
+				{
+				<tr>
+					<td>@i</td>
+					<td>@item.CategoryName</td>
+					<td>
+						@Html.ActionLink("Delete", "DeleteCategory", new { id = @item.CategoryID })
+						@Html.ActionLink("Edit", "EditCategory", new { id = @item.CategoryID })
+					</td>
+				</tr>
+					i = i + 1;
+				}
+			}
+		</tbody>
+	</table>
+</div>
+@Html.ActionLink("Create", "AddNewCategory", null, new { @class = "btn btn-info" })
+<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>

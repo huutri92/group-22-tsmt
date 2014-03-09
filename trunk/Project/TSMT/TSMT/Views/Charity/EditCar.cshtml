@@ -1,67 +1,39 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.CharityCarModel
-
+@model TSMT.Models.Car
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Chỉnh Sửa Thông Tin Xe</h2>
-
-@using (Html.BeginForm("EditCarInfo", "Charity", FormMethod.Post, new {@class = "form-horizontal", style = "margin-left: 15%; margin-right: 15%"}))
+<h2 class="title_of_page">Edit Car</h2>
+@using (Html.BeginForm("EditCar", "Charity", FormMethod.Post))
 {
-    @Html.HiddenFor(model => model.CharityExamId)
-    @Html.HiddenFor(model => model.CarId)
-    <form class="form-horizontal" role="form">
-
-        @*   <div class="form-group">
-            <label class="col-md-2 control-label">CharityExamId</label>
-            <div class="col-md-10">
-                 @Html.LabelFor(model => model.CharityExamId, new { @class = "control-label" })
-            </div>
-        </div>*@
-
-        @*    <div class="form-group">
-            <label for="username" class="col-md-2 control-label">SponsorId</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" id="username" placeholder="Username">
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <label for="email" class="col-md-2 control-label">Biển Số Xe: </label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Car.NumberPlate, new {@style = "width: 70% !important"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="col-md-2 control-label">Tổng Số Chỗ Ngồi: </label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Car.TotalSlots, new {@style = "width: 70% !important"})
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="password" class="col-md-2 control-label">Tên Tài Xế: </label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Car.DriverName, new {@style = "width: 70% !important"})
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="password" class="col-md-2 control-label">Số Điện Thoại: </label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Car.DriverPhone, new {@style = "width: 70% !important"})
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-info">Chỉnh Sửa</button>
-                <button type="reset" class="btn btn-default">Làm Lại</button>
-                <button type="button" class="btn btn-default" onclick=" history.back(-1); ">Quay Lại</button>
-            </div>
-        </div>
-    </form>
+    <input type="hidden" name="carId" value="@Model.CarID"/>
+    <table>
+        <tr>
+            <td>Biển số xe</td>
+            <td>
+                <input type="text" name="NumberPlate" value="@Model.NumberPlate"/></td>
+        </tr>
+        <tr>
+            <td>Tổng số chỗ ngồi</td>
+            <td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
+        </tr>
+         <tr>
+            <td>Tên tài xế</td>
+            <td>
+                <input type="text" name="DriverName" value="@Model.DriverName"/></td>
+        </tr>
+         <tr>
+            <td>Số điện thoại tài xế</td>
+            <td>
+                <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
 }

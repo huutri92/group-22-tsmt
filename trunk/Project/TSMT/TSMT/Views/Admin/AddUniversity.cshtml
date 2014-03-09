@@ -1,79 +1,42 @@
 ﻿@{
-    ViewBag.Title = "AddUniversity";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
-@model TSMT.Models.ManageUniersityModel
-<h2>AddUniversity</h2>
-<div id="breadcrumb">
-    <a href="@Url.Action("Index", "Home")" title="Tới trang chủ" class="tip-bottom"><i class="icon-home"></i>Trang chủ</a>
-    <a href="@Url.Action("ManagerExam", "Admin")" title="Tới quản lí người dùng" class="tip-bottom">Quản lí kỳ thi</a>
-    <a href="@Url.Action("Admin", "Admin")" class="current">Thêm kỳ thi mới</a>
-    <a href="@Url.Action("ManageUniversity", "Admin")" class="current">Quản lý trường Đại học</a>
-    <a href="@Url.Action("AddUniversity", "Admin")" class="current">Thêm trường Đại học</a>
-</div>
-<div class="container">
 
-    @using (Html.BeginForm("AddNewUni", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        <div class="inner-tab">
-            <!-- Nab Bar Tan Menu list -->
-            <ul id="mytab" class="nav nav-tabs">
-                <li class="active"><a href="#one" data-toggle="tab">Tạo mới trường</a></li>
-            </ul>
-            <!-- Content for each menu item -->
-            <div class="tab-content">
-                <!-- First Content for Nav bar -->
-                <div class="tab-pane fade in active" id="one">
-                    <form class="form-horizontal" role="form">
-
-                        <div class="form-group">
-                            <label for="name" class="col-md-2 control-label">Tên trường</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.University.Name, new { @class = "form-control" })
-                                @*<input type="text" class="form-control" id="name" placeholder="Nhập tên kỳ thi">*@
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="username" class="col-md-2 control-label">Mã trường</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.University.UniversityCode)
-                                @*<input type="date" class="form-control" id="username">*@
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Địa chỉ</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.University.Address)
-                                @*<input type="date" class="form-control" id="email">*@
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Website</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.University.Website)
-                                @*<input type="date" class="form-control" id="email">*@
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-2 control-label">Số điện thoại</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.University.Phone)
-                                @*<input type="date" class="form-control" id="email">*@
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                @*<button type="submit" class="btn btn-info">Tạo mới</button>*@
-                                <input type="submit" value="Tạo mới" class="btn btn-info" style="width: 100px; font-weight: bold" />
-                                <input type="reset" value="Làm lại" class="btn btn-primary" style="width: 100px; font-weight: bold" />
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<h2 class="title_of_page">Add University</h2>
+@using (Html.BeginForm("AddUniversity", "Admin", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" name="Name" /></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>
+                <input type="text" name="Address" /></td>
+        </tr>
+        <tr>
+            <td>UniversityCode</td>
+            <td>
+                <input type="text" name="UniversityCode" /></td>
+        </tr>
+        <tr>
+            <td>Website</td>
+            <td>
+                <input type="text" name="Website" /></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>
+                <input type="text" name="Phone" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

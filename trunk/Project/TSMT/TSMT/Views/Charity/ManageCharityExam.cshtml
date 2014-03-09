@@ -4,90 +4,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Manage Charity Exam</h2>
-<div class="container">
-    <div class="page-content page-posts">
+<h2 class="title_of_page">Manage Charity Exam</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Kỳ thi</th>
+                <th>CE's Name</th>
+                <th>Tổng số chỗ trọ</th>
+                <th>Số trọ trống</th>
+                <th>Tổng số phương tiện</th>
+                <th>Phương tiện trống</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
 
-        <div class="page-tabs">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#posts" data-toggle="tab">Quản lý tài nguyên kỳ thi</a></li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-
-                <!-- Posts tab -->
-                <div class="tab-pane fade active in" id="posts">
-
-                    <div class="widget">
-
-                        <div class="widget-head">
-                            <div class="widget-head-btns pull-right">
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="widget-body no-padd">
-
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>Kỳ thi</th>
-                                            <th>Quận</th>
-                                            <th>Tổng số chỗ trọ</th>
-                                            <th>Số trọ trống</th>
-                                            <th>Tổng số phương tiện</th>
-                                            <th>Phương tiện trống</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            int i = 1;
-                                            
-                                        foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>@i</td>
-                                                <td>@item.Examination.Name</td>
-                                                <td>@item.District.Name</td>
-                                                <td>@item.TotalSlotsLodges</td>
-                                                <td>@item.AvailableSlotsLodges</td>
-                                                <td>@item.TotalSlotsVehicles</td>
-                                                <td>@item.AvailableSlotsVehicles</td>
-                                                <td>
-                                                    <button class="btn btn-xs btn-danger"><i class="icon-pencil"></i></button>
-                                                    <button class="btn btn-xs btn-info"><i class="icon-remove"></i></button>
-                                                    <button class="btn btn-xs btn-success"><i class="icon-trash"></i></button>
-                                                    @Html.ActionLink("Edit", "EditCharityExam",  new { ceId = @item.CharityExamID })
-                                                    @Html.ActionLink("Delete", "DeleteCharityExam",  new { ceiId = @item.CharityExamID })
-                                                </td>
-                                            </tr>
-                                            i++;
-                                        }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Make post tab -->
-
-
-            </div>
-        </div>
-
-    </div>
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@Html.ActionLink(i.ToString(), "DetailsCharityExam", new { ceId = item.CharityExamID })</td>
+                    <td>@Html.ActionLink(item.Examination.Name, "DetailsCharityExam", new { ceId = item.CharityExamID })</td>
+                    <td>@item.CharityExamName</td>
+                    <td>@item.TotalSlotsLodges</td>
+                    <td>@item.AvailableSlotsLodges</td>
+                    <td>@item.TotalSlotsVehicles</td>
+                    <td>@item.AvailableSlotsVehicles</td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailsCharityExam", new { ceId = @item.CharityExamID })
+                        @Html.ActionLink("Edit", "EditCharityExam", new { ceId = @item.CharityExamID })
+                        @Html.ActionLink("Delete", "DeleteCharityExam", new { ceId = @item.CharityExamID })
+                    </td>
+                </tr>
+                    i++;
+                }
+            }
+        </tbody>
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Create", "AddCharityExam", null, new { @class = "btn btn-info" })
-</p>
+@Html.ActionLink("Create", "AddCharityExam", null, new { @class = "btn btn-info" })
+<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>

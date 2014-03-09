@@ -125,7 +125,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
+    <Compile Include="Controllers\CharityController.cs" />
+    <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,7 +193,6 @@
     <Compile Include="Models\Rating.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\Role.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
@@ -529,9 +532,6 @@
     <Content Include="Content\Admin\font\fontawesome-webfontf77b.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +539,147 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Registration.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\RegistrationWithRazor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\AddCar.cshtml" />
+    <Content Include="Views\Charity\AddCharityExam.cshtml" />
+    <Content Include="Views\Charity\CarManagement.cshtml" />
+    <Content Include="Views\Charity\EditCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\AddExam.cshtml" />
+    <Content Include="Views\Admin\AddNewCategory.cshtml" />
+    <Content Include="Views\Admin\AddUniverExam.cshtml" />
+    <Content Include="Views\Admin\AddUniversity.cshtml" />
+    <Content Include="Views\Admin\AddVenue.cshtml" />
+    <Content Include="Views\Admin\EditCategory.cshtml" />
+    <Content Include="Views\Admin\EditExam.cshtml" />
+    <Content Include="Views\Admin\EditUniversity.cshtml" />
+    <Content Include="Views\Admin\EditVenue.cshtml" />
+    <Content Include="Views\Admin\ManageCategory.cshtml" />
+    <Content Include="Views\Admin\ManageExam.cshtml" />
+    <Content Include="Views\Admin\ManageUniversity.cshtml" />
+    <Content Include="Views\Admin\ManageVenue.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageCharityExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_NavigationPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\ManageUniversityExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\EditCharityExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\DetailsCharityExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\AddLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\EditLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\AddRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\EditRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\DetailsLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\ManageLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\ManageCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\AddCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\AddLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\DetailsLodge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\ManageRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\AddRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Volunteer\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Volunteer\JoinIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageVolunteer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageCandidate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ManageSponsor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\DetailsUE.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\ManageScheduleExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\EditScheduleExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\JoinIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\ManageExamPaper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
@@ -562,10 +703,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Candidate\AddExamPaper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\RegistrationWithRazor.cshtml" />
+    <Content Include="Views\Candidate\DetailsExamPaper.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

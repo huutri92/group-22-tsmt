@@ -1,0 +1,39 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Car
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Edit Car</h2>
+@using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post))
+{
+    <input type="hidden" name="carId" value="@Model.CarID"/>
+    <table>
+        <tr>
+            <td>Biển số xe</td>
+            <td>
+                <input type="text" name="NumberPlate" value="@Model.NumberPlate"/></td>
+        </tr>
+        <tr>
+            <td>Tổng số chỗ ngồi</td>
+            <td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
+        </tr>
+         <tr>
+            <td>Tên tài xế</td>
+            <td>
+                <input type="text" name="DriverName" value="@Model.DriverName"/></td>
+        </tr>
+         <tr>
+            <td>Số điện thoại tài xế</td>
+            <td>
+                <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

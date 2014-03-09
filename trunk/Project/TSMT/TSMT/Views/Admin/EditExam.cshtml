@@ -3,18 +3,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @model TSMT.Models.ManageExamModel
-<h2>EditExam</h2>
-<div id="breadcrumb">
-    <a href="@Url.Action("Index", "Home")" title="Tới trang chủ" class="tip-bottom"><i class="icon-home"></i>Trang chủ</a>
-    <a href="@Url.Action("ManagerExam", "Admin")" title="Tới quản lí người dùng" class="tip-bottom">Quản lí kỳ thi</a>
-    <a href="@Url.Action("Admin", "Admin")" class="current">Thêm kỳ thi mới</a>
-    <a href="@Url.Action("ManageUniversity", "Admin")" class="current">Quản lý trường Đại học</a>
-</div>
+<h2 class="title_of_page">Edit Exam</h2>
 @using (Html.BeginForm("EditExamInfo", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.HiddenFor(model => model.ExamId)
     <form class="form-horizontal" role="form">
-
         <div class="form-group">
             <label for="name" class="col-md-2 control-label">Tên kỳ thi</label>
             <div class="col-md-10">
@@ -22,7 +15,6 @@
                 @*<input type="text" class="form-control" id="name" placeholder="Nhập tên kỳ thi">*@
             </div>
         </div>
-
         <div class="form-group">
             <label for="username" class="col-md-2 control-label">Ngày bắt đầu</label>
             <div class="col-md-10">
@@ -30,7 +22,6 @@
                 @*<input type="date" class="form-control" id="username">*@
             </div>
         </div>
-
         <div class="form-group">
             <label for="email" class="col-md-2 control-label">Ngày kết thúc</label>
             <div class="col-md-10">
@@ -40,9 +31,9 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @*<button type="submit" class="btn btn-info">Tạo mới</button>*@
-                <input type="submit" value="Lưu lại" class="btn btn-info" style="width: 100px; font-weight: bold" />
-                <input type="reset" value="Làm lại" class="btn btn-primary" style="width: 100px; font-weight: bold" />
+                <input type="submit" value="Lưu lại" class="btn btn-info"/>
+                <input type="reset" value="Làm lại" class="btn btn-info"x/>
+				<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
             </div>
         </div>
     </form>

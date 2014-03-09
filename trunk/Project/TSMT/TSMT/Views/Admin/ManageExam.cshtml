@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "ManagerExam";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using TSMT.Models
+<h2 class="title_of_page">Manage Exam</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        @{
+            int i = 1;
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>@i</td>
+                <td>@item.Name</td>
+                <td>@item.BeginDate</td>
+                <td>@item.EndDate</td>
+                <td>
+                    @Html.ActionLink("Details", "ManageScheduleExam", new { examId = @item.ExaminationID })
+                    @Html.ActionLink("Delete", "DeleteExam", new { examId = @item.ExaminationID })
+                </td>
+            </tr>
+                i = i + 1;
+            }
+        }
+    </table>
+    @Html.ActionLink("Create", "AddExam", null, new { @class = "btn btn-info" })
+    <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+</div>

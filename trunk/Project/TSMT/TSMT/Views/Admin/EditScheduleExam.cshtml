@@ -1,0 +1,30 @@
+﻿@using TSMT.Models
+@model TSMT.Models.DetailsScheduleExam
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Edit Schedule Exam</h2>
+
+@using (Html.BeginForm("EditScheduleExam", "Admin", FormMethod.Post))
+{
+    <input type="hidden" name="scheduleExamId" value="@Model.DetailsScheduleExamID"/>
+    <table>
+       <tr>
+            <td>Giờ bắt đầu</td>
+            <td>
+                <input type="text" name="BeginHour" value="@Model.BeginHour"/></td>
+        </tr>
+        <tr>
+            <td>Giờ kết thúc</td>
+            <td>
+                <input type="text" name="EndHour" value="@Model.EndHour"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

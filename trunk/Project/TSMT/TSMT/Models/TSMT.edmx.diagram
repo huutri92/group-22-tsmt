@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="828a95ace2d64d1ab212af7050623dfe" Name="Diagram1">
+        <EntityTypeShape EntityType="TSMTModel.Account" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Article" Width="1.5" PointX="8.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.ArticlesTag" Width="1.5" PointX="13.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Candidate" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Car" Width="1.5" PointX="9.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Category" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.ChairitiesExam" Width="1.5" PointX="7.5" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Charity" Width="1.5" PointX="5.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Comment" Width="1.5" PointX="10.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.DetailsScheduleExam" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.DetailsSchedulesCar" Width="1.5" PointX="17.25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.District" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Examination" Width="1.5" PointX="3.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.ExaminationsPaper" Width="1.5" PointX="10.5" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Fund" Width="1.5" PointX="12.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.JoinsIn" Width="1.5" PointX="12.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Lodge" Width="1.5" PointX="12.75" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Profile" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Province" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Rating" Width="1.5" PointX="10.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Role" Width="1.5" PointX="0.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Room" Width="1.5" PointX="15" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.SchedulesCar" Width="1.5" PointX="15" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.SchedulesVolunteer" Width="1.5" PointX="18" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Sponsor" Width="1.5" PointX="5.25" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Tag" Width="1.5" PointX="11.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.University" Width="1.5" PointX="3.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.UniversitiesExamination" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Venue" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Volunteer" Width="1.5" PointX="15.75" PointY="21.75" IsExpanded="true" />
+        <AssociationConnector Association="TSMTModel.FK_Accounts_Profiles" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Accounts_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Articles_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Candidates_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Charities_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Profiles_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Rating_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Sponsors_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Volunteers_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Article_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ArticlesTags_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Comments_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Rating_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ArticlesTags_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ExamsPaper_Candidates" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Cars_ChairitiesExams" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Cars_Sponsors" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_SchedulesCar_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ChairitiesExams_Charities" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ChairitiesExams_Examinations" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Funds_ChairitiesExams" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_JoinIn_ChairitiesExams" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Lodges_ChairitiesExams1" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Volunteers_ChairitiesExams" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Comments_Comments" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_DetailsScheduleExams_Examinations" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_DetailsSchedulesCars_SchedulesCars" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Districts_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_UniversityExamination_Examinations" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ExaminationsPapers_Venues" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ExamsPaper_UniversityExamination" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_JoinsIn_ExaminationsPapers" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Funds_Sponsores" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_JoinsIn_Rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_SchedulesCars_JoinsIn" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_ScheduleVolunteers_JoinsIn" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Lodges_Sponsors" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Rooms_Lodges" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_DetailScheduleVolunteers_Volunteers" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_UniversityExamination_University" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_Venues_UniversitiesExaminations" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

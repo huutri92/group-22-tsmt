@@ -94,7 +94,15 @@ namespace TSMT.Controllers
             acc.ProfileID = pro.ProfileID;
             db.SaveChanges();
 
-            return RedirectToAction("Entrance");
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LoginAs(string identity, string id)
+        {
+            string email = identity + id + "@gmail.com";
+            Account acc = db.Accounts.SingleOrDefault(r => r.Email == email && r.Password == "123");
+            Session["acc"] = acc;
+            return RedirectToAction("Index", identity);
         }
     }
 }
