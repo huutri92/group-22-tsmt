@@ -243,7 +243,7 @@ form button{
    display:block;
    position:absolute;
    height:100%;
-   min-height:inherit;/*1700px*/
+   min-height:800px;
 }
 
 /* Sidebar dropdown */
@@ -592,7 +592,7 @@ form button{
 .mainbar{
    position:relative;
    width:auto;
-   min-height:inherit;/*1700px*/
+   min-height:800px;
    margin-left:250px;
    background:#fff url("../img/subtle_dots.png") repeat;
 }
