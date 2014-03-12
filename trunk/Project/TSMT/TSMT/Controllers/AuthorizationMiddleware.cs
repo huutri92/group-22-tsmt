@@ -11,6 +11,13 @@ public class CheckAuth : ActionFilterAttribute
     public string invalid_login { get; set; } 
     public string invalid_authorize { get; set; }
 
+    public CheckAuth(int vroleId)
+    {
+        this.invalid_login = "/Home/Entrance";
+        this.valid_role_id = vroleId;
+        this.invalid_authorize = "/";
+    }
+
     public CheckAuth(string ilogin, int vroleId, string iauth)
     {
         this.invalid_login = ilogin;
@@ -24,11 +31,12 @@ public class CheckAuth : ActionFilterAttribute
 
         if ((Account)ctx.Session["acc"] == null) 
         {
-            ctx.Response.Redirect(invalid_login); 
-        } 
+            ctx.Session["fromUrl"] = ctx.Request.Url.AbsoluteUri;
+            ctx.Response.Redirect(invalid_login);
+        }
         else if (((Account)ctx.Session["acc"]).RoleID != valid_role_id) 
         { 
-            ctx.Response.Redirect(invalid_authorize); 
+            ctx.Response.Redirect(invalid_authorize);
         }
 
         base.OnActionExecuting(filterContext);

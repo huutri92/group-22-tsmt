@@ -12,6 +12,23 @@ namespace TSMT.Controllers
     {
         private readonly TSMTEntities db = new TSMTEntities();
 
+        public ActionResult DemoAjax()
+        {
+            return View();
+        }
+
+        public JsonResult ResultAjax(int id)
+        {
+            var ves = from r in db.Venues
+                      where r.UniExamID == id
+                      select new
+                      {
+                          value = r.VenueID,
+                          name = r.Address
+                      };
+            return Json(ves, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -102,6 +119,11 @@ namespace TSMT.Controllers
             string email = identity + id + "@gmail.com";
             Account acc = db.Accounts.SingleOrDefault(r => r.Email == email && r.Password == "123");
             Session["acc"] = acc;
+
+            if (Session["fromUrl"] != null)
+            {
+                return Redirect(Session["fromUrl"].ToString());
+            }
             return RedirectToAction("Index", identity);
         }
     }
