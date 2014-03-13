@@ -27,7 +27,7 @@
 }
 else
 {
-    <h3 class="title_of_page">You are now connect to @Model.ChairitiesExam.CharityExamName! @Html.ActionLink("Leave them", "LeaveCE", null, new { @class = "btn btn-info" })</h3>
+    <h3 class="title_of_page">You are now connect to @Model.ChairitiesExam.CharityExamName! @Html.ActionLink("Leave them", "LeaveCE", null, new { @class = "btn btn-info", @onclick="return showPopup('Please confirm to delete it.', this.href)"})</h3>
     <div class="service-one">
         <div class="service-one-inner">
             <div class="container">

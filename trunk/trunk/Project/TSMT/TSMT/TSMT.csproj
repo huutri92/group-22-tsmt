@@ -127,6 +127,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\CharityController.cs" />
+    <Compile Include="Controllers\AuthorizationMiddleware.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -388,6 +389,7 @@
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\popup.css" />
     <Content Include="Content\css\prettyPhoto.css" />
     <Content Include="Content\css\settings.css" />
     <Content Include="Content\css\style.css" />
@@ -496,6 +498,7 @@
     <Content Include="Content\js\jquery.prettyPhoto.js" />
     <Content Include="Content\js\jquery.themepunch.plugins.min.js" />
     <Content Include="Content\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\js\popup.js" />
     <Content Include="Content\js\respond.min.js" />
     <Content Include="Content\js\waypoints.min.js" />
     <Content Include="Global.asax" />
@@ -552,13 +555,10 @@
   <ItemGroup>
     <Content Include="Views\Admin\AddExam.cshtml" />
     <Content Include="Views\Admin\AddNewCategory.cshtml" />
-    <Content Include="Views\Admin\AddUniverExam.cshtml" />
+    <Content Include="Views\Admin\AddUniversityExam.cshtml" />
     <Content Include="Views\Admin\AddUniversity.cshtml" />
     <Content Include="Views\Admin\AddVenue.cshtml" />
     <Content Include="Views\Admin\EditCategory.cshtml" />
-    <Content Include="Views\Admin\EditExam.cshtml" />
-    <Content Include="Views\Admin\EditUniversity.cshtml" />
-    <Content Include="Views\Admin\EditVenue.cshtml" />
     <Content Include="Views\Admin\ManageCategory.cshtml" />
     <Content Include="Views\Admin\ManageExam.cshtml" />
     <Content Include="Views\Admin\ManageUniversity.cshtml" />
@@ -664,9 +664,6 @@
     <Content Include="Views\Charity\ManageSponsor.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\DetailsUE.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Admin\ManageScheduleExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -680,6 +677,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Candidate\ManageExamPaper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\AddExamPaper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\DetailsExamPaper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\EditUniversity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
@@ -703,10 +709,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Candidate\AddExamPaper.cshtml" />
+    <Content Include="Views\Admin\EditVenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Candidate\DetailsExamPaper.cshtml" />
+    <Content Include="Views\Home\DemoAjax.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -724,7 +730,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>46619</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1045/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

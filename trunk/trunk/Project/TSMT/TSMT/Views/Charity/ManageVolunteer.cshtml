@@ -30,7 +30,7 @@
                     <td>@item.Description</td>
                     <td>
                         @Html.ActionLink("Details", "DetailsVolunteer", new { voId = @item.VolunteerID })
-                        @Html.ActionLink("Remove", "RemoveVolunteer", new { voId = @item.VolunteerID })
+                        @Html.ActionLink("Remove", "RemoveVolunteer", new { voId = @item.VolunteerID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
                     </td>
                 </tr>
                     ++counter;

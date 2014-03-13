@@ -1,10 +1,12 @@
-﻿@using TSMT.Models
-
+﻿
 @{
+    ViewBag.Title = "Add Venue";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 class="title_of_page">Add Venue</h2>
+@using TSMT.Models
+
+<h2 class="title_of_page">@ViewBag.Title</h2>
 @using (Html.BeginForm("AddVenue", "Admin", FormMethod.Post))
 {
     <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
@@ -18,6 +20,7 @@
             <td colspan="2">
                 <input type="submit" value="Create" class="btn btn-info" />
                 <input type="reset" value="Reset" class="btn btn-info" />
+                <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageVenue'"/>
             </td>
         </tr>
     </table>

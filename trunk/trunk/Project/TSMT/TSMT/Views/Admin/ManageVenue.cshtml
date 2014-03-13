@@ -1,11 +1,12 @@
-﻿@using TSMT.Models
-@model IEnumerable<Venue>
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Manage Venues of University-Examination";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2 class="title_of_page">Manage Venues of Uni-Exam</h2>
+@using TSMT.Models
+@model IEnumerable<Venue>
+
+<h2 class="title_of_page">@ViewBag.Title</h2>
 <div class="inner-page-content inner-careers">
     <table class="table table-hover table-bordered ">
         <thead>
@@ -25,9 +26,9 @@
                     <td>@counter</td>
                     <td>@item.Address</td>
                     <td>
-                        @Html.ActionLink("View On Map", "ViewOnMap", new { veId = @item.VenueID })
-                        @Html.ActionLink("Edit", "EditVenue", new { veId = @item.VenueID })
-                        @Html.ActionLink("Delete", "DeleteVenue", new { veId = @item.VenueID })
+                        @Html.ActionLink("View On Map", "ViewOnMap", new { id = @item.VenueID })
+                        @Html.ActionLink("Edit", "EditVenue", new { id = @item.VenueID })
+                        @Html.ActionLink("Delete", "DeleteVenue", new { id = @item.VenueID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })
                     </td>
                 </tr>
                     ++counter;
@@ -35,6 +36,7 @@
             }
         </tbody>
     </table>
+    @Html.ActionLink("Create", "AddVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Back to Manage University-Examination", "/ManageUniversityExam", null, new { @class = "btn btn-info" })
 </div>
-@Html.ActionLink("Create", "AddVenue", new { ueId = @ViewData["ueId"]}, new { @class = "btn btn-info" })
-@Html.ActionLink("Back to Manage Uni-Exam", "DetailsUE", new { ueId = @ViewData["ueId"]}, new { @class = "btn btn-info" })
+

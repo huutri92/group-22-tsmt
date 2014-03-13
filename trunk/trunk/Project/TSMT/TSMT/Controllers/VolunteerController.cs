@@ -18,6 +18,8 @@ namespace TSMT.Controllers
             Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
             return View(vo);
         }
+
+        [CheckAuth("/Home/Entrance", 4, "/")]
         public ActionResult JoinIn()
         {
             var ces = db.ChairitiesExams.ToList();

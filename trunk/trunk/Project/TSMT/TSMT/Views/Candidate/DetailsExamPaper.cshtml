@@ -12,7 +12,7 @@
 }
 else
 {
-    <h3 class="title_of_page">This Exam Paper has registered to @(((JoinsIn)ViewData["joinIn"]).ChairitiesExam.CharityExamName)! @Html.ActionLink("Leave them", "LeaveCE", new { examPaperId = Model.ExamPaperID }, new { @class = "btn btn-info" })</h3>
+    <h3 class="title_of_page">This Exam Paper has registered to @(((JoinsIn)ViewData["joinIn"]).ChairitiesExam.CharityExamName)! @Html.ActionLink("Leave them", "LeaveCE", new { examPaperId = Model.ExamPaperID }, new { @class = "btn btn-info", @onclick="return showPopup('Please confirm to leave them.', this.href)" })</h3>
 }
 <table>
     <tr>

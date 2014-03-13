@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - TSMT</title>
+    <title>@ViewBag.Title</title>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
@@ -14,7 +14,7 @@
     <link href="/Content/css/animate.min.css" rel="stylesheet">
     <link href="/Content/css/prettyPhoto.css" rel="stylesheet">
     <link href="/Content/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/Content/css/popup.css" rel="stylesheet">
+    <link href="/Content/css/popup.css" rel="stylesheet">
     <link href="/Content/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="#">
 </head>
@@ -83,7 +83,7 @@
                         }
                         else
                         {
-                            <li><a href="/Admin/"><i class="icon-home"></i>Login as Admin</a></li>
+                            <li><a href="@Url.Action("LoginAs", "Home", new { identity = "admin", id = "" })"><i class="icon-home"></i>Login as Admin</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "charity", id = "01" })"><i class="icon-home"></i>Login as Charity 01</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "charity", id = "02" })"><i class="icon-home"></i>Login as Charity 02</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "sponsor", id = "01" })"><i class="icon-home"></i>Login as Sponsor 01</a></li>
@@ -99,9 +99,11 @@
             <div class="mainbar">
                 @if (Session["acc"] == null)
                 {
-                        <h2 class="title_of_page">Welcome <strong>Guest!</strong></h2>
-                } else {
-                        <h2 class="title_of_page">Logged-in as: <strong>@(((Account)Session["acc"]).Email)</strong></h2>
+                    <h2 class="title_of_page">Welcome <strong>Guest!</strong></h2>
+                }
+                else
+                {
+                    <h2 class="title_of_page">Logged-in as: <strong>@(((Account)Session["acc"]).Email)</strong></h2>
                 }
                 @RenderBody()
                 <div class="footer">
@@ -182,6 +184,6 @@
     <script src="/Content/js/respond.min.js"></script>
     <script src="/Content/js/html5shiv.js"></script>
     <script src="/Content/js/custom.js"></script>
-        <script src="/Content/js/popup.js"></script>
+    <script src="/Content/js/popup.js"></script>
 </body>
 </html>
