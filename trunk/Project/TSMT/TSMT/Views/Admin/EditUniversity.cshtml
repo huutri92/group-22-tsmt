@@ -1,54 +1,45 @@
-﻿@{
-    ViewBag.Title = "EditUniversity";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+﻿@model TSMT.Models.University
+@{
+    ViewBag.Title = "Edit University";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model TSMT.Models.ManageUniersityModel
-<h2 class="title_of_page">Edit University</h2>
-@using (Html.BeginForm("EditUniInfo", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+
+<h2 class="title_of_page">@ViewBag.Title</h2>
+@using (Html.BeginForm("EditUniversity", "Admin", FormMethod.Post))
 {
-    @Html.HiddenFor(model => model.UniId)
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label for="name" class="col-md-2 control-label">Tên trường</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.Name, new { @class = "form-control" })
-                    @*<input type="text" class="form-control" id="name" placeholder="Nhập tên kỳ thi">*@
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="username" class="col-md-2 control-label">Mã trường</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.UniversityCode)
-                    @*<input type="date" class="form-control" id="username">*@
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email" class="col-md-2 control-label">Địa chỉ</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.Address)
-                    @*<input type="date" class="form-control" id="email">*@
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email" class="col-md-2 control-label">Website</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.Website)
-                    @*<input type="date" class="form-control" id="email">*@
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email" class="col-md-2 control-label">Số điện thoại</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.University.Phone)
-                    @*<input type="date" class="form-control" id="email">*@
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Lưu lại" class="btn btn-info"/>
-                    <input type="reset" value="Làm lại" class="btn btn-info"/>
-					<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
-                </div>
-            </div>
-        </form>
+    <input type="hidden" name="uniId" value="@Model.UniversityID" />
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" name="Name" value="@Model.Name" /></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>
+                <input type="text" name="Address" value="@Model.Address"/></td>
+        </tr>
+        <tr>
+            <td>UniversityCode</td>
+            <td>
+                <input type="text" name="UniversityCode" value="@Model.UniversityCode"/></td>
+        </tr>
+        <tr>
+            <td>Website</td>
+            <td>
+                <input type="text" name="Website" value="@Model.Website"/></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>
+                <input type="text" name="Phone" value="@Model.Phone"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+                <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;"/>
+            </td>
+        </tr>
+    </table>
 }

@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@using TSMT.Models;
+
+<h2 class="title_of_page">Add University Examination</h2>
+@using (Html.BeginForm("AddUniverExam", "Admin", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Trường</td>
+            <td>
+                <select name="UniversityID">
+                    @foreach (var item in ViewData["unis"] as IEnumerable<University>)
+                    {
+                        <option value="@item.UniversityID">@item.Name</option>
+                    }
+                </select></td>
+        </tr>
+        <tr>
+            <td>Kỳ thi</td>
+            <td>
+                <select name="ExaminationID">
+                    @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
+                    {
+                        <option value="@item.ExaminationID">@item.Name</option>
+                    }
+                </select></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversityExam'"/>
+            </td>
+        </tr>
+    </table>
+}

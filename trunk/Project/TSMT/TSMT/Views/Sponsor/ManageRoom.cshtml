@@ -28,7 +28,7 @@
                     <td>@item.AvailableSlots</td>
                     <td>
                         @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
                     </td>
                 </tr>
                     ++counter;

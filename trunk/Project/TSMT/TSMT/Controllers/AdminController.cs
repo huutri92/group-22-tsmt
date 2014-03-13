@@ -7,6 +7,7 @@ using TSMT.Models;
 
 namespace TSMT.Controllers
 {
+    [CheckAuth(5)]
     public class AdminController : Controller
     {
         private readonly TSMTEntities db = new TSMTEntities();
@@ -17,7 +18,7 @@ namespace TSMT.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [CheckAuth(5)]
+
         public ActionResult Index()
         {
             return View();
@@ -30,19 +31,19 @@ namespace TSMT.Controllers
         #region POSTS
         #endregion
         #region UNIVERSITIES
-        [CheckAuth(5)]
+        
         public ActionResult ManageUniversity()
         {
             var unis = db.Universities.ToList();
             return View(unis);
         }
-        [CheckAuth(5)]
+        
         public ActionResult AddUniversity()
         {
             return View();
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult AddUniversity(FormCollection f)
         {
             University uni = new University();
@@ -58,14 +59,14 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageUniversity");
         }
-        [CheckAuth(5)]
+        
         public ActionResult EditUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
             return View(uni);
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult EditUniversity(FormCollection f)
         {
             int uniId = int.Parse(f["uniId"]);
@@ -78,7 +79,7 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
         }
-        [CheckAuth(5)]
+        
         public ActionResult DeleteUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
@@ -93,19 +94,19 @@ namespace TSMT.Controllers
         }
         #endregion
         #region EXAMINATIONS
-        [CheckAuth(5)]
+        
         public ActionResult ManageExam()
         {
             var exams = db.Examinations.ToList();
             return View(exams);
         }
-        [CheckAuth(5)]
+        
         public ActionResult AddExam()
         {
             return View();
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult AddExam(FormCollection f)
         {
             Examination exam = new Examination();
@@ -128,7 +129,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageExam");
         }
-        [CheckAuth(5)]
+        
         public ActionResult DeleteExam(int id)
         {
             Examination exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == id);
@@ -151,20 +152,20 @@ namespace TSMT.Controllers
         }
         #endregion
         #region SCHEDULE-EXAMS
-        [CheckAuth(5)]
+        
         public ActionResult ManageScheduleExam(int id)
         {
             var scheduleExams = db.DetailsScheduleExams.Where(r => r.ExamID == id);
             return View(scheduleExams);
         }
-        [CheckAuth(5)]
+        
         public ActionResult EditScheduleExam(int id)
         {
             DetailsScheduleExam scheduleExam = db.DetailsScheduleExams.SingleOrDefault(r => r.DetailsScheduleExamID == id);
             return View(scheduleExam);
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult EditScheduleExam(FormCollection f)
         {
             int scheduleExamId = int.Parse(f["id"]);
@@ -176,13 +177,13 @@ namespace TSMT.Controllers
         }
         #endregion
         #region UNI-EXAMS
-        [CheckAuth(5)]
+        
         public ActionResult ManageUniversityExam()
         {
             var uniExams = db.UniversitiesExaminations.ToList();
             return View(uniExams);
         }
-        [CheckAuth(5)]
+        
         public ActionResult AddUniversityExam()
         {
             ViewData["exams"] = db.Examinations.ToList();
@@ -190,7 +191,7 @@ namespace TSMT.Controllers
             return View();
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult AddUniversityExam(FormCollection f)
         {
             UniversitiesExamination ue = new UniversitiesExamination();
@@ -202,7 +203,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageUniversityExam");
         }
-        [CheckAuth(5)]
+        
         public ActionResult DeleteUniversityExam(int id)
         {
             UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == id);
@@ -223,14 +224,14 @@ namespace TSMT.Controllers
         }
         #endregion
         #region VENUES
-        [CheckAuth(5)]
+        
         public ActionResult ManageVenue(int id)
         {
             var ves = db.Venues.Where(r => r.UniExamID == id);
             ViewData["ueId"] = id;
             return View(ves);
         }
-        [CheckAuth(5)]
+        
         public ActionResult AddVenue(int id)
         {
             ViewData["ueId"] = id;
@@ -252,14 +253,14 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
         }
-        [CheckAuth(5)]
+        
         public ActionResult EditVenue(int id)
         {
             Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);
             return View(ve);
         }
         [HttpPost]
-        [CheckAuth(5)]
+        
         public ActionResult EditVenue(FormCollection f)
         {
             int veId = int.Parse(f["veId"]);
@@ -269,7 +270,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
         }
-        [CheckAuth(5)]
+        
         public ActionResult DeleteVenue(int id)
         {
             Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);

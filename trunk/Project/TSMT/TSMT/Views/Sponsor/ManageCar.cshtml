@@ -38,7 +38,7 @@
                     <td>@item.DriverPhone</td>
                     <td>
                         @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })
-                        @Html.ActionLink("Delete", "DeleteCar", new { carId = @item.CarID })
+                        @Html.ActionLink("Delete", "DeleteCar", new { carId = @item.CarID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
                     </td>
                 </tr>
                     ++counter;
