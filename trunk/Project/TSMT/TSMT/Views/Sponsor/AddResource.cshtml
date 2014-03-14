@@ -1,0 +1,235 @@
+﻿@using TSMT.Models
+@{
+    ViewBag.Title = "AddResource";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type='text/javascript' src='~/content/js/jquery.js'></script>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddReSource</title>
+    <script type="text/javascript" src="~/Content/js/jquery.js"></script>
+    <script type="text/javascript">
+        function callAjax(id) {
+            $.ajax({
+                url: 'ResultAjax',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#asd").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    }
+                }
+            });
+        }
+
+        function callAjaxcar(id) {
+            $.ajax({
+                url: 'ResultAjaxCar',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#TotalSlots").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#TotalSlots").val(r["TotalSlots"]);
+                    }
+                    $("#NumberPlate").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#NumberPlate").val(r["NumberPlate"]);
+                    }
+                    $("#DriverName").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#DriverName").val(r["DriverName"]);
+                    }
+                    $("#DriverPhone").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#DriverPhone").val(r["DriverPhone"]);
+                    }
+                }
+            });
+        }
+
+        function callAjaxlodge(id) {
+            $.ajax({
+                url: 'ResultAjaxlodge',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#Address").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#Address").val(r["Address"]);
+                    }
+                    $("#TotalRooms").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#TotalRooms").val(r["TotalRooms"]);
+                    }
+                    $("#TotalSlotsL").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#TotalSlotsL").val(r["TotalSlotsL"]);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2 class="title_of_page">New Resource</h2>
+    <form method="post" action="/Sponsor/AddResource">
+        <table>
+            <tr>
+                <td>Tài Trợ Cho: </td>
+                <td>
+                    <select id="qwe" onchange="callAjax(this.value)">
+                        <option value="null" selected>---</option>
+                        @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                        {
+                            <option value="@item.ExaminationID">@item.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>Tổ Chức: </td>
+                <td>
+                    <select id="asd" name="asd"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>Hình Thức</td>
+                <td>
+                    <select id="resource" name="resource" onchange="changeRole(this.options[this.selectedIndex].text);">
+                        <option value="null" selected>---</option>
+                        <option value="1">Fund</option>
+                        <option value="2">Car</option>
+                        <option value="3">Lodge</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <div id="Fund" style="display: none">
+            <table>
+                <tr>
+                    <td>Số Tiền</td>
+                    <td>
+                        <input type="text" name="FundSponsored" id="input" />
+                        <script>
+                            $("#input").priceFormat({ prefix: '', centsLimit: 0 });
+                        </script>
+                    </td>
+                    <td>VNĐ</td>
+                </tr>
+                <tr>
+                    <td>Hình thức</td>
+                    <td>
+                        <select name="IsOnline">
+                            <option value="True">Tận Tay</option>
+                            <option value="False">Chuyển Khoản</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="Car" style="display: none">
+            <table>
+                <tr>
+                    <td>Xe đã có trong kho
+                    </td>
+                    <td>
+                         <select id="carsource" name="carId" onchange="callAjaxcar(this.value)">
+                             <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Car"] as IEnumerable<Car>)
+                            {
+                                <option value="@item.CarID">@item.NumberPlate</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Biển số xe</td>
+                    <td>
+                        <input type="text"id="NumberPlate" name="NumberPlate" /></td>
+                </tr>
+                <tr>
+                    <td>Tổng số chỗ ngồi</td>
+                    <td>
+                        <input type="text" id="TotalSlots" name="TotalSlots" /></td>
+                </tr>
+                <tr>
+                    <td>Tên tài xế</td>
+                    <td>
+                        <input type="text" id="DriverName" name="DriverName" /></td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại tài xế</td>
+                    <td>
+                        <input type="text" id ="DriverPhone" name="DriverPhone" /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="Lodge" style="display: none">
+            <table>
+                  <tr>
+                    <td>Lodge đã có trong kho
+                    </td>
+                    <td>
+                         <select id="lodgesource" name="lodgeId" onchange="callAjaxlodge(this.value)">
+                             <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Lodge"] as IEnumerable<Lodge>)
+                            {
+                                <option value="@item.LodgeID">@item.Address</option>
+                            }
+                        </select>
+                    </td>
+                      <td>
+                          <button>Tạo mới</button>
+                      </td>
+                      
+                </tr>
+                <tr>
+                    <td>Địa chỉ</td>
+                    <td>
+                         <input type="text" id="Address" name="Address" /></td>
+                </tr>
+                <tr>
+                    <td>Tổng số phòng</td>
+                    <td>
+                         <input type="text" id="TotalRooms" name="TotalRooms" /></td>
+                    
+                </tr>
+                <tr>
+                    <td>Tổng số chỗ trọ</td>
+                    <td>
+                         <input type="text" id="TotalSlotsL" name="TotalSlotsL" /></td>
+                   
+                </tr>
+            </table>
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+        </div>
+    </form>
+</body>
+</html>
+<script type="text/javascript">
+    var currentRole = "null";
+    function changeRole(newRole) {
+        if (currentRole !== "null") {
+            document.getElementById(currentRole).style.display = 'none';
+        }
+        document.getElementById(newRole).style.display = 'inline';
+        currentRole = newRole;
+    }
+</script>

@@ -28,7 +28,7 @@
                     <td>@item.AvailableSlots</td>
                     <td>
                         @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
+                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
                     </td>
                 </tr>
                     ++counter;
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 </div>
-@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info"})
 @Html.ActionLink("Back to Manage Lodge", "ManageLodge", null, new { @class = "btn btn-info" })
