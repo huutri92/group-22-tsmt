@@ -36,7 +36,7 @@
                     <td>
                         @Html.ActionLink("Details", "DetailsCharityExam", new { ceId = @item.CharityExamID })
                         @Html.ActionLink("Edit", "EditCharityExam", new { ceId = @item.CharityExamID })
-                        @Html.ActionLink("Delete", "DeleteCharityExam", new { ceId = @item.CharityExamID }, , new { onclick = "return showPopup('Are you sure to delete it?', this.href,"})
+                        @Html.ActionLink("Delete", "DeleteCharityExam", new { ceId = @item.CharityExamID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href,"})
                     </td>
                 </tr>
                     i++;
