@@ -12,6 +12,7 @@
             <tr>
                 <th>STT</th>
                 <th>Candidate Name</th>
+                <th>Nhóm</th>
                 <th>Lodge</th>
                 <th>Room</th>
                 <th>Actions</th>
@@ -25,11 +26,25 @@
                 {
                 <tr>
                     <td>@counter</td>
-                    <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
+                    <td>@item.ExaminationsPaper.Candidate.Account.Profile.Lastname @item.ExaminationsPaper.Candidate.Account.Profile.Firstname</td>
+                    <td>
+                        @if (item.ExaminationsPaper.GroupID != null)
+                        {
+                            @item.ExaminationsPaper.GroupID
+                        } 
+                            else
+                        {
+                            <span>Không thuộc nhóm nào</span>
+                        }
+                    </td>
                     <td>
                         @if (item.RoomID != null)
                         {
                             @item.Room.Lodge.LodgeID
+                        }
+                        else
+                        {
+                            <span>Chưa được sắp xếp</span>
                         }
                     </td>
                     <td>
@@ -37,10 +52,14 @@
                         {
                             @item.Room.RoomID
                         }
+                        else
+                        {
+                            <span>Chưa được sắp xếp</span>
+                        }
                     </td>
                     <td>
                         @Html.ActionLink("Details", "DetailsCandidate", new { joininId = @item.JoinInID })
-                        @Html.ActionLink("Remove", "RemoveCandidate", new { joininId = @item.JoinInID }, new { onclick="return showPopup('Please confirm to remove.', this.href);" })
+                        @Html.ActionLink("Remove", "RemoveCandidate", new { joininId = @item.JoinInID }, new { onclick="return showPopup('Are you sure to delete it?', this.href);"})
                     </td>
                 </tr>
                         ++counter;
@@ -50,3 +69,11 @@
     </table>
 </div>
 @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@*<script>
+    function DeleteConfirm() {
+        if (confirm("Bạn chắc chắn muốn xóa ?"))
+            return true;
+        else
+            return false;
+    }
+</script>*@

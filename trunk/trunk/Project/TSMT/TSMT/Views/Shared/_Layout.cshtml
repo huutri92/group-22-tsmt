@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title - TSMT</title>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
@@ -17,6 +17,8 @@
     <link href="/Content/css/popup.css" rel="stylesheet">
     <link href="/Content/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="#">
+    <script src="/Content/js/jquery.js"></script>
+    <script src="/Content/js/popup.js"></script>
 </head>
 <body>
     <div class="out-container">
@@ -83,7 +85,7 @@
                         }
                         else
                         {
-                            <li><a href="@Url.Action("LoginAs", "Home", new { identity = "admin", id = "" })"><i class="icon-home"></i>Login as Admin</a></li>
+                            <li><a href="/Admin/"><i class="icon-home"></i>Login as Admin</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "charity", id = "01" })"><i class="icon-home"></i>Login as Charity 01</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "charity", id = "02" })"><i class="icon-home"></i>Login as Charity 02</a></li>
                             <li><a href="@Url.Action("LoginAs", "Home", new { identity = "sponsor", id = "01" })"><i class="icon-home"></i>Login as Sponsor 01</a></li>
@@ -174,7 +176,7 @@
     </div>
 
     <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
-    <script src="/Content/js/jquery.js"></script>
+
     <script src="/Content/js/bootstrap.min.js"></script>
     <script src="/Content/js/jquery.themepunch.revolution.min.js"></script>
     <script src="/Content/js/jquery.themepunch.plugins.min.js"></script>
@@ -184,6 +186,5 @@
     <script src="/Content/js/respond.min.js"></script>
     <script src="/Content/js/html5shiv.js"></script>
     <script src="/Content/js/custom.js"></script>
-    <script src="/Content/js/popup.js"></script>
 </body>
 </html>

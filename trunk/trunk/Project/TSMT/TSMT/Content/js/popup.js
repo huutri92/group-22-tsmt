@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
 	var popUp = '';
 	popUp += '<div id="dialog-overlay"></div>';
 	popUp += '<div id="dialog-box">';
@@ -23,21 +23,36 @@ $(document).ready(function () {
 
 	// submit
 	$('.popup-confirm').click(function () {
-		window.location.href = this.href;
+	    if (this.className.indexOf("popup-remove") != -1) {
+	        if (tempt == "del") {
+	            callAjaxDelete(id);
+	        }
+	        
+	        else if (tempt == "remove") {
+	            callAjaxDenie(id);
+	        }
+	    } else
+	    {
+            window.location.href = this.href;
+	    }
 	});
 });
 
-function showPopup(message, href) {
+id = null;
+tempt = null;
+
+function showPopup(message, href, aid, flag) {
 	// get the screen height and width  
 	var maskHeight = $(document).height();  
 	var maskWidth = $(window).width();
-	
+	id = aid;
+	tempt = flag;
 	// calculate the values for center alignment
 	var dialogTop =  (maskHeight/3) - ($('#dialog-box').height());  
 	var dialogLeft = (maskWidth/2) - ($('#dialog-box').width()/2); 
 	
     // assign values to the overlay and dialog box
-	$('#dialog-overlay').css({ height: maskHeight, width: maskWidth }).fadeIn("slow");
+	$('#dialog-overlay').css({ height: maskHeight, width: maskWidth }).show();
 	$('#dialog-box').css({ top: dialogTop, left: dialogLeft }).fadeIn("slow");
 	
 	// display the message

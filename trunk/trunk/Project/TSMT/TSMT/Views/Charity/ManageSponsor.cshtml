@@ -26,7 +26,15 @@
                     <td>@counter</td>
                     <td>@item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname</td>
                     <td>Fund</td>
-                    <td>@item.FundSponsored - IsOnlineFunding: @item.IsOnlineFunding</td>
+                    @if (item.IsOnlineFunding)
+                    {
+                        <td>@item.FundSponsored.ToString("##,###") VND - Được chuyển qua internet</td>
+                    }
+                    else
+                    {
+                        <td>@item.FundSponsored.ToString("##,###") VND - Được giao tận tay</td>
+                    }
+                  
                     <td>
                         @Html.ActionLink("Details", "DetailsFunding", new { fundId = @item.FundID})
                     </td>
@@ -40,7 +48,7 @@
                     <td>@counter</td>
                     <td>@item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname</td>
                     <td>Lodge</td>
-                    <td>@item.Address, @item.District.Name - @item.TotalSlots@Html.Raw("(")@item.AvailableSlots)</td>
+                    <td>@item.Address -  @item.TotalSlots@Html.Raw("(")@item.AvailableSlots)</td>
                     <td>
                         @Html.ActionLink("Details", "DetailsSponsoredLodge", new { lodgeId = @item.LodgeID})
                     </td>
