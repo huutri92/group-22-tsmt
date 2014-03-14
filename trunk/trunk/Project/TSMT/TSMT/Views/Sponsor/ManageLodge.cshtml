@@ -2,6 +2,7 @@
 @model IEnumerable<Lodge>
 
 @{
+    ViewBag.Title = "ManageLodge";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,10 +15,11 @@
                 <th>STT</th>
                 <th>Kỳ thi</th>
                 <th>Tô chức</th>
-                <th>Address</th>
+                <th>Địa chỉ</th>
                 <th>Tổng số phòng</th>
                 <th>Tổng số chỗ trọ</th>
                 <th>Số chỗ còn trống</th>
+                <th>Trạng Thái</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -29,17 +31,47 @@
                 {
                 <tr>
                     <td>@counter</td>
-                    <td>@item.ChairitiesExam.Examination.Name</td>
-                    <td>@item.ChairitiesExam.CharityExamName</td>
+                     @if (item.CharityExamID== null)
+                        {
+                            <td>#Trống#</td>
+                            <td>#Trống#</td>
+                        }
+                        else
+                        {
+                            <td>@item.ChairitiesExam.Examination.Name</td>
+                            <td>@item.ChairitiesExam.CharityExamName</td>
+                        }
                     <td>@item.Address</td>
                     <td>@item.TotalRooms</td>
                     <td>@item.TotalSlots</td>
                     <td>@item.AvailableSlots</td>
-                    <td>
+
+                          @if (item.CharityExamID == null)
+                        {
+                            <td><span class="label label-info">Chưa Tài Trợ</span></td>
+                               <td>
                         @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
                         @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
-                        @Html.ActionLink("Delete", "DeleteLodge", new { lodgeId = @item.LodgeID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
+                        @Html.ActionLink("Delete", "DeleteLodge", new { lodgeId = @item.LodgeID })
                     </td>
+                        }
+                    else{
+                    if (item.IsApproved)
+                    {
+                         <td><span class="label label-danger">Chờ Duyệt</span></td>
+                               <td>
+                        @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                        @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
+                        @Html.ActionLink("Delete", "DeleteLodge", new { lodgeId = @item.LodgeID })
+                    </td>
+                    }
+                    else 
+                    {
+                        <td><span class="label label-success">Đã Duyệt</span></td>
+                         <td>@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })</td>
+                    }
+                    }
+                   
                 </tr>
                     ++counter;
                 }

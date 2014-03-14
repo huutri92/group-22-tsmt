@@ -2,6 +2,7 @@
 @model IEnumerable<Car>
 
 @{
+    ViewBag.Title = "ManageCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,6 +19,7 @@
                 <th>Số chỗ còn trống</th>
                 <th>Tên tài xế</th>
                 <th>SĐT tài xế</th>
+                <th>Trạng thái</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -29,17 +31,45 @@
                 {
                 <tr>
                     <td>@counter</td>
-                    <td>@item.ChairitiesExam.Examination.Name</td>
-                    <td>@item.ChairitiesExam.CharityExamName</td>
+                        @if (@item.CharityExamID== null)
+                        {
+                            <td>#Trống#</td>
+                            <td>#Trống#</td>
+                        }
+                        else
+                        {
+                            <td>@item.ChairitiesExam.Examination.Name</td>
+                            <td>@item.ChairitiesExam.CharityExamName</td>
+                        }
                     <td>@item.NumberPlate</td>
                     <td>@item.TotalSlots</td>
                     <td>@item.AvailableSlots</td>
                     <td>@item.DriverName</td>
                     <td>@item.DriverPhone</td>
-                    <td>
+                    @if (item.CharityExamID == null)
+                        {
+                            <td><span class="label label-info">Chưa Tài Trợ</span></td>
+                        <td>
                         @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })
-                        @Html.ActionLink("Delete", "DeleteCar", new { carId = @item.CarID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
+                        @Html.ActionLink("Delete", "DeleteCar", new { carId = @item.CarID },new { onclick="return showPopup('Are you sure to delete it?', this.href);"})
                     </td>
+                            
+                        }
+                    else{
+                    if (!item.IsApproved)
+                    {
+                        <td><span class="label label-danger">Chờ Nhận</span></td>
+                        <td>
+                        @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })
+                        @Html.ActionLink("Delete", "DeleteCar", new { carId = @item.CarID },new { onclick="return showPopup('Are you sure to delete it?', this.href);"})
+                    </td>
+                    }
+                    else 
+                    {
+                        <td><span class="label label-success">Đã Tài Trợ</span></td>
+                    }
+                    }
+                    
                 </tr>
                     ++counter;
                 }
