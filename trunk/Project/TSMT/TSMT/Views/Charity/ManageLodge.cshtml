@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
 <h2 class="title_of_page">Manage Lodges of Charity Exam</h2>
 
 <div class="inner-page-content inner-careers">
@@ -17,6 +22,7 @@
                 <th>Tổng số phòng</th>
                 <th>Tổng số chỗ trọ</th>
                 <th>Số chỗ còn trống</th>
+                <th>Trạng thái</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,7 +32,7 @@
 
                 foreach (var item in ViewData["lodges"] as IEnumerable<Lodge>)
                 {
-                <tr>
+                <tr id="@item.LodgeID">
                     <td>@counter</td>
                     <td>@item.Address</td>
                     <td>@if (@item.SponsorID != null)
@@ -37,13 +43,39 @@
                     <td>@item.TotalRooms</td>
                     <td>@item.TotalSlots</td>
                     <td>@item.AvailableSlots</td>
-                    <td>
-                        @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
-                        @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
-                        @Html.ActionLink("Delete", "DeleteLodge", new { lodgeId = @item.LodgeID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
-                    </td>
+                    @if (item.IsAprroved && item.SponsorID != null)
+                    {
+                        <td><span class="label label-success">Đã duyệt</span></td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
+                            @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                            @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href)," + @item.LodgeID + ", 'remove' );" })
+
+                        </td>
+                    }
+                    else if (!item.IsAprroved && item.SponsorID != null)
+                    {
+                        <td><span class="label label-danger">Chưa duyệt</span></td>
+                        <td>
+                            @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                            @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style= "display: none", onclick="return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'remove' );" })
+                            @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID +")"})
+                            @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })
+                           
+                           
+                        </td>
+                    }
+                    else if (item.SponsorID == null)
+                    {
+                        <td></td>
+                        <td>
+                            @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                            @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
+                            @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
+                        </td>
+                    }
                 </tr>
-                        ++counter;
+                    ++counter;
                 }
             }
         </tbody>
@@ -51,4 +83,67 @@
 </div>
 
 @Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
-@Html.ActionLink("Back to Manage CE", "ManageCharityExam", null, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+<script type="text/javascript">
+    //function DeleteConfirm(type="text/javascript) {
+    //    if (confirm("Bạn chắc chắn muốn xóa ?"))
+    //        return true;
+    //    else
+    //        return false;
+
+
+
+
+    function callAjaxApprove(lodgeId) {
+        $.ajax({
+            url: 'ApproveLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                var tr = document.getElementById(lodgeId);
+                var lastTd = tr.lastElementChild;
+                var preLastTd = lastTd.previousElementSibling;
+
+                lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
+
+                lastTd.lastElementChild.style.display = "inline";
+
+                var spanStatus = preLastTd.lastElementChild;
+                spanStatus.textContent = "Đã duyệt";
+                spanStatus.className = "label label-success";
+            }
+        });
+        return false;
+    }
+
+    function callAjaxDelete(lodgeId) {
+
+
+        $.ajax({
+            url: 'DeleteLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
+                });
+
+            }
+        });
+    }
+
+    function callAjaxDenie(lodgeId) {
+
+
+        $.ajax({
+            url: 'DenieLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
+                });
+            }
+        });
+    }
+</script>
+

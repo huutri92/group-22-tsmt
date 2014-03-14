@@ -4,6 +4,11 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
 
 <h2 class="title_of_page">Manage Lodges of Charity Exam</h2>
 <div class="inner-page-content inner-careers">
@@ -22,14 +27,14 @@
 
                 foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
                 {
-                <tr>
+                <tr id ="@item.RoomID">
                     <td>@counter</td>
                     <td>@item.TotalSlots</td>
                     <td>@item.AvailableSlots</td>
                     <td>
-                        @Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })
+                        @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
                         @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID }, new { onclick="return showPopup('Please confirm to delete it.', this.href);" })
+                        @Html.ActionLink("Delete", "DeleteRoom", new { id = @item.RoomID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
                     </td>
                 </tr>
                     ++counter;
@@ -39,3 +44,27 @@
     </table>
 </div>
 @Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
+<script>
+    //function DeleteConfirm() {
+    //    if (confirm("Bạn chắc chắn muốn xóa ?"))
+    //        return true;
+    //    else
+    //        return false;
+    //}
+
+    function callAjaxDelete(roomId) {
+
+
+        $.ajax({
+            url: 'DeleteRoom/' + roomId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + roomId).hide(800, function () {
+                    $("#" + roomId).remove();
+                });
+
+            }
+        });
+    }
+
+</script>

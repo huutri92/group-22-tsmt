@@ -36,7 +36,7 @@
                     <td>
                         @Html.ActionLink("Details", "DetailsCharityExam", new { ceId = @item.CharityExamID })
                         @Html.ActionLink("Edit", "EditCharityExam", new { ceId = @item.CharityExamID })
-                        @Html.ActionLink("Delete", "DeleteCharityExam", new { ceId = @item.CharityExamID })
+                        @Html.ActionLink("Delete", "DeleteCharityExam", new { ceId = @item.CharityExamID }, , new { onclick = "return showPopup('Are you sure to delete it?', this.href,"})
                     </td>
                 </tr>
                     i++;
@@ -47,3 +47,12 @@
 </div>
 @Html.ActionLink("Create", "AddCharityExam", null, new { @class = "btn btn-info" })
 <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+
+@*<script>
+    function DeleteConfirm() {
+        if (confirm("Bạn chắc chắn muốn xóa ?"))
+            return true;
+        else
+            return false;
+    }
+</script>*@
