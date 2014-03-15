@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "DisplayNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+@model List<Article>
+<h2>DisplayNews</h2>
+@foreach (var item in Model)
+{
+    <div>
+        <div>@item.Title</div>
+        <div>@Html.Raw(item.Content)</div>
+        <div>@item.CreatedOn</div>
+    </div>
+}
