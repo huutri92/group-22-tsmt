@@ -1,0 +1,42 @@
+﻿@using TSMT.Models;
+@model IEnumerable<Group>
+
+@{
+    ViewBag.Title = "Manage Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Group ID</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.GroupID</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailsGroup", new { id = @item.GroupID })
+                        @Html.ActionLink("Delete", "DeleteGroup", new { id = @item.GroupID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })
+                    </td>
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.ActionLink("Create", "AddGroup", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage Candidates", "ManageCandidate", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })

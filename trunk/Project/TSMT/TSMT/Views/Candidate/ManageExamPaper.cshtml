@@ -1,0 +1,82 @@
+﻿@using TSMT.Models
+@model IEnumerable<TSMT.Models.ExaminationsPaper>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thông tin phiếu báo thi";
+    ViewBag.Active = "ManageExamPaper";
+}
+
+
+
+@*@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Thí sinh</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Thí sinh</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}*@
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+        </div>
+    </div>
+}
+
+@*@Html.Partial("_CandidateSidebarPartial")*@
+@Html.Partial("_AccountSidebarPartial")
+
+<div class="col-md-9">
+    <div class="panel panel-blue margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Tất cả phiếu báo thi của bạn
+                <a href="@Url.Action("AddExamPaper", "Candidate")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+            </h3>
+            @*@Html.ActionLink("Create", "AddExamPaper", null, new { @class = "btn btn-info" })*@
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Trường</th>
+                        <th>Kỳ thi</th>
+                        <th>Địa điểm thi</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.UniversitiesExamination.University.Name</td>
+                            <td>@item.UniversitiesExamination.Examination.Name</td>
+                            <td>@item.Venue.Address</td>
+                            <td>
+                                @*@Html.ActionLink("Details", "DetailsExamPaper", new { examPaperId = @item.ExamPaperID })*@
+                                <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-default"><i class="icon-info"></i> Chi tiết</a>
+                                @*@Html.ActionLink("Delete", "DeleteExamPaper", new { examPaperId = @item.ExamPaperID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })*@
+                                <a href="@Url.Action("DeleteExamPaper", "Candidate", new { examPaperId = @item.ExamPaperID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i> Xóa </a>
+                            </td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+﻿
+@model TSMT.Models.CharityCarModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="text-align: center">
+    <h2>Quản Lí Xe Đưa Đón Học Sinh</h2>
+</div>
+<!-- inner page content start -->
+<div class="inner-page-content inner-testimonial">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("ManageCar", "Charity", FormMethod.Get, new { @class = "form-horizontal" }))
+            {
+
+                for (int i = 0; i <= Model.ListCarInfo.Count - 1; i++)
+                {
+                    
+                    if (i % 3 == 0 && i != 0) {
+                        <br/>
+                    }
+                    var item = Model.ListCarInfo[i];
+                    <div class="col-md-4">
+                        <!-- Testimonial item -->
+                        <div class="testimonial-item">
+                            <!-- User Image -->
+                            <img src="/Content/img/user-big.jpg"  style="max-width: 60px" class="img-responsive img-thumbnail img-circle" alt="" />
+                            <!-- User name and designation -->
+                            <h4>Biển Số : @item.Car.NumberPlate</h4>
+                            <!-- User comments -->
+                            <blockquote>
+                                <div class="f-caption">                        
+                                    <!-- Heading -->
+                               @* @Html.HiddenFor(model => model.CarId)*@
+                                    <h5>Tổng Số Chỗ Ngồi : @item.Car.TotalSlots</h5>
+                                    <h5>Số Chỗ Ngồi Còn Trống : @item.Car.AvailableSlots</h5>
+                                    <h5>Tài Xế : @item.Car.DriverName</h5>
+                                    <h5>Số Điện Thoại : @item.Car.DriverPhone</h5>
+                                    <!-- Paragraph -->
+                                    @if(item.Car.SponsorID != null)
+                                    {
+                                        <p>Xe được tài trợ bởi nhà tài trợ @item.SponsorName</p>
+                                    }
+                                    
+
+                                </div>
+                            </blockquote>
+                            <a>@Html.ActionLink("Chỉnh Sửa", "EditCar", "Charity", new { carId = @item.Car.CarID}, new { @class = "btn" })</a>
+                            <a>@Html.ActionLink("Xóa", "DeleteCar", "Charity", new { carId = @item.Car.CarID}, new { @class = "btn" })</a>
+                            @*<a href="DeleteCar" class="btn btn-info">Xóa</a>*@
+                        </div>
+                    </div>
+                       
+                }
+             
+            }
+            
+            @*<div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+                    <h4>Jon Asse<span>, MD</span></h4>
+                    <!-- User comments -->
+                    <blockquote>
+                        <p>Sed ut perspiciatis unde omnis iste natust error sit vol accusantium doloremque and laudantium, totam rem aperiam, eaque an ipsa quae abe illo explicabo. An oiuk nesciunt.</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+                    <h4>Tas Mend<span>, CA</span></h4>
+                    <!-- User comments -->
+                    <blockquote>
+                        <p>Sed ut perspiciatis unde omnis iste natust error sit vol accusantium doloremque and laudantium, totam rem aperiam, eaque an ipsa quae abe illo explicabo. An oiuk nesciunt.</p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" style="max-width: 60px" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+                    <h4>R. Gheos<span>, CA II</span></h4>
+                    <!-- User comments -->
+                    <blockquote>
+                        <p>Sed ut perspiciatis unde omnis iste natust error sit vol accusantium doloremque and laudantium, totam rem aperiam, eaque an ipsa quae abe illo explicabo. An oiuk nesciunt.</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+                    <h4>Den Louse<span>, FM</span></h4>
+                    <!-- User comments -->
+                    <blockquote>
+                        <p>Sed ut perspiciatis unde omnis iste natust error sit vol accusantium doloremque and laudantium, totam rem aperiam, eaque an ipsa quae abe illo explicabo. An oiuk nesciunt.</p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+                    <h4>Oues Lenn<span>, CA III</span></h4>
+                    <!-- User comments -->
+                    <blockquote>
+                        <p>Sed ut perspiciatis unde omnis iste natust error sit vol accusantium doloremque and laudantium, totam rem aperiam, eaque an ipsa quae abe illo explicabo. An oiuk nesciunt.</p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>*@
+        </div>
+        
+
+    </div>
+    <a href="AddCar" class="btn btn-info">Thêm Xe</a>
+</div>

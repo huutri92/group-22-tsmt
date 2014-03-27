@@ -1,0 +1,55 @@
+﻿@using TSMT.Models
+@model TSMT.Models.ExaminationsPaper
+
+@{
+    ViewBag.Title = "DetailsVolunteer";
+}
+
+<h2 class="title_of_page">Details Volunteer</h2>
+<div class="inner-page-content inner-testimonial">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <!-- Testimonial item -->
+                <div class="testimonial-item">
+                    <!-- User Image -->
+                    <img src="/Content/img/user-big.jpg" style="max-width: 60px" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <!-- User name and designation -->
+
+                    <h4>Tên : @Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</h4>
+
+                    <!-- User comments -->
+                    <blockquote>
+                        <div class="f-caption">
+                            <ol>
+                                
+
+                                <h5>Năm sinh : @Model.Candidate.Account.Profile.DateOfBirth</h5>
+                                <h5>Học tại trường: @Model.Candidate.HighSchoolName</h5>
+                                <h5>Trường dự thi : @Model.UniversitiesExamination.University.Name</h5>
+                                <h5>Địa điểm dự thi: @Model.Venue.Address</h5>
+                                @if (Model.GroupID != null)
+                                {
+                                    <h5>Thuộc nhóm : @Model.GroupID</h5>
+                                    <h5>Của : @ViewData["Group"]</h5>
+                                }
+                                @if (Model.RoomID != null)
+                                {
+                                    <h5>Phòng trọ : @Model.Room.RoomName</h5>
+                                    <h5>Thuộc nhà trọ : @Model.Room.Lodge.Address</h5>
+                                }
+                                else
+                                {
+                                    <h5>Chưa được sắp xếp chỗ ở</h5>
+                                }
+                                
+                            </ol>
+
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })

@@ -1,0 +1,108 @@
+﻿@using TSMT.Models
+@model IEnumerable<Lodge>
+
+@{
+    ViewBag.Title = "Quản lý chỗ trọ";
+    ViewBag.Active = "ManageLodge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+
+}
+
+@Html.Partial("_SponsorSidebarPartial")
+
+<div class="col-md-9" id="showInformation">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-user"></i>Thông tin chỗ trọ
+                  <a href="@Url.Action("AddLodge", "Sponsor")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+                </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Kỳ thi</th>
+                        <th>Tô chức</th>
+                        <th>Địa chỉ</th>
+                        <th>Tình trạng</th>
+                        <th>Trạng Thái</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            @if (item.CharityExamID == null)
+                            {
+                                <td>#Trống#</td>
+                                <td>#Trống#</td>
+                            }
+                            else
+                            {
+                                <td>@item.ChairitiesExam.Examination.Name</td>
+                                <td>@item.ChairitiesExam.CharityExamName</td>
+                            }
+                            <td>@item.Address</td>
+                            <td>@(item.TotalSlots-item.AvailableSlots)/@item.TotalSlots</td>
+                            @if (item.CharityExamID == null)
+                            {
+                                <td><span class="label label-info">Chưa Tài Trợ</span></td>
+                                <td>
+                                    <a href="@Url.Action("DetailsLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"><i class="icon-info"></i></a>
+                                    <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-red"><i class="icon-heart"></i></a>
+                                    <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange"><i class="icon-trash"></i></a>
+                                </td>
+                            }
+                            else
+                            {
+                                if (!item.IsApproved)
+                                {
+                                <td><span class="label label-danger">Chờ Duyệt</span></td>
+                                <td>
+                                    <a href="@Url.Action("DetailsLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"><i class="icon-info"></i></a>
+                                    <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-red"><i class="icon-heart"></i></a>
+                                    <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange"><i class="icon-trash"></i></a>
+                                </td>
+                                }
+                                else
+                                {
+                                <td><span class="label label-success">Đã Duyệt</span></td>
+                                <td><a href="@Url.Action("DetailsLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"><i class="icon-info"></i></a>
+
+                                </td>
+                                }
+                            }
+
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })

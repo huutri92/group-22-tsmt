@@ -1,0 +1,34 @@
+﻿@using TSMT.Models
+
+<!--=== Top ===-->
+<div class="top">
+    <div class="container">
+        <ul class="Loginbar pull-right">
+            @if (Session["acc"] != null)
+            {                          
+                <li>
+                    <a>Welcome <strong>@(((Account)Session["acc"]).Profile.Firstname)</strong></a>
+                    <i class="icon-angle-down"></i>
+                    <ul class="lenguages" style="vertical-align:middle">
+                        <li>
+                            <a href="@Url.Action("EditAccount","Account", new {id = ((Account)Session["acc"]).AccountID})" style="text-align:center">Thông tin <br /> tài khoản</a>
+                        </li>
+                         <li>
+                            <a href="@Url.Action("ManageExamPaper","Candidate", new {id = ((Account)Session["acc"]).AccountID})"  style="text-align:center">Thông tin <br /> phiếu báo thi</a>
+                        </li>
+                        <li><a href="#">Đổi mật khẩu</a></li>
+                        <li><a href="@Url.Action("Logout", "Account")" style="text-align:center"><i class="icon-sign-out"></i><b>Thoát</b></a></li>
+                    </ul>
+                </li>             
+                  
+            }
+            else if (Session["acc"] == null)
+            {
+                <li><a href="@Url.Action("Login", "Account")" style="text-align:center"><i class="icon-sign-in"></i>Đăng nhập</a></li>
+                <li class="devider"></li>
+                <li><a href="@Url.Action("Register", "Account", new { area = "" })" style="text-align:center"><i class="icon-sign-users"></i>Đăng ký</a></li>
+            }
+
+        </ul>
+    </div>
+</div>

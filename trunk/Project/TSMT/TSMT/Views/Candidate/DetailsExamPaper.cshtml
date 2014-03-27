@@ -1,0 +1,120 @@
+﻿@using TSMT.Models
+@model ExaminationsPaper
+@{
+    ViewBag.Title = "Details Exam Paper";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.CharityExamID == null)
+{
+    <h3 class="title_of_page">This Exam Paper is not registered to any CE! @Html.ActionLink("Find one now!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</h3>
+}
+else
+{
+    if (Model.GroupID == null && Model.RoomID == null)
+    {
+    <h3 class="title_of_page">This Exam Paper has registered to @Model.ChairitiesExam.CharityExamName! @Html.ActionLink("Leave them", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })</h3>
+    }
+    else
+    {
+    <h3 class="title_of_page">This Exam Paper has registered to @Model.ChairitiesExam.CharityExamName!</h3>
+    }
+}
+
+<table>
+    <tr>
+        <th colspan="2">Thông tin thi
+        </th>
+    </tr>
+    <tr>
+        <td>Kỳ thi</td>
+        <td>@Model.UniversitiesExamination.Examination.Name</td>
+    </tr>
+    <tr>
+        <td>Trường</td>
+        <td>@Model.UniversitiesExamination.University.Name</td>
+    </tr>
+    <tr>
+        <td>Địa điểm thi</td>
+        <td>@Model.Venue.Address</td>
+    </tr>
+    @{
+        if (Model.CharityExamID != null)
+        {
+            if (Model.GroupID == null)
+            { // is Alone --> can JOIN a group or CREATE a group
+        <tr>
+            <td>
+                @Html.ActionLink("Join in a group", "JoinInGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Create a group", "CreateGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
+            }
+            else if (Model.Group.OwnerID == Model.ExamPaperID)
+            { // is Owner --> can DELETE group or VIEW group
+        <tr>
+            <td>Group Id</td>
+            <td>@Model.GroupID</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("View group", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+            <td>@Html.ActionLink("Delete group", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+        </tr>
+            }
+            else
+            { // is Member --> can LEAVE group or VIEW group
+        <tr>
+            <td>Group Id</td>
+            <td>@Model.GroupID</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("View group", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+            <td>@Html.ActionLink("Leave group", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+        </tr>
+            }
+        }
+    }
+</table>
+
+@if (ViewData["joinIn"] != null)
+{
+    <div class="service-one">
+        <div class="service-one-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="s-one-item sitem-one">
+                            <i class="icon-gear"></i>
+                            <div class="s-one-caption">
+                                <h4>@Html.ActionLink("View Schedule", "ViewSchedule")</h4>
+                                <p>Description</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="s-one-item sitem-two">
+                            <i class="icon-gear"></i>
+                            <div class="s-one-caption">
+                                <h4>@Html.ActionLink("View Route", "View Route")</h4>
+                                <p>Description</p>
+                            </div>
+                        </div>
+                    </div>
+                    @{ if (Model.GroupID != null)
+                       {
+                        <div class="col-md-4">
+                            <div class="s-one-item sitem-three">
+                                <i class="icon-gear"></i>
+                                <div class="s-one-caption">
+                                    <h4>@Html.ActionLink("View Group", "ViewGroup", new { id = Model.GroupID })</h4>
+                                    <p>Description</p>
+                                </div>
+                            </div>
+                        </div>
+                       }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

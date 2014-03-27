@@ -1,0 +1,64 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Lodge
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Quản lý phòng";
+    ViewBag.Active = "ManageRoom";
+}
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+
+}
+@Html.Partial("_SponsorSidebarPartial")
+
+
+<h2 class="title_of_page">Manage Rooms Sponsored</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Phòng</th>
+                <th>Tổng số chỗ</th>
+                <th>Số chỗ còn trống</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                {
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.RoomName</td>
+                    <td>@item.TotalSlots</td>
+                    <td>@item.AvailableSlots</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
+                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                    </td>
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info"})
+@Html.ActionLink("Back to Manage Lodge", "ManageLodge", null, new { @class = "btn btn-info" })

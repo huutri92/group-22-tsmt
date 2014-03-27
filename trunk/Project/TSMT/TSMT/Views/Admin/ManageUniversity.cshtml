@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Manage Universities";
+    ViewBag.Active = "ManageUniversity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model IEnumerable<University>
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AdminSidebarPartial")
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>All Universities Information 
+                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên trường</th>
+                        <th>Mã trường</th>
+                        <th>Địa chỉ</th>
+                        <th>Website</th>
+                        <th>Số điện thoại</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.Name</td>
+                            <td>@item.UniversityCode</td>
+                            <td>@item.Address</td>
+                            <td>
+                                <a href="@item.Website">@item.Website</a>
+                            </td>
+                            <td>@item.Phone</td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "EditUniversity", new { id = @item.UniversityID })*@
+                                   <a href="@Url.Action("EditUniversity", "Admin", new { id = @item.UniversityID })"  class="btn-u btn-u-blue"><i class="icon-edit"></i> Edit </a>
+                                @if (item.IsRemovable)
+                                {
+                                  @*  @Html.ActionLink("Delete", "DeleteUniversity", new { id = @item.UniversityID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })*@
+                                    <a href="@Url.Action("DeleteUniversity", "Admin", new { id = @item.UniversityID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i> Delete </a>
+                                }
+                            </td>
+                        </tr>
+                                ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+          @*  @Html.ActionLink("Create", "AddUniversity", null, new { @class = "btn btn-info" })
+            @Html.ActionLink("Back to Control Panel", "/", null, new { @class = "btn btn-info" })*@
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i> Back </a>
+</div>

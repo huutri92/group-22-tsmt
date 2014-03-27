@@ -1,0 +1,48 @@
+﻿@model TSMT.Models.Lodge
+@{
+    ViewBag.Title = "DetailsLodge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Details Lodge</h2>
+
+<table>
+    <tr>
+        <td>Address</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td>Sponsor</td>
+        <td>@Model.Sponsor.Account.Profile.Firstname @Model.Sponsor.Account.Profile.Firstname</td>
+    </tr>
+    <tr>
+        <td>Tổng số phòng</td>
+        <td>@Model.TotalRooms</td>
+    </tr>
+    <tr>
+        <td>Tổng số chỗ trọ</td>
+        <td>@Model.TotalSlots</td>
+    </tr>
+    <tr>
+        <td>Số chỗ còn trống</td>
+        <td>@Model.AvailableSlots</td>
+    </tr>
+</table>
+
+<div class="service-one">
+    <div class="service-one-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-one">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Room", "ManageRoom", new { lodgeId = @Model.LodgeID })</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

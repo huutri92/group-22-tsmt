@@ -1,0 +1,30 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Fund
+@{
+    ViewBag.Title = "EditFund";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Content/js/jquery.js"></script>
+<h2 class="title_of_page">Edit Fund</h2>
+@using (Html.BeginForm("EditFund", "Sponsor", FormMethod.Post))
+{
+    <input type="hidden" name="fundId" value="@Model.FundID"/>
+    <table>
+        <tr>
+            <td>Số Tiền</td>
+            <td>
+                <input type="text" name="FundSponsored" value="@Model.FundSponsored" id ="input"/></td>
+            <script>
+                    $("#input").priceFormat({ prefix: '', centsLimit: 0 });
+                </script>
+             <td>VNĐ</td>
+        </tr>
+        
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

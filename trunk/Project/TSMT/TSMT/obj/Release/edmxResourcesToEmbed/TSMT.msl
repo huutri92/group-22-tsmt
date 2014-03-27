@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TSMTModelsStoreContainer" CdmEntityContainer="TSMTEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="TSMTModels.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoleNameID" ColumnName="RoleNameID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="TSMTModels.Article">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+          <ScalarProperty Name="IsAprroved" ColumnName="IsAprroved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticlesTags">
+      <EntityTypeMapping TypeName="TSMTModels.ArticlesTag">
+        <MappingFragment StoreEntitySet="ArticlesTags">
+          <ScalarProperty Name="ArticleTagID" ColumnName="ArticleTagID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Candidates">
+      <EntityTypeMapping TypeName="TSMTModels.Candidate">
+        <MappingFragment StoreEntitySet="Candidates">
+          <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cars">
+      <EntityTypeMapping TypeName="TSMTModels.Car">
+        <MappingFragment StoreEntitySet="Cars">
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
+          <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="TotalSlots" ColumnName="TotalSlots" />
+          <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="TSMTModels.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChairitiesExams">
+      <EntityTypeMapping TypeName="TSMTModels.ChairitiesExam">
+        <MappingFragment StoreEntitySet="ChairitiesExams">
+          <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="CharityID" ColumnName="CharityID" />
+          <ScalarProperty Name="TotalSlotsLodges" ColumnName="TotalSlotsLodges" />
+          <ScalarProperty Name="AvailableSlotsLodges" ColumnName="AvailableSlotsLodges" />
+          <ScalarProperty Name="TotalSlotsVehicles" ColumnName="TotalSlotsVehicles" />
+          <ScalarProperty Name="AvailableSlotsVehicles" ColumnName="AvailableSlotsVehicles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Charities">
+      <EntityTypeMapping TypeName="TSMTModels.Charity">
+        <MappingFragment StoreEntitySet="Charities">
+          <ScalarProperty Name="CharityID" ColumnName="CharityID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="TSMTModels.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ReplyFor" ColumnName="ReplyFor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetailsScheduleExams">
+      <EntityTypeMapping TypeName="TSMTModels.DetailsScheduleExam">
+        <MappingFragment StoreEntitySet="DetailsScheduleExams">
+          <ScalarProperty Name="DetailsScheduleExamID" ColumnName="DetailsScheduleExamID" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="BeginHour" ColumnName="BeginHour" />
+          <ScalarProperty Name="EndHour" ColumnName="EndHour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetailsSchedulesCars">
+      <EntityTypeMapping TypeName="TSMTModels.DetailsSchedulesCar">
+        <MappingFragment StoreEntitySet="DetailsSchedulesCars">
+          <ScalarProperty Name="DetailScheduleCarID" ColumnName="DetailScheduleCarID" />
+          <ScalarProperty Name="ScheduleCarID" ColumnName="ScheduleCarID" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="PickUpTime" ColumnName="PickUpTime" />
+          <ScalarProperty Name="ArriveTime" ColumnName="ArriveTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Examinations">
+      <EntityTypeMapping TypeName="TSMTModels.Examination">
+        <MappingFragment StoreEntitySet="Examinations">
+          <ScalarProperty Name="ExaminationID" ColumnName="ExaminationID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExaminationsPapers">
+      <EntityTypeMapping TypeName="TSMTModels.ExaminationsPaper">
+        <MappingFragment StoreEntitySet="ExaminationsPapers">
+          <ScalarProperty Name="ExamPaperID" ColumnName="ExamPaperID" />
+          <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+          <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
+          <ScalarProperty Name="VenueID" ColumnName="VenueID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funds">
+      <EntityTypeMapping TypeName="TSMTModels.Fund">
+        <MappingFragment StoreEntitySet="Funds">
+          <ScalarProperty Name="FundID" ColumnName="FundID" />
+          <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
+          <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
+          <ScalarProperty Name="FundSponsored" ColumnName="FundSponsored" />
+          <ScalarProperty Name="IsOnlineFunding" ColumnName="IsOnlineFunding" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JoinsIns">
+      <EntityTypeMapping TypeName="TSMTModels.JoinsIn">
+        <MappingFragment StoreEntitySet="JoinsIn">
+          <ScalarProperty Name="JoinInID" ColumnName="JoinInID" />
+          <ScalarProperty Name="CharitiesExaminationsID" ColumnName="CharitiesExaminationsID" />
+          <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lodges">
+      <EntityTypeMapping TypeName="TSMTModels.Lodge">
+        <MappingFragment StoreEntitySet="Lodges">
+          <ScalarProperty Name="LodgeID" ColumnName="LodgeID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
+          <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
+          <ScalarProperty Name="TotalRooms" ColumnName="TotalRooms" />
+          <ScalarProperty Name="TotalSlots" ColumnName="TotalSlots" />
+          <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profiles">
+      <EntityTypeMapping TypeName="TSMTModels.Profile">
+        <MappingFragment StoreEntitySet="Profiles">
+          <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="IsFemale" ColumnName="IsFemale" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="TSMTModels.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="RatingMark" ColumnName="RatingMark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="TSMTModels.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="TSMTModels.Room">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="LodgeID" ColumnName="LodgeID" />
+          <ScalarProperty Name="TotalSlots" ColumnName="TotalSlots" />
+          <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchedulesCars">
+      <EntityTypeMapping TypeName="TSMTModels.SchedulesCar">
+        <MappingFragment StoreEntitySet="SchedulesCars">
+          <ScalarProperty Name="ScheduleCarID" ColumnName="ScheduleCarID" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="JoinInID" ColumnName="JoinInID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SchedulesVolunteers">
+      <EntityTypeMapping TypeName="TSMTModels.SchedulesVolunteer">
+        <MappingFragment StoreEntitySet="SchedulesVolunteers">
+          <ScalarProperty Name="ScheduleVolunteerID" ColumnName="ScheduleVolunteerID" />
+          <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="PickUpTime" ColumnName="PickUpTime" />
+          <ScalarProperty Name="ArriveTime" ColumnName="ArriveTime" />
+          <ScalarProperty Name="JoinInID" ColumnName="JoinInID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sponsors">
+      <EntityTypeMapping TypeName="TSMTModels.Sponsor">
+        <MappingFragment StoreEntitySet="Sponsors">
+          <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="TSMTModels.Tag">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Universities">
+      <EntityTypeMapping TypeName="TSMTModels.University">
+        <MappingFragment StoreEntitySet="Universities">
+          <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UniversitiesExaminations">
+      <EntityTypeMapping TypeName="TSMTModels.UniversitiesExamination">
+        <MappingFragment StoreEntitySet="UniversitiesExaminations">
+          <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
+          <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
+          <ScalarProperty Name="ExaminationID" ColumnName="ExaminationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venues">
+      <EntityTypeMapping TypeName="TSMTModels.Venue">
+        <MappingFragment StoreEntitySet="Venues">
+          <ScalarProperty Name="VenueID" ColumnName="VenueID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Volunteers">
+      <EntityTypeMapping TypeName="TSMTModels.Volunteer">
+        <MappingFragment StoreEntitySet="Volunteers">
+          <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

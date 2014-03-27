@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Tin tuyển sinh báo Dân Trí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model System.Data.DataRowCollection
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-5">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title                
+            </h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Home")">Tin tức</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+
+<div id="rptRSS">
+    <style>
+        .nf {
+            display: inline-block; 
+            padding: 4px 0;
+            border-bottom: solid 1px gray;
+        }
+        .nf:hover {
+            background-color: #faebd7;
+        }
+
+         .nfimg {
+             float: left;
+             width: 20%;
+             text-align: right;
+         }
+        .nfimg img {
+            width: calc(100% - 3px);
+            border-radius: 3px;
+        }
+
+        .nfcnt {
+            float: left;
+            width: 80%;
+            padding: 2px 8px;
+        }
+        .nfcnt a {
+            font-weight: bold;
+            font-size: 14px;
+            color: #dc143c;
+        }
+
+        .nfs .nf:last-child {
+            border: none;
+        }
+    </style>
+
+    
+
+
+        <div style="padding: 48px;" class="nfs">
+            <script>
+                function dpNewsFeed(id) {
+                    var rs = document.getElementById(id);
+                    var pr = rs.parentNode;
+                    
+
+                    var pl = document.createElement("div");
+                    pl.setAttribute("class", "nf");
+                    var nfimg = document.createElement("div");
+                    nfimg.setAttribute("class", "nfimg");
+                    nfimg.appendChild(rs.children[1].children[0]);
+                    nfimg.children[0].setAttribute("target", "_blank");
+
+                    var nfcnt = document.createElement("div");
+                    nfcnt.setAttribute("class", "nfcnt");
+                    nfcnt.appendChild(rs.children[0]);
+                    nfcnt.appendChild(rs.children[0]);
+                    nfcnt.appendChild(rs.children[0]);
+                    nfcnt.lastElementChild.setAttribute("style", "width:100%; text-align:right; font-size:11px; color: gray;");
+
+                    pl.appendChild(nfimg);
+                    pl.appendChild(nfcnt);
+
+                    pr.removeChild(rs);
+                    pr.appendChild(pl);
+
+                }
+            </script>
+            <div style="float: left; width: 75%;">
+                
+
+
+                @for (int i = 0; i < Model.Count; ++i)
+                {
+                    <div id="@i">
+                        <div><a href="@Model[i]["link"]" target="_blank">@Model[i]["title"]</a></div>
+                        <div>@Html.Raw(@Model[i]["description"])</div>
+                        <div>@Model[i]["pubDate"]</div>
+                    </div>
+                    
+                    <script>
+                        dpNewsFeed("@i");
+                    </script>
+                }
+            </div>
+            <div style="float: left; width: 25%; padding-left: 24px;">
+                For Ads
+            </div>
+        </div>
+        <br />
+
+    
+
+</div>
+<div style="width: 100%; clear: both;"></div>

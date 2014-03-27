@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Tin tức";
+    ViewBag.Active = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Globalization
+@using TSMT.Models
+@model List<Article>
+
+
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title |
+                <a href="@Url.Action("GetNewFeed","Post")">Tin từ báo Dân trí</a>
+            </h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<style>
+    #content.img {
+        width: 480px;
+        height: 300px;
+        margin-left: calc(50% - 240px);
+    }
+</style>
+
+
+<div class="col-md-3">
+    <div class="margin-bottom-30">
+        <div class="row tab-v3">
+            <div class="col-sm-10">
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach (var i in ViewData["category"] as IEnumerable<Category>)
+                    {
+                        <li><a href="@Url.Action("CategoryNews", "Post", new { cateId = @i.CategoryID })"><i class="icon-circle-arrow-right"></i>@i.CategoryName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach (var i in ViewData["category"] as IEnumerable<Category>)
+{
+    int a = 0;
+    foreach (var item in Model.Where(r => r.CategoryID == i.CategoryID))
+    {
+        a++;
+        if (a > 3)
+        {
+            break;
+        }
+   
+    <div class="col-md-9">
+        @*<div class="headline">
+            <h3>
+                <a href="@Url.Action("CategoryNews", "Post", new { cateId = @i.CategoryID })">@i.CategoryName</a>
+            </h3>
+        </div>*@
+        <div class="search-blocks search-blocks-left-green" id="content">
+            <div class="row">
+                <div class="col-md-4 search-img">
+                    <img alt="" src="@item.AvatarImage" class="img-responsive">
+                    <ul class="list-unstyled">
+                        <li><i class="icon-double-angle-down"></i>@item.CreatedOn</li>
+                        <li><i class="icon-info-sign"></i>@item.Account.Profile.Lastname</li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <h4 class="link"><a href="#">@item.Title</a></h4>
+                    <p>@Html.Raw(item.Summary)</p>
+                    <br />
+                    @*@Html.ActionLink("Xem chi tiết", "DisplayNews", new { arId = @item.ArticleID })*@
+                    <a href="@Url.Action("DisplayNews", "Post", new { arId = @item.ArticleID })" class="btn-u btn-u-default">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    }
+}

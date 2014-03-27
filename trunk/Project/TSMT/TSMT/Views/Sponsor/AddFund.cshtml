@@ -1,0 +1,76 @@
+﻿@using TSMT.Models
+@model IEnumerable<ChairitiesExam>
+@{
+    ViewBag.Title = "AddFund";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Content/js/jquery.js"></script>
+    <script type="text/javascript">
+        function callAjax(id) {
+            if (id == 0) {
+                $("#asd").html("");
+            }
+            else {
+                $.ajax({
+                    url: 'ResultAjax',
+                    data: { "id": id },
+                    type: 'GET',
+                    success: function (results) {
+                        $("#asd").html("");
+                        for (i in results) {
+                            var r = results[i];
+                            $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                        }
+                    }
+                });
+            }
+        }
+         </script>
+<h2 class="title_of_page">Add Fund</h2>
+@using (Html.BeginForm("AddFund", "Sponsor", FormMethod.Post))
+{
+    <table>
+       <tr>
+            <td>Tài Trợ Cho: </td>
+                <td>
+                    <select id="qwe" onchange="callAjax(this.value)">
+                        <option value="0" selected  >---</option>
+                        @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                        {
+                            <option value="@item.ExaminationID">@item.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>Tổ Chức: </td>
+                <td>
+                    <select id="asd" name="asd"></select>
+                </td>
+        </tr>
+        <tr>
+            <td>Số Tiền</td>
+            <td>
+                <input type="text" name="FundSponsored" id ="input"/>
+               <script>
+                    $("#input").priceFormat({ prefix: '', centsLimit: 0 });
+                </script>
+            </td>
+            <td>VNĐ</td>
+        </tr>
+        <tr>
+            <td>Hình thức</td>
+             <td>
+                <select name ="IsOnline">
+                    <option value ="True">Tận Tay</option>
+                    <option value ="False">Chuyển Khoản</option>
+                </select>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

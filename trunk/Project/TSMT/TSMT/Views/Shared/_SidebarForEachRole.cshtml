@@ -1,0 +1,34 @@
+﻿@using TSMT.Models
+
+@if (Session["acc"] != null)
+{
+    int roleID = ((Account)Session["acc"]).RoleID;
+
+    switch (roleID)
+    {
+        case 1:
+               
+    @Html.Partial("_CandidateSidebarPartial")
+                
+            break;
+        case 2:
+                
+    @Html.Partial("_CharitySidebarPartial")
+                
+            break;
+
+        case 3:
+               
+    @Html.Partial("_SponsorSidebarPartial")
+               
+            break;
+
+        case 4:
+                
+    @Html.Partial("_VolunteerSidebarPartial")
+                
+            break;
+
+    }
+
+}

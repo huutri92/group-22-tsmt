@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Quản lý tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+@model IEnumerable<Article>
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
+
+<h2>Quản lý tin tức</h2>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tiêu đề</th>
+                <th>Người đăng</th>
+                <th>Ngày đăng</th>
+                <th>Trạng thái</th>
+                <th>Công cụ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+                <tr id="@item.ArticleID">
+                    <th>@i</th>
+                    <td>@item.Title</td>
+                    <td>@item.Account.Profile.Lastname @item.Account.Profile.Middlename @item.Account.Profile.Firstname</td>
+                    <td>@item.CreatedOn</td>
+                    <td>
+                        @if (@item.IsAprroved == false)
+                        {
+                            <span class="label label-danger">Chưa duyệt</span>
+                        }
+                        else
+                        {
+                            <span class="label label-info">Đã duyệt</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailPost", new { arId = @item.ArticleID })
+                        @Html.ActionLink("Delete", "DeletePost", new { id = @item.ArticleID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href," + @item.ArticleID + ", 'del' );" })
+                    </td>
+                </tr>
+                        i = i + 1;
+                }
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Add new post", "AddNewPost", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("Display News", "DisplayNews", null, new { @class = "btn btn-info" })
+    <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+</div>
+<script>
+    function callAjaxDelete(arId) {
+
+
+        $.ajax({
+            url: 'DeletePost/' + arId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + arId).hide(800, function () {
+                    $("#" + arId).remove();
+                });
+
+            }
+        });
+    }
+</script>

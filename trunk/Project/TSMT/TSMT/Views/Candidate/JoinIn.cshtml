@@ -1,0 +1,32 @@
+﻿@using TSMT.Models
+@model IEnumerable<ChairitiesExam>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<h2 class="title_of_page">Join In</h2>
+@using (Html.BeginForm("JoinIn", "Candidate", FormMethod.Post))
+{
+    <input type="hidden" name="examPaperId" value="@ViewData["examPaperId"]" />
+    <table>
+        <tr>
+            <td>Kỳ thi + Tổ chức</td>
+            <td>
+                <select name="ceId">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.CharityExamID">@item.Examination.Name - @item.CharityExamName</option>
+                    }
+                </select>
+                
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Join" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

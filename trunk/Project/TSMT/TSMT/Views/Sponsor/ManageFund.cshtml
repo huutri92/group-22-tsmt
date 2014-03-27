@@ -1,0 +1,85 @@
+﻿@using TSMT.Models
+@model IEnumerable<Fund>
+@{
+    ViewBag.Title = "ManageFund";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="title_of_page">Manage Funds of Sponsor</h2>
+@*@Html.Grid(Model).Columns(columns =>
+           {
+
+               columns.Add(foo => foo.ChairitiesExam.Examination.Name).Titled("Kỳ Thi").Sortable(true);
+               columns.Add(foo => foo.ChairitiesExam.CharityExamName).Titled("Tên Tổ Chức").Sortable(true);
+               columns.Add(foo => foo.FundSponsored).Titled("Số Tiền").Format("{0:#,###0} vnd").Sortable(true);
+               columns.Add(foo => foo.IsOnlineFunding).Titled("Hình Thức").Sortable(true).Css("IsOnlineFundingCol");
+               columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o =>
+                    @<b>
+                        @Html.ActionLink("Edit", "EditFund", new { fundId = o.FundID })
+                    </b>);
+               columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o =>
+                    @<b>
+                        @Html.ActionLink("Delete", "DeleteFund", new { fundId = o.FundID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href )" })
+                    </b>);
+           }).WithPaging(3)*@
+
+
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Kỳ thi</th>
+                <th>Tổ chức</th>
+                <th>Số Tiền</th>
+                <th>Hình Thức</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.ChairitiesExam.Examination.Name</td>
+                    <td>@item.ChairitiesExam.CharityExamName</td>
+                    <td>@item.FundSponsored.ToString("##,### VNĐ")</td>
+                    @if(@item.IsOnlineFunding)
+                        {
+                        <td>Tận tay</td>
+                        }
+                        else{
+                        <td>Chuyển Khoản</td>
+                        }
+                    
+                    <td>
+                        @Html.ActionLink("Edit", "EditFund", new { fundId = @item.FundID })
+                        @Html.ActionLink("Delete", "DeleteFund", new { fundId = @item.FundID })
+                    </td>
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.ActionLink("Sponsor Fund", "AddFund", null, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
+
+@*<script>
+    function func() {
+        var cusid_ele = document.getElementsByClassName('IsOnlineFundingCol');
+        for (var i = 0; i < cusid_ele.length; ++i) {
+
+            if (cusid_ele[i].innerHTML == "True") {
+                cusid_ele[i].innerHTML = "Online";
+            }
+            if (cusid_ele[i].innerHTML == "False") {
+                cusid_ele[i].innerHTML = "Tận tay";
+            }
+        }
+    }
+    func();
+</script>*@

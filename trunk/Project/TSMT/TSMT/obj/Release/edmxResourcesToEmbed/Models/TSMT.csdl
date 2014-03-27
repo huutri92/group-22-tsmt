@@ -1,0 +1,1035 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TSMTModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TSMTEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="TSMTModel.Account" />
+    <EntitySet Name="Articles" EntityType="TSMTModel.Article" />
+    <EntitySet Name="ArticlesTags" EntityType="TSMTModel.ArticlesTag" />
+    <EntitySet Name="Candidates" EntityType="TSMTModel.Candidate" />
+    <EntitySet Name="Cars" EntityType="TSMTModel.Car" />
+    <EntitySet Name="Categories" EntityType="TSMTModel.Category" />
+    <EntitySet Name="ChairitiesExams" EntityType="TSMTModel.ChairitiesExam" />
+    <EntitySet Name="Charities" EntityType="TSMTModel.Charity" />
+    <EntitySet Name="Comments" EntityType="TSMTModel.Comment" />
+    <EntitySet Name="Districts" EntityType="TSMTModel.District" />
+    <EntitySet Name="Examinations" EntityType="TSMTModel.Examination" />
+    <EntitySet Name="ExaminationsPapers" EntityType="TSMTModel.ExaminationsPaper" />
+    <EntitySet Name="Funds" EntityType="TSMTModel.Fund" />
+    <EntitySet Name="Groups" EntityType="TSMTModel.Group" />
+    <EntitySet Name="Lodges" EntityType="TSMTModel.Lodge" />
+    <EntitySet Name="Profiles" EntityType="TSMTModel.Profile" />
+    <EntitySet Name="Provinces" EntityType="TSMTModel.Province" />
+    <EntitySet Name="Roles" EntityType="TSMTModel.Role" />
+    <EntitySet Name="Rooms" EntityType="TSMTModel.Room" />
+    <EntitySet Name="ScheduleExams" EntityType="TSMTModel.ScheduleExam" />
+    <EntitySet Name="SchedulesCars" EntityType="TSMTModel.SchedulesCar" />
+    <EntitySet Name="SchedulesVolunteers" EntityType="TSMTModel.SchedulesVolunteer" />
+    <EntitySet Name="Sponsors" EntityType="TSMTModel.Sponsor" />
+    <EntitySet Name="sysdiagrams" EntityType="TSMTModel.sysdiagram" />
+    <EntitySet Name="Universities" EntityType="TSMTModel.University" />
+    <EntitySet Name="UniversitiesExaminations" EntityType="TSMTModel.UniversitiesExamination" />
+    <EntitySet Name="Venues" EntityType="TSMTModel.Venue" />
+    <EntitySet Name="Volunteers" EntityType="TSMTModel.Volunteer" />
+    <AssociationSet Name="FK_Accounts_Profiles" Association="TSMTModel.FK_Accounts_Profiles">
+      <End Role="Profiles" EntitySet="Profiles" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Accounts_Roles" Association="TSMTModel.FK_Accounts_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articles_Accounts" Association="TSMTModel.FK_Articles_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Articles" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Candidates_Accounts" Association="TSMTModel.FK_Candidates_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Candidates" EntitySet="Candidates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Charities_Accounts" Association="TSMTModel.FK_Charities_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Charities" EntitySet="Charities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Profiles_Accounts" Association="TSMTModel.FK_Profiles_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Profiles" EntitySet="Profiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sponsors_Accounts" Association="TSMTModel.FK_Sponsors_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Sponsors" EntitySet="Sponsors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Volunteers_Accounts" Association="TSMTModel.FK_Volunteers_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Volunteers" EntitySet="Volunteers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_Category" Association="TSMTModel.FK_Article_Category">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Articles" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticlesTags_Articles" Association="TSMTModel.FK_ArticlesTags_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="ArticlesTags" EntitySet="ArticlesTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Articles" Association="TSMTModel.FK_Comments_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExamsPaper_Candidates" Association="TSMTModel.FK_ExamsPaper_Candidates">
+      <End Role="Candidates" EntitySet="Candidates" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_ChairitiesExams" Association="TSMTModel.FK_Cars_ChairitiesExams">
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_Sponsors" Association="TSMTModel.FK_Cars_Sponsors">
+      <End Role="Sponsors" EntitySet="Sponsors" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExaminationsPapers_Cars" Association="TSMTModel.FK_ExaminationsPapers_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchedulesCars_Cars" Association="TSMTModel.FK_SchedulesCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="SchedulesCars" EntitySet="SchedulesCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChairitiesExams_Charities" Association="TSMTModel.FK_ChairitiesExams_Charities">
+      <End Role="Charities" EntitySet="Charities" />
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChairitiesExams_Examinations" Association="TSMTModel.FK_ChairitiesExams_Examinations">
+      <End Role="Examinations" EntitySet="Examinations" />
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExaminationsPapers_ChairitiesExams" Association="TSMTModel.FK_ExaminationsPapers_ChairitiesExams">
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funds_ChairitiesExams" Association="TSMTModel.FK_Funds_ChairitiesExams">
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+      <End Role="Funds" EntitySet="Funds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lodges_ChairitiesExams1" Association="TSMTModel.FK_Lodges_ChairitiesExams1">
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+      <End Role="Lodges" EntitySet="Lodges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Volunteers_ChairitiesExams" Association="TSMTModel.FK_Volunteers_ChairitiesExams">
+      <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+      <End Role="Volunteers" EntitySet="Volunteers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Comments" Association="TSMTModel.FK_Comments_Comments">
+      <End Role="Comments" EntitySet="Comments" />
+      <End Role="Comments1" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Districts_Provinces" Association="TSMTModel.FK_Districts_Provinces">
+      <End Role="Provinces" EntitySet="Provinces" />
+      <End Role="Districts" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Profiles_Districts" Association="TSMTModel.FK_Profiles_Districts">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Profiles" EntitySet="Profiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleExams_Examinations" Association="TSMTModel.FK_ScheduleExams_Examinations">
+      <End Role="Examinations" EntitySet="Examinations" />
+      <End Role="ScheduleExams" EntitySet="ScheduleExams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UniversityExamination_Examinations" Association="TSMTModel.FK_UniversityExamination_Examinations">
+      <End Role="Examinations" EntitySet="Examinations" />
+      <End Role="UniversitiesExaminations" EntitySet="UniversitiesExaminations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExaminationsPapers_Groups" Association="TSMTModel.FK_ExaminationsPapers_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExaminationsPapers_Rooms" Association="TSMTModel.FK_ExaminationsPapers_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExaminationsPapers_Venues" Association="TSMTModel.FK_ExaminationsPapers_Venues">
+      <End Role="Venues" EntitySet="Venues" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExamsPaper_UniversityExamination" Association="TSMTModel.FK_ExamsPaper_UniversityExamination">
+      <End Role="UniversitiesExaminations" EntitySet="UniversitiesExaminations" />
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Groups_ExaminationsPapers" Association="TSMTModel.FK_Groups_ExaminationsPapers">
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SchedulesVolunteers_ExaminationsPapers" Association="TSMTModel.FK_SchedulesVolunteers_ExaminationsPapers">
+      <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+      <End Role="SchedulesVolunteers" EntitySet="SchedulesVolunteers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funds_Sponsores" Association="TSMTModel.FK_Funds_Sponsores">
+      <End Role="Sponsors" EntitySet="Sponsors" />
+      <End Role="Funds" EntitySet="Funds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lodges_Sponsors" Association="TSMTModel.FK_Lodges_Sponsors">
+      <End Role="Sponsors" EntitySet="Sponsors" />
+      <End Role="Lodges" EntitySet="Lodges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rooms_Lodges" Association="TSMTModel.FK_Rooms_Lodges">
+      <End Role="Lodges" EntitySet="Lodges" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetailScheduleVolunteers_Volunteers" Association="TSMTModel.FK_DetailScheduleVolunteers_Volunteers">
+      <End Role="Volunteers" EntitySet="Volunteers" />
+      <End Role="SchedulesVolunteers" EntitySet="SchedulesVolunteers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UniversityExamination_University" Association="TSMTModel.FK_UniversityExamination_University">
+      <End Role="Universities" EntitySet="Universities" />
+      <End Role="UniversitiesExaminations" EntitySet="UniversitiesExaminations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venues_UniversitiesExaminations" Association="TSMTModel.FK_Venues_UniversitiesExaminations">
+      <End Role="UniversitiesExaminations" EntitySet="UniversitiesExaminations" />
+      <End Role="Venues" EntitySet="Venues" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="AccountID" />
+    </Key>
+    <Property Name="AccountID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ProfileID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Profile" Relationship="TSMTModel.FK_Accounts_Profiles" FromRole="Accounts" ToRole="Profiles" />
+    <NavigationProperty Name="Role" Relationship="TSMTModel.FK_Accounts_Roles" FromRole="Accounts" ToRole="Roles" />
+    <NavigationProperty Name="Articles" Relationship="TSMTModel.FK_Articles_Accounts" FromRole="Accounts" ToRole="Articles" />
+    <NavigationProperty Name="Candidates" Relationship="TSMTModel.FK_Candidates_Accounts" FromRole="Accounts" ToRole="Candidates" />
+    <NavigationProperty Name="Charities" Relationship="TSMTModel.FK_Charities_Accounts" FromRole="Accounts" ToRole="Charities" />
+    <NavigationProperty Name="Profiles" Relationship="TSMTModel.FK_Profiles_Accounts" FromRole="Accounts" ToRole="Profiles" />
+    <NavigationProperty Name="Sponsors" Relationship="TSMTModel.FK_Sponsors_Accounts" FromRole="Accounts" ToRole="Sponsors" />
+    <NavigationProperty Name="Volunteers" Relationship="TSMTModel.FK_Volunteers_Accounts" FromRole="Accounts" ToRole="Volunteers" />
+  </EntityType>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ArticleID" />
+    </Key>
+    <Property Name="ArticleID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="AvatarImage" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsAprroved" Type="Boolean" Nullable="false" />
+    <Property Name="Summary" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Articles_Accounts" FromRole="Articles" ToRole="Accounts" />
+    <NavigationProperty Name="Category" Relationship="TSMTModel.FK_Article_Category" FromRole="Articles" ToRole="Categories" />
+    <NavigationProperty Name="ArticlesTags" Relationship="TSMTModel.FK_ArticlesTags_Articles" FromRole="Articles" ToRole="ArticlesTags" />
+    <NavigationProperty Name="Comments" Relationship="TSMTModel.FK_Comments_Articles" FromRole="Articles" ToRole="Comments" />
+  </EntityType>
+  <EntityType Name="ArticlesTag">
+    <Key>
+      <PropertyRef Name="ArticleTagID" />
+    </Key>
+    <Property Name="ArticleTagID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="TagID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Article" Relationship="TSMTModel.FK_ArticlesTags_Articles" FromRole="ArticlesTags" ToRole="Articles" />
+  </EntityType>
+  <EntityType Name="Candidate">
+    <Key>
+      <PropertyRef Name="CandidateID" />
+    </Key>
+    <Property Name="CandidateID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="HighSchoolName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Candidates_Accounts" FromRole="Candidates" ToRole="Accounts" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="Candidates" ToRole="ExaminationsPapers" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarID" />
+    </Key>
+    <Property Name="CarID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CharityExamID" Type="Int32" />
+    <Property Name="SponsorID" Type="Int32" />
+    <Property Name="NumberPlate" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="TotalSlots" Type="Int32" Nullable="false" />
+    <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
+    <Property Name="DriverName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DriverPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Cars_ChairitiesExams" FromRole="Cars" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Cars_Sponsors" FromRole="Cars" ToRole="Sponsors" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="Cars" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="SchedulesCars" Relationship="TSMTModel.FK_SchedulesCars_Cars" FromRole="Cars" ToRole="SchedulesCars" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Articles" Relationship="TSMTModel.FK_Article_Category" FromRole="Categories" ToRole="Articles" />
+  </EntityType>
+  <EntityType Name="ChairitiesExam">
+    <Key>
+      <PropertyRef Name="CharityExamID" />
+    </Key>
+    <Property Name="CharityExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ExamID" Type="Int32" Nullable="false" />
+    <Property Name="CharityID" Type="Int32" Nullable="false" />
+    <Property Name="CharityExamName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="TotalSlotsLodges" Type="Int32" Nullable="false" />
+    <Property Name="AvailableSlotsLodges" Type="Int32" Nullable="false" />
+    <Property Name="TotalSlotsVehicles" Type="Int32" Nullable="false" />
+    <Property Name="AvailableSlotsVehicles" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Cars" Relationship="TSMTModel.FK_Cars_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Cars" />
+    <NavigationProperty Name="Charity" Relationship="TSMTModel.FK_ChairitiesExams_Charities" FromRole="ChairitiesExams" ToRole="Charities" />
+    <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_ChairitiesExams_Examinations" FromRole="ChairitiesExams" ToRole="Examinations" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_ChairitiesExams" FromRole="ChairitiesExams" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="Funds" Relationship="TSMTModel.FK_Funds_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Funds" />
+    <NavigationProperty Name="Lodges" Relationship="TSMTModel.FK_Lodges_ChairitiesExams1" FromRole="ChairitiesExams" ToRole="Lodges" />
+    <NavigationProperty Name="Volunteers" Relationship="TSMTModel.FK_Volunteers_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Volunteers" />
+  </EntityType>
+  <EntityType Name="Charity">
+    <Key>
+      <PropertyRef Name="CharityID" />
+    </Key>
+    <Property Name="CharityID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+    <Property Name="FullDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Charities_Accounts" FromRole="Charities" ToRole="Accounts" />
+    <NavigationProperty Name="ChairitiesExams" Relationship="TSMTModel.FK_ChairitiesExams_Charities" FromRole="Charities" ToRole="ChairitiesExams" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReplyFor" Type="Int32" />
+    <NavigationProperty Name="Article" Relationship="TSMTModel.FK_Comments_Articles" FromRole="Comments" ToRole="Articles" />
+    <NavigationProperty Name="Comments1" Relationship="TSMTModel.FK_Comments_Comments" FromRole="Comments" ToRole="Comments1" />
+    <NavigationProperty Name="Comment1" Relationship="TSMTModel.FK_Comments_Comments" FromRole="Comments1" ToRole="Comments" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="DistrictID" />
+    </Key>
+    <Property Name="DistrictID" Type="Int32" Nullable="false" />
+    <Property Name="ProvinceID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Province" Relationship="TSMTModel.FK_Districts_Provinces" FromRole="Districts" ToRole="Provinces" />
+    <NavigationProperty Name="Profiles" Relationship="TSMTModel.FK_Profiles_Districts" FromRole="Districts" ToRole="Profiles" />
+  </EntityType>
+  <EntityType Name="Examination">
+    <Key>
+      <PropertyRef Name="ExaminationID" />
+    </Key>
+    <Property Name="ExaminationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ChairitiesExams" Relationship="TSMTModel.FK_ChairitiesExams_Examinations" FromRole="Examinations" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="ScheduleExams" Relationship="TSMTModel.FK_ScheduleExams_Examinations" FromRole="Examinations" ToRole="ScheduleExams" />
+    <NavigationProperty Name="UniversitiesExaminations" Relationship="TSMTModel.FK_UniversityExamination_Examinations" FromRole="Examinations" ToRole="UniversitiesExaminations" />
+  </EntityType>
+  <EntityType Name="ExaminationsPaper">
+    <Key>
+      <PropertyRef Name="ExamPaperID" />
+    </Key>
+    <Property Name="ExamPaperID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CandidateID" Type="Int32" Nullable="false" />
+    <Property Name="UniExamID" Type="Int32" Nullable="false" />
+    <Property Name="VenueID" Type="Int32" Nullable="false" />
+    <Property Name="CharityExamID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="RoomID" Type="Int32" />
+    <Property Name="CarID" Type="Int32" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="LodgeRegisteredID" Type="Int32" />
+    <NavigationProperty Name="Candidate" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="ExaminationsPapers" ToRole="Candidates" />
+    <NavigationProperty Name="Car" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="ExaminationsPapers" ToRole="Cars" />
+    <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_ExaminationsPapers_ChairitiesExams" FromRole="ExaminationsPapers" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="Group" Relationship="TSMTModel.FK_ExaminationsPapers_Groups" FromRole="ExaminationsPapers" ToRole="Groups" />
+    <NavigationProperty Name="Room" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="ExaminationsPapers" ToRole="Rooms" />
+    <NavigationProperty Name="Venue" Relationship="TSMTModel.FK_ExaminationsPapers_Venues" FromRole="ExaminationsPapers" ToRole="Venues" />
+    <NavigationProperty Name="UniversitiesExamination" Relationship="TSMTModel.FK_ExamsPaper_UniversityExamination" FromRole="ExaminationsPapers" ToRole="UniversitiesExaminations" />
+    <NavigationProperty Name="Groups" Relationship="TSMTModel.FK_Groups_ExaminationsPapers" FromRole="ExaminationsPapers" ToRole="Groups" />
+    <NavigationProperty Name="SchedulesVolunteers" Relationship="TSMTModel.FK_SchedulesVolunteers_ExaminationsPapers" FromRole="ExaminationsPapers" ToRole="SchedulesVolunteers" />
+  </EntityType>
+  <EntityType Name="Fund">
+    <Key>
+      <PropertyRef Name="FundID" />
+    </Key>
+    <Property Name="FundID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SponsorID" Type="Int32" Nullable="false" />
+    <Property Name="CharityExamID" Type="Int32" />
+    <Property Name="FundSponsored" Type="Double" Nullable="false" />
+    <Property Name="IsOnlineFunding" Type="Boolean" Nullable="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Funds_ChairitiesExams" FromRole="Funds" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Funds_Sponsores" FromRole="Funds" ToRole="Sponsors" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OwnerID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Groups" FromRole="Groups" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="Owner" Relationship="TSMTModel.FK_Groups_ExaminationsPapers" FromRole="Groups" ToRole="ExaminationsPapers" />
+  </EntityType>
+  <EntityType Name="Lodge">
+    <Key>
+      <PropertyRef Name="LodgeID" />
+    </Key>
+    <Property Name="LodgeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Longitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Latitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="SponsorID" Type="Int32" />
+    <Property Name="CharityExamID" Type="Int32" />
+    <Property Name="TotalRooms" Type="Int32" Nullable="false" />
+    <Property Name="TotalSlots" Type="Int32" Nullable="false" />
+    <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Lodges_ChairitiesExams1" FromRole="Lodges" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Lodges_Sponsors" FromRole="Lodges" ToRole="Sponsors" />
+    <NavigationProperty Name="Rooms" Relationship="TSMTModel.FK_Rooms_Lodges" FromRole="Lodges" ToRole="Rooms" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="ProfileID" />
+    </Key>
+    <Property Name="ProfileID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="Firstname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Middlename" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="ImagePath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Accounts" Relationship="TSMTModel.FK_Accounts_Profiles" FromRole="Profiles" ToRole="Accounts" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Profiles_Accounts" FromRole="Profiles" ToRole="Accounts" />
+    <NavigationProperty Name="District" Relationship="TSMTModel.FK_Profiles_Districts" FromRole="Profiles" ToRole="Districts" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="ProvinceID" />
+    </Key>
+    <Property Name="ProvinceID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Districts" Relationship="TSMTModel.FK_Districts_Provinces" FromRole="Provinces" ToRole="Districts" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Accounts" Relationship="TSMTModel.FK_Accounts_Roles" FromRole="Roles" ToRole="Accounts" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LodgeID" Type="Int32" Nullable="false" />
+    <Property Name="TotalSlots" Type="Int32" Nullable="false" />
+    <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
+    <Property Name="RoomName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="Rooms" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="Lodge" Relationship="TSMTModel.FK_Rooms_Lodges" FromRole="Rooms" ToRole="Lodges" />
+  </EntityType>
+  <EntityType Name="ScheduleExam">
+    <Key>
+      <PropertyRef Name="ScheduleExamID" />
+    </Key>
+    <Property Name="ScheduleExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ExamID" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BeginHour" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndHour" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_ScheduleExams_Examinations" FromRole="ScheduleExams" ToRole="Examinations" />
+  </EntityType>
+  <EntityType Name="SchedulesCar">
+    <Key>
+      <PropertyRef Name="ScheduleCarID" />
+    </Key>
+    <Property Name="ScheduleCarID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CarID" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ArriveTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PickUpTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="WayGo" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="WayBack" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Car" Relationship="TSMTModel.FK_SchedulesCars_Cars" FromRole="SchedulesCars" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="SchedulesVolunteer">
+    <Key>
+      <PropertyRef Name="ScheduleVolunteerID" />
+    </Key>
+    <Property Name="ScheduleVolunteerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="VolunteerID" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PickUpTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ArriveTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExamPaperID" Type="Int32" />
+    <Property Name="StartEndPoint" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="WayPoint" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ExaminationsPaper" Relationship="TSMTModel.FK_SchedulesVolunteers_ExaminationsPapers" FromRole="SchedulesVolunteers" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="Volunteer" Relationship="TSMTModel.FK_DetailScheduleVolunteers_Volunteers" FromRole="SchedulesVolunteers" ToRole="Volunteers" />
+  </EntityType>
+  <EntityType Name="Sponsor">
+    <Key>
+      <PropertyRef Name="SponsorID" />
+    </Key>
+    <Property Name="SponsorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Sponsors_Accounts" FromRole="Sponsors" ToRole="Accounts" />
+    <NavigationProperty Name="Cars" Relationship="TSMTModel.FK_Cars_Sponsors" FromRole="Sponsors" ToRole="Cars" />
+    <NavigationProperty Name="Funds" Relationship="TSMTModel.FK_Funds_Sponsores" FromRole="Sponsors" ToRole="Funds" />
+    <NavigationProperty Name="Lodges" Relationship="TSMTModel.FK_Lodges_Sponsors" FromRole="Sponsors" ToRole="Lodges" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="University">
+    <Key>
+      <PropertyRef Name="UniversityID" />
+    </Key>
+    <Property Name="UniversityID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="UniversityCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Website" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UniversitiesExaminations" Relationship="TSMTModel.FK_UniversityExamination_University" FromRole="Universities" ToRole="UniversitiesExaminations" />
+  </EntityType>
+  <EntityType Name="UniversitiesExamination">
+    <Key>
+      <PropertyRef Name="UniExamID" />
+    </Key>
+    <Property Name="UniExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UniversityID" Type="Int32" Nullable="false" />
+    <Property Name="ExaminationID" Type="Int32" Nullable="false" />
+    <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_UniversityExamination_Examinations" FromRole="UniversitiesExaminations" ToRole="Examinations" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExamsPaper_UniversityExamination" FromRole="UniversitiesExaminations" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="University" Relationship="TSMTModel.FK_UniversityExamination_University" FromRole="UniversitiesExaminations" ToRole="Universities" />
+    <NavigationProperty Name="Venues" Relationship="TSMTModel.FK_Venues_UniversitiesExaminations" FromRole="UniversitiesExaminations" ToRole="Venues" />
+  </EntityType>
+  <EntityType Name="Venue">
+    <Key>
+      <PropertyRef Name="VenueID" />
+    </Key>
+    <Property Name="VenueID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UniExamID" Type="Int32" Nullable="false" />
+    <Property Name="Longitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Latitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Venues" FromRole="Venues" ToRole="ExaminationsPapers" />
+    <NavigationProperty Name="UniversitiesExamination" Relationship="TSMTModel.FK_Venues_UniversitiesExaminations" FromRole="Venues" ToRole="UniversitiesExaminations" />
+  </EntityType>
+  <EntityType Name="Volunteer">
+    <Key>
+      <PropertyRef Name="VolunteerID" />
+    </Key>
+    <Property Name="VolunteerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="CharityExamID" Type="Int32" />
+    <Property Name="JobName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Volunteers_Accounts" FromRole="Volunteers" ToRole="Accounts" />
+    <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Volunteers_ChairitiesExams" FromRole="Volunteers" ToRole="ChairitiesExams" />
+    <NavigationProperty Name="SchedulesVolunteers" Relationship="TSMTModel.FK_DetailScheduleVolunteers_Volunteers" FromRole="Volunteers" ToRole="SchedulesVolunteers" />
+  </EntityType>
+  <Association Name="FK_Accounts_Profiles">
+    <End Role="Profiles" Type="TSMTModel.Profile" Multiplicity="0..1" />
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profiles">
+        <PropertyRef Name="ProfileID" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="ProfileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Accounts_Roles">
+    <End Role="Roles" Type="TSMTModel.Role" Multiplicity="1" />
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articles_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Articles" Type="TSMTModel.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Articles">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Candidates_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Candidates" Type="TSMTModel.Candidate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Candidates">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Charities_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Charities" Type="TSMTModel.Charity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Charities">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Profiles_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Profiles" Type="TSMTModel.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Profiles">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sponsors_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Sponsors">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Volunteers_Accounts">
+    <End Role="Accounts" Type="TSMTModel.Account" Multiplicity="1" />
+    <End Role="Volunteers" Type="TSMTModel.Volunteer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Volunteers">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_Category">
+    <End Role="Categories" Type="TSMTModel.Category" Multiplicity="1" />
+    <End Role="Articles" Type="TSMTModel.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Articles">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticlesTags_Articles">
+    <End Role="Articles" Type="TSMTModel.Article" Multiplicity="1" />
+    <End Role="ArticlesTags" Type="TSMTModel.ArticlesTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="ArticleID" />
+      </Principal>
+      <Dependent Role="ArticlesTags">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Articles">
+    <End Role="Articles" Type="TSMTModel.Article" Multiplicity="1" />
+    <End Role="Comments" Type="TSMTModel.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="ArticleID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExamsPaper_Candidates">
+    <End Role="Candidates" Type="TSMTModel.Candidate" Multiplicity="1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Candidates">
+        <PropertyRef Name="CandidateID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="CandidateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_ChairitiesExams">
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+    <End Role="Cars" Type="TSMTModel.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChairitiesExams">
+        <PropertyRef Name="CharityExamID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CharityExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_Sponsors">
+    <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="0..1" />
+    <End Role="Cars" Type="TSMTModel.Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sponsors">
+        <PropertyRef Name="SponsorID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="SponsorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExaminationsPapers_Cars">
+    <End Role="Cars" Type="TSMTModel.Car" Multiplicity="0..1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchedulesCars_Cars">
+    <End Role="Cars" Type="TSMTModel.Car" Multiplicity="1" />
+    <End Role="SchedulesCars" Type="TSMTModel.SchedulesCar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="SchedulesCars">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChairitiesExams_Charities">
+    <End Role="Charities" Type="TSMTModel.Charity" Multiplicity="1" />
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charities">
+        <PropertyRef Name="CharityID" />
+      </Principal>
+      <Dependent Role="ChairitiesExams">
+        <PropertyRef Name="CharityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChairitiesExams_Examinations">
+    <End Role="Examinations" Type="TSMTModel.Examination" Multiplicity="1" />
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examinations">
+        <PropertyRef Name="ExaminationID" />
+      </Principal>
+      <Dependent Role="ChairitiesExams">
+        <PropertyRef Name="ExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExaminationsPapers_ChairitiesExams">
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChairitiesExams">
+        <PropertyRef Name="CharityExamID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="CharityExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funds_ChairitiesExams">
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+    <End Role="Funds" Type="TSMTModel.Fund" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChairitiesExams">
+        <PropertyRef Name="CharityExamID" />
+      </Principal>
+      <Dependent Role="Funds">
+        <PropertyRef Name="CharityExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lodges_ChairitiesExams1">
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+    <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChairitiesExams">
+        <PropertyRef Name="CharityExamID" />
+      </Principal>
+      <Dependent Role="Lodges">
+        <PropertyRef Name="CharityExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Volunteers_ChairitiesExams">
+    <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+    <End Role="Volunteers" Type="TSMTModel.Volunteer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChairitiesExams">
+        <PropertyRef Name="CharityExamID" />
+      </Principal>
+      <Dependent Role="Volunteers">
+        <PropertyRef Name="CharityExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Comments">
+    <End Role="Comments" Type="TSMTModel.Comment" Multiplicity="0..1" />
+    <End Role="Comments1" Type="TSMTModel.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comments">
+        <PropertyRef Name="CommentID" />
+      </Principal>
+      <Dependent Role="Comments1">
+        <PropertyRef Name="ReplyFor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Districts_Provinces">
+    <End Role="Provinces" Type="TSMTModel.Province" Multiplicity="1" />
+    <End Role="Districts" Type="TSMTModel.District" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provinces">
+        <PropertyRef Name="ProvinceID" />
+      </Principal>
+      <Dependent Role="Districts">
+        <PropertyRef Name="ProvinceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Profiles_Districts">
+    <End Role="Districts" Type="TSMTModel.District" Multiplicity="0..1" />
+    <End Role="Profiles" Type="TSMTModel.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="DistrictID" />
+      </Principal>
+      <Dependent Role="Profiles">
+        <PropertyRef Name="DistrictID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleExams_Examinations">
+    <End Role="Examinations" Type="TSMTModel.Examination" Multiplicity="1" />
+    <End Role="ScheduleExams" Type="TSMTModel.ScheduleExam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examinations">
+        <PropertyRef Name="ExaminationID" />
+      </Principal>
+      <Dependent Role="ScheduleExams">
+        <PropertyRef Name="ExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UniversityExamination_Examinations">
+    <End Role="Examinations" Type="TSMTModel.Examination" Multiplicity="1" />
+    <End Role="UniversitiesExaminations" Type="TSMTModel.UniversitiesExamination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examinations">
+        <PropertyRef Name="ExaminationID" />
+      </Principal>
+      <Dependent Role="UniversitiesExaminations">
+        <PropertyRef Name="ExaminationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExaminationsPapers_Groups">
+    <End Role="Groups" Type="TSMTModel.Group" Multiplicity="0..1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExaminationsPapers_Rooms">
+    <End Role="Rooms" Type="TSMTModel.Room" Multiplicity="0..1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="RoomID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="RoomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExaminationsPapers_Venues">
+    <End Role="Venues" Type="TSMTModel.Venue" Multiplicity="1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venues">
+        <PropertyRef Name="VenueID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="VenueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExamsPaper_UniversityExamination">
+    <End Role="UniversitiesExaminations" Type="TSMTModel.UniversitiesExamination" Multiplicity="1" />
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UniversitiesExaminations">
+        <PropertyRef Name="UniExamID" />
+      </Principal>
+      <Dependent Role="ExaminationsPapers">
+        <PropertyRef Name="UniExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Groups_ExaminationsPapers">
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="1" />
+    <End Role="Groups" Type="TSMTModel.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExaminationsPapers">
+        <PropertyRef Name="ExamPaperID" />
+      </Principal>
+      <Dependent Role="Groups">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SchedulesVolunteers_ExaminationsPapers">
+    <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="0..1" />
+    <End Role="SchedulesVolunteers" Type="TSMTModel.SchedulesVolunteer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExaminationsPapers">
+        <PropertyRef Name="ExamPaperID" />
+      </Principal>
+      <Dependent Role="SchedulesVolunteers">
+        <PropertyRef Name="ExamPaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funds_Sponsores">
+    <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="1" />
+    <End Role="Funds" Type="TSMTModel.Fund" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sponsors">
+        <PropertyRef Name="SponsorID" />
+      </Principal>
+      <Dependent Role="Funds">
+        <PropertyRef Name="SponsorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lodges_Sponsors">
+    <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="0..1" />
+    <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sponsors">
+        <PropertyRef Name="SponsorID" />
+      </Principal>
+      <Dependent Role="Lodges">
+        <PropertyRef Name="SponsorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rooms_Lodges">
+    <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="1" />
+    <End Role="Rooms" Type="TSMTModel.Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lodges">
+        <PropertyRef Name="LodgeID" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="LodgeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetailScheduleVolunteers_Volunteers">
+    <End Role="Volunteers" Type="TSMTModel.Volunteer" Multiplicity="1" />
+    <End Role="SchedulesVolunteers" Type="TSMTModel.SchedulesVolunteer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteers">
+        <PropertyRef Name="VolunteerID" />
+      </Principal>
+      <Dependent Role="SchedulesVolunteers">
+        <PropertyRef Name="VolunteerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UniversityExamination_University">
+    <End Role="Universities" Type="TSMTModel.University" Multiplicity="1" />
+    <End Role="UniversitiesExaminations" Type="TSMTModel.UniversitiesExamination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Universities">
+        <PropertyRef Name="UniversityID" />
+      </Principal>
+      <Dependent Role="UniversitiesExaminations">
+        <PropertyRef Name="UniversityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venues_UniversitiesExaminations">
+    <End Role="UniversitiesExaminations" Type="TSMTModel.UniversitiesExamination" Multiplicity="1" />
+    <End Role="Venues" Type="TSMTModel.Venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UniversitiesExaminations">
+        <PropertyRef Name="UniExamID" />
+      </Principal>
+      <Dependent Role="Venues">
+        <PropertyRef Name="UniExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

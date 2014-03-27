@@ -1,0 +1,9 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddLodgeSimple", "Sponsor", FormMethod.Post))
+{ 
+    <span>Address</span><input type="text" name="Address" />
+    <input type="submit" value="Submit"/>
+}

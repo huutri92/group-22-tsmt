@@ -1,0 +1,49 @@
+﻿@using TSMT.Models
+<!--=== Copyright ===-->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="copyright-space">
+                    2014 &copy; TSMT. ALL Rights Reserved. 
+                   
+                        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <a href="#">
+                    @if (Session["acc"] != null)
+                    {
+                        int roleID = ((Account)Session["acc"]).RoleID;
+                        switch (roleID)
+                        {
+                            case 1://candidate
+                        <img src="~/Content/img/logo2-blue.png" class="pull-right" alt="Logo">
+                                break;
+                            case 2://charity
+                        <img src="~/Content/img/logo2-orange.png" class="pull-right" alt="Logo">
+                                break;
+                            case 3://sponsor
+                        <img src="~/Content/img/logo2-default.png" class="pull-right" alt="Logo">
+                                break;
+                            case 4://volunteer
+                        <img src="~/Content/img/logo2-orange.png" class="pull-right" alt="Logo">
+                                break;
+                            case 5://admin
+                        <img src="~/Content/img/logo2-red.png" class="pull-right" alt="Logo">
+                                break;
+                        }
+                    }
+                    else
+                    { <img src="~/Content/img/logo2-blue.png" class="pull-right" alt="Logo">}
+
+                    
+                </a>
+            </div>
+        </div>
+        <!--/row-->
+    </div>
+    <!--/container-->
+</div>
+<!--/copyright-->
+<!--=== End Copyright ===-->

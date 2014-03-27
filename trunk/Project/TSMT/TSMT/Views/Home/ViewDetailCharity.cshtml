@@ -1,0 +1,298 @@
+﻿@using TSMT.Models
+
+@{
+    ViewBag.Title = "ViewDetailCharity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+    function initialize() {
+
+        var mapOptions = {
+            zoom: 16,
+            center: BenThanh,
+            mapTypeID: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        marker = new google.maps.Marker({
+            position: BenThanh,
+            map: map,
+            title: 'Welcome to Ben Thanh market!',
+            animation: google.maps.Animation.DROP
+        });
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row blog-page blog-item">
+        <!-- Left Sidebar -->
+        <div class="col-md-9 md-margin-bottom-60">
+            <!--Blog Post-->
+            <div class="blog margin-bottom-20">
+                <h2>@Model.CharityExamName</h2>
+                <h6><b>Số điện thoại: </b>@Model.Charity.PhoneNumber</h6>
+                <div class="row margin-bottom-5">
+                    <div class="col-md-8">
+                        <div class="blog-img" style="width: auto">
+                            <img class="img-responsive" src="~/Content/img/posts/2.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headline">
+                            <h4>Thông tin người quản lý</h4>
+                            <br />
+                            <ul>
+                                <li><b>Họ tên:</b> @Model.Charity.Account.Profile.Lastname @Model.Charity.Account.Profile.Firstname</li>
+                                <li><b>Số điện thoại:</b> @Model.Charity.Account.Profile.PhoneNumber</li>
+                                <li><b>Email:</b> @Model.Charity.Account.Email</li>
+                            </ul>
+                        </div>
+                    </div>
+                    @if (Session["acc"] != null)
+                    {
+                        int roleID = ((Account)Session["acc"]).RoleID;
+                        switch (roleID)
+                        {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                        <a href="#" class="btn-u btn-u-sea">Tham gia</a>
+                                break;
+                            case 4:                                
+                        <a href="@Url.Action("AddResource","Sponsor")" class="btn-u btn-u-sea">Quyên góp</a>
+                                break;
+                            case 5:
+                                break;
+                        }
+                    }
+                    else
+                    { <label>Hãy đăng ký tài khoản tại TSMT để có thể sử dụng nhiều tiện ích hơn</label>}
+
+                </div>
+                <div class="row margin-bottom-5">
+                    <div class="col-md-12">
+                        <div class="tab-v2">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#description" data-toggle="tab">Miêu tả</a></li>
+                                <li><a href="#supply" data-toggle="tab">Tài nguyên</a></li>
+                                <li><a href="#map" data-toggle="tab">Bản đồ</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="description">
+                                    <p>@Model.Charity.FullDescription</p>
+                                </div>
+                                <div class="tab-pane" id="supply">
+                                    <h4>Các tài nguyên hỗ trợ</h4>
+                                    <ul>
+                                        <li>Total Lodge: @Model.TotalSlotsLodges </li>
+                                        <li>Available Lodge: @Model.AvailableSlotsLodges</li>
+                                        <li>Total Vehicle: @Model.TotalSlotsVehicles</li>
+                                        <li>Available Vehicle: @Model.AvailableSlotsLodges</li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="map">
+                                    Show map....
+                                     <div id="map-canvas"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End Left Sidebar -->
+
+        <!-- Right Sidebar -->
+        <h3>Advertisement </h3>
+        @*<div class="col-md-3 magazine-page">
+            <!-- Search Bar -->
+            <div class="headline headline-md">
+                <h2>Search</h2>
+            </div>
+            <div class="input-group margin-bottom-40">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-btn">
+                    <button class="btn-u" type="button">Go</button>
+                </span>
+            </div>
+            <!-- End Search Bar -->
+
+            <!-- Posts -->
+            <div class="posts margin-bottom-40">
+                <div class="headline headline-md">
+                    <h2>Recent Posts</h2>
+                </div>
+                <dl class="dl-horizontal">
+                    <dt><a href="#">
+                        <img src="~/Content//img/sliders/elastislide/6.jpg" alt="" /></a></dt>
+                    <dd>
+                        <p><a href="#">Responsive Bootstrap 3 Template placerat idelo alac eratamet.</a></p>
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt><a href="#">
+                        <img src="~/Content//img/sliders/elastislide/10.jpg" alt="" /></a></dt>
+                    <dd>
+                        <p><a href="#">100+ Amazing Features Layer Slider, Layer Slider, Icons, 60+ Pages etc.</a></p>
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt><a href="#">
+                        <img src="~/Content//img/sliders/elastislide/11.jpg" alt="" /></a></dt>
+                    <dd>
+                        <p><a href="#">Developer Friendly Code imperdiet condime ntumi mperdiet condim.</a></p>
+                    </dd>
+                </dl>
+            </div>
+            <!--/posts-->
+            <!-- End Posts -->
+
+            <!-- Tabs Widget -->
+            <div class="headline headline-md">
+                <h2>Tabs Widget</h2>
+            </div>
+            <div class="tab-v2 margin-bottom-40">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home-1">About Us</a></li>
+                    <li><a data-toggle="tab" href="#home-2">Quick Links</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="home-1" class="tab-pane active">
+                        <p>Vivamus imperdiet condimentum diam, eget placerat felis consectetur id. Donec eget orci metus, ac ac adipiscing nunc.</p>
+                        <p>Pellentesque fermentum, ante ac felis consectetur id. Donec eget orci metusvivamus imperdiet.</p>
+                    </div>
+                    <div id="home-2" class="tab-pane magazine-sb-categories">
+                        <div class="row">
+                            <ul class="list-unstyled col-xs-6">
+                                <li><a href="#">Best Sliders</a></li>
+                                <li><a href="#">Parralax Page</a></li>
+                                <li><a href="#">Backgrounds</a></li>
+                                <li><a href="#">Parralax Slider</a></li>
+                                <li><a href="#">Responsive</a></li>
+                                <li><a href="#">800+ Icons</a></li>
+                            </ul>
+                            <ul class="list-unstyled col-xs-6">
+                                <li><a href="#">60+ Pages</a></li>
+                                <li><a href="#">Layer Slider</a></li>
+                                <li><a href="#">Bootstrap 3</a></li>
+                                <li><a href="#">Fixed Header</a></li>
+                                <li><a href="#">Best Template</a></li>
+                                <li><a href="#">And Many More</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Tabs Widget -->
+
+            <!-- Photo Stream -->
+            <div class="headline headline-md">
+                <h2>Photo Stream</h2>
+            </div>
+            <ul class="list-unstyled blog-photos margin-bottom-30">
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/5.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/6.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/8.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/10.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/11.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/1.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/2.jpg"></a></li>
+                <li><a href="#">
+                    <img class="hover-effect" alt="" src="~/Content//img/sliders/elastislide/7.jpg"></a></li>
+            </ul>
+            <!-- End Photo Stream -->
+
+            <!-- Blog Tags -->
+            <div class="headline headline-md">
+                <h2>Blog Tags</h2>
+            </div>
+            <ul class="list-unstyled blog-tags margin-bottom-30">
+                <li><a href="#"><i class="icon-tags"></i>Business</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Music</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Internet</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Money</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Google</a></li>
+                <li><a href="#"><i class="icon-tags"></i>TV Shows</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Education</a></li>
+                <li><a href="#"><i class="icon-tags"></i>People</a></li>
+                <li><a href="#"><i class="icon-tags"></i>People</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Math</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Photos</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Electronics</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Apple</a></li>
+                <li><a href="#"><i class="icon-tags"></i>Canada</a></li>
+            </ul>
+            <!-- End Blog Tags -->
+
+            <!-- Blog Latest Tweets -->
+            <div class="blog-twitter margin-bottom-30">
+                <div class="headline headline-md">
+                    <h2>Latest Tweets</h2>
+                </div>
+                <div class="blog-twitter-inner">
+                    <i class="icon-twitter"></i>
+                    <a href="#"></a>
+                    At vero eos et accusamus et iusto odio dignissimos. 
+                   
+                    <a href="#">http://t.co/sBav7dm</a>
+                    <span>5 hours ago</span>
+                </div>
+                <div class="blog-twitter-inner">
+                    <i class="icon-twitter"></i>
+                    <a href="#"></a>
+                    At vero eos et accusamus et iusto odio dignissimos. 
+                   
+                    <a href="#">http://t.co/sBav7dm</a>
+                    <span>5 hours ago</span>
+                </div>
+                <div class="blog-twitter-inner">
+                    <i class="icon-twitter"></i>
+                    <a href="#"></a>
+                    At vero eos et accusamus et iusto odio dignissimos. 
+                   
+                    <a href="#">http://t.co/sBav7dm</a>
+                    <span>5 hours ago</span>
+                </div>
+                <div class="blog-twitter-inner">
+                    <i class="icon-twitter"></i>
+                    <a href="#"></a>
+                    At vero eos et accusamus et iusto odio dignissimos. 
+                   
+                    <a href="#">http://t.co/sBav7dm</a>
+                    <span>5 hours ago</span>
+                </div>
+            </div>
+            <!-- End Blog Latest Tweets -->
+        </div>*@
+        <!-- End Right Sidebar -->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->

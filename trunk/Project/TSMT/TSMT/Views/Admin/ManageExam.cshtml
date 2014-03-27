@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Manage Examinations";
+    ViewBag.Active = "ManageExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AdminSidebarPartial")
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>All Examination Information 
+                <a href="@Url.Action("AddExam", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+            </h3>
+            <div class="devider"></div>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                @{
+                    int counter = 1;
+                    foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@counter</td>
+                        <td>@item.Name</td>
+                        <td>@item.BeginDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                           @* @Html.ActionLink("Manage Schedules", "ManageScheduleExam", new { id = @item.ExaminationID })*@
+                            <a href="@Url.Action("ManageScheduleExam","Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-yellow"><i class="icon-hand-right"></i> Manage Schedules</a>
+                            @if (item.IsRemovable)
+                            {
+                                @*@Html.ActionLink("Delete", "DeleteExam", new { id = @item.ExaminationID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })*@
+                                <a href="@Url.Action("DeleteCategory", "Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i> Delete </a>
+                            }
+                        </td>
+                    </tr>
+                            ++counter;
+                    }
+                }
+            </table>
+            @*  @Html.ActionLink("Create", "AddExam", null, new { @class = "btn btn-info" })*@
+            @*@Html.ActionLink("Back to Control Panel", "/", null, new { @class = "btn btn-info" })*@
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i> Back </a>
+</div>

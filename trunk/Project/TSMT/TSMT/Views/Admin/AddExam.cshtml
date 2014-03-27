@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "AddExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="title_of_page">Add Exam</h2>
+
+@using (Html.BeginForm("AddExam", "Admin", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Tên kỳ thi</td>
+            <td>
+                <input type="text" name="Name" /></td>
+        </tr>
+        <tr>
+            <td>Ngày bắt đầu</td>
+            <td>
+                <input type="text" name="BeginDate" /></td>
+        </tr>
+        <tr>
+            <td>Ngày kết thúc</td>
+            <td>
+                <input type="text" name="EndDate" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Create" class="btn btn-info" />
+    <input type="reset" value="Reset" class="btn btn-info" />
+    <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageExam'"/>
+}

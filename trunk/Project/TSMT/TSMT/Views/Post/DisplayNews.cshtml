@@ -1,0 +1,252 @@
+﻿@{
+    //ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@using TSMT.Models
+@model List<Article>
+
+<style>
+    #content.img {
+        width: 480px;
+        height: 300px;
+        margin-left: calc(50% - 240px);
+    }
+</style>
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            @*<h1 class="pull-left">@ViewBag.Title</h1>*@
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("News", "Post")">Tin tức</a></li>
+                <li><a href="@Url.Action("CategoryNews", "Post")">Chuyên mục</a></li>
+               @* <li><a href="@Url.Action("CategoryNews", "Post")" id="categorynew">
+                    <script type="text/javascript">
+                        $window.load(document.getElementById("categorynew").textContent = document.getElementById("sadsa").textContent);
+                    </script>
+                </a></li>*@
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="row blog-page blog-item">
+    @foreach (var item in Model)
+    {
+        ViewBag.Title = item.Title;
+        <div id="sadsa">@item.Category.CategoryName</div>
+        <div class="col-md-9 md-margin-bottom-60">
+            <div class="blog margin-bottom-40">
+
+                <h2><a href="#">@item.Title</a></h2>
+                <div class="blog-post-tags">
+                    <ul class="list-unstyled list-inline blog-info">
+                        <li><i class="icon-calendar"></i>@item.LastModifiedOn</li>
+                        <li><i class="icon-pencil"></i>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</li>
+                        @*<li><i class="icon-comments"></i><a href="#">24 Comments</a></li>*@
+                    </ul>
+                    <ul class="list-unstyled list-inline blog-tags">
+                        <li>
+                            <i class="icon-tags"></i>
+                            <a href="#">Technology</a>
+                            <a href="#">Education</a>
+                            <a href="#">Internet</a>
+                            <a href="#">Media</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <p>@Html.Raw(item.Content)</p>
+
+                <div id="fb-root"></div>
+                <script>
+                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=690621507660703";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+                <hr>
+
+                <div class="row margin-bottom-5">
+                    <div class="col-md-12">
+                        <div class="tab-v2">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#commentTab" data-toggle="tab">Bình luận</a></li>
+                                <li><a href="#facebook" data-toggle="tab">Facebook</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="commentTab">
+                                    <div class="media">
+                                        <h3>Bình luận</h3>
+                                        <div>
+                                            <label>Nội dung</label>
+                                        </div>
+                                        <div>
+                                            <textarea name="contentCmt" cols="50" rows="7" style="width: 500px; height: 73px;" class="form-control" id="comment"></textarea>
+                                            <br />
+                                            <button type="submit" class="btn btn-info" onclick="callAjaxAddCmt(@item.ArticleID, 'comment')">Gửi bình luận</button>
+                                        </div>
+                                        @foreach (var cmt in ViewData["comment"] as IEnumerable<Comment>)
+                                        {
+                                            <a class="pull-left" href="#">
+                                                <img class="media-object" src="Content/img/sliders/elastislide/2.jpg" alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">@item.Account.Profile.Lastname <span>5 hours ago / <a href="#">Reply</a></span></h4>
+                                                <p>@item.Content</p>
+                                                <hr>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="facebook">
+                                    <div id="fb-root"></div>
+                                    <script>
+                                        (function (d, s, id) {
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id)) return;
+                                            js = d.createElement(s);
+                                            js.id = id;
+                                            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=690621507660703";
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));
+                                    </script>
+                                    <div class="fb-comments" data-href="http://localhost:1045/" data-numposts="5" data-colorscheme="light"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 magazine-page">
+            For ads
+        </div>
+    }
+</div>
+
+
+
+
+
+
+@*
+<div style="padding: 48px;" id="content">
+
+    <div style="font-weight: bold; font-size: 20px;"></div>
+    <div style="width: 100%;">
+        <div style="display: none">
+            <input type="text" name="articleId" value="@item.ArticleID"/>
+        </div>
+        <div>
+            <h3 style="font-size: 25px">@item.Title</h3>
+        </div>
+        <div style="width: 70%; float: left;">
+            @Html.Raw(item.Content)
+            <div id="fb-root"></div>
+            <script>
+                (function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=690621507660703";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
+            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            <div class="inner-page-content inner-careers">
+                <div class="container">
+                    <div class="inner-tab">
+                        <!-- Nab Bar Tan Menu list -->
+                        <ul id="mytab" class="nav nav-tabs">
+                            <li class="active"><a href="#one" data-toggle="tab">Bình luận</a></li>
+                            <li><a href="#two" data-toggle="tab">Facebook</a></li>
+                        </ul>
+                        <!-- Content for each menu item -->
+                        <div class="tab-content">
+                            <!-- First Content for Nav bar -->
+                            <div class="tab-pane fade in active" id="one">
+                                <div>
+                                    <label>Nội dung</label>
+                                </div>
+                                <div>
+                                    <textarea name="contentCmt" cols="50" rows="7" style="width: 500px; height: 73px;" class="form-control" id="comment"></textarea>
+                                    <br />
+                                    <button type="submit" class="btn btn-info" onclick="callAjaxAddCmt(@item.ArticleID, 'comment')">Gửi bình luận</button>
+                                </div>
+                                <div id="showCmt">
+                                    @foreach (var cmt in ViewData["comment"] as IEnumerable<Comment>)
+                                    {
+                                        <div id="cmtDetail">
+                                            <p>@cmt.Article.Account.Profile.Lastname</p>
+                                            <p>@cmt.Content</p>
+                                        </div>
+                                    }
+                                    <div></div>
+                                </div>
+                            </div>
+
+                            <!-- Second Content for Nav bar -->
+                            <div class="tab-pane fade" id="two">
+
+                                <div id="fb-root"></div>
+                                <script>
+                                    (function (d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return;
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=690621507660703";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));
+                                </script>
+                                <div class="fb-comments" data-href="http://localhost:1045/" data-numposts="5" data-colorscheme="light"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 30%; float: left;">
+            For Ads
+        </div>
+    </div>
+    <div style="clear: both;">@item.CreatedOn</div>
+</div>
+foreach (var user in ViewData["user"] as IEnumerable<account>)
+                                        {
+    <div id="username" style="display: none">@user.Profile.Firstname @user.Profile.Lastname</div>
+                                        }
+
+}*@
+
+<script>
+    function callAjaxAddCmt(arId, commentId) {
+        var cmtContent = document.getElementById("comment").value;
+        $.ajax({
+            url: 'AddComment',
+            type: 'Post',
+            data: { "arId": arId, "comment": cmtContent },
+            success: function (results) {
+                document.getElementById("showCmt").innerHTML += "<div><p>" + document.getElementById("username").textContent + "</p><p>" + cmtContent + "</p></div>";
+                $("#showCmt").slideDown(2000);
+            }
+        });
+    }
+</script>

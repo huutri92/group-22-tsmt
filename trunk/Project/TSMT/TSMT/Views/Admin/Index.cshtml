@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Index";
+    ViewBag.Active = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">Welcome Admin Area</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li class="active">Admin</li>
+            </ul>
+        </div>
+    </div>
+   
+}
+@Html.Partial("_AdminSidebarPartial")
+
+<div class="col-md-9">
+    <div class="headline">
+        <h2>System</h2>
+    </div>
+    <a href="@Url.Action("ManageAccount", "Admin")">
+        <div class="row servive-block margin-bottom-10">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <h4>Manage Account</h4>
+                    <div><i class="icon-user"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <div class="headline">
+        <h2>News</h2>
+    </div>
+    <div class="row servive-block margin-bottom-10">
+        <a href="@Url.Action("ManageCategory", "Admin")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Manage Categories</h4>
+                    <div><i class="icon-flag"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManagePost", "Admin")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Manage
+                            <br />
+                        Posts</h4>
+                    <div><i class="icon-lightbulb"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="headline">
+        <h2>TSMT</h2>
+    </div>
+    <div class="row servive-block margin-bottom-10">
+        <a href="@Url.Action("ManageUniversity", "Admin")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-green">
+                    <h4>Manage University</h4>
+                    <div><i class="icon-building"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageExam", "Admin")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-green">
+                    <h4>Manage Examination</h4>
+                    <div><i class="icon-calendar"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageUniversityExam", "Admin")">
+            <div class="col-md-5 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-green">
+                    <h4>Manage <br />University - Examination</h4>
+                    <div><i class="icon-gear"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

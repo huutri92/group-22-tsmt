@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Thêm tin tức mới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models;
+<h2>AddNewPost</h2>
+<style type="text/css">
+		.validationMsg{
+			color: red;
+		}
+	</style>
+	<script type="text/javascript">
+	    function checkValidations() {
+	        var goSubmit = true;
+	        goSubmit = checkEmpty("title") && goSubmit;
+	        goSubmit = checkEmpty("editor1") && goSubmit;
+	        return goSubmit;
+	    }
+
+	    function checkEmpty(id) {
+	        var e = document.getElementById(id);
+	        var err = document.getElementById("valMsg" + id);
+	        var msg = "Please fill in this field.";
+	        if (e.value == "") { err.innerHTML = msg; return false; } else { err.innerHTML = ""; }
+	        return true;
+	    }
+    </script>
+@using (Html.BeginForm("AddNewPost", "Post", FormMethod.Post, new { onsubmit = "return checkValidations()" }))
+{
+    <br />
+    <div class="row">
+
+        <div class="col-md-7">
+            <div class="widget">
+                <div class="widget-head">
+                    <h5><i class="icon-desktop"></i>Make Post</h5>
+                </div>
+                <div class="widget-body">
+                    <label>Enter Title</label><span class="validationMsg" id="valMsgtitle"></span>
+                    <input id="title" type="text" class="form-control col-lg-8" name="Title" placeholder="Enter Title"><br />
+                    <label>Enter Content</label><span class="validationMsg" id="valMsgeditor1"></span>
+                    <textarea id="editor1" name="editor1" placeholder="Nhập nội dung bài viết"></textarea>
+                    <script type="text/javascript">
+                        var editor = CKEDITOR.replace('editor1',
+                        {
+                            filebrowserBrowseUrl: 'Scripts/ckfinder/ckfinder.html',
+                            filebrowserImageBrowseUrl: 'Scripts/ckfinder/ckfinder.html?type=Images',
+                            filebrowserUploadUrl: 'Scripts/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+                            filebrowserImageUploadUrl: 'Scripts/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+                        });
+                        CKFinder.setupCKEditor(editor, { rememberLastFolder: true });
+                    </script>
+                </div>
+                <div class="widget-foot">
+                    <div class="pull-right">
+                        <input type="submit" value="Tạo mới" class="btn btn-info" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="widget">
+                <div class="widget-head">
+                    <h5>Post Details</h5>
+                </div>
+                <div class="widget-body">
+                    <strong>Category</strong>
+                    <div class="check-box">
+                        <select name="CateId">
+                            @foreach (var item in ViewData["category"] as IEnumerable<Category>)
+                            {
+                                <option value="@item.CategoryID">@item.CategoryName</option>
+                            }
+                        </select>
+                    </div>
+                    <hr />
+                    <br />
+                    <strong>Tóm tắt</strong><br/>
+                    <textarea id="summary" name="summary" cols="50" rows="5" placeholder="Nhập nội dung tóm tắt"></textarea>
+                    <br/><br/>
+                    <strong>Ảnh đại diện</strong>
+                    <input id="CKFinder" name="avatarImg" class="col-lg-12 form-control" type="text" placeholder="Ảnh đại diện">
+                    <input type="button" id="Browse" value="Chọn ảnh" />
+                    <br />
+                </div>
+                <div class="widget-foot">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Browse").click(function () {
+            var finder = new CKFinder();
+            finder.basePath = '/Content/';
+            finder.selectActionFunction = function (fileUrl) {
+                $("#CKFinder").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
