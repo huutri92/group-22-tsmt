@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Sponsor";
+    ViewBag.Active = "SponsorHome";
+}
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">Welcome Sponsor Area</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+
+                <li class="active">Sponsor</li>
+            </ul>
+        </div>
+    </div>
+
+}
+@Html.Partial("_SponsorSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="row servive-block margin-bottom-10">
+        <a href="@Url.Action("AddResource", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <h4>Add Resource</h4>
+                    <div><i class="icon-user"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageCar", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <h4>Manage Car</h4>
+                    <div><i class="icon-user"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageFund", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Manage Fund</h4>
+                    <div><i class="icon-flag"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageLodge", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-red">
+                    <h4>Manage Lodge</h4>
+                    <div><i class="icon-lightbulb"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="row servive-block margin-bottom-10">
+        <a href="@Url.Action("ManageRoom", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-green">
+                    <h4>Manage Room</h4>
+                    <div><i class="icon-building"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("SponsorCarStatistic", "Sponsor")">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-grey">
+                    <h4>Statistic for car</h4>
+                    <div><i class="icon-calendar"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("SponsorLodgeStatistic", "Sponsor")">
+            <div class="col-md-4 col-sm-6">
+                <div class="servive-block-in">
+                    <h4>Statistic for lodge</h4>
+                    <div><i class="icon-calendar"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@using TSMT.Models
+@model IEnumerable<Examination>
+@{
+    ViewBag.Title = "Đăng ký vào Hội từ thiện";
+    ViewBag.Active = "JoinIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<script type="text/javascript">
+    function getCharityName(id) {
+        if (id == 'null') {
+            $("#getCharity").empty();
+        }
+        $.ajax({
+            url: 'getCharityName',
+            data: { "id": id },
+            type: 'GET',
+            success: function (results) {
+                $("#getCharity").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $("#getCharity").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                }
+            }
+        });
+    }
+</script>
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Home")">Tình nguyện viên</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+
+@using (Html.BeginForm("JoinIn", "Volunteer", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Kỳ thi</td>
+            <td>
+                <select name="exId" onchange="getCharityName(this.value)">
+                    <option value="null">Chon sasadds</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.ExaminationID">@item.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Hội từ thiện</td>
+            <td>
+                <select name="ceId" id="getCharity">
+                    <option value="null">Hội từ thiện</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Join" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

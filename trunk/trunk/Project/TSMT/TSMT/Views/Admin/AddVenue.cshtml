@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Add Venue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+
+<link href="/Content/css/gmap_places.css" rel="stylesheet">
+<link href="/Content/css/popup.css" rel="stylesheet">
+<script src="/Content/js/jquery.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
+<script src="/Content/js/gmap_places.js"></script>
+<script src="/Content/js/popup.js"></script>
+
+@using (Html.BeginForm("AddVenue", "Admin", FormMethod.Post, new { id="FormAddVenue" }))
+{
+    <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
+    <input type="hidden" id="Longitude" name="Longitude"/>
+    <input type="hidden" id="Latitude" name="Latitude"/>
+    <div id="map_container">
+        <div id="panel">
+            <table>
+                <tr>
+                    <td>Address</td>
+                    <td>
+                        <input type="text" id="Address" name="Address" /></td>
+                </tr>
+                <tr style="text-align: center">
+                    <td colspan="2">
+                        <input type="button" value="Go there" class="btn btn-info" onclick="goThere(true)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="guideMove" colspan="2" style="visibility: hidden; color: red">* Move marker to change position
+                    </td>
+                </tr>
+            </table>
+            <span id="guideSuggest" style="color: blue; visibility: hidden"># Suggested places:</span>
+            <div id="suggest"></div>
+            <div id="controls">
+                <input type="submit" value="Add" class="btn btn-info" onclick="return PrepareDataToSubmit()"/>
+                <input type="reset" value="Reset" class="btn btn-info" />
+                @Html.ActionLink("Cancel", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })
+            </div>
+        </div>
+        <div id="map_canvas"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        initialize();
+
+        // submit
+        $('.popup-confirm').click(function () {
+            $("#Longitude").val(marker.getPosition().lng());
+            $("#Latitude").val(marker.getPosition().lat());
+            $("#FormAddVenue").submit();
+        });
+    });
+</script>

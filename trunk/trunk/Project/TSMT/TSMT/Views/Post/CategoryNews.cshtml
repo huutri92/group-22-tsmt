@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Chuyên mục";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using TSMT.Models
+@model List<Article>
+@using System.Globalization
+
+<style>
+    #content.img {
+        width: 480px;
+        height: 300px;
+        margin-left: calc(50% - 240px);
+    }
+</style>
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("News", "Post")">Tin tức</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+<div class="col-md-3">
+    <div class="margin-bottom-30">
+        <div class="row tab-v3">
+            <div class="col-sm-10">
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach (var i in ViewData["category"] as IEnumerable<Category>)
+                    {
+                        <li class=""><a href="@Url.Action("CategoryNews", "Post", new { cateId = @i.CategoryID })"><i class="icon-circle-arrow-right"></i>@i.CategoryName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-md-9 md-margin-bottom-40">
+
+        <div class="headline">
+            <h3>
+                <a href="@Url.Action("CategoryNews", "Post", new { cateId = @item.CategoryID })">@item.Category.CategoryName</a>
+            </h3>
+        </div>
+        <div class="search-blocks search-blocks-left-green" id="content">
+            <div class="row">
+                <div class="col-md-4 search-img">
+                    <img alt="" src="@item.AvatarImage" class="img-responsive">
+                    <ul class="list-unstyled">
+                        <li><i class="icon-double-angle-down"></i>@item.CreatedOn</li>
+                        <li><i class="icon-info-sign"></i>@item.Account.Profile.Lastname</li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <h4><a href="#">@item.Title</a></h4>
+                    <p>@item.Summary</p>
+                    <br />
+                    @Html.ActionLink("Xem chi tiết", "DisplayNews", new { arId = @item.ArticleID })
+                    @* <input type="submit" value="Xem chi tiết" class="btn btn-info" />*@
+                    <a href="@Url.Action("DisplayNews", "Post", new { arId = @item.ArticleID })" class="btn-u btn-u-default">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+        <!--End Blog Post-->
+
+        <div class="margin-bottom-20 clearfix"></div>
+    </div>
+}
+
+
+

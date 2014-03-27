@@ -1,0 +1,281 @@
+﻿@using TSMT.Models
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+  
+}
+
+<script type="text/javascript">
+    function callAjax(id) {
+        $.ajax({
+            url: 'getLocationInformation/' + id,
+            type: 'GET',
+            success: function (results) {
+                $("#district").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $("#district").append("<option value=\"" + r.value + "\">" + r.name + "</option>");
+                }
+            }
+        });
+    }
+</script>
+
+
+
+<div class="container">
+
+    <div class="reg-block" style="width: 800px">
+        <div class="reg-block-header">
+            <h2>Đăng Ký</h2>
+            <ul class="list-inline style-icons text-center">
+                <li><a href="@Url.Action("Index", "Home")"><i class="icon-home icon-round icon-round-sm icon-color-grey"></i>Trang Chủ </a></li>
+                <li><a href="@Url.Action("Login", "Account")"><i class="icon-signin icon-round icon-round-sm icon-color-grey"></i>Đăng nhập </a></li>
+            </ul>
+        </div>
+        <form id="register" name="register" method="post" action="/Account/Register">
+            @{
+                Account acc = (Account)TempData["acc"];
+                Profile pro = (Profile)TempData["pro"];
+            }
+            <div class="row margin-bottom-5">
+                <div class="col-md-5">
+                    <div class="bg-light">
+                        <h4>1. <i class="icon-user"></i>Thông tin tài khoản</h4>
+                        <div class="margin-bottom-1">
+                            <label>Email</label>
+                        </div>
+                        <div class="input-group margin-bottom-5">
+                            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                            @if (TempData["wrongCaptcha"] == null || TempData["emptyCaptcha"] == null)
+                            {
+                                <input name="email" type="text" class="form-control" placeholder="Email">
+                            }
+                            else if (TempData["wrongCaptcha"] != null || TempData["emptyCaptcha"] != null)
+                            {                               
+                                <input  name="email" type="text" class="form-control" placeholder="Email"  value="@acc.Email">
+                            }
+
+
+                        </div>
+                        <div class="margin-bottom-1">
+                            <label>Mật khẩu</label>
+                        </div>
+                        <div class="input-group margin-bottom-5">
+                            <span class="input-group-addon"><i class="icon-lock"></i></span>
+                            <input id="password" name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                        </div>
+                        <div class="margin-bottom-1">
+                            <label>Xác thực mật khẩu</label>
+                        </div>
+                        <div class="input-group margin-bottom-5">
+                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                            <input type="password" name="confirmPassword" class="form-control" placeholder="Xác thực mật khẩu">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="bg-light">
+                        <h4>2. <i class="icon-lock"></i>Thông tin cá nhân</h4>
+                        <div class="row margin-bottom-5">
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Họ</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                                    <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Họ">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Tên</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                    <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Tên">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Giới tính</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <span class="input-group-addon" style="display: none"><i class="icon-female"></i></span>
+                                    <span class="input-group-addon" style="display: none"><i class="icon-male"></i></span>
+                                    <select id="gender" name="gender" class="btn">
+                                        <option value="True">Nữ</option>
+                                        <option value="False">Nam</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Ngày sinh</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    @*use jquery date picker*@
+                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                    <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Số điện thoại</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                    <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="margin-bottom-1">
+                                    <label>Địa chỉ</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                                    <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Tỉnh/Thành phố</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <select id="province" name="province" class="btn" onchange="callAjax(this.value)">
+                                        <option value="null" selected>Tỉnh/Thành phố</option>
+                                        @foreach (var item in (List<Province>)ViewData["provinces"])
+                                        {
+                                            <option value="@item.ProvinceID">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="margin-bottom-1">
+                                    <label>Quận/Huyện</label>
+                                </div>
+                                <div class="input-group margin-bottom-5">
+                                    <select id="district" name="district" class="btn">
+                                        <option value="null" selected>Quận/Huyện</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="col-md-3"></div>*@
+                <div class="col-md-7">
+                    <div class="bg-light">
+                        <h4>3. <i class="icon-info"></i>Thông tin riêng </h4>
+                        <div class="margin-bottom-1">
+                            <label>Bạn là:</label>
+                        </div>
+                        <div class="input-group margin-bottom-5">
+                            <span class="input-group-addon" ><i class="icon-user"></i></span>
+                            <select id="role" name="role" class="btn" onchange="changeRole(this.options[this.selectedIndex].value);">
+                                <option value="null">----</option>
+                                @foreach (var item in (List<Role>)ViewData["roles"])
+                                {
+                                    if (item.RoleID == 5) { break; }
+                                    <option value="@item.RoleID">@item.RoleName</option>
+                                    
+                                }
+                            </select>
+                        </div>
+                        <div id="1" class="input-group margin-bottom-5" style="display: none">
+                            <div class="margin-bottom-1">
+                                <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Thí sinh</b></span></label>
+                            </div>
+
+                        </div>
+                        <div id="2" class="input-group margin-bottom-5" style="display: none">
+                            <div class="margin-bottom-1">
+                                <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Hội từ thiện</b></span></label>
+                            </div>
+                            charity
+                        </div>
+                        <div id="3" class="input-group margin-bottom-5" style="display: none">
+                            <div class="margin-bottom-1">
+                                <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Tình nguyện viên</b></span></label>
+                            </div>
+                            volunteer
+                        </div>
+                        <div id="4" class="input-group margin-bottom-5" style="display: none">
+                            <div class="margin-bottom-1">
+                                <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Nhà tài trợ</b></span></label>
+                            </div>
+                            sponsor
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="bg-light">
+                        <h4>4. <i class="icon-picture"></i>Captcha </h4>
+                        <div class="margin-bottom-1">
+                            <label>Kết quả của phép toán trong hình là</label>
+                        </div>
+                        <div id="captcha">
+                            <a href="@Url.Action("Register", "Account")">
+                                <img alt="Captcha" src="@Url.Action("CaptchaImage")" style="" /></a>
+
+                            <input id="inputCaptcha" type="text" name="inputCaptcha" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <label class="checkbox">
+                <input type="checkbox">
+                <p>I read <a target="_blank" href="page_terms.html">Terms and Conditions</a></p>
+            </label>
+
+            <div class="row margin-bottom-1">
+                <div class="col-md-3"></div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn-u btn-u-blue btn-block" name="submit" value="Submit">Đăng ký</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn-u btn-u-red btn-block" value="Reset">Đặt lại</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn-u btn-u-default btn-block">Hủy đăng ký</button>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </form>
+
+        <div class="row-margin-bottom-1">
+            @if (TempData["emptyCaptcha"] != null)
+            {
+                <div id="formAlertNull" class="alert alert-danger alert-dismissable" style="width: 300px">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Error!</strong> Captcha rỗng. Hãy nhập lại!.
+                </div>   
+            }
+            @if (TempData["wrongCaptcha"] != null)
+            {
+                <div id="formAlert" class="alert alert-danger alert-dismissable" style="width: 300px">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Error!</strong> Kết quả không đúng. Hãy nhập lại!.
+                </div> 
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var currentRole = null;
+    function changeRole(newRole) {
+        if (currentRole !== null) {
+            document.getElementById(currentRole).style.display = 'none';
+        }
+        document.getElementById(newRole).style.display = 'inline';
+        currentRole = newRole;
+    }
+</script>

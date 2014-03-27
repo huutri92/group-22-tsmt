@@ -1,0 +1,41 @@
+﻿@using TSMT.Models
+
+@{
+    ViewBag.Title = "Manage Exam Papers of Candidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Kỳ thi + Trường</td>
+            <td>
+                <select name="UniExamID">
+                    @foreach (var item in ViewData["uniExams"] as IEnumerable<UniversitiesExamination>)
+                    {
+                        <option value="@item.UniExamID">@item.Examination.Name - @item.University.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Địa điểm thi</td>
+            <td>
+                <select name="VenueID">
+                    @foreach (var item in ViewData["venues"] as IEnumerable<Venue>)
+                    {
+                        <option value="@item.VenueID">@item.Address</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

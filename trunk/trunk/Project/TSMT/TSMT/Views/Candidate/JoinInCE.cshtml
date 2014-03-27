@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Join in a Charity-Examination";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model IEnumerable<ChairitiesExam>
+
+<link href="/Content/css/gmap_joinInCE.css" rel="stylesheet">
+<script src="/Content/js/jquery.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
+<script src="/Content/js/gmap_joinInCE.js"></script>
+
+@{
+    ExaminationsPaper ep = (ExaminationsPaper)ViewData["ep"];
+    Venue ve = ep.Venue;
+}
+
+@using (Html.BeginForm("JoinInCE", "Candidate", FormMethod.Post, new { id = "formJoinInCE" }))
+{
+    <div id="map_container">
+        <div id="panel">
+            <input type="hidden" name="epId" value="@ep.ExamPaperID" />
+            <input type="hidden" id="lodgeId" name="lodgeId"/>
+            <div>
+                Kỳ thi
+                <input type="text" value="@ep.UniversitiesExamination.Examination.Name" disabled/>
+                Trường thi
+                <input type="text" value="@ep.UniversitiesExamination.University.Name" disabled/>
+                Địa chỉ thi
+                <input type="text" value="@ve.Address" disabled/>
+                <button onclick="clickOnMarker('-1', true); return false;">Đến địa điểm thi</button>
+            </div>
+            <div>
+                Tổ chức
+                <select name="ceId" onchange="changeCE(this.value)">
+                    <option value="null">Tất cả tổ chức</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.CharityExamID">@item.CharityExamName</option>
+                    }
+                </select>
+            </div>
+            <div style="margin-top: 20px;">
+                <div id="radius"></div>
+                <div id="examVenues"></div>
+            </div>
+        </div>
+        <div id="map_canvas"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        createData();
+        initialize(new google.maps.LatLng("@ve.Latitude", "@ve.Longitude"));
+        createTheCircle();
+    });
+
+    function createData() {
+        /* INIT VENUE */
+        lodges[-1] = {
+            lodgeId: -1,
+            name: "@ve.Address",
+            data: new google.maps.LatLng("@ve.Latitude", "@ve.Longitude"),
+            d: 0,
+            description: "Địa điểm thi: @ve.Address"
+        }
+
+        /* INIT LODGES  */
+        @foreach (Lodge l in ViewData["lodges"] as IEnumerable<Lodge>)
+        {
+		<text>
+        var position = new google.maps.LatLng("@l.Latitude", "@l.Longitude");
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(lodges[-1].data, position);
+        var des = "<table><tr><td>Địa chỉ nhà trọ:</td><td>@l.Address</td></tr>";
+        des += "<tr><td>Khoảng cách đến nơi thi:</td><td align='center'>" + Math.round(distance) + " mét</td></tr>";
+        des += "<tr><td>Tổng số chỗ:</td><td align='center'>@l.TotalSlots</td></tr>";
+        des += "<tr><td>Số chỗ còn trống:</td><td align='center'>@l.AvailableSlots</td></tr>";
+        des += "<tr><td>Tổ chức từ thiện:</td><td align='center'>@l.ChairitiesExam.CharityExamName</td></tr>";
+        des += "<tr><td align='center' colspan='2'><button onclick='return prepareToSubmit(@l.LodgeID)'>Đăng kí vào nhà trọ này!</button></td></tr></table>";
+
+        lodges[@l.LodgeID] = {
+            lodgeId: @l.LodgeID,
+            ceId: @l.CharityExamID,
+            name: "@l.Address",
+            data: position,
+            d: distance, // distance to exam venue.
+            totalSlots: @l.TotalSlots,
+            availSlots: @l.AvailableSlots,
+            description: des,
+        }
+        </text>
+        }
+    }
+
+    function changeCE(ceId) {
+        var divLodges = $(".lodge");
+        for (var i = 0; i < divLodges.length; ++i) {
+            var lodge = divLodges[i];
+            if (ceId == "null" || lodge.name == ceId) {
+                lodge.style.display = "block";
+            } else {
+                lodge.style.display = "none";
+            }
+        }
+
+        for (var i = 0; i < lodges.length; ++i) {
+            var lodge = lodges[i];
+            if (typeof (lodge) == "undefined") continue;
+            if (ceId == "null" || lodge.ceId == ceId) {
+                lodge.marker.setVisible(true);
+            } else {
+                lodge.marker.setVisible(false);
+            }
+        }
+    }
+
+    function prepareToSubmit(lodgeId){
+        $("#lodgeId").val(lodgeId);
+        $("#formJoinInCE" ).submit();
+    }
+</script>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TSMT.Models.Car>
+@{
+    ViewBag.Title = "ManagerCar";
+}
+<div style="text-align: center">
+    <h2>Tài Trợ Xe</h2>
+</div>
+<div class="inner-page-content inner-careers">
+    <div class="container">
+        <div class="inner-tab">
+            <ul id="mytab" class="nav nav-tabs">
+                <li class="active"><a href="#one" data-toggle="tab">Danh Sách Xe Đã Tài Trợ</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="one">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Kì Thi</th>
+                                <th>Tên nhà tài trợ</th>
+                                <th>Quận</th>
+                                <th>Biển Số Xe</th>
+                                <th>Tổng Số Chỗ Ngồi</th>
+                                <th>Tên Tài Xế</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i =1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.ChairitiesExam.Examination.Name</td>
+                                    <td>@item.ChairitiesExam.Charity.Account.Profile.Lastname @item.ChairitiesExam.Charity.Account.Profile.Firstname</td>
+                                    <td>@item.ChairitiesExam.District.Name</td>
+                                    <td>@item.NumberPlate</td>
+                                    <td>@item.TotalSlots</td>
+                                    <td>@item.DriverName</td>
+                                </tr>
+                                i++;
+                            }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="tab-pane fade" id="two">
+                        Trang 2
+                        <a href="#" class="btn btn-info btn-sm">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+@Html.ActionLink("Tài Trợ Thêm", "AddNewCar", null,new { @class="btn btn-info" } )
+@Html.ActionLink("Quay Lại", "Index", null,new { @class="btn btn-info" } )
+
+
+
+
+
+
+
+
+

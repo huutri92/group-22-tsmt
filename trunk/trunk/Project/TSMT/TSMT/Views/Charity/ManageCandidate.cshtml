@@ -1,0 +1,159 @@
+﻿@using TSMT.Models
+@model IEnumerable<ExaminationsPaper>
+
+@{
+    ViewBag.Title = "Manage Candidates of Charity Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
+
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Candidate Name</th>
+                <th>Nhóm</th>
+                <th>Lodge</th>
+                <th>Room</th>
+                <th>Trạng thái</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in Model)
+                {
+                <tr id="@item.ExamPaperID">
+                    <td>@counter</td>
+                    <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
+                    <td>
+                        @if (item.GroupID != null)
+                        {
+                            @item.GroupID
+                        }
+                        else
+                        {
+                            <span>Không thuộc nhóm nào</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomID != null)
+                        {
+                            @item.Room.Lodge.LodgeID
+                        }
+                        else
+                        {
+                            <span>Chưa được sắp xếp</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoomID != null)
+                        {
+                            @item.Room.RoomID
+                        }
+                        else
+                        {
+                            <span>Chưa được sắp xếp</span>
+                        }
+                    </td>
+                    @if (item.IsApproved)
+                    {
+                        <td><span class="label label-success">Đã duyệt</span></td>
+                        <td>
+                            @Html.ActionLink("Details", "DetailsCandidate", new { id = @item.ExamPaperID })
+                            @Html.ActionLink("Remove", "RemoveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td><span class="label label-danger">Chưa duyệt</span></td>   
+                        <td>
+                            @Html.ActionLink("Details", "DetailsCandidate", new { joininId = @item.ExamPaperID })
+                            @Html.ActionLink("Remove", "RemoveCandidate", new { id = @item.ExamPaperID }, new { style = "display: none", onclick = "return showPopup('Are you sure to remove it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
+                            @Html.ActionLink("Approve", "ApproveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return callAjaxApprove(" + @item.ExamPaperID + ")" })
+                            @Html.ActionLink("Denie", "RemoveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
+                        </td>
+                    }
+
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+<div class="service-one">
+    <div class="service-one-inner">
+        <div class="container">
+            <h3 class="head"><i class="icon-gears lblue"></i>Control Panel</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="s-one-item sitem-one">
+                        <i class="icon-gear"></i>
+                        <div class="s-one-caption">
+                            <h4>@Html.ActionLink("Manage Groups", "ManageGroup")</h4>
+                            <p>Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //function DeleteConfirm() {
+    //    if (confirm("Bạn chắc chắn muốn xóa ?"))
+    //        return true;
+    //    else
+    //        return false;
+    //}
+
+    function callAjaxDenie(joinInId) {
+
+
+        $.ajax({
+            url: 'RemoveCandidate/' + joinInId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + joinInId).hide(800, function () {
+                    $("#" + joinInId).remove();
+                });
+            }
+        });
+        return false;
+    }
+
+    function callAjaxApprove(joinInId) {
+        $.ajax({
+            url: 'ApproveCandidate/' + joinInId,
+            type: 'GET',
+            success: function (results) {
+                var tr = document.getElementById(joinInId);
+                var lastTd = tr.lastElementChild;
+                var preLastTd = lastTd.previousElementSibling;
+
+                lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
+
+                lastTd.lastElementChild.style.display = "inline";
+
+                var spanStatus = preLastTd.lastElementChild;
+                spanStatus.textContent = "Đã duyệt";
+                spanStatus.className = "label label-success";
+            }
+        });
+        return false;
+    }
+</script>

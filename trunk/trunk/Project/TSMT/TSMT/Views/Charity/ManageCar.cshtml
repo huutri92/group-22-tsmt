@@ -1,0 +1,216 @@
+﻿@using TSMT.Models
+@model TSMT.Models.ChairitiesExam
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+
+</script>
+
+
+@*<h2 class="title_of_page">Manage Cars of Charity Exam</h2>
+<div class="inner-page-content inner-careers">*@
+
+<div class="tab-v1">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Xe của Hội từ thiện</a></li>
+        <li><a href="#sponsored" data-toggle="tab">Xe được tài trợ</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Biển số xe</th>
+                        <th>Tổng số chỗ</th>
+                        <th>Số chỗ còn trống</th>
+                        <th>Tên tài xế</th>
+                        <th>SĐT tài xế</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var car in ViewData["carsOfCharity"] as IEnumerable<Car>)
+                        {                   
+                        <tr id ="@car.CarID">
+                            <td>@counter</td>
+                            <td>@car.NumberPlate</td>
+                            <td>@car.TotalSlots</td>
+                            <td>@car.AvailableSlots</td>
+                            <td>@car.DriverName</td>
+                            <td>@car.DriverPhone</td>
+
+                            <td>
+                                @Html.ActionLink("Details", "DetailsCar", new { carId = @car.CarID })
+                                @Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })
+                                @Html.ActionLink("Delete", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'del' );" })
+                            </td>
+
+
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane" id="sponsored">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Sponsor</th>
+                        <th>Biển số xe</th>
+                        <th>Tổng số chỗ</th>
+                        <th>Số chỗ còn trống</th>
+                        <th>Tên tài xế</th>
+                        <th>SĐT tài xế</th>
+                        <th>Trạng thái</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+
+                        foreach (var item in ViewData["carsSponsor"] as IEnumerable<Car>)
+                        {                   
+                        <tr id ="@item.CarID">
+                            <td>@count</td>
+                            <td>
+                                @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
+                            </td>
+                            <td>@item.NumberPlate</td>
+                            <td>@item.TotalSlots</td>
+                            <td>@item.AvailableSlots</td>
+                            <td>@item.DriverName</td>
+                            <td>@item.DriverPhone</td>
+                            @if (item.IsApproved)
+                            {
+                                <td><span class="label label-success">Đã duyệt</span></td>
+                                <td>
+                                    @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
+                                    @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
+
+                                </td>
+                            }
+                            else if (!item.IsApproved)
+                            {
+                                <td><span class="label label-danger">Chưa duyệt</span></td>
+                                <td>
+                                    @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
+                                    @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
+                                    @Html.ActionLink("Approve", "ApproveCar", new { id = @item.CarID }, new { onclick = "return callAjaxApprove(" + @item.CarID + ")" })
+                                    @Html.ActionLink("Denie", "DenieCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.CarID + ", 'remove' );" })
+                                    @* @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })*@
+                                </td>
+                            }
+                        </tr>
+                            ++count;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@Html.ActionLink("Create", "AddCar", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+<script type="text/javascript">
+
+    // perform JavaScript after the document is scriptable.
+
+    function callAjaxApprove(carId) {
+        $.ajax({
+            url: 'ApproveCar/' + carId,
+            type: 'GET',
+            success: function (results) {
+                var tr = document.getElementById(carId);
+                var lastTd = tr.lastElementChild;
+                var preLastTd = lastTd.previousElementSibling;
+
+                lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
+
+                lastTd.lastElementChild.style.display = "inline";
+
+                var spanStatus = preLastTd.lastElementChild;
+                spanStatus.textContent = "Đã duyệt";
+                spanStatus.className = "label label-success";
+            }
+        });
+        return false;
+    }
+
+    function callAjaxDelete(carId) {
+
+
+        $.ajax({
+            url: 'DeleteCar/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+
+            }
+        });
+        return false;
+    }
+
+    function callAjaxDenie(carId) {
+
+
+        $.ajax({
+            url: 'DenieCar/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+            }
+        });
+        return false;
+    }
+
+    function callAjaxRemove(carId) {
+
+
+        $.ajax({
+            url: 'RemoveCar/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+            }
+        });
+        return false;
+    }
+
+</script>
+@*<script>
+    function DeleteConfirm() {
+        if (confirm("Bạn chắc chắn muốn xóa ?"))
+            return true;
+        else
+            return false;
+    }
+</script>*@
+

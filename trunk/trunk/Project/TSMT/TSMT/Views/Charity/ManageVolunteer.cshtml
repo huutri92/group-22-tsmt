@@ -1,0 +1,213 @@
+﻿@using TSMT.Models
+@model IEnumerable<Volunteer>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
+
+<h2 class="title_of_page">Manage Volunteers of Charity Exam</h2>
+<div class="inner-page-content inner-careers">
+
+   @* <script type="text/javascript">
+        /* INITIALIZATION */
+        function fetchData() {
+        @{ 
+            int i = 0;
+            foreach (var item in Model)
+            {
+        <text>
+            a.push({ id: @i, voName: "@item.Account.Profile.Lastname @item.Account.Profile.Firstname", job: "@item.JobName", Description: "@item.Description"});
+        </text>
+            }
+        }
+            recordPerPage = a.length;
+            loadNavigator();
+            goToPage(1);
+        }
+
+        function goToPage(pageIndex) {
+            var t = $("tbody");
+            $(t).empty();
+
+            if (pageIndex < 1) {
+                t.append("<tr><td colspan='5'>< Empty ></td></tr>");
+                return true;
+            }
+
+            var fromIndex = (pageIndex - 1) * recordPerPage;
+            var toIndex = pageIndex * recordPerPage;
+            if (toIndex > a.length) { toIndex = a.length }
+            var tmp;
+
+            for (var i = fromIndex; i < toIndex; ++i) {
+                tmp = "<tr id='tr" + a[i].id + "'><td>" + (i + 1);
+                tmp += "</td><td>" + a[i].voName;
+                tmp += "</td><td>" + a[i].job;
+                tmp += "</td><td>" + a[i].Description;
+                tmp += "</td><td><button onclick='deleteData(" + a[i].id + ")'>Delete</button>";
+                tmp += "</td></tr>";
+                t.append(tmp);
+            }
+
+            $("#page" + currentPageIndex).removeClass("pageActive");
+            currentPageIndex = pageIndex;
+            $("#page" + currentPageIndex).addClass("pageActive");
+
+            currentPageIndex == 1 ? $("#previousPage").hide() : $("#previousPage").show();
+            currentPageIndex == numberOfPage ? $("#nextPage").hide() : $("#nextPage").show();
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            fetchData();
+        });
+    </script>
+    <div class="inner-page-content inner-careers">
+        <table border="1px" align="center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th onclick="sortBy('voName', this)" class="order orderDes orderHidden">Tên sinh viên</th>
+                    <th onclick="sortBy('job', this)" class="order orderDes orderHidden">Công việc</th>
+                    <th>Thông tin cá nhân</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="tfoot" colspan="5"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>*@
+
+
+     <table class="table table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Description</th>
+                <th>Trạng thái</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+
+                foreach (var item in Model)
+                {
+                <tr id="@item.VolunteerID">
+                    <td>@counter</td>
+                    <td>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</td>
+                    <td>@item.JobName</td>
+                    <td>@item.Description</td>
+                    
+                    @if (@item.IsApproved)
+                    {
+                        <td><span class="label label-success">Đã duyệt</span></td>
+                        <td>
+                        @Html.ActionLink("Details", "DetailsVolunteer", new { voId = @item.VolunteerID })
+                        @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.VolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'del' );" })
+                   
+                    </td>
+                    }
+                    else
+                    {
+                        <td><span class="label label-danger">Chưa duyệt</span></td>
+                        <td>
+                            @Html.ActionLink("Details", "DetailsVolunteer", new { voId = @item.VolunteerID })
+                            @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.VolunteerID }, new {style="display: none", onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'del' );" })
+                            @Html.ActionLink("Approve", "ApproveVolunteer", new { id = @item.VolunteerID }, new { onclick = "return callAjaxApprove(" + @item.VolunteerID +")"})
+                            @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.VolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'remove' );" })
+                   
+                        </td>
+                    }
+                   
+                </tr>
+                    ++counter;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+<script type="text/javascript">
+    //function DeleteConfirm(type="text/javascript) {
+    //    if (confirm("Bạn chắc chắn muốn xóa ?"))
+    //        return true;
+    //    else
+    //        return false;
+
+
+
+
+    function callAjaxApprove(voId) {
+        $.ajax({
+            url: 'ApproveVolunteer/' + voId,
+            type: 'GET',
+            success: function (results) {
+                var tr = document.getElementById(voId);
+                var lastTd = tr.lastElementChild;
+                var preLastTd = lastTd.previousElementSibling;
+
+                lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
+
+                lastTd.lastElementChild.style.display = "inline";
+
+                var spanStatus = preLastTd.lastElementChild;
+                spanStatus.textContent = "Đã duyệt";
+                spanStatus.className = "label label-success";
+            }
+        });
+        return false;
+    }
+
+    function callAjaxDelete(voId) {
+
+
+        $.ajax({
+            url: 'RemoveVolunteer/' + voId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + voId).hide(800, function () {
+                    $("#" + voId).remove();
+                });
+
+            }
+        });
+        return false;
+    }
+
+    function callAjaxDenie(voId) {
+
+
+        $.ajax({
+            url: 'DenieVolunteer/' + voId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + voId).hide(800, function () {
+                    $("#" + voId).remove();
+                });
+            }
+        });
+        return false;
+    }
+
+
+</script>

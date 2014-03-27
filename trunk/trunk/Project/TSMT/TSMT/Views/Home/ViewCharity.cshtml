@@ -1,0 +1,111 @@
+﻿@using TSMT.Models
+@model IEnumerable<ChairitiesExam>
+
+@{
+    ViewBag.Title = "View Charity";
+    ViewBag.Active = "ViewCharity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    function filterCharity(id) {
+        $.ajax({
+            url: 'getCharityWithCondition/' + id,
+            type: 'GET',
+            success: function (results) {               
+                $("#charityName").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $('#loadCharity a').attr('href', function (index, Oldhref) {
+                        return Oldhref.replace(/12/, r.value)
+                    });
+                    $("#charityName").append(r.name);
+                }
+            }
+        });
+    }
+</script>
+
+
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">Hội từ thiện</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li class="active">Hội từ thiện</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="col-md-12">
+    <div class="row margin-bottom-20">
+        <div class="col-md-12">
+            <div class="headline">
+                <h2>Các Hội từ thiện trong kỳ thi</h2>
+
+                <select id="Exam" class="btn" onchange="filterCharity(this.value)">
+                    @foreach (var item in (List<Examination>)ViewData["Exam"])
+                    {
+                        <option value="@item.ExaminationID">@item.Name - Từ @item.BeginDate.ToString("dd/MM/yyyy") đến @item.EndDate.ToString("dd/MM/yyyy")</option>    
+                    }
+                </select>
+            </div>
+                <div class="row" id="loadCharity">
+                    <div class="col-md-6" id="showCharity">
+                        <div class="search-blocks search-blocks-left-blue" id="changeTheme">
+                            <div class="row">
+                                <div class="col-md-4 search-img">
+                                    <a href="/Home/ViewDetailCharity/12" id="charityID"><label id="charityName"></label>
+@*                                        <img class="img-responsive" src="~/Content/img/new/img1.jpg" alt="">*@</a>
+                                    @*<ul class="list-unstyled">
+                                        <li><i class="icon-briefcase"></i>Dell, Google</li>
+                                        <li><i class="icon-map-marker"></i>New York, US</li>
+                                    </ul>
+                                </div>
+                               <div class="col-md-8">
+                                    <h2><a href="/Home/ViewDetailCharity/" ><label id="charityName"></label></a>
+                                    </h2>
+                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                                    <a href="/Home/ViewDetailCharity/" class="btn-u btn-u-default">Chi tiết</a>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            @*@foreach (var item in Model)
+            {                                        
+                <div class="row" id="loadCharity">
+                    <div class="col-md-6" id="showCharity">
+                        <div class="search-blocks search-blocks-left-blue" id="changeTheme">
+                            <div class="row">
+                                <div class="col-md-4 search-img">
+                                    <a href="@Url.Action("ViewDetailCharity", "Home", new { id = @item.CharityExamID })">
+                                        <img class="img-responsive" src="~/Content/img/new/img1.jpg" alt=""></a>
+                                    <ul class="list-unstyled">
+                                        <li><i class="icon-briefcase"></i>Dell, Google</li>
+                                        <li><i class="icon-map-marker"></i>New York, US</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2><a href="@Url.Action("ViewDetailCharity", "Home", new { id = @item.CharityExamID })">@item.CharityExamName</a>
+
+                                    </h2>
+                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                                    <a href="@Url.Action("ViewDetailCharity", "Home", new { id = @item.CharityExamID })" class="btn-u btn-u-default">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }*@
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>

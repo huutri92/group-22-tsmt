@@ -1,0 +1,78 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Car
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Edit Car</h2>
+ <script type="text/javascript" src="~/Content/js/jquery.js"></script>
+    <script type="text/javascript">
+        function callAjax(id) {
+            if (id == 0) {
+                $("#asd").html("");
+            }
+            else {
+                $.ajax({
+                    url: 'ResultAjax',
+                    data: { "id": id },
+                    type: 'GET',
+                    success: function (results) {
+                        $("#asd").html("");
+                        for (i in results) {
+                            var r = results[i];
+                            $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                        }
+                    }
+                });
+            }
+            }
+         </script>
+@using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post))
+{
+    <input type="hidden" name="carId" value="@Model.CarID"/>
+    <table>
+        <tr>
+             <td>Tài Trợ Cho: </td>
+                <td>
+                    <select id="qwe" onchange="callAjax(this.value)">
+                        <option value="0" selected  >---</option>
+                        @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                        {
+                            <option value="@item.ExaminationID">@item.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>Tổ Chức: </td>
+                <td>
+                    <select id="asd" name="asd"></select>
+                </td>
+        </tr>
+        <tr>
+            <td>Biển số xe</td>
+            <td>
+                <input type="text" name="NumberPlate" value="@Model.NumberPlate"/></td>
+        </tr>
+        <tr>
+            <td>Tổng số chỗ ngồi</td>
+            <td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
+        </tr>
+         <tr>
+            <td>Tên tài xế</td>
+            <td>
+                <input type="text" name="DriverName" value="@Model.DriverName"/></td>
+        </tr>
+         <tr>
+            <td>Số điện thoại tài xế</td>
+            <td>
+                <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

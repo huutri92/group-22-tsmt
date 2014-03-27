@@ -1,0 +1,76 @@
+﻿@model TSMT.Models.University
+@{
+    ViewBag.Title = "Edit University";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li><a href="@Url.Action("ManageUniversity", "Admin")">Manage Universities</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AdminSidebarPartial")
+
+
+@using (Html.BeginForm("EditUniversity", "Admin", FormMethod.Post))
+{
+    <input type="hidden" name="uniId" value="@Model.UniversityID" />    
+    
+    <div class="col-md-9">
+        <div class="panel panel-red margin-bottom-40">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-user"></i>Update University Information</h3>
+            </div>
+            <div class="panel-body">
+                <table >
+                    <tr>
+                        <td><b>Name</b></td>
+                        <td style="width:auto">
+                            <input type="text" name="Name" value="@Model.Name" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Address</b></td>
+                        <td>
+                            <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>UniversityCode</b></td>
+                        <td>
+                            <input type="text" name="UniversityCode" value="@Model.UniversityCode" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Website</b></td>
+                        <td>
+                            <input type="url" name="Website" value="@Model.Website"  class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Phone</b></td>
+                        <td>
+                            <input type="text" name="Phone" value="@Model.Phone" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Submit" class="btn btn-info" />
+                            <input type="reset" value="Reset" class="btn btn-info" />
+                            <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
+
+

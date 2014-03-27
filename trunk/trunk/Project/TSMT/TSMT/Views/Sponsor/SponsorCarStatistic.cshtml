@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "SponsorCarStatistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>SponsorCarStatistic</h2>
+<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="TotalAva"  style="display:none">@ViewData["Ava"]</div>
+<div id="TotalUsed" style="display:none">@ViewData["Used"]</div>
+<script>
+    $(function () {
+        var a = 0;
+        var b = 0;
+        a = document.getElementById("TotalAva").textContent;
+        b = document.getElementById("TotalUsed").textContent;
+        var TotalAva = parseInt(a);
+        var TotalUsed = parseInt(b);
+        var Total = TotalAva + TotalUsed;
+        $('#chart').highcharts({
+            
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Thống Kê Số Chỗ Ngồi Trên Xe'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Phần trăm',
+                data: [
+                    ['Tổng Số Chỗ Đã Đăng Ký' + '(' + TotalUsed + '/' + Total + ')', TotalUsed],
+                    ['Tổng Số Chỗ Còn Trống' + '(' + TotalAva + '/' + Total + ')', TotalAva]                   
+                    
+                ]
+            }]
+        });
+    });
+</script>

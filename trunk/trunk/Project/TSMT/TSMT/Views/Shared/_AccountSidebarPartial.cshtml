@@ -1,0 +1,25 @@
+﻿@using TSMT.Models
+<div class="col-md-3">
+    <div class="margin-bottom-30">
+        <div class="row tab-v3">
+            <div class="col-sm-10">
+                <ul class="nav nav-pills nav-stacked">
+                    @if (Session["acc"] != null)
+                    {      
+                        <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
+                            <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID }))"><i class="icon-chevron-right"></i>Thông tin tài khoản</a></li>
+                        <li class="@(ViewBag.Active == "ManageExamPaper" ? "active" : "")">
+                            <a href="@Url.Action("ManageExamPaper", "Candidate")"><i class="icon-chevron-right"></i>Thông tin phiếu báo thi</a></li>
+                        <li class="@(ViewBag.Active == "ChangePassword" ? "active" : "")">
+                            <a href="@Url.Action("ChangePassword", "Account")"><i class="icon-chevron-right"></i>Đổi mật khẩu</a></li>
+                    }
+                    else if (Session["acc"] == null)
+                    {
+                        Response.Redirect("~/Account/Login");
+                        
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

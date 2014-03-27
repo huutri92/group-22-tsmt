@@ -1,0 +1,318 @@
+﻿@using System.Collections
+@using Microsoft.Ajax.Utilities
+@using TSMT.Models
+
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8" />
+    <style>
+        controls {
+            margin-top: 16px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            padding: 0 11px 0 13px;
+            width: 400px;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <title>Google Map Demo</title>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>-->
+
+</head>
+<body>
+    <div id="route" style="display: none">@ViewData["RouteString"]</div>
+
+    @*<div id="place" style="display: none">@ViewData["Address"]</div>*@
+    <div>
+        <form onreset="resetFunction()">
+            @* <input type="reset" value="Reset" />*@
+
+            <!--                <button id ="Undo" onclick="undoRoute()" disabled ="true">Undo</button>
+                    <button id ="Redo" onclick="redoRoute()" disabled ="true">Redo</button>
+                    <button id ="Save" onclick="saveRoute()">Save</button>
+                    <button id ="Load" onclick="loadRoute()">Load</button>-->
+
+            <!--<div id="routeIndexInfo"></div>-->
+            <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
+            </div>
+            <div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
+            </div>
+            @*<h3>Distances by permutations</h3><span id="total"></span>
+		<h3>Best way</h3><span id="result"></span>*@
+        </form>
+    </div>
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
+<script>
+
+    var myJSONText = "";
+    //var routeString = ";01 lac long quan, quan tan binh;01 tran quang khai, quan 1";
+    //var routeString = "[{\"index\": 0, \"address\": \"01 le duan, quan 1\"}, {\"index\": 1, \"address\": \"01 lac long quan, quan tan binh\"}, {\"index\": 2, \"address\": \"01 tran quang khai, quan 1\"}]";
+    var divroute = document.getElementById("route");
+    var routeString = divroute.textContent;
+    var address = [];
+    var allwaypoints = [];
+    var minD = 999;
+    var numbering = 0;
+    var routeSuggest = [];
+    var count = 0;
+    var shortestRoute = [];
+    //var test = [];
+               @foreach (var place in (IEnumerable<string>)ViewData["Place"])
+               {
+            <text>
+
+    routeSuggest[count] = {
+        name: '@place'
+            @*data: new google.maps.LatLng(@v.Latitude, @v.Longitude),
+            description: "@v.Address"*@
+            }
+    count++;
+
+            </text>
+               }
+
+
+    //var route = [];
+    var leg = [];
+    var rendererOptions = {
+        draggable: false
+    };
+    //var route = "";
+
+    var dirRenderer = new google.maps.DirectionsRenderer({ draggable: true });
+    var directionsDisplay = dirRenderer;
+    var directionsService = new google.maps.DirectionsService();
+    function initialize() {
+        var map_canvas = document.getElementById('map_canvas');
+        var map_options = {
+            center: new google.maps.LatLng(10.7725662, 106.6979917),
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(map_canvas, map_options)
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+        //google.maps.event.addListener(directionsDisplay, 'directions_changed', function () {
+        //    computeTotalDistance(directionsDisplay.getDirections());
+
+        //});
+        createInput();
+        genRoute();
+
+
+
+
+        //      var defaultBounds = new google.maps.LatLngBounds(
+        //new google.maps.LatLng(-33.8902, 151.1759),
+        //new google.maps.LatLng(-33.8474, 151.2631));
+
+        //      map.fitBounds(defaultBounds);
+
+
+    }
+
+
+
+
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+    function resetFunction() {
+        calcRoute();
+        alert("The route will be reset");
+    }
+
+    function createInput() {
+        for (var i = 0; i < routeSuggest.length; ++i) {
+            var tmp = {
+                index: i,
+                data: routeSuggest[i].name
+            };
+            allwaypoints.push(tmp);
+        }
+    }
+
+    //function undoRoute() {
+
+    //}
+
+    //function redoRoute() {
+
+    //}
+
+
+    //function saveRoute() {
+    //    flag = 1;
+    //    google.maps.event.addDomListener(window, 'load', initialize);
+    //    alert(myJSONText);
+    //}
+
+
+    function genRoute() {
+       
+                var n = allwaypoints.length;
+        var i = n - 1;
+
+        while (i > 0) {
+            var routeCom = allwaypoints;
+            var wayCom = [];
+            if (routeCom.length >= 3) {
+                for (var o = 2; o <= routeCom.length - 1; o++) {
+                    wayCom.push({ location: routeCom[o].data, });
+                }
+            }
+            var request = {
+                origin: allwaypoints[0].data,
+                destination: allwaypoints[1].data,
+                //waypoints: [{ location: allwaypoints[2].data }, { location: allwaypoints[3].data }],
+                waypoints: wayCom,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            //console.log(1111111);
+            //var s = "";
+            //for (i = 0; i < n; ++i)
+            //    s += " " + allwaypoints[i].data;
+            //console.log(s);
+
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    //directionsDisplay.setDirections(response);
+                    computeTotalDistance(response);
+                }
+            });
+
+            i = n - 2;
+            while ((i > -1) && (allwaypoints[i].index > allwaypoints[i + 1].index))--i;
+            if (i > -1) {
+                var k = n - 1;
+                while (allwaypoints[k].index < allwaypoints[i].index)--k;
+                swap(k, i);
+                var x = i + 1;
+                var y = n - 1;
+                while (x < y) {
+                    swap(x, y);
+                    ++x;
+                    --y;
+                }
+            }
+        }
+
+    }
+    function swap(i, j) {
+        var tmp = allwaypoints[i];
+        allwaypoints[i] = allwaypoints[j];
+        allwaypoints[j] = tmp;
+    }
+
+    function computeTotalDistance(result) {
+        var total = 0;
+        var myroute = result.routes[0];
+        for (var i = 0; i < myroute.legs.length; i++) {
+            total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000.0;
+
+        if (total < minD) {
+            minD = total;
+            shortestRoute = [];
+            var s = '';
+            for (var i = 0; i < myroute.legs.length; ++i) {
+                s += i + 1 + ' -- ' + myroute.legs[i].start_address + '<br>';
+                shortestRoute.push(myroute.legs[i].start_address);
+
+            }
+            s += myroute.legs.length + 1 + ' -- ' + myroute.legs[myroute.legs.length - 1].end_address;
+            shortestRoute.push(myroute.legs[myroute.legs.length - 1].end_address);
+
+        }
+
+        //console.log(2222222);
+        calcRoute();
+
+    }
+    function calcRoute() {
+
+        //var route = JSON.parse(routeString);
+        //console.log(3333333333);
+        //test = shortestRoute;
+        var route = shortestRoute;
+        var way = [];
+        if (route.length >= 3) {
+            for (var i = 1; i < route.length - 1; i++) {
+                way.push({ location: route[i], });
+            }
+
+            var request = {
+                origin: route[0],
+                destination: route[route.length - 1],
+                waypoints: way,
+                //waypoints: [{ location: '01 huynh van banh, quan tan binh' }],
+
+                //travelMode: google.maps.TravelMode.DRIVING
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    //route.push(response.routes[0]);
+                    //var a = response.routes[0].legs[0];
+                    //leg.push({ starplace: a.start_address, endplace: a.end_address ,thoigian: a.duration.text, khoangcach: a.distance.text });
+                    //alert(leg[0].starplace +" "+ leg[0].endplace + " " + leg[0].thoigian + " " +leg[0].khoangcach);
+
+                    //myJSONText = JSON.stringify(route);
+                    //alert(myJSONText);
+
+
+                    //route[0] = response.routes[0];
+                }
+            });
+        }
+        else {
+            var request = {
+                origin: route[0],
+                destination: route[1],
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+        }
+    }
+
+    google.maps.event.addListener(dirRenderer, 'directions_changed',
+        function () {
+            //document.getElementById('routeIndexInfo').innerHTML += "directions changed (directions_changed=" + dirRenderer.getDirections().routes[0].overview_polyline.points.length + ")<br>";
+            //alert("directions changed (directions_changed)");
+            //var btmR = document.getElementById('Undo').disabled = "";
+        });
+
+</script>
+</html>

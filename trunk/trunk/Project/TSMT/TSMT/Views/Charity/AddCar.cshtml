@@ -1,0 +1,112 @@
+﻿@model TSMT.Models.ChairitiesExam
+@{
+    ViewBag.Title = "AddCharityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<style type="text/css">
+		.validationMsg{
+			color: red;
+		}
+	</style>
+	<script type="text/javascript">
+
+		
+		function checkEmpty(id){
+			var e = document.getElementById(id);
+			var err = document.getElementById("valMsg" + id);
+			var msg = "Please fill in this field.";
+			if (e.value == ""){err.innerHTML = msg; return false;} else {err.innerHTML = "";}
+			return true;
+		}
+		
+		function checkRegex(id, re, instruction, showValue){
+			if (!checkEmpty(id)) return false;
+			var e = document.getElementById(id);
+			var err = document.getElementById("valMsg" + id);
+			var msg = ' is not a valid ' + instruction + '.';
+			if (showValue){msg = '"' + e.value + '"' + msg} else {msg = 'It' + msg}
+			if (re.test(e.value)){err.innerHTML = ""} else {err.innerHTML = msg; return false;}
+			return true;
+		}
+		function checkValidations() {
+		    var goSubmit = true;
+		    goSubmit = checkEmpty("NumberPlate") && goSubmit;
+		    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
+		    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
+
+		    var reDriverName = /^\w$/;
+		    goSubmit = checkRegex("DriverName") && goSubmit;
+
+		    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
+		    var rePhone = /^(09|01)\d{8,9}$/;
+		    goSubmit = checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
+		    return goSubmit;
+		}
+		
+		//function checkRegexCar(id, id2 , id3,re, instruction, showValue) {
+		//    if (!checkEmpty(id2)) return false;
+		//    if (!checkEmpty(id3)) return false;
+		//    var e = document.getElementById(id);
+		//    var err = document.getElementById("valMsg" + id);
+		//    var msg = ' is not a valid ' + instruction + '.';
+		//    if (showValue) { msg = '"' + e.value + '"' + msg } else { msg = 'It' + msg }
+		//    if (re.test(e.value)) { err.innerHTML = "" } else { err.innerHTML = msg; return false; }
+		//    return true;
+		//}
+
+	
+
+		//function checkValidations() {
+		//    var goSubmit = true;
+		//    goSubmit = checkEmpty("NumberPlate") && goSubmit;
+		//    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
+		//    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
+
+		//    var reDriverName = /^\w$/;
+		//    goSubmit = checkRegexCar("DriverName","NumberPlate","TotalSlots") && goSubmit;
+
+		//    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
+		//    var rePhone = /^(09|01)\d{8,9}$/;
+		//    goSubmit = checkRegexCar("DriverPhone", "NumberPlate", "TotalSlots", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
+		//    return goSubmit;
+		//}
+	</script>
+<h2 class="title_of_page">Add Car</h2>
+@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post, new {onsubmit = "return checkValidations()"}))
+{
+    <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
+<table>
+        <tr>
+            <td>Biển số xe *</td>
+            <td>
+                <input type="text" name="NumberPlate" id ="NumberPlate"/></td>
+            <td><span class="validationMsg" id="valMsgNumberPlate"></span></td>
+        </tr>
+        <tr>
+            <td>Tổng số chỗ ngồi *</td>
+            <td>
+                <input type="text" name="TotalSlots" id="TotalSlots"/></td>
+            <td><span class="validationMsg" id="valMsgTotalSlots"></span></td>
+        </tr>
+        <tr>
+            <td>Tên tài xế</td>
+            <td>
+                <input type="text" name="DriverName" id="DriverName" /></td>
+            <td><span class="validationMsg" id="valMsgDriverName"></span></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại tài xế</td>
+            <td>
+                <input type="text" name="DriverPhone" id ="DriverPhone" /></td>
+            <td><span class="validationMsg" id="valMsgDriverPhone"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <input type="reset" value="Reset" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+}

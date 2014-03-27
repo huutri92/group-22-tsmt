@@ -1,0 +1,191 @@
+﻿@using TSMT.Models
+@model TSMT.Models.ChairitiesExam
+
+@{
+    ViewBag.Title = "Manage Lodges of Charity Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="/Content/js/ViewOnMap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
+
+<div class="tab-v1">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Chỗ trọ của Hội từ thiện</a></li>
+        <li><a href="#sponsored" data-toggle="tab">Chỗ trọ được tài trợ</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Address</th>
+                        <th>Tổng số phòng</th>
+                        <th>Tổng số chỗ trọ</th>
+                        <th>Số chỗ còn trống</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in ViewData["lodgesOfCharity"] as IEnumerable<Lodge>)
+                        {
+                        <tr id="@item.LodgeID">
+                            <td>@counter</td>
+                            <td>@item.Address</td>
+                            <td>@item.TotalRooms</td>
+                            <td>@item.TotalSlots</td>
+                            <td>@item.AvailableSlots</td>
+                            <td>
+                                <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
+                                @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                                @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
+                                @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
+                            </td>
+
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="tab-pane" id="sponsored">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Address</th>
+                        <th>Sponsor</th>
+                        <th>Tổng số phòng</th>
+                        <th>Tổng số chỗ trọ</th>
+                        <th>Số chỗ còn trống</th>
+                        <th>Trạng thái</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+
+                        foreach (var item in ViewData["lodgesSponsor"] as IEnumerable<Lodge>)
+                        {
+                        <tr id="@item.LodgeID">
+                            <td>@count</td>
+                            <td>@item.Address</td>
+                            <td>@if (@item.SponsorID != null)
+                                {
+                                @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
+                                }
+                            </td>
+                            <td>@item.TotalRooms</td>
+                            <td>@item.TotalSlots</td>
+                            <td>@item.AvailableSlots</td>
+                            @if (item.IsApproved && item.SponsorID != null)
+                            {
+                                <td><span class="label label-success">Đã duyệt</span></td>
+                                <td>
+                                    @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
+                                    <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
+                                    @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
+
+                                </td>
+                            }
+                            else if (!item.IsApproved && item.SponsorID != null)
+                            {
+                                <td><span class="label label-danger">Chưa duyệt</span></td>
+                                <td>
+                                    <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
+                                    @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
+                                    @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID + ")" })
+                                    @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })
+
+
+                                </td>
+                            }
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+    <script type="text/javascript">
+
+        function callAjaxApprove(lodgeId) {
+            $.ajax({
+                url: 'ApproveLodge/' + lodgeId,
+                type: 'GET',
+                success: function (results) {
+                    var tr = document.getElementById(lodgeId);
+                    var lastTd = tr.lastElementChild;
+                    var preLastTd = lastTd.previousElementSibling;
+
+                    lastTd.removeChild(lastTd.lastElementChild);
+                    lastTd.removeChild(lastTd.lastElementChild);
+
+                    lastTd.lastElementChild.style.display = "inline";
+                    //lastTd.firstElementChild.style.display = "inline";
+                    var spanStatus = preLastTd.lastElementChild;
+                    spanStatus.textContent = "Đã duyệt";
+                    spanStatus.className = "label label-success";
+                }
+            });
+            return false;
+        }
+
+        function callAjaxDelete(lodgeId) {
+            $.ajax({
+                url: 'DeleteLodge/' + lodgeId,
+                type: 'GET',
+                success: function (results) {
+                    $("#" + lodgeId).hide(800, function () {
+                        $("#" + lodgeId).remove();
+                    });
+                }
+            });
+            return false;
+        }
+
+        function callAjaxDenie(lodgeId) {
+            $.ajax({
+                url: 'DenieLodge/' + lodgeId,
+                type: 'GET',
+                success: function (results) {
+                    $("#" + lodgeId).hide(800, function () {
+                        $("#" + lodgeId).remove();
+                    });
+                }
+            });
+            return false;
+        }
+
+        function callAjaxRemove(carId) {
+
+
+            $.ajax({
+                url: 'RemoveLodge/' + carId,
+                type: 'GET',
+                success: function (results) {
+                    $("#" + carId).hide(800, function () {
+                        $("#" + carId).remove();
+                    });
+                }
+            });
+            return false;
+        }
+    </script>

@@ -1,0 +1,206 @@
+﻿@using TSMT.Models
+
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    ViewBag.Active = "EditAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function callAjax(id) {
+        $.ajax({
+            url: 'getLocationInformation/' + id,
+            type: 'GET',
+            success: function (results) {
+                $("#district").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $("#district").append("<option value=\"" + r.value + "\">" + r.name + "</option>");
+                }
+            }
+        });
+    }
+
+    function showForm1() {
+        document.getElementById('form1').style.display = "inline";
+        document.getElementById('form2').style.display = "none";
+    }
+
+    function showForm2() {
+        document.getElementById('form2').style.display = "inline";
+        document.getElementById('form1').style.display = "none";
+    }
+</script>
+
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+        </div>
+    </div>
+}
+
+@Html.Partial("_AccountSidebarPartial")
+
+<div class="col-md-9">
+    <form id="edit" name="edit" method="post" action="/Account/EditAccount">
+        <input type="hidden" name="accID" value="@Model.AccountID" />
+        <div class="headline">
+            <h2>Tài khoản của tôi</h2>
+        </div>
+        <div class="row">
+            <div id="form1" class="col-md-8">
+                <table class="table">
+                    <tr>
+                        <td><b>Email: </b></td>
+                        <td>@Model.Account.Email</td>
+                    </tr>
+                    <tr>
+                        <td><b>Họ tên: </b></td>
+                        <td>@Model.Lastname @Model.Firstname</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày sinh: </b></td>
+                        <td>@Model.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td><b>Giới tính: </b></td>
+                        <td>@if (Model.Gender == true)
+                            {
+                            @String.Format("{0}", "Nữ");
+                            }
+                            else
+                            { 
+                            @String.Format("{0}", "Nam");
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Số điện thoại: </b></td>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <td><b>Địa chỉ: </b></td>
+                        <td>@Model.Address,  
+                        @foreach (var item in (List<District>)ViewData["districts"])
+                        {
+                            foreach (var item1 in (List<Province>)ViewData["provinces"])
+                            {
+                                if (item.DistrictID == Model.DistrictID)
+                                {
+                                    if (item1.ProvinceID == item.ProvinceID)
+                                    {
+                            @String.Format("{0}, {1}", @item.Name, @item1.Name);
+                                                                               break;
+                                    }
+                                }
+                            }
+                        }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" value="Thay đổi" class="btn btn-info" onclick="showForm2();" />
+                            @*<input type="reset" value="Reset" class="btn btn-info" />*@
+                            @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="form2" class="col-md-8">
+                <table class="table">
+                    <tr>
+                        <td><b>Email: </b></td>
+                        <td>@Model.Account.Email</td>
+                    </tr>
+                    <tr>
+                        <td><b>Họ:</b></td>
+                        <td>
+                            <input type="text" value="@Model.Lastname" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Ten:</b></td>
+                        <td>
+                            <input type="text" value="@Model.Firstname" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày sinh: </b></td>
+                        <td>
+                            <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto" value="@Model.DateOfBirth.ToString("dd/MM/yyyy")">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Giới tính: </b></td>
+                        <td>
+                            <select id="gender" name="gender" class="btn">
+                                @if (Model.Gender == true)
+                                {
+                                    <option value="True" selected>Nữ</option>
+                                    <option value="False">Nam</option>
+                                }
+                                else
+                                {
+                                    <option value="True">Nữ</option>
+                                    <option value="False" selected>Nam</option>
+                                }
+
+                            </select>
+                            @*@if (Model.Gender == true)
+                        {
+                            Nữ;
+                        }
+                        else
+                        {
+                            Nam;
+                        }*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Số điện thoại </b></td>
+                        <td>
+                            <input type="text" value="@Model.PhoneNumber" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Địa chỉ: </b></td>
+                        <td>
+                            <input type="text" value="@Model.Address" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Tỉnh/Thành phố:</b></td>
+                        <td>
+                            <select id="province" name="province" class="btn" onchange="callAjax(this.value);">
+                                <option value="null" selected>Tỉnh/Thành phố</option>
+                                @foreach (var item in (List<Province>)ViewData["provinces"])
+                                {
+                                    <option value="@item.ProvinceID">@item.Name</option>
+                                }
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><b>Quận: </b></td>
+                        <td>
+                            <select id="district" name="district" class="btn">
+                                <option value="null" selected>Quận</option>
+                            </select>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Lưu thay đổi" class="btn btn-info" onclick="showForm1();" />
+                            @*<input type="reset" value="Reset" class="btn btn-info" />*@
+                            @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+
+        <div class="headline">
+            <h2>Thông tin riêng</h2>
+        </div>
+    </form>
+
+
+</div>

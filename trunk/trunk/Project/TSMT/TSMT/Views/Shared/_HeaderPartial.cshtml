@@ -1,0 +1,127 @@
+﻿@using TSMT.Models
+<!--=== Header ===-->
+<div class="header">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "" })">
+                    @if (Session["acc"] != null)
+                    {
+                        int roleID = ((Account)Session["acc"]).RoleID;
+                        switch (roleID)
+                        {
+                            case 1://candidate
+                        <img src="~/Content/img/logo1-blue.png" alt="Logo">
+                                break;
+                            case 2://charity
+                        <img src="~/Content/img/logo1-orange.png" alt="Logo">
+                                break;
+                            case 3://sponsor
+                        <img src="~/Content/img/logo1-default.png" alt="Logo">
+                                break;
+                            case 4://volunteer
+                        <img src="~/Content/img/logo1-orange.png" alt="Logo">
+                                break;
+                            case 5://admin
+                        <img src="~/Content/img/logo1-red.png" alt="Logo">
+                                break;
+                        }
+                    }
+                    else
+                    { <img src="~/Content/img/logo1-blue.png" alt="Logo">}
+
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@(ViewBag.Active == "Home" ? "active" : "")">
+                        <a href="@Url.Action("Index", "Home", new { area = "" })">Trang Chủ</a>
+                    </li>
+
+                    @if (Session["acc"] != null)
+                    {
+                        int roleID = ((Account)Session["acc"]).RoleID;
+
+                        switch (roleID)
+                        {
+                            case 1:
+                        <li class="@(ViewBag.Active == "CandidateHome" ? "active" : "") ">
+                            <a href="@Url.Action("Index", "Candidate")">Thí sinh <i class=""></i>
+                            </a>
+                        </li>
+                                break;
+                            case 2:
+                        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "") ">
+                            <a href="@Url.Action("Index", "Charity")">Thí sinh <i class=""></i>
+                            </a>
+                        </li>
+                                break;
+
+                            case 3:
+                        <li class="@(ViewBag.Active == "SponsorHome" ? "active" : "")">
+                            <a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                                break;
+
+                            case 4:
+                        <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")">
+                            <a href="@Url.Action("Volunteer", "Home")">Tình nguyện viên</a></li>
+                                break;
+                            case 5:
+                        <li class="@(ViewBag.Active == "Admin" ? "active" : "")">
+                            <a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                                break;
+                            default:
+                                break;
+
+                        }
+                    }
+
+                    <li class="@(ViewBag.Active == "ViewCharity" ? "active" : "")">
+                        <a href="@Url.Action("ViewCharity", "Home")">Hội từ thiện</a></li>
+
+                    <li class="@(ViewBag.Active == "ViewLodge" ? "active" : "")">
+                        <a href="@Url.Action("ViewLodge", "Home")">Chỗ trọ</a></li>
+
+                    <li class="@(ViewBag.Active == "News" ? "active" : "")">
+                        <a href="@Url.Action("News", "Post")">Tin tức</a>
+                    </li>
+
+                    <li class="@(ViewBag.Active == "FAQ" ? "active" : "")">
+                        <a href="@Url.Action("FAQ", "Home")">FAQ</a>
+                    </li>
+                    <li class="@(ViewBag.Active == "Contact" ? "active" : "")">
+                        <a href="@Url.Action("Contact", "Home")">Liên hệ</a>
+                    </li>
+                    <li class="@(ViewBag.Active == "Statistics" ? "active" : "")">
+                        <a href="@Url.Action("Statistics", "Home")">Thống kê</a>
+                    </li>
+
+
+
+                    @*<li class="hidden-sm"><a class="search"><i class="icon-search search-btn"></i></a></li>*@
+                </ul>
+                @*  <div class="search-open">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn-u" type="button">Go</button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>*@
+            </div>
+            <!-- /navbar-collapse -->
+        </div>
+    </div>
+</div>
+<!--/header-->
+<!--=== End Header ===-->

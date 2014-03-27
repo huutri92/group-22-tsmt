@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Assign Candidates To Rooms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AssignToRoom", "Charity", FormMethod.Post))
+{ 
+    <input type="hidden" name="ceId" value="@ViewData["ceId"]" />
+    <input type="submit" class="btn btn-info" value="Assign" />
+    @Html.ActionLink("Cancel", "ManageExamPaper", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+}
