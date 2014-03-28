@@ -1,41 +1,113 @@
 ﻿@using TSMT.Models
 
 @{
-    ViewBag.Title = "Manage Exam Papers of Candidate";
+    ViewBag.Title = "Tạo mới phiếu báo thi";
+    ViewBag.Active = "AddExamPaper";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Thí sinh</a></li>
+                <li><a href="@Url.Action("ManageExamPaper", "Candidate")">Thông tin phiếu báo thi</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AccountSidebarPartial")
 
-@using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
-{
-    <table>
-        <tr>
-            <td>Kỳ thi + Trường</td>
-            <td>
-                <select name="UniExamID">
-                    @foreach (var item in ViewData["uniExams"] as IEnumerable<UniversitiesExamination>)
-                    {
-                        <option value="@item.UniExamID">@item.Examination.Name - @item.University.Name</option>
-                    }
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Địa điểm thi</td>
-            <td>
-                <select name="VenueID">
-                    @foreach (var item in ViewData["venues"] as IEnumerable<Venue>)
+<script type="text/javascript">
+    function getUniversity(id) {
+        $.ajax({
+            url: 'getUniversity',
+            data: { "id": id },
+            type: 'GET',
+            success: function (results) {
+                $("#uniName").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $("#uniName").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                }
+            }
+        });
+    }
+    function getVenue(id) {
+        $.ajax({
+            url: 'getVenue',
+            data: { "id": id },
+            type: 'GET',
+            success: function (results) {
+                $("#venueID").html("");
+                for (i in results) {
+                    var r = results[i];
+                    $("#venueID").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                }
+            }
+        });
+    }
+</script>
+
+
+<div class="col-md-7">
+    <div class="panel panel-blue margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Tạo mới phiếu báo thi
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
+            {
+                <table class="table table-hover" style="vertical-align: central">
+                    <tr>
+                        <td style="width: 100px">Kỳ thi</td>
+                        <td>
+                            <select name="UniExamID" class="form-control" onchange="getUniversity(this.value)">
+                                <option value="null">Kỳ thi</option>
+                                @foreach (var item in ViewData["Exams"] as IEnumerable<Examination>)
+                                {
+                                    
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px">Trường</td>
+                        <td>
+                            <select id="uniName" name="uniName" class="form-control" onchange="getVenue(this.value)">
+                                <option value="null">Trường ĐH / CĐ</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px">Địa điểm thi</td>
+                        <td>
+                            <select id="venueID" name="venueID" class="form-control">
+                                @* @foreach (var item in ViewData["venues"] as IEnumerable<Venue>)
                     {
                         <option value="@item.VenueID">@item.Address</option>
-                    }
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Create" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
-}
+                    }*@
+                                <option value="null">Chỗ trọ</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                </table>
+                <input type="button" value="Trở về" class="btn-u btn-u-yellow" onclick="history.go(-1);" />
+                <input type="submit" value="Tạo mới" class="btn-u" />
+                <input type="reset" value="Xóa hết" class="btn-u btn-u-default" />
+            }
+        </div>
+    </div>
+</div>
