@@ -36,7 +36,7 @@
             if (Model.GroupID == null && Model.RoomID == null)
             {
             <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội @Model.ChairitiesExam.CharityExamName! 
-                      <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Please confirm to leave them.', this.href)" ><i class="icon-chevron-sign-left"> Rời Hội từ thiện</i></a>
+                      <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Please confirm to leave them.', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
                 @*@Html.ActionLink("Leave them", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
             </h3>
             }
@@ -50,7 +50,7 @@
 
     <div class="panel panel-blue margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list">Thông tin thi</i></h3>
+            <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin thi</i></h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -66,80 +66,104 @@
                     <td>Địa điểm thi</td>
                     <td>@Model.Venue.Address</td>
                 </tr>
-                @{
-                    if (Model.CharityExamID != null)
-                    {
-                        if (Model.GroupID == null)
-                        { // is Alone --> can JOIN a group or CREATE a group
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Join in a group", "JoinInGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                            @Html.ActionLink("Create a group", "CreateGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                        </td>
-                    </tr>
-                        }
-                        else if (Model.Group.OwnerID == Model.ExamPaperID)
-                        { // is Owner --> can DELETE group or VIEW group
-                    <tr>
-                        <td>Group Id</td>
-                        <td>@Model.GroupID</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.ActionLink("View group", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
-                        <td>@Html.ActionLink("Delete group", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
-                    </tr>
-                        }
-                        else
-                        { // is Member --> can LEAVE group or VIEW group
-                    <tr>
-                        <td>Group Id</td>
-                        <td>@Model.GroupID</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.ActionLink("View group", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
-                        <td>@Html.ActionLink("Leave group", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
-                    </tr>
-                        }
-                    }
-                }
             </table>
         </div>
     </div>
 
-
-@*    @if (ViewData["joinIn"] != null)
+    @if (Model.LodgeRegisteredID != null)
     {
-        *@<div class="headline">
+        <div class="panel panel-blue margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin đăng kí được hỗ trợ</i></h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Hội từ thiện</td>
+                        <td>@Model.ChairitiesExam.CharityExamName</td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ trọ</td>
+                        <td>@Model.Lodge.Address</td>
+                    </tr>
+                    <tr>
+                        <td>Phòng trọ</td>
+                        @if (Model.RoomID != null)
+                        {
+                            <td>@Model.Room.RoomName</td>
+                        }
+                        else
+                        {
+                            <td>#Chưa có phòng#</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Xe đưa đón</td>
+                        @if (Model.CarID != null)
+                        {
+                            <td>@Model.Car.NumberPlate</td>
+                        }
+                        else
+                        {
+                            <td>#Chưa có xe đưa đón#</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Nhóm bạn</td>
+                        <td>
+                            @if (Model.GroupID == null)
+                            {
+                                @Html.ActionLink("Tạo nhóm", "CreateGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Xem nhóm", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                            }
+                            @Html.ActionLink("Tìm kiếm bạn bè", "JoinInGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+
+
+
+    @if (ViewData["joinIn"] != null)
+    {
+        <div class="headline">
             <h2>Thông tin liên quan</h2>
         </div>
         <div class="row servive-block margin-bottom-10">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-green">
-                    <h4><a href="@Url.Action("ViewSchedule", "Candidate")">Xem lịch đưa đón</a></h4>
-                    <div><i class="icon-bell"></i></div>
-                    <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-red">
-                    <h4><a href="@Url.Action("ViewRoute", "Candidate")" >Xem đường đi</a></h4>
-                    <div><i class="icon-bullhorn"></i></div>
-                    <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-                </div>
-            </div>
-@*            if (Model.GroupID != null)
-                       {*@
-                <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-sea">
-                        <h4><a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })" >Xem nhóm</a></h4>
-                        <div><i class="icon-lightbulb"></i></div>
-                        <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+            <a href="@Url.Action("ViewSchedule", "Candidate")">
+                <div class="col-md-4 col-sm-6">
+                    <div class="servive-block-in servive-block-colored servive-block-green">
+                        <h4>Xem lịch đưa đón</h4>
+                        <div><i class="icon-bell"></i></div>
+                        <p>HDSD</p>
                     </div>
                 </div>
-
-         @*   }*@
-             
+            </a>
+            <a href="@Url.Action("ViewRoute", "Candidate")" >
+                <div class="col-md-3 col-sm-6">
+                    <div class="servive-block-in servive-block-colored servive-block-red">
+                        <h4>Xem đường đi</h4>
+                        <div><i class="icon-bullhorn"></i></div>
+                        <p>HDSD</p>
+                    </div>
+                </div>
+            </a>
+            if (Model.GroupID != null)
+                       {
+        <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-sea">
+                    <h4>Xem nhóm</h4>
+                    <div><i class="icon-lightbulb"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+            }
         </div>
-  
-  @*  }*@
+    }
 </div>

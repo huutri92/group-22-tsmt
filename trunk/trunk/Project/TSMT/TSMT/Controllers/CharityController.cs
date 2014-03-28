@@ -669,42 +669,72 @@ namespace TSMT.Controllers
         {
             int ceId = int.Parse(f["ceId"]);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceId);
-            var femaleGroups = db.Groups.Where(r => r.Owner.CharityExamID == ceId && r.Owner.Candidate.Account.Profile.Gender == true).OrderByDescending(r => r.Quantity);
-            var rooms = db.Rooms.Where(r => r.Lodge.CharityExamID == ceId).OrderByDescending(r => r.AvailableSlots);
 
-            // uu tien sap nhom nu truoc
-            foreach (Group g in femaleGroups)
+            var lodges = ce.Lodges; // lodges of ce
+            List<Group> groups = new List<Group>();
+            List<Room> rooms = new List<Room>();
+            bool[] genders = { false, true };
+            List<ExaminationsPaper> eps = new List<ExaminationsPaper>();
+
+            // sap nu truoc
+            foreach (bool gender in genders)
             {
-                foreach (Room r in rooms)
+                // sap theo tung lodge
+                foreach (Lodge lodge in lodges)
                 {
-                    if (r.AvailableSlots >= g.Quantity)
-                    {
-                        foreach (ExaminationsPaper ep in g.ExaminationsPapers) { ep.RoomID = r.RoomID; }
+                    // ds cac phong thuoc lodge
+                    rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID).OrderByDescending(r => r.AvailableSlots).ToList();
 
-                        // thay doi so luong --> tu duoi len tren
-                        r.AvailableSlots -= g.Quantity;
-                        r.Lodge.AvailableSlots -= g.Quantity;
-                        r.Lodge.ChairitiesExam.AvailableSlotsLodges -= g.Quantity;
-                        break; // chuyen sang xep nhom tiep theo
+                    // ds nhom
+                    groups = (from r in db.Groups
+                              where r.Owner.LodgeRegisteredID == lodge.LodgeID // dang ki vao lodge nay
+                                 && r.Owner.Candidate.Account.Profile.Gender == gender // dung gioi tinh
+                              select r).OrderByDescending(r => r.Quantity).ToList(); // sap giam dan theo so luong
+
+
+                    // sap nhom truoc
+                    foreach (Group g in groups)
+                    {
+                        foreach (Room r in rooms)
+                        {
+                            if (r.AvailableSlots >= g.Quantity && (r.Gender == null || r.Gender == g.Owner.Candidate.Account.Profile.Gender)) // cung gioi tinh
+                            {
+                                foreach (ExaminationsPaper ep in g.ExaminationsPapers) { ep.RoomID = r.RoomID; }
+
+                                // thay doi so luong
+                                r.AvailableSlots -= g.Quantity;
+                                r.Lodge.AvailableSlots -= g.Quantity;
+                                r.Lodge.ChairitiesExam.AvailableSlotsLodges -= g.Quantity;
+                                r.Gender = gender; // gioi tinh cua phong nay
+                                break; // chuyen sang xep nhom tiep theo
+                            }
+                        }
                     }
-                }
-            }
 
-            // sap nu khong thuoc nhom nao sau
-            var females = ce.ExaminationsPapers.Where(r => r.GroupID == null && r.Candidate.Account.Profile.Gender == true);
-            foreach (ExaminationsPaper female in females)
-            {
-                foreach (Room r in rooms)
-                {
-                    if (r.AvailableSlots >= 1)
+                    // ds ca nhan
+                    eps = (from r in db.ExaminationsPapers
+                           where r.GroupID == null // ko thuoc nhom nao
+                              && r.LodgeRegisteredID == lodge.LodgeID // dang ki vao lodge nay
+                              && r.Candidate.Account.Profile.Gender == gender // dung gioi tinh
+                           select r).ToList(); // khong sap xep theo so luong
+
+                    // sap ca nhan sau
+                    foreach (ExaminationsPaper ep in eps)
                     {
-                        female.RoomID = r.RoomID;
+                        foreach (Room r in rooms)
+                        {
+                            if (r.AvailableSlots >= 1 && (r.Gender == null || r.Gender == ep.Candidate.Account.Profile.Gender)) // dung gioi tinh
+                            {
+                                ep.RoomID = r.RoomID;
 
-                        // thay doi so luong --> tu duoi len tren
-                        --r.AvailableSlots;
-                        --r.Lodge.AvailableSlots;
-                        --r.Lodge.ChairitiesExam.AvailableSlotsLodges;
-                        break; // chuyen sang xep nu tiep theo
+                                // thay doi so luong --> tu duoi len tren
+                                --r.AvailableSlots;
+                                --r.Lodge.AvailableSlots;
+                                --r.Lodge.ChairitiesExam.AvailableSlotsLodges;
+                                r.Gender = gender; // gioi tinh cua phong nay
+                                break; // chuyen sang xep nu tiep theo
+                            }
+                        }
                     }
                 }
             }
@@ -719,57 +749,75 @@ namespace TSMT.Controllers
             ViewData["ceId"] = id;
             return View();
         }
-        //[HttpPost]
-        //public ActionResult AssignToCar(FormCollection f)
-        //{
-        //    int ceId = int.Parse(f["ceId"]);
-        //    ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceId);
+        [HttpPost]
+        public ActionResult AssignToCar(FormCollection f)
+        {
+            int ceId = int.Parse(f["ceId"]);
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceId);
 
-        //    // getting list of exam's places
-        //    List<ExaminationPlace> ePlaces = new List<ExaminationPlace>();
-        //    List<int> ePlaceIDs = ce.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
-        //    foreach (int ePlaceID in ePlaceIDs)
-        //    {
-        //        ExaminationPlace ePlace = new ExaminationPlace();
-        //        ePlace.ExamPlaceID = ePlaceID;
-        //        ePlace.Quantity = ce.ExaminationsPapers.Count(r => r.VenueID == ePlaceID);
-        //        ePlaces.Add(ePlace);
-        //    }
+            var lodges = ce.Lodges; // lodges of ce
+            List<Car> cars = ce.Cars.OrderByDescending(r => r.AvailableSlots).ToList();
+            List<int> venueIDs = new List<int>();
+            List<ExaminationPlace> venues = new List<ExaminationPlace>();
+            ExaminationPlace ePlace;
+            List<ExaminationsPaper> eps = new List<ExaminationsPaper>();
 
-        //    // sort by des by number of candidate
-        //    ePlaces.OrderByDescending(r => r.Quantity);
+            foreach (Lodge lodge in lodges)
+            {
+                venues = new List<ExaminationPlace>();
 
-        //    // get list of car of this CE and sort by des by avai slots
-        //    var cars = ce.Cars.OrderByDescending(r => r.AvailableSlots);
+                // ds dia diem thi cua cac thi sinh o lodge nay.
+                venueIDs = lodge.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
+                foreach (int venueID in venueIDs)
+                {
+                    ePlace = new ExaminationPlace(venueID, lodge.ExaminationsPapers.Where(r => r.VenueID == venueID).ToList());
+                    venues.Add(ePlace);
+                }
+                venues = venues.OrderByDescending(r => r.Quantity).ToList();
 
-        //    foreach (ExaminationPlace ePlace in ePlaces)
-        //    {
-        //        foreach (Car c in cars)
-        //        {
-        //            if (c.AvailableSlots >= ePlace.Quantity)
-        //            {
-        //                var epsConnectToThisPlace = ce.ExaminationsPapers.Where(r => r.VenueID == ePlace.ExamPlaceID);
-        //                foreach (Owner ep in epsConnectToThisPlace) { ep.CarID = c.CarID; }
+                foreach (ExaminationPlace v in venues)
+                {
+                    foreach (Car c in cars)
+                    {
+                        if (c.AvailableSlots >= v.Quantity)
+                        {
+                            foreach (ExaminationsPaper ep in v.Eps) { ep.CarID = c.CarID; }
 
-        //                c.AvailableSlots -= epsConnectToThisPlace.Count();
-        //                c.ChairitiesExam.AvailableSlotsVehicles -= epsConnectToThisPlace.Count();
-        //                break; // chuyen sang xep theo dia diem thi tiep theo
-        //            }
-        //        }
-        //    }
+                            // thay doi so luong
+                            c.AvailableSlots -= v.Quantity;
+                            c.ChairitiesExam.AvailableSlotsVehicles -= v.Quantity;
+                            break; // chuyen sang xep dia diem thi tiep theo
+                        }
+                    }
+                }
+            }
 
-        //    db.SaveChanges();
-        //    return RedirectToAction("ManageCandidate", new { id = ceId });
-        //}
+            db.SaveChanges();
+            return RedirectToAction("ManageCandidate", new { id = ceId });
+        }
         #endregion
         #region SCHEDULE-CARS
         #endregion
 
-        public ActionResult DisplayRoute(List<string> address, int carId = 7)
+        public ActionResult DisplayRoute(int id)
         {
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
+
+            List<string> address = new List<string>();
+            address.Add(car.ExaminationsPapers.FirstOrDefault().Lodge.Address);
+
+            var venues = new List<Venue>();
+            List<int> venueIDs = new List<int>();
+            // ds dia diem thi cua cac thi sinh thuoc xe nay.
+            venueIDs = car.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
+            foreach (int venueID in venueIDs)
+            {
+                address.Add(db.Venues.SingleOrDefault(r => r.VenueID == venueID).Address);
+            }
+
             //var listExamPaper = new List<Owner>();
             //listExamPaper = db.ExaminationsPapers.Where(e => e.CarID == carId).ToList();
-            //var listVenue = new List<Venue>();
+            //var listVenue = new List<Venue>();    
             //foreach (var ex in listExamPaper)
             //{
             //    listVenue.Add(ex.Venue);
@@ -786,11 +834,11 @@ namespace TSMT.Controllers
             //{
             //    address.Add(venue.Address);
             //}
-            address = new List<string>();
-            address.Add("03 hoa binh, quan 11");
-            address.Add("100 quang trung, quan 12");
-            address.Add("12 nguyen van bao, quan go vap");
-            address.Add("cong truong me linh");
+            //address = new List<string>();
+            //address.Add("03 hoa binh, quan 11");
+            //address.Add("100 quang trung, quan 12");
+            //address.Add("12 nguyen van bao, quan go vap");
+            //address.Add("cong truong me linh");
             ViewData["Place"] = address;
 
 

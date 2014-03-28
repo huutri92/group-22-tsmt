@@ -26,39 +26,49 @@
 @Html.Partial("_SponsorSidebarPartial")
 
 
-<h2 class="title_of_page">Manage Rooms Sponsored</h2>
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Tên Phòng</th>
-                <th>Tổng số chỗ</th>
-                <th>Số chỗ còn trống</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Quản lý phòng 
+                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+            </h3>
 
-                foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
-                {
-                <tr>
-                    <td>@counter</td>
-                    <td>@item.RoomName</td>
-                    <td>@item.TotalSlots</td>
-                    <td>@item.AvailableSlots</td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                        @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
-                    </td>
-                </tr>
-                    ++counter;
-                }
-            }
-        </tbody>
-    </table>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên Phòng</th>
+                        <th>Tổng số chỗ</th>
+                        <th>Số chỗ còn trống</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.RoomName</td>
+                            <td>@item.TotalSlots</td>
+                            <td>@item.AvailableSlots</td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
+                                @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                            </td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <input type="button" class = "btn btn-info" onclick="history.go(-1);" value="Quay lại"/>
+        @Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Back to Manage Lodge", "ManageLodge", null, new { @class = "btn btn-info" })
+    </div>
 </div>
-@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info"})
-@Html.ActionLink("Back to Manage Lodge", "ManageLodge", null, new { @class = "btn btn-info" })

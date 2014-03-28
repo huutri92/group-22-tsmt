@@ -6,7 +6,8 @@
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
                 <li class="@(ViewBag.Active == "SponsorHome" ? "active" : "")"><a href="@Url.Action("Index", "Sponsor")"><i class="icon-home"></i>Home</a></li>
-                <li class="@(ViewBag.Active == "AddResource" ? "active" : "")"><a href="@Url.Action("AddResource", "Sponsor")"><i class="icon-home"></i>Tài trợ</a></li>
+
+                <li class="@(ViewBag.Active == "AddResource" ? "active" : "")"><a href="@Url.Action("AddResource", "Sponsor")"><i class="icon-plus"></i>Thêm tài nguyên</a></li>
                 <li class="@(ViewBag.Active == "ManageCar" ? "active" : "")"><a href="@Url.Action("ManageCar", "Sponsor")"><i class="icon-user"></i>Quản lý xe</a></li>
                 <li class="@(ViewBag.Active == "ManageFund" ? "active" : "")"><a href="@Url.Action("ManageFund", "Sponsor")"><i class="icon-flag"></i>Quản lý tiền</a></li>
                 <li class="@(ViewBag.Active == "ManageLodge" ? "active" : "")"><a href="@Url.Action("ManageLodge", "Sponsor")"><i class="icon-lightbulb"></i>Quản lý chỗ trọ</a></li>

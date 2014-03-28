@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Manage Universities";
+    ViewBag.Title = "Quản lý thông tin các trường ĐHCĐ";
     ViewBag.Active = "ManageUniversity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,7 +25,7 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>All Universities Information 
+            <h3 class="panel-title"><i class="icon-list"></i>Tất cả thông tin về trường đại học hiện có trong TSMT
                 <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
             </h3>
 
@@ -38,8 +38,8 @@
                         <th>Tên trường</th>
                         <th>Mã trường</th>
                         <th>Địa chỉ</th>
-                        <th>Website</th>
-                        <th>Số điện thoại</th>
+                      @*  <th>Website</th>
+                        <th>Số điện thoại</th>*@
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -53,10 +53,10 @@
                             <td>@item.Name</td>
                             <td>@item.UniversityCode</td>
                             <td>@item.Address</td>
-                            <td>
+                          @*  <td>
                                 <a href="@item.Website">@item.Website</a>
                             </td>
-                            <td>@item.Phone</td>
+                            <td>@item.Phone</td>*@
                             <td>
                                 @*@Html.ActionLink("Edit", "EditUniversity", new { id = @item.UniversityID })*@
                                    <a href="@Url.Action("EditUniversity", "Admin", new { id = @item.UniversityID })"  class="btn-u btn-u-blue"><i class="icon-edit"></i> Edit </a>
@@ -76,5 +76,5 @@
             @Html.ActionLink("Back to Control Panel", "/", null, new { @class = "btn btn-info" })*@
         </div>
     </div>
-    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i> Back </a>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left" onclick="history.go(-1);"></i> Trở về </a>
 </div>

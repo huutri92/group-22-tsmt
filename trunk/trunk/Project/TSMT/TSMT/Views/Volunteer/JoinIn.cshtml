@@ -1,5 +1,6 @@
 ﻿@using TSMT.Models
 @model IEnumerable<Examination>
+
 @{
     ViewBag.Title = "Đăng ký vào Hội từ thiện";
     ViewBag.Active = "JoinIn";
@@ -27,7 +28,6 @@
     }
 </script>
 
-
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -42,36 +42,49 @@
     </div>
 }
 
+@*@Html.Partial("_VolunteerSidebarPartial")*@
 
 
 @using (Html.BeginForm("JoinIn", "Volunteer", FormMethod.Post))
 {
-    <table>
-        <tr>
-            <td>Kỳ thi</td>
-            <td>
-                <select name="exId" onchange="getCharityName(this.value)">
-                    <option value="null">Chon sasadds</option>
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.ExaminationID">@item.Name</option>
-                    }
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Hội từ thiện</td>
-            <td>
-                <select name="ceId" id="getCharity">
-                    <option value="null">Hội từ thiện</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Join" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+    <div class="col-md-9">
+        <div class="panel panel-orange margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Đăng ký vào Hội từ thiện </h3>
+
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Kỳ thi</td>
+                        <td>
+                            <select name="exId" onchange="getCharityName(this.value)" class="form-control">
+                                <option value="null">Chọn</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hội từ thiện</td>
+                        <td>
+                            <select name="ceId" id="getCharity"  class="form-control">
+                                <option value="null">Hội từ thiện</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                              <input type="button" value="Trở về" class="btn btn-info" onclick="history.go(-1);" />
+                            <input type="submit" value="Đăng ký" class="btn btn-info" />
+                            <input type="reset" value="Xóa hết" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
 }

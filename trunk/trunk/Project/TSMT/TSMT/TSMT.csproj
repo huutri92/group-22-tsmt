@@ -173,6 +173,7 @@
     <Compile Include="Models\Examination.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExaminationPlace.cs" />
     <Compile Include="Models\ExaminationsPaper.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
@@ -251,7 +252,7 @@
     <Content Include="Content\css\gmap_places.css" />
     <Content Include="Content\css\headers\header1.css" />
     <Content Include="Content\css\headers\header2.css" />
-    <Content Include="Content\css\img\bg-black.html" />
+    <Content Include="Content\css\headers\img\bg-black.html" />
     <Content Include="Content\css\less\style.html" />
     <Content Include="Content\css\pages\blog.css" />
     <Content Include="Content\css\pages\page_404_error.css" />
@@ -2386,6 +2387,12 @@
     <Content Include="Views\Admin\ViewVenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Candidate\JoinInCE.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\JoinInGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
@@ -2405,9 +2412,6 @@
       <DependentUpon>TSMT.edmx</DependentUpon>
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Candidate\JoinInCE.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

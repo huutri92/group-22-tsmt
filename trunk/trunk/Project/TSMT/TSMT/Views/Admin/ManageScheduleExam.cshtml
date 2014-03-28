@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Manage Examination-Schedules";
+    ViewBag.Title = "Thông tin thời gian kỳ thi";
     ViewBag.Active = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -15,40 +15,52 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li><a href="@Url.Action("ManageExam", "Admin")">Quản lý kỳ thi</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
-    </div>   
+    </div>
 }
+
 @Html.Partial("_AdminSidebarPartial")
-<h2 class="title_of_page">@ViewBag.Title</h2>
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Giờ bắt đầu</th>
-                <th>Giờ kết thúc</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
-                foreach (ScheduleExam item in Model)
-                {
-                <tr>
-                    <td>@counter</td>
-                    <td>@item.BeginHour</td>
-                    <td>@item.EndHour</td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditScheduleExam", new { id = @item.ScheduleExamID })
-                    </td>
-                </tr>
-                    ++counter;
-                }
-            }
-        </tbody>
-    </table>
-    @Html.ActionLink("Back to Manage Examinations", "/admin/ManageExam", null, new { @class = "btn btn-info" })
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin thời gian kỳ thi</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+                        foreach (ScheduleExam item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.BeginHour</td>
+                            <td>@item.EndHour</td>
+                            <td>
+                                <a href="@Url.Action("EditScheduleExam","Admin",new { id = @item.ScheduleExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Sửa</a>
+                            </td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <a href="@Url.Action("ManageExam","Admin")" class="btn-u btn-u-default"><i class=" icon-chevron-sign-left"></i> Trở về trang Quản lý kỳ thi</a>
 </div>
+
+
