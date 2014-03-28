@@ -16,6 +16,21 @@
     Venue ve = ep.Venue;
 }
 
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Candidate")">Thí sinh</a></li>
+                <li><a href="@Url.Action("ManageExamPaper", "Candidate")">Thông tin phiếu báo thi</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
 @using (Html.BeginForm("JoinInCE", "Candidate", FormMethod.Post, new { id = "formJoinInCE" }))
 {
     <div id="map_container">

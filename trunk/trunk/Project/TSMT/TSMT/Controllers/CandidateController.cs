@@ -21,13 +21,14 @@ namespace TSMT.Controllers
         public ActionResult ManageExamPaper()
         {
             Account acc = (Account)Session["acc"];
-            Candidate can = db.Candidates.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            Candidate can = db.Candidates.FirstOrDefault(r => r.AccountID == acc.AccountID);
             var ep = db.ExaminationsPapers.Where(r => r.CandidateID == can.CandidateID);
             return View(ep);
         }
         public ActionResult AddExamPaper()
         {
             ViewData["uniExams"] = db.UniversitiesExaminations.ToList();
+            ViewData["Exams"] = db.Examinations.ToList();
             ViewData["venues"] = db.Venues.ToList();
             return View();
         }
@@ -39,16 +40,41 @@ namespace TSMT.Controllers
 
             ExaminationsPaper ep = new ExaminationsPaper();
             ep.CandidateID = can.CandidateID;
-            ep.UniExamID = int.Parse(f["UniExamID"]);
-            ep.VenueID = int.Parse(f["VenueID"]);
+            ep.UniExamID = int.Parse(f["uniName"]);
+            ep.VenueID = int.Parse(f["venueID"]);
             db.ExaminationsPapers.Add(ep);
             db.SaveChanges();
 
             return RedirectToAction("ManageExamPaper");
         }
+
+        public JsonResult getUniversity(int id)
+        {
+            var uni = from u in db.UniversitiesExaminations
+                     where u.ExaminationID == id
+                     select new
+                     {
+                         value = u.UniExamID,
+                         name = u.University.Name
+                     };
+            return Json(uni, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getVenue(int id)
+        {
+            var venue = from u in db.Venues
+                      where u.UniExamID == id
+                      select new
+                      {
+                          value = u.VenueID,
+                          name = u.Address
+                      };
+            return Json(venue, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult DeleteExamPaper(int id)
         {
-            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            ExaminationsPaper ep = db.ExaminationsPapers.FirstOrDefault(r => r.ExamPaperID == id);
             db.ExaminationsPapers.Remove(ep);
             db.SaveChanges();
             return RedirectToAction("ManageExamPaper");

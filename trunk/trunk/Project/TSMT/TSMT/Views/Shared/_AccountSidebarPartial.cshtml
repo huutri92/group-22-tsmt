@@ -7,7 +7,7 @@
                     @if (Session["acc"] != null)
                     {      
                         <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
-                            <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID }))"><i class="icon-chevron-right"></i>Thông tin tài khoản</a></li>
+                            <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })"><i class="icon-chevron-right"></i>Thông tin tài khoản</a></li>
                         <li class="@(ViewBag.Active == "ManageExamPaper" ? "active" : "")">
                             <a href="@Url.Action("ManageExamPaper", "Candidate")"><i class="icon-chevron-right"></i>Thông tin phiếu báo thi</a></li>
                         <li class="@(ViewBag.Active == "ChangePassword" ? "active" : "")">
