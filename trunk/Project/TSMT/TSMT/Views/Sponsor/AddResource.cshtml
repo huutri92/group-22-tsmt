@@ -130,12 +130,13 @@
     @Html.Partial("_SponsorSidebarPartial")
 
     <div class="col-md-9">
-        <div class="panel panel-green margin-bottom-20">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
-            </div>
-            <div class="panel-body">
-                <form method="post" action="/Sponsor/AddResource">
+        <form method="post" action="/Sponsor/AddResource">
+            <div class="panel panel-green margin-bottom-20">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
+                </div>
+                <div class="panel-body">
+
                     <table>
                         <tr>
                             <td>Tài Trợ Cho: </td>
@@ -241,7 +242,7 @@
                                             <option value="@item.LodgeID">@item.Address</option>
                                         }
                                     </select>
-                                    
+
                                 </td>
                             </tr>
                             <tr>
@@ -263,13 +264,14 @@
                             </tr>
                         </table>
                     </div>
-                    <div>
-                        <input type="submit" value="Submit" class="btn" />
-                        <input type="reset" value="Reset" class="btn" />
-                    </div>
-                </form>
+
+                </div>
+
             </div>
-        </div>
+            <input type="button" value="Trở về" class="btn" onclick="history.go(-1);" />
+            <input type="submit" value="Tạo mới" class="btn" />
+            <input type="reset" value="Xóa hết" class="btn" />
+        </form>
     </div>
 
 </body>
@@ -283,5 +285,5 @@
         document.getElementById(newRole).style.display = 'inline';
         currentRole = newRole;
     }
-        
+
 </script>

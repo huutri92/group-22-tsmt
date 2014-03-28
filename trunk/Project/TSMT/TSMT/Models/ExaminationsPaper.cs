@@ -25,16 +25,17 @@ namespace TSMT.Models
         public int UniExamID { get; set; }
         public int VenueID { get; set; }
         public Nullable<int> CharityExamID { get; set; }
+        public Nullable<int> LodgeRegisteredID { get; set; }
         public Nullable<int> GroupID { get; set; }
         public Nullable<int> RoomID { get; set; }
         public Nullable<int> CarID { get; set; }
         public bool IsApproved { get; set; }
-        public Nullable<int> LodgeRegisteredID { get; set; }
     
         public virtual Candidate Candidate { get; set; }
         public virtual Car Car { get; set; }
         public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual Group Group { get; set; }
+        public virtual Lodge Lodge { get; set; }
         public virtual Room Room { get; set; }
         public virtual Venue Venue { get; set; }
         public virtual UniversitiesExamination UniversitiesExamination { get; set; }

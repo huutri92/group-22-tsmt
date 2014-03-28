@@ -24,6 +24,7 @@ namespace TSMT.Models
         public int TotalSlots { get; set; }
         public int AvailableSlots { get; set; }
         public string RoomName { get; set; }
+        public Nullable<bool> Gender { get; set; }
     
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual Lodge Lodge { get; set; }

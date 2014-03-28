@@ -106,6 +106,10 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExaminationsPapers_Lodges" Association="TSMTModel.Store.FK_ExaminationsPapers_Lodges">
+            <End Role="Lodges" EntitySet="Lodges" />
+            <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Rooms" Association="TSMTModel.Store.FK_ExaminationsPapers_Rooms">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
@@ -316,11 +320,11 @@
           <Property Name="UniExamID" Type="int" Nullable="false" />
           <Property Name="VenueID" Type="int" Nullable="false" />
           <Property Name="CharityExamID" Type="int" />
+          <Property Name="LodgeRegisteredID" Type="int" />
           <Property Name="GroupID" Type="int" />
           <Property Name="RoomID" Type="int" />
           <Property Name="CarID" Type="int" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="LodgeRegisteredID" Type="int" />
         </EntityType>
         <EntityType Name="Funds">
           <Key>
@@ -395,6 +399,7 @@
           <Property Name="TotalSlots" Type="int" Nullable="false" />
           <Property Name="AvailableSlots" Type="int" Nullable="false" />
           <Property Name="RoomName" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Gender" Type="bit" />
         </EntityType>
         <EntityType Name="ScheduleExams">
           <Key>
@@ -704,6 +709,18 @@
             </Principal>
             <Dependent Role="ExaminationsPapers">
               <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaminationsPapers_Lodges">
+          <End Role="Lodges" Type="TSMTModel.Store.Lodges" Multiplicity="0..1" />
+          <End Role="ExaminationsPapers" Type="TSMTModel.Store.ExaminationsPapers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lodges">
+              <PropertyRef Name="LodgeID" />
+            </Principal>
+            <Dependent Role="ExaminationsPapers">
+              <PropertyRef Name="LodgeRegisteredID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1105,6 +1122,10 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExaminationsPapers_Lodges" Association="TSMTModel.FK_ExaminationsPapers_Lodges">
+            <End Role="Lodges" EntitySet="Lodges" />
+            <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Rooms" Association="TSMTModel.FK_ExaminationsPapers_Rooms">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
@@ -1312,15 +1333,16 @@
           <Property Name="UniExamID" Type="Int32" Nullable="false" />
           <Property Name="VenueID" Type="Int32" Nullable="false" />
           <Property Name="CharityExamID" Type="Int32" />
+          <Property Name="LodgeRegisteredID" Type="Int32" />
           <Property Name="GroupID" Type="Int32" />
           <Property Name="RoomID" Type="Int32" />
           <Property Name="CarID" Type="Int32" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <Property Name="LodgeRegisteredID" Type="Int32" />
           <NavigationProperty Name="Candidate" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="ExaminationsPapers" ToRole="Candidates" />
           <NavigationProperty Name="Car" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="ExaminationsPapers" ToRole="Cars" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_ExaminationsPapers_ChairitiesExams" FromRole="ExaminationsPapers" ToRole="ChairitiesExams" />
           <NavigationProperty Name="Group" Relationship="TSMTModel.FK_ExaminationsPapers_Groups" FromRole="ExaminationsPapers" ToRole="Groups" />
+          <NavigationProperty Name="Lodge" Relationship="TSMTModel.FK_ExaminationsPapers_Lodges" FromRole="ExaminationsPapers" ToRole="Lodges" />
           <NavigationProperty Name="Room" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="ExaminationsPapers" ToRole="Rooms" />
           <NavigationProperty Name="Venue" Relationship="TSMTModel.FK_ExaminationsPapers_Venues" FromRole="ExaminationsPapers" ToRole="Venues" />
           <NavigationProperty Name="UniversitiesExamination" Relationship="TSMTModel.FK_ExamsPaper_UniversityExamination" FromRole="ExaminationsPapers" ToRole="UniversitiesExaminations" />
@@ -1365,6 +1387,7 @@
           <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Lodges_ChairitiesExams1" FromRole="Lodges" ToRole="ChairitiesExams" />
+          <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Lodges" FromRole="Lodges" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Lodges_Sponsors" FromRole="Lodges" ToRole="Sponsors" />
           <NavigationProperty Name="Rooms" Relationship="TSMTModel.FK_Rooms_Lodges" FromRole="Lodges" ToRole="Rooms" />
         </EntityType>
@@ -1412,6 +1435,7 @@
           <Property Name="TotalSlots" Type="Int32" Nullable="false" />
           <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
           <Property Name="RoomName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Gender" Type="Boolean" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="Rooms" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Lodge" Relationship="TSMTModel.FK_Rooms_Lodges" FromRole="Rooms" ToRole="Lodges" />
         </EntityType>
@@ -1864,6 +1888,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExaminationsPapers_Lodges">
+          <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="0..1" />
+          <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lodges">
+              <PropertyRef Name="LodgeID" />
+            </Principal>
+            <Dependent Role="ExaminationsPapers">
+              <PropertyRef Name="LodgeRegisteredID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExaminationsPapers_Rooms">
           <End Role="Rooms" Type="TSMTModel.Room" Multiplicity="0..1" />
           <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
@@ -2137,11 +2173,11 @@
                 <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
                 <ScalarProperty Name="VenueID" ColumnName="VenueID" />
                 <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
+                <ScalarProperty Name="LodgeRegisteredID" ColumnName="LodgeRegisteredID" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="CarID" ColumnName="CarID" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="LodgeRegisteredID" ColumnName="LodgeRegisteredID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2223,6 +2259,7 @@
                 <ScalarProperty Name="TotalSlots" ColumnName="TotalSlots" />
                 <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
                 <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

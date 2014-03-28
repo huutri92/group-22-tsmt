@@ -1,48 +1,72 @@
 ﻿@model TSMT.Models.Lodge
 @{
-    ViewBag.Title = "DetailsLodge";
+    ViewBag.Title = "Thông tin chi tiết chỗ trọ";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="title_of_page">Details Lodge</h2>
-
-<table>
-    <tr>
-        <td>Address</td>
-        <td>@Model.Address</td>
-    </tr>
-    <tr>
-        <td>Sponsor</td>
-        <td>@Model.Sponsor.Account.Profile.Firstname @Model.Sponsor.Account.Profile.Firstname</td>
-    </tr>
-    <tr>
-        <td>Tổng số phòng</td>
-        <td>@Model.TotalRooms</td>
-    </tr>
-    <tr>
-        <td>Tổng số chỗ trọ</td>
-        <td>@Model.TotalSlots</td>
-    </tr>
-    <tr>
-        <td>Số chỗ còn trống</td>
-        <td>@Model.AvailableSlots</td>
-    </tr>
-</table>
-
-<div class="service-one">
-    <div class="service-one-inner">
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="s-one-item sitem-one">
-                        <i class="icon-gear"></i>
-                        <div class="s-one-caption">
-                            <h4>@Html.ActionLink("Manage Room", "ManageRoom", new { lodgeId = @Model.LodgeID })</h4>
-                            <p>Description</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+
+                <li class="active">@ViewBag.Title</li>
+            </ul>
         </div>
     </div>
+}
+@Html.Partial("_SponsorSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết của chỗ trọ
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <tr>
+                    <td>Address</td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td>Sponsor</td>
+                    <td>@Model.Sponsor.Account.Profile.Firstname @Model.Sponsor.Account.Profile.Firstname</td>
+                </tr>
+                <tr>
+                    <td>Tổng số phòng</td>
+                    <td>@Model.TotalRooms</td>
+                </tr>
+                <tr>
+                    <td>Tổng số chỗ trọ</td>
+                    <td>@Model.TotalSlots</td>
+                </tr>
+                <tr>
+                    <td>Số chỗ còn trống</td>
+                    <td>@Model.AvailableSlots</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row servive-block margin-bottom-10">
+        <div class="col-md-3 col-sm-6">
+            <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @Model.LodgeID })">
+                <div class="servive-block-in servive-block-colored servive-block-yellow">
+                    <h4>Quản lý phòng</h4>
+                    <div><i class="icon-map-marker"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+    <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
 </div>

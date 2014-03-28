@@ -3,8 +3,26 @@
 
 
 @{
-    ViewBag.Title = "DetailsVolunteer";
+    ViewBag.Title = "Thông tin chi tiết của tình nguyện viên";
+    
 }
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("ManageVolunteer", "Charity")">Quản lý tình nguyện viên</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
 
 <h2 class="title_of_page">Details Volunteer</h2>
 <div class="inner-page-content inner-testimonial">

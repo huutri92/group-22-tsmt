@@ -35,7 +35,7 @@
         <tr>
              <td>Tài Trợ Cho: </td>
                 <td>
-                    <select id="qwe" onchange="callAjax(this.value)">
+                    <select id="qwe" onchange="callAjax(this.value)" class="form-control">
                         <option value="0" selected  >---</option>
                         @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                         {
@@ -45,31 +45,32 @@
                 </td>
                 <td>Tổ Chức: </td>
                 <td>
-                    <select id="asd" name="asd"></select>
+                    <select id="asd" name="asd" class="form-control"></select>
                 </td>
         </tr>
         <tr>
             <td>Biển số xe</td>
             <td>
-                <input type="text" name="NumberPlate" value="@Model.NumberPlate"/></td>
+                <input type="text" name="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
         </tr>
         <tr>
             <td>Tổng số chỗ ngồi</td>
             <td>
-                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
         </tr>
          <tr>
             <td>Tên tài xế</td>
             <td>
-                <input type="text" name="DriverName" value="@Model.DriverName"/></td>
+                <input type="text" name="DriverName" value="@Model.DriverName" class="form-control"/></td>
         </tr>
          <tr>
             <td>Số điện thoại tài xế</td>
             <td>
-                <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
+                <input type="text" name="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
         </tr>
         <tr>
             <td colspan="2">
+               <input type="button" class = "btn btn-info" onclick="history.go(-1);" value="Quay lại"/>
                 <input type="submit" value="Submit" class="btn btn-info" />
                 <input type="reset" value="Reset" class="btn btn-info" />
             </td>

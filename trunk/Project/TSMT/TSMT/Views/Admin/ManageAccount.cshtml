@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "ManageAccount";
+    ViewBag.Title = "Quản lý tài khoản";
     ViewBag.Active = "ManageAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -35,7 +35,7 @@
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
                         {
                         <tr>
                             <td>@counter</td>
-                            @*<td>@item.Account.Profile.Lastname @item.Account.Profile.Middlename @item.Account.Profile.Firstname </td>*@
+                            <td>@item.Account.Profile.Lastname @item.Account.Profile.Middlename @item.Account.Profile.Firstname </td>
                             <td>@item.Account.Email</td>
                              <td>@item.PhoneNumber</td>
                             <td>@if (item.Account.IsActive.Equals(true))

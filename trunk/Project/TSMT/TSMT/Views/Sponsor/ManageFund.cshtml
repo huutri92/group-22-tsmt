@@ -1,72 +1,82 @@
 ﻿@using TSMT.Models
 @model IEnumerable<Fund>
 @{
-    ViewBag.Title = "ManageFund";
+    ViewBag.Title = "Quản lý tiền tài trợ";
+    ViewBag.Active = "ManageFund";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2 class="title_of_page">Manage Funds of Sponsor</h2>
-@*@Html.Grid(Model).Columns(columns =>
-           {
-
-               columns.Add(foo => foo.ChairitiesExam.Examination.Name).Titled("Kỳ Thi").Sortable(true);
-               columns.Add(foo => foo.ChairitiesExam.CharityExamName).Titled("Tên Tổ Chức").Sortable(true);
-               columns.Add(foo => foo.FundSponsored).Titled("Số Tiền").Format("{0:#,###0} vnd").Sortable(true);
-               columns.Add(foo => foo.IsOnlineFunding).Titled("Hình Thức").Sortable(true).Css("IsOnlineFundingCol");
-               columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o =>
-                    @<b>
-                        @Html.ActionLink("Edit", "EditFund", new { fundId = o.FundID })
-                    </b>);
-               columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o =>
-                    @<b>
-                        @Html.ActionLink("Delete", "DeleteFund", new { fundId = o.FundID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href )" })
-                    </b>);
-           }).WithPaging(3)*@
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_SponsorSidebarPartial")
 
 
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Kỳ thi</th>
-                <th>Tổ chức</th>
-                <th>Số Tiền</th>
-                <th>Hình Thức</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
-                foreach (var item in Model)
-                {
-                <tr>
-                    <td>@counter</td>
-                    <td>@item.ChairitiesExam.Examination.Name</td>
-                    <td>@item.ChairitiesExam.CharityExamName</td>
-                    <td>@item.FundSponsored.ToString("##,### VNĐ")</td>
-                    @if(@item.IsOnlineFunding)
+
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Quản lý xe
+                <a href="@Url.Action("AddCar", "Sponsor")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Kỳ thi</th>
+                        <th>Tổ chức</th>
+                        <th>Số Tiền</th>
+                        <th>Hình Thức</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+                        foreach (var item in Model)
                         {
-                        <td>Tận tay</td>
-                        }
-                        else{
-                        <td>Chuyển Khoản</td>
-                        }
-                    
-                    <td>
-                        @Html.ActionLink("Edit", "EditFund", new { fundId = @item.FundID })
-                        @Html.ActionLink("Delete", "DeleteFund", new { fundId = @item.FundID })
-                    </td>
-                </tr>
-                    ++counter;
-                }
-            }
-        </tbody>
-    </table>
-</div>
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.ChairitiesExam.Examination.Name</td>
+                            <td>@item.ChairitiesExam.CharityExamName</td>
+                            <td>@item.FundSponsored.ToString("##,### VNĐ")</td>
+                            @if (@item.IsOnlineFunding)
+                            {
+                                <td>Tận tay</td>
+                            }
+                            else
+                            {
+                                <td>Chuyển Khoản</td>
+                            }
 
-@Html.ActionLink("Sponsor Fund", "AddFund", null, new { @class = "btn btn-info" })
-@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
+                            <td>
+                                @Html.ActionLink("Edit", "EditFund", new { fundId = @item.FundID })
+                                @Html.ActionLink("Delete", "DeleteFund", new { fundId = @item.FundID })
+                            </td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @Html.ActionLink("Sponsor Fund", "AddFund", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
+    </div>
+</div>
 
 @*<script>
     function func() {

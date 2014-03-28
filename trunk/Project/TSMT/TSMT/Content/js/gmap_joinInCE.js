@@ -103,10 +103,10 @@ function createTheCircle() {
         suppressUndo: true,
     };
     circle = new google.maps.Circle(circleOptions);
-    document.getElementById('radius').innerHTML = circle.getRadius() + 'meters.';
+    document.getElementById('radius').innerHTML = circle.getRadius() + ' m.';
 
     google.maps.event.addListener(circle, 'radius_changed', function () {
-        document.getElementById('radius').innerHTML = Math.round(this.getRadius()) + 'meters.';
+        document.getElementById('radius').innerHTML = Math.round(this.getRadius()) + ' m.';
         changeColorMarkers();
     });
 
@@ -126,7 +126,7 @@ function changeColorMarkers() {
             if (circle.getRadius() >= lodge.d) { // distance to exam venue.
                 lodge.marker.setIcon(orangeIcon);
             } else {
-                lodge.marker.setIcon(getIcon(lodge.ceId));
+                lodge.marker.setIcon(icons[getIcon(lodge.ceId)]);
             }
         }
     }

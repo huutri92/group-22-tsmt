@@ -18,9 +18,10 @@
             <tr>
                 <th>STT</th>
                 <th>Candidate Name</th>
-                <th>Nhóm</th>
-                <th>Lodge</th>
-                <th>Room</th>
+                @*<th>Nhóm</th>*@
+                <th>Chỗ trọ</th>
+                <th>Phòng</th>
+                <th>Xe</th>
                 <th>Trạng thái</th>
                 <th>Actions</th>
             </tr>
@@ -34,7 +35,7 @@
                 <tr id="@item.ExamPaperID">
                     <td>@counter</td>
                     <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
-                    <td>
+@*                    <td>
                         @if (item.GroupID != null)
                         {
                             @item.GroupID
@@ -43,11 +44,11 @@
                         {
                             <span>Không thuộc nhóm nào</span>
                         }
-                    </td>
+                    </td>*@
                     <td>
-                        @if (item.RoomID != null)
+                        @if (item.LodgeRegisteredID != null)
                         {
-                            @item.Room.Lodge.LodgeID
+                            @item.Lodge.Address
                         }
                         else
                         {
@@ -57,7 +58,17 @@
                     <td>
                         @if (item.RoomID != null)
                         {
-                            @item.Room.RoomID
+                            @item.Room.RoomName
+                        }
+                        else
+                        {
+                            <span>Chưa được sắp xếp</span>
+                        }
+                    </td>
+                     <td>
+                        @if (item.CarID != null)
+                        {
+                            @item.Car.NumberPlate
                         }
                         else
                         {

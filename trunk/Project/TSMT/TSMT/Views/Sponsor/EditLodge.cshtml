@@ -1,64 +1,83 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Lodge
 @{
+    ViewBag.Title = "Thay đổi thông tin chỗ trọ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="title_of_page">Edit Lodge</h2>
 <script type="text/javascript" src="~/Content/js/jquery.js"></script>
-    <script type="text/javascript">
-        function callAjax(id) {
-            if (id == 0) {
-                $("#asd").html("");
-            }
-            else {
-                $.ajax({
-                    url: 'ResultAjax',
-                    data: { "id": id },
-                    type: 'GET',
-                    success: function (results) {
-                        $("#asd").html("");
-                        for (i in results) {
-                            var r = results[i];
-                            $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+<script type="text/javascript">
+    function callAjax(id) {
+        if (id == 0) {
+            $("#asd").html("");
+        }
+        else {
+            $.ajax({
+                url: 'ResultAjax',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#asd").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
 
-                        }
                     }
-                });
-            }
-            }
-         </script>
+                }
+            });
+        }
+    }
+</script>
+
+
+
 @using (Html.BeginForm("EditLodge", "Sponsor", FormMethod.Post))
 {
+    
     <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
-    <table>
-         <tr>
-             <td>Tài Trợ Cho: </td>
-                <td>
-                    <select id="qwe" onchange="callAjax(this.value)">
-                        <option value="0" selected  >---</option>
-                        @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
-                        {
-                            <option value="@item.ExaminationID">@item.Name</option>
-                        }
-                    </select>
-                </td>
-                <td>Tổ Chức: </td>
-                <td>
-                    <select id="asd" name="asd"></select>
-                </td>
-        </tr>
-        <tr>
-            <td>Địa chỉ</td>
-            <td>
-                <input type="text" name="Address" value="@Model.Address"/></td>
-        </tr>
-        
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Submit" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+    
+    
+    <div class="col-md-9">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Thay đổi thông tin chỗ trọ
+                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Tài Trợ Cho: </td>
+                        <td>
+                            <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                                <option value="0" selected>---</option>
+                                @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                                {
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td>Tổ Chức: </td>
+                        <td>
+                            <select id="asd" name="asd" class="form-control"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ</td>
+                        <td>
+                            <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <input type="button"  class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                            <input type="submit" value="Submit" class="btn btn-info" />
+                            <input type="reset" value="Reset" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 }

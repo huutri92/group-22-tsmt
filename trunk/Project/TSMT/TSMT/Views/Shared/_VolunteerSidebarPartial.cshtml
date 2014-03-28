@@ -1,18 +1,33 @@
-﻿
+﻿@using TSMT.Models
+
+@model TSMT.Models.Volunteer
+
+
 <!--Begin Sidebar Menu-->
-            <div class="col-md-3">
-                <div class="row tab-v3">
-                    <div class="col-sm-12">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")"><a href="@Url.Action("Index","")"><i class="icon-home"></i>Home</a></li>
-                            <li class="@(ViewBag.Active == "ManageAccount" ? "active" : "")"><a href="@Url.Action("Index","ManageAccount")"><i class="icon-user"></i>Manage Accounts</a></li>
-                            <li class="@(ViewBag.Active == "ManageCategory" ? "active" : "")"><a href="@Url.Action("Index","ManageCategory")"><i class="icon-flag"></i>Manage Categories</a></li>
-                            <li class="@(ViewBag.Active == "ManagePost" ? "active" : "")"><a href="@Url.Action("Index","ManagePost")"><i class="icon-lightbulb"></i>Manage Posts</a></li>
-                            <li class="@(ViewBag.Active == "ManageUniversity" ? "active" : "")"><a href="@Url.Action("Index","ManageUniversity")"><i class="icon-building"></i>Manage Universities</a></li>
-                            <li class="@(ViewBag.Active == "ManageExamination" ? "active" : "")"><a href="@Url.Action("Index","ManageExamination")"><i class="icon-calendar"></i>Manage Examinations</a></li>
-                            <li class="@(ViewBag.Active == "ManageUniversityExam" ? "active" : "")"><a href="@Url.Action("Index","ManageUniversityExam")"><i class="icon-gear"></i>Manage University Exam</a></li>
-                            <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Index","Statistics")"><i class="icon-rocket"></i>Statistics</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<div class="col-md-3">
+    <div class="row tab-v3">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")">
+                    <a href="@Url.Action("Index", "")"><i class="icon-home"></i>Home</a></li>
+               @* <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
+                    <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })"><i class="icon-info"></i>Thông tin tài khoản</a></li>
+               *@ 
+                @if (Model.CharityExamID == null)
+                {
+                    <li class="@(ViewBag.Active == "JoinIn" ? "active" : "")">
+                        <a href="@Url.Action("JoinIn", "Volunteer")"><i class="icon-chevron-sign-right"></i>Đăng ký</a></li>
+                }
+                else
+                {
+                    <li class="@(ViewBag.Active == "" ? "active" : "")">
+                        <a href="@Url.Action("#", "Volunteer")"><i class="icon-sign-in"></i>Xem lịch</a></li>
+                    <li class="@(ViewBag.Active == "" ? "active" : "")">
+                        <a href="@Url.Action("#", "Volunteer")"><i class="icon-sign-in"></i>Xem đường đi</a></li>
+                }
+                <li class="@(ViewBag.Active == "Statistics" ? "active" : "")">
+                    <a href="@Url.Action("Statistics", "Volunteer")"><i class="icon-rocket"></i>Thống kê</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

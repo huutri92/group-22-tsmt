@@ -12,10 +12,11 @@
         <tr>
             <td>Tổng số chỗ</td>
             <td>
-                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
         </tr>
         <tr>
             <td colspan="2">
+                <input type="button" onclick="history.go(-1);" value="Quay lại"/>
                 <input type="submit" value="Submit" class="btn btn-info" />
                 <input type="reset" value="Reset" class="btn btn-info" />
             </td>

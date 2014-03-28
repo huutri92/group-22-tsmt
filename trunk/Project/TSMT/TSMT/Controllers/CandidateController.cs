@@ -51,24 +51,24 @@ namespace TSMT.Controllers
         public JsonResult getUniversity(int id)
         {
             var uni = from u in db.UniversitiesExaminations
-                     where u.ExaminationID == id
-                     select new
-                     {
-                         value = u.UniExamID,
-                         name = u.University.Name
-                     };
+                      where u.ExaminationID == id
+                      select new
+                      {
+                          value = u.UniExamID,
+                          name = u.University.Name
+                      };
             return Json(uni, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getVenue(int id)
         {
             var venue = from u in db.Venues
-                      where u.UniExamID == id
-                      select new
-                      {
-                          value = u.VenueID,
-                          name = u.Address
-                      };
+                        where u.UniExamID == id
+                        select new
+                        {
+                            value = u.VenueID,
+                            name = u.Address
+                        };
             return Json(venue, JsonRequestBehavior.AllowGet);
         }
 
@@ -146,8 +146,10 @@ namespace TSMT.Controllers
         }
         public ActionResult JoinInGroup(int id)
         {
-            ViewData["epId"] = id;
-            return View();
+            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            var eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == ep.LodgeRegisteredID);
+            ViewData["ep"] = ep;
+            return View(eps);
         }
         [HttpPost]
         public ActionResult JoinInGroup(FormCollection f)
