@@ -27,7 +27,7 @@
         @if (Model.CharityExamID == null)
         {
             <h3>Phiếu báo thi của bạn chưa được đăng ký vào Hội từ thiện.
-                    <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search">Tìm Hội từ thiện</i></a>
+                    <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search">&nbsp;Tìm Hội từ thiện</i></a>
                 @*@Html.ActionLink("Find one now!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
             </h3>
         }
@@ -36,13 +36,14 @@
             if (Model.GroupID == null && Model.RoomID == null)
             {
             <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội @Model.ChairitiesExam.CharityExamName! 
-                      <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Please confirm to leave them.', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
+                      <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Bạn có muốn rời Hội từ thiện này không?', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
                 @*@Html.ActionLink("Leave them", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
             </h3>
             }
             else
             {
             <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội @Model.ChairitiesExam.CharityExamName!
+                   <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Bạn có muốn rời Hội từ thiện này không?', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
             </h3>
             }
         }

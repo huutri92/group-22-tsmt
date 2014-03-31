@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Manage Venues of University-Examination";
+    ViewBag.Title = "Thông tin địa điểm thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,38 +20,74 @@
     });
 </script>
 
-<h2 class="title_of_page">@ViewBag.Title</h2>
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Address</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
 
-                foreach (var item in Model)
-                {
-                <tr>
-                    <td>@counter</td>
-                    <td>
-                        @item.Address
-                    </td>
-                    <td>
-                        <button onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)">View on Map</button>
-                        @Html.ActionLink("Edit", "EditVenue", new { id = @item.VenueID })
-                        @Html.ActionLink("Delete", "DeleteVenue", new { id = @item.VenueID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })
-                    </td>
-                </tr>
-                    ++counter;
-                }
-            }
-        </tbody>
-    </table>
-    @Html.ActionLink("Create", "AddVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Back to Manage University-Examination", "/ManageUniversityExam", null, new { @class = "btn btn-info" })
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li><a href="@Url.Action("ManageUniversityExam", "Admin")">Thông tin kỳ thi của trường ĐHCĐ</a></li>
+
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AdminSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về địa điểm thi của trường ĐHCĐ
+                <a href="@Url.Action("AddVenue", "Admin", new { id = @ViewData["ueId"] })" class="btn-u btn-u-green"><i class="icon-pencil"></i>&nbsp;Tạo mới</a>
+            </h3>
+            <div class="devider"></div>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Địa điểm thi</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@counter</td>
+                            <td>
+                                @item.Address
+                            </td>
+                            <td>
+                                <button onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</button>
+                                   <a href="@Url.Action("EditVenue", "Admin", new { id = @item.VenueID })"  class="btn-u btn-u-blue">
+                                    <i class="icon-edit"></i>&nbsp;Sửa </a>
+                                @*@Html.ActionLink("Xóa", "DeleteVenue", new { id = @item.VenueID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);" })*@
+                                <a href="@Url.Action("DeleteVenue", "Admin", new { id = @item.VenueID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);">
+                                    <i class="icon-trash"></i>&nbsp;Xóa </a>
+                            </td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+            @*@Html.ActionLink("Tạo mới", "AddVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
+        </div>
+    </div>
+    @*@Html.ActionLink("Quay lại", "/ManageUniversityExam", null, new { @class = "btn btn-info" })*@
+    		 <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-default">
+				 <i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+
 </div>
+

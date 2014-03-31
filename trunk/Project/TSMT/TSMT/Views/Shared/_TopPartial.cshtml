@@ -9,17 +9,23 @@
                 <li>
                     <a>Welcome <strong>@(((Account)Session["acc"]).Profile.Firstname)</strong></a>
                     <i class="icon-angle-down"></i>
-                    <ul class="lenguages" style="vertical-align:middle">
+                    <ul class="lenguages" style="vertical-align: middle">
                         <li>
-                            <a href="@Url.Action("EditAccount","Account", new {id = ((Account)Session["acc"]).AccountID})" style="text-align:center">Thông tin <br /> tài khoản</a>
+                            <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })" style="text-align:center">Thông tin
+                                <br />
+                                tài khoản</a>
                         </li>
-                         <li>
-                            <a href="@Url.Action("ManageExamPaper","Candidate", new {id = ((Account)Session["acc"]).AccountID})"  style="text-align:center">Thông tin <br /> phiếu báo thi</a>
+                        <li>
+                            <a href="@Url.Action("ManageExamPaper", "Candidate", new { id = ((Account)Session["acc"]).AccountID })"  style="text-align:center">Thông tin
+                                <br />
+                                phiếu báo thi</a>
                         </li>
                         <li><a href="#">Đổi mật khẩu</a></li>
-                        <li><a href="@Url.Action("Logout", "Account")" style="text-align:center"><i class="icon-sign-out"></i><b>Thoát</b></a></li>
                     </ul>
-                </li>             
+                </li>      
+                <li class="devider"></li>
+                <li><a href="@Url.Action("Logout", "Account")" style="text-align:center"><i class="icon-sign-out"></i><b style="color:red">Thoát</b></a></li>
+
                   
             }
             else if (Session["acc"] == null)

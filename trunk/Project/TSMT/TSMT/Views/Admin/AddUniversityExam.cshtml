@@ -1,38 +1,49 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+    ViewBag.Title = "Thêm thông tin kỳ thi của trường ĐHCĐ";
 }
 @using TSMT.Models;
 
-<h2 class="title_of_page">Add University Examination</h2>
-@using (Html.BeginForm("AddUniverExam", "Admin", FormMethod.Post))
-{
-    <table>
-        <tr>
-            <td>Trường</td>
-            <td>
-                <select name="UniversityID">
-                    @foreach (var item in ViewData["unis"] as IEnumerable<University>)
-                    {
-                        <option value="@item.UniversityID">@item.Name</option>
-                    }
-                </select></td>
-        </tr>
-        <tr>
-            <td>Kỳ thi</td>
-            <td>
-                <select name="ExaminationID">
-                    @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
-                    {
-                        <option value="@item.ExaminationID">@item.Name</option>
-                    }
-                </select></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Create" class="btn btn-info" />
-                <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversityExam'"/>
-            </td>
-        </tr>
-    </table>
-}
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Thêm thông tin kỳ thi của trường ĐHCĐ
+            </h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("AddUniversityExam", "Admin", FormMethod.Post))
+            {
+                <table class="table table-hover">
+                    <tr>
+                        <td>Trường</td>
+                        <td>
+                            <select name="UniversityID">
+                                @foreach (var item in ViewData["unis"] as IEnumerable<University>)
+                                {
+                                    <option value="@item.UniversityID">@item.Name</option>
+                                }
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Kỳ thi</td>
+                        <td>
+                            <select name="ExaminationID">
+                                @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
+                                {
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Create" class="btn btn-info" />
+                            <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversityExam'" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+

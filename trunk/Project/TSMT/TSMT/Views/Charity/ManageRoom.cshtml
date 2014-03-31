@@ -2,10 +2,11 @@
 @model TSMT.Models.Lodge
 
 @{
+    ViewBag.Title = "Thông tin chỗ trọ của các đợt thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="title_of_page">Manage Lodges of Charity Exam</h2>
+<h2 class="title_of_page">@ViewBag.Title</h2>
 <div class="inner-page-content inner-careers">
     <table class="table table-hover table-bordered ">
         <thead>
@@ -13,7 +14,7 @@
                 <th>STT</th>
                 <th>Tổng số chỗ</th>
                 <th>Số chỗ còn trống</th>
-                <th>Actions</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -38,5 +39,5 @@
         </tbody>
     </table>
 </div>
-@Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Tạo mới", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
 @Html.ActionLink("Back to Manage Lodge", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })

@@ -119,6 +119,7 @@ namespace TSMT.Controllers
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
             ep.CharityExamID = null;
+            ep.LodgeRegisteredID = null;
             db.SaveChanges();
             return RedirectToAction("DetailsExamPaper", new { id = id });
         }
@@ -188,7 +189,7 @@ namespace TSMT.Controllers
             Group g = owner.Group;
 
             // xoa lien ket cua cac thanh vien, ke ca owner doi voi nhom nay.
-            foreach (ExaminationsPaper m in g.ExaminationsPapers) { m.GroupID = null; }
+            foreach (ExaminationsPaper m in g.ExaminationsPapers) { m.GroupID = null;}
 
             // xoa nhom nay
             db.Groups.Remove(g);

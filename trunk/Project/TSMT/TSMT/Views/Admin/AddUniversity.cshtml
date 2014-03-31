@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Tạo thêm trường ĐH/CĐ";
+    ViewBag.Title = "Tạo thêm thông tin cho trường ĐHCĐ";
 }
 
 
@@ -12,7 +12,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
-                <li><a href="@Url.Action("ManageUniversity", "Admin")">Quản lý thông tin trường đại học</a></li>
+                <li><a href="@Url.Action("ManageUniversity", "Admin")">Quản lý thông tin trường ĐHCĐ</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -25,47 +25,45 @@
     <div class="col-md-9">
         <div class="panel panel-red margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list"></i>Tạo thêm trường ĐH/CĐ
+                <h3 class="panel-title"><i class="icon-list"></i>Tạo thêm thông tin cho trường ĐHCĐ
                 </h3>
 
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td>Tên trường</td>
+                        <td style="vertical-align: middle">Tên trường</td>
                         <td>
                             <input type="text" name="Name" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Địa chỉ</td>
+                        <td style="vertical-align: middle">Địa chỉ</td>
                         <td>
-                            <input type="text" name="Address" class="form-control"/></td>
+                            <input type="text" name="Address" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Mã trường</td>
+                        <td style="vertical-align: middle">Mã trường</td>
                         <td>
-                            <input type="text" name="UniversityCode" class="form-control"/></td>
+                            <input type="text" name="UniversityCode" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Website</td>
+                        <td style="vertical-align: middle">Website</td>
                         <td>
-                            <input type="text" name="Website" class="form-control"/></td>
+                            <input type="text" name="Website" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Số điện thoại</td>
+                        <td style="vertical-align: middle">Số điện thoại</td>
                         <td>
-                            <input type="text" name="Phone" class="form-control"/></td>
+                            <input type="text" name="Phone" class="form-control" /></td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                          
-                        </td>
-                    </tr>
+
                 </table>
             </div>
         </div>
-          <input type="submit" value="Create" class="btn btn-info" />
-                            <input type="reset" value="Reset" class="btn btn-info" />
-                            <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversity'" />
+        @*<input type="submit" value="Thêm"  class="btn-u btn-u-sea"/>*@
+        <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Thêm </button>
+        @*<a href="@Url.Action("", "", new { id =  })" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Thêm</a>*@
+        <input type="reset" value="Reset" class="btn btn-info" />
+        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversity'" />
     </div>
 }

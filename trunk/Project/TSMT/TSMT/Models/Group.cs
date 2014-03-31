@@ -20,7 +20,7 @@ namespace TSMT.Models
         }
     
         public int GroupID { get; set; }
-        public int OwnerID { get; set; }
+        public Nullable<int> OwnerID { get; set; }
         public int Quantity { get; set; }
     
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }

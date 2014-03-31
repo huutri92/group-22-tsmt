@@ -26,7 +26,7 @@
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Tất cả thông tin về trường đại học hiện có trong TSMT
-                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
             </h3>
 
         </div>
@@ -35,12 +35,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tên trường</th>
-                        <th>Mã trường</th>
-                        <th>Địa chỉ</th>
+                        <th style="vertical-align:middle">Tên trường</th>
+                        <th style="vertical-align:middle">Mã trường</th>
+                        <th style="vertical-align:middle">Địa chỉ</th>
                       @*  <th>Website</th>
                         <th>Số điện thoại</th>*@
-                        <th>Actions</th>
+                        <th style="vertical-align:middle">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,21 +49,19 @@
                         foreach (var item in Model)
                         {
                         <tr>
-                            <td>@counter</td>
-                            <td>@item.Name</td>
-                            <td>@item.UniversityCode</td>
-                            <td>@item.Address</td>
+                            <td  style="vertical-align:middle">@counter</td>
+                            <td style="vertical-align:middle">@item.Name</td>
+                            <td style="vertical-align:middle">@item.UniversityCode</td>
+                            <td style="vertical-align:middle">@item.Address</td>
                           @*  <td>
                                 <a href="@item.Website">@item.Website</a>
                             </td>
                             <td>@item.Phone</td>*@
                             <td>
-                                @*@Html.ActionLink("Edit", "EditUniversity", new { id = @item.UniversityID })*@
-                                   <a href="@Url.Action("EditUniversity", "Admin", new { id = @item.UniversityID })"  class="btn-u btn-u-blue"><i class="icon-edit"></i> Edit </a>
+                                   <a href="@Url.Action("EditUniversity", "Admin", new { id = @item.UniversityID })"  class="btn-u btn-u-blue"><i class="icon-edit"></i>&nbsp; Sửa </a>
                                 @if (item.IsRemovable)
                                 {
-                                  @*  @Html.ActionLink("Delete", "DeleteUniversity", new { id = @item.UniversityID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })*@
-                                    <a href="@Url.Action("DeleteUniversity", "Admin", new { id = @item.UniversityID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i> Delete </a>
+                                    <a href="@Url.Action("DeleteUniversity", "Admin", new { id = @item.UniversityID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có muốn xóa tất cả thông tin về trường ĐHCĐ này không?', this.href);"><i class="icon-trash"></i>&nbsp;Xóa</a>
                                 }
                             </td>
                         </tr>
@@ -72,9 +70,7 @@
                     }
                 </tbody>
             </table>
-          @*  @Html.ActionLink("Create", "AddUniversity", null, new { @class = "btn btn-info" })
-            @Html.ActionLink("Back to Control Panel", "/", null, new { @class = "btn btn-info" })*@
         </div>
     </div>
-    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left" onclick="history.go(-1);"></i> Trở về </a>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left" onclick="history.go(-1);"></i>&nbsp;Quay lại </a>
 </div>
