@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Add Venue";
+    ViewBag.Title = "Thêm địa điểm thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,11 +12,83 @@
 <script src="/Content/js/gmap_places.js"></script>
 <script src="/Content/js/popup.js"></script>
 
-@using (Html.BeginForm("AddVenue", "Admin", FormMethod.Post, new { id="FormAddVenue" }))
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li><a href="@Url.Action("ManageUniversity", "Admin")">Thông tin các trường ĐHCĐ</a></li>
+                <li><a href="@Url.Action("ManageVenue", "Admin")">Thông tin địa điểm thi</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@*@Html.Partial("_AdminSidebarPartial")*@
+
+@using (Html.BeginForm("AddVenue", "Admin", FormMethod.Post, new { id = "FormAddVenue" }))
 {
-    <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
-    <input type="hidden" id="Longitude" name="Longitude"/>
-    <input type="hidden" id="Latitude" name="Latitude"/>
+                
+    <div class="col-md-12 margin-bottom-5">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="scrollToMe"><i class="icon-list"></i>&nbsp;Thêm địa điểm cho trường ĐHCĐ
+                </h3>
+            </div>
+            <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
+            <input type="hidden" id="Longitude" name="Longitude" />
+            <input type="hidden" id="Latitude" name="Latitude" />
+
+            <table class="table table-hover">
+                <tr style="text-align: center">
+                    <td style="vertical-align: middle">Địa chỉ</td>
+                    <td>
+                        <input type="text" id="Address" name="Address" class="form-control" /></td>
+                    <td>
+                        <input type="button" value="Go there" class="btn-u btn-u-sea margin-bottom-5" onclick="goThere(true)" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12" id="showMap">
+        <div class="row">
+            <div class="col-md-3" style="width: 268px; height: auto">
+                <div class="input-group margin-bottom-5">
+                    <table class="table">
+                        <tr>
+                            <td id="guideMove" colspan="2" style="visibility: hidden; color: red">* Di chuyển marker để thay đổi vị trí</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span id="guideSuggest" style="color: blue; visibility: hidden"># Danh sách địa chỉ gợi ý:</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="suggest"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Thêm" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
+                    <input type="reset" value="Xóa hết" class="btn btn-info" />
+                    @*@Html.ActionLink("Hủy", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
+                </div>
+            </div>
+            <div class="col-md-9" id="map_canvas" style="height: 500px; vertical-align: middle">
+            </div>
+        </div>
+    </div>   
+    <a href="@Url.Action("ManageVenue", "Admin", new { id = @ViewData["ueId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    
+}
+
+
+
+
+@*
     <div id="map_container">
         <div id="panel">
             <table>
@@ -44,10 +116,13 @@
             </div>
         </div>
         <div id="map_canvas"></div>
-    </div>
-}
+    </div>*@
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
+    });
+
     $(document).ready(function () {
         initialize();
 

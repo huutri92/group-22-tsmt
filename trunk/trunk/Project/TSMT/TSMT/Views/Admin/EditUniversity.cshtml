@@ -1,6 +1,6 @@
 ﻿@model TSMT.Models.University
 @{
-    ViewBag.Title = "Edit University";
+    ViewBag.Title = "Thay đổi thông tin trường ĐHCĐ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,7 +14,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
-                <li><a href="@Url.Action("ManageUniversity", "Admin")">Manage Universities</a></li>
+                <li><a href="@Url.Action("ManageUniversity", "Admin")">Thông tin các trường ĐHCĐ</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -30,22 +30,22 @@
     <div class="col-md-9">
         <div class="panel panel-red margin-bottom-40">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-user"></i>Update University Information</h3>
+                <h3 class="panel-title"><i class="icon-user"></i>Thay đổi thông tin trường ĐHCĐ</h3>
             </div>
             <div class="panel-body">
-                <table >
+                <table class="table table-hover">
                     <tr>
-                        <td><b>Name</b></td>
+                        <td><b>Tên trường ĐHCĐ</b></td>
                         <td style="width:auto">
                             <input type="text" name="Name" value="@Model.Name" class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td><b>Address</b></td>
+                        <td><b>Địa chỉ</b></td>
                         <td>
                             <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td><b>UniversityCode</b></td>
+                        <td><b>Mã trường</b></td>
                         <td>
                             <input type="text" name="UniversityCode" value="@Model.UniversityCode" class="form-control"/></td>
                     </tr>
@@ -55,7 +55,7 @@
                             <input type="url" name="Website" value="@Model.Website"  class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td><b>Phone</b></td>
+                        <td><b>Số điện thoại</b></td>
                         <td>
                             <input type="text" name="Phone" value="@Model.Phone" class="form-control"/></td>
                     </tr>

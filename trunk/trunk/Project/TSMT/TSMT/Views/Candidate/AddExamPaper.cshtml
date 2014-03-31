@@ -68,7 +68,7 @@
             {
                 <table class="table table-hover" style="vertical-align: central">
                     <tr>
-                        <td style="width: 100px">Kỳ thi</td>
+                        <td style="width: 100px;vertical-align:middle">Kỳ thi</td>
                         <td>
                             <select name="UniExamID" class="form-control" onchange="getUniversity(this.value)">
                                 <option value="null">Kỳ thi</option>
@@ -81,7 +81,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 100px">Trường</td>
+                        <td style="width: 100px;vertical-align:middle">Trường</td>
                         <td>
                             <select id="uniName" name="uniName" class="form-control" onchange="getVenue(this.value)">
                                 <option value="null">Trường ĐH / CĐ</option>
@@ -89,14 +89,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 100px">Địa điểm thi</td>
+                        <td style="width: 100px;vertical-align:middle">Địa điểm thi</td>
                         <td>
                             <select id="venueID" name="venueID" class="form-control">
                                 @* @foreach (var item in ViewData["venues"] as IEnumerable<Venue>)
                     {
                         <option value="@item.VenueID">@item.Address</option>
                     }*@
-                                <option value="null">Chỗ trọ</option>
+                                <option value="null">Địa điểm thi</option>
                             </select>
                         </td>
                     </tr>

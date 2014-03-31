@@ -57,18 +57,40 @@
     <div class="col-md-12">
         <div class="col-md-3">
             <div class="input-group margin-bottom-5">
-                <label>Tổ chức </label>
-                <select name="ceId" onchange="changeCE(this.value)" class="form-control">
-                    <option value="null">Tất cả tổ chức</option>
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.CharityExamID">@item.CharityExamName</option>
-                    }
-                </select>
+                <table class="table">
+                    <tr>
+                        <td style="vertical-align:middle"><b>Tổ chức </b>
+
+                        </td>
+                        <td>
+                            <select name="ceId" onchange="changeCE(this.value)" class="form-control">
+                                <option value="null">Tất cả tổ chức</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                }
+                            </select></td>
+                    </tr>
+                     <tr>
+                        <td  style="vertical-align:middle"><b>Bán kính</b>
+
+                        </td>
+                        <td>
+                           <div id="radius"></div></td>
+                    </tr>
+                     <tr>
+                        <td colspan="2" style="vertical-align:middle"><b>Danh sách địa chỉ chỗ trọ</b>
+
+                        </td>
+                       
+                    </tr>
+                    <tr> <td colspan="2"><div id="examVenues"></div></td> </tr>
+                </table>
+
+
             </div>
-            <div style="margin-top: 20px;">
-                <div id="radius"></div>
-                <div id="examVenues"></div>
+            <div style="margin-top: 20px;">               
+                
             </div>
         </div>
         <div class="col-md-9" id="map_canvas" style="height: 500px">

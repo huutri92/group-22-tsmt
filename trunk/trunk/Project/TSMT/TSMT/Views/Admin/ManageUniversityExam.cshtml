@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Manage Universities-Examinations";
+    ViewBag.Title = "Thông tin các đợt thi của trường ĐHCĐ";
     ViewBag.Active = "ManageUniversityExam";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -26,8 +26,8 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>All Universities Examination Information
-                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+            <h3 class="panel-title"><i class="icon-list"></i>Tất cả thông tin về kỳ thi của trường ĐHCĐ
+                <a href="@Url.Action("AddUniversityExam", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>&nbsp;Tạo mới</a>
             </h3>
 
         </div>
@@ -36,11 +36,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>University</th>
-                        <th>Examination</th>
-                        <th>Day begin</th>
-                        <th>Day end</th>
-                        <th>Actions</th>
+                        <th>Trường ĐHCĐ</th>
+                        <th>Đợt thi</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,24 +55,19 @@
                             <td>@item.Examination.BeginDate.ToString("dd/MM/yyyy")</td>
                             <td>@item.Examination.EndDate.ToString("dd/MM/yyyy")</td>
                             <td>
-                                @*@Html.ActionLink("Manage Venues", "ManageVenue", new { id = @item.UniExamID })*@
-                                <a href="@Url.Action("ManageVenue", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-yellow"><i class="icon-hand-right"></i>Manage Venues </a>
+                                <a href="@Url.Action("ManageVenue", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-yellow"><i class="icon-hand-right"></i>&nbsp;Địa điểm thi</a>
                                 @if (item.IsRemovable)
                                 {
-@* @Html.ActionLink("Delete", "DeleteUniversityExam", new { id = @item.UniExamID }, new { onclick = "return showPopup('Please confirm to delete it.', this.href);" })*@
-                                    <a href="@Url.Action("DeleteUniversityExam", "Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i>Delete </a>
+                                    <a href="@Url.Action("DeleteUniversityExam", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i>&nbsp;Xóa </a>
                                 }
                             </td>
                         </tr>
                             ++counter;
                         }
-                      
                     }
                 </tbody>
             </table>
-            @*  @Html.ActionLink("Create", "AddUniversityExam", null, new { @class = "btn btn-info" })
-            @Html.ActionLink("Back to Control Panel", "/", null, new { @class = "btn btn-info" })*@
         </div>
     </div>
-    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>Back </a>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
 </div>

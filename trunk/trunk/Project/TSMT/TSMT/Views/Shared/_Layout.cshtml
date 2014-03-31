@@ -118,15 +118,32 @@
     </div>
     <!--/style-switcher-->
     <!--=== End Style Switcher ===-->*@
+    <script type="text/javascript">
+        function toggleDiv() {
+            var duration = 1000;
+            if ($("#left").width() == 0) {
+                $("#left").animate({ width: "30%" }, duration);
+                $("#right").animate({ width: "70%" }, duration);
+            } else {
+                $("#left").animate({ width: "0" }, duration);
+                $("#right").animate({ width: "100%" }, duration);
+            }
+        }
+	</script>
 
+    
 
     @Html.Partial("_TopPartial")
     @Html.Partial("_HeaderPartial")
+   
     @RenderSection("Breadcrumbs", required: false)
+    
 
     <div class="container">
         <div class="row">
+            
             @RenderBody()
+            
         </div>
     </div>
     @Html.Partial("_FooterPartial")

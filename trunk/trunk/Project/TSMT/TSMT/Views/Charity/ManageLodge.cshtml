@@ -2,7 +2,7 @@
 @model TSMT.Models.ChairitiesExam
 
 @{
-    ViewBag.Title = "Manage Lodges of Charity Exam";
+    ViewBag.Title = "Thông tin chỗ trọ của các đợt thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,11 +24,11 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Address</th>
+                        <th>Địa chỉ</th>
                         <th>Tổng số phòng</th>
                         <th>Tổng số chỗ trọ</th>
                         <th>Số chỗ còn trống</th>
-                        <th>Actions</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,13 +63,13 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Address</th>
-                        <th>Sponsor</th>
+                        <th>Địa chỉ</th>
+                        <th>Nhà tài trợ</th>
                         <th>Tổng số phòng</th>
                         <th>Tổng số chỗ trọ</th>
                         <th>Số chỗ còn trống</th>
                         <th>Trạng thái</th>
-                        <th>Actions</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,71 +121,72 @@
             </table>
         </div>
     </div>
-    @Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+</div>
+@Html.ActionLink("Tạo mới", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        function callAjaxApprove(lodgeId) {
-            $.ajax({
-                url: 'ApproveLodge/' + lodgeId,
-                type: 'GET',
-                success: function (results) {
-                    var tr = document.getElementById(lodgeId);
-                    var lastTd = tr.lastElementChild;
-                    var preLastTd = lastTd.previousElementSibling;
+    function callAjaxApprove(lodgeId) {
+        $.ajax({
+            url: 'ApproveLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                var tr = document.getElementById(lodgeId);
+                var lastTd = tr.lastElementChild;
+                var preLastTd = lastTd.previousElementSibling;
 
-                    lastTd.removeChild(lastTd.lastElementChild);
-                    lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
+                lastTd.removeChild(lastTd.lastElementChild);
 
-                    lastTd.lastElementChild.style.display = "inline";
-                    //lastTd.firstElementChild.style.display = "inline";
-                    var spanStatus = preLastTd.lastElementChild;
-                    spanStatus.textContent = "Đã duyệt";
-                    spanStatus.className = "label label-success";
-                }
-            });
-            return false;
-        }
+                lastTd.lastElementChild.style.display = "inline";
+                //lastTd.firstElementChild.style.display = "inline";
+                var spanStatus = preLastTd.lastElementChild;
+                spanStatus.textContent = "Đã duyệt";
+                spanStatus.className = "label label-success";
+            }
+        });
+        return false;
+    }
 
-        function callAjaxDelete(lodgeId) {
-            $.ajax({
-                url: 'DeleteLodge/' + lodgeId,
-                type: 'GET',
-                success: function (results) {
-                    $("#" + lodgeId).hide(800, function () {
-                        $("#" + lodgeId).remove();
-                    });
-                }
-            });
-            return false;
-        }
+    function callAjaxDelete(lodgeId) {
+        $.ajax({
+            url: 'DeleteLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
+                });
+            }
+        });
+        return false;
+    }
 
-        function callAjaxDenie(lodgeId) {
-            $.ajax({
-                url: 'DenieLodge/' + lodgeId,
-                type: 'GET',
-                success: function (results) {
-                    $("#" + lodgeId).hide(800, function () {
-                        $("#" + lodgeId).remove();
-                    });
-                }
-            });
-            return false;
-        }
+    function callAjaxDenie(lodgeId) {
+        $.ajax({
+            url: 'DenieLodge/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
+                });
+            }
+        });
+        return false;
+    }
 
-        function callAjaxRemove(carId) {
+    function callAjaxRemove(carId) {
 
 
-            $.ajax({
-                url: 'RemoveLodge/' + carId,
-                type: 'GET',
-                success: function (results) {
-                    $("#" + carId).hide(800, function () {
-                        $("#" + carId).remove();
-                    });
-                }
-            });
-            return false;
-        }
-    </script>
+        $.ajax({
+            url: 'RemoveLodge/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+            }
+        });
+        return false;
+    }
+</script>
