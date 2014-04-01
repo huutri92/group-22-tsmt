@@ -69,6 +69,8 @@ namespace TSMT.Controllers
                     i.ChairitiesExam = chairitiesExam;
                 }
             }
+            ViewData["LodgesNotSponsored"] = db.Lodges.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID == null);
+            ViewData["LodgesSponsored"] = db.Lodges.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID != null);
             return View(lodges);
         }
 
@@ -93,32 +95,10 @@ namespace TSMT.Controllers
             db.Lodges.Add(lodge);
             db.SaveChanges();
 
-            return RedirectToAction("DetailsLodge", new { lodgeId = lodge.LodgeID });
+            return RedirectToAction("ManageRoom", new { lodgeId = lodge.LodgeID });
 
         }
-        //public ActionResult AddLodgeSimple()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult AddLodgeSimple(FormCollection f)
-        //{
-        //    Lodge l = new Lodge();
-        //    l.Address = f["Address"];
-        //    db.Lodges.Add(l);
-        //    db.SaveChanges();
-
-        //    return RedirectToAction("ManageRoomSimple", new { id = l.LodgeID });
-        //}
-        //public ActionResult ManageRoomSimple(int id) // LodgeID
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult ManageRoomSimple(FormCollection f)
-        //{
-        //    return RedirectToAction("AddRoom", new { lodgeId = lodge.LodgeID });
-        //}
+        
         public ActionResult DeleteLodge(int lodgeId)
         {
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
@@ -137,9 +117,34 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageLodge");
         }
+        public ActionResult DenieLodge(int lodgeId)
+        {
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            lodge.CharityExamID = null;
+            db.SaveChanges();
+            return RedirectToAction("ManageLodge");
+        }
+        
+
+        public ActionResult EditLodgeNotCe(int lodgeId)
+        {
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            return View(lodge);
+        }
+        [HttpPost]
+        public ActionResult EditLodgeNotCe(FormCollection f)
+        {
+            int lodgeId = int.Parse(f["lodgeId"]);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            lodge.Address = f["Address"];
+            db.SaveChanges();
+            return RedirectToAction("ManageLodge");
+
+        }
         public ActionResult EditLodge(int lodgeId)
         {
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
             ViewData["CE"] = db.ChairitiesExams.ToList();
             ViewData["Exam"] = db.Examinations.ToList();
             return View(lodge);
@@ -150,6 +155,22 @@ namespace TSMT.Controllers
             int lodgeId = int.Parse(f["lodgeId"]);
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
             lodge.CharityExamID = int.Parse(f["asd"]);
+            lodge.Address = f["Address"];
+            db.SaveChanges();
+            return RedirectToAction("ManageLodge");
+
+        }
+
+        public ActionResult EditLodgeHasCe(int lodgeId)
+        {
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            return View(lodge);
+        }
+        [HttpPost]
+        public ActionResult EditLodgeHasCe(FormCollection f)
+        {
+            int lodgeId = int.Parse(f["lodgeId"]);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
             lodge.Address = f["Address"];
             db.SaveChanges();
             return RedirectToAction("ManageLodge");
@@ -204,9 +225,9 @@ namespace TSMT.Controllers
             lodge.TotalSlots -= room.TotalSlots;
             lodge.AvailableSlots -= room.AvailableSlots;
 
-            ChairitiesExam ce = lodge.ChairitiesExam;
-            ce.TotalSlotsLodges -= room.TotalSlots;
-            ce.AvailableSlotsLodges -= room.AvailableSlots;
+            //ChairitiesExam ce = lodge.ChairitiesExam;
+            //ce.TotalSlotsLodges -= room.TotalSlots;
+            //ce.AvailableSlotsLodges -= room.AvailableSlots;
 
             db.Rooms.Remove(room);
             db.SaveChanges();
@@ -227,18 +248,19 @@ namespace TSMT.Controllers
             lodge.TotalSlots -= room.TotalSlots;
             lodge.AvailableSlots -= room.AvailableSlots;
 
-            ChairitiesExam ce = lodge.ChairitiesExam;
-            ce.TotalSlotsLodges -= room.TotalSlots;
-            ce.AvailableSlotsLodges -= room.AvailableSlots;
+            //ChairitiesExam ce = lodge.ChairitiesExam;
+            //ce.TotalSlotsLodges -= room.TotalSlots;
+            //ce.AvailableSlotsLodges -= room.AvailableSlots;
 
             room.TotalSlots = int.Parse(f["TotalSlots"]);
+            room.RoomName = f["RoomName"];
             room.AvailableSlots = room.TotalSlots;
 
             lodge.TotalSlots += room.TotalSlots;
             lodge.AvailableSlots += room.AvailableSlots;
 
-            ce.TotalSlotsLodges += room.TotalSlots;
-            ce.AvailableSlotsLodges += room.AvailableSlots;
+            //ce.TotalSlotsLodges += room.TotalSlots;
+            //ce.AvailableSlotsLodges += room.AvailableSlots;
 
             db.SaveChanges();
 
@@ -260,6 +282,8 @@ namespace TSMT.Controllers
                     i.ChairitiesExam = chairitiesExam;
                 }
             }
+            ViewData["CarNotSponsored"] = db.Cars.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID == null);
+            ViewData["CarSponsored"] = db.Cars.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID != null);
             return View(cars);
 
         }
@@ -305,6 +329,34 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageCar");
         }
+        public ActionResult DenieCar(int carId)
+        {
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            car.CharityExamID = null;
+            db.SaveChanges();
+            return RedirectToAction("ManageCar");
+        }
+        
+        public ActionResult EditCarNotCe(int carId)
+        {
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            return View(car);
+        }
+        [HttpPost]
+        public ActionResult EditCarNotCe(FormCollection f)
+        {
+            int carId = int.Parse(f["carId"]);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            car.NumberPlate = f["NumberPlate"];
+            car.TotalSlots = int.Parse(f["TotalSlots"]);
+            car.AvailableSlots = car.TotalSlots;
+            car.DriverName = f["DriverName"];
+            car.DriverPhone = f["DriverPhone"];
+            db.SaveChanges();
+
+            return RedirectToAction("ManageCar");
+        }
+
         public ActionResult EditCar(int carId)
         {
             Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
