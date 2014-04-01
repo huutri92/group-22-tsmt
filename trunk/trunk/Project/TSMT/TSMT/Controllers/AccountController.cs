@@ -72,7 +72,7 @@ namespace TSMT.Controllers
             //if (acc == null) return View();
 
 
-            return Redirect(returnUrl);
+            //return Redirect(returnUrl);
         }
 
 
@@ -285,17 +285,29 @@ namespace TSMT.Controllers
         }
 
         public ActionResult EditAccount(int id)
-        {
+        {            
+            var account = db.Profiles.FirstOrDefault(a => a.AccountID == id);
             ViewData["provinces"] = db.Provinces.ToList();
             ViewData["districts"] = db.Districts.ToList();
-            var account = db.Profiles.FirstOrDefault(a => a.AccountID == id);
             return View(account);
         }
 
         [HttpPost]
         public ActionResult EditAccount(FormCollection f)
         {
-            return View();
+            int accID = int.Parse(f["accID"]);
+            Profile pro = db.Profiles.SingleOrDefault(p => p.AccountID == accID);
+            pro.Lastname = f["lastname"];
+            pro.Firstname = f["firstname"];
+            pro.DateOfBirth = DateTime.Parse(f["dateOfBirth"]);
+            pro.Gender = bool.Parse(f["gender"]);
+            pro.PhoneNumber = f["phonenumber"];
+            pro.Address = f["address"];
+            pro.DistrictID = int.Parse(f["district"]);
+
+            db.SaveChanges();
+            return RedirectToAction("EditAccount", "Account", new {id = accID });
+            
         }
 
         public JsonResult getLocation(int id)
