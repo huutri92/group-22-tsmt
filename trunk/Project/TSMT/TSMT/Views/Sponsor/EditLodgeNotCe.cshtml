@@ -1,0 +1,39 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Lodge
+@{
+    ViewBag.Title = "Thay đổi thông tin chỗ trọ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("EditLodgeNotCe", "Sponsor", FormMethod.Post))
+{
+    
+    <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
+    
+    
+    <div class="col-md-9">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Thay đổi thông tin chỗ trọ
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Địa chỉ</td>
+                        <td>
+                            <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <input type="button"  class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                            <input type="submit" value="Submit" class="btn btn-info" />
+                            <input type="reset" value="Reset" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
