@@ -5,7 +5,7 @@
     ViewBag.Active = "EditAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+ <script type="text/javascript" src="~/Content/js/jquery.js"></script>
 <script type="text/javascript">
     function callAjax(id) {
         $.ajax({
@@ -30,6 +30,10 @@
         document.getElementById('form2').style.display = "inline";
         document.getElementById('form1').style.display = "none";
     }
+
+    $('#btnSubmit').click(function (e) {
+        e.preventDefault();
+    });
 </script>
 
 @section Breadcrumbs {
@@ -40,10 +44,13 @@
     </div>
 }
 
-@Html.Partial("_AccountSidebarPartial")
 
-<div class="col-md-9">
-    <form id="edit" name="edit" method="post" action="/Account/EditAccount">
+
+@Html.Partial("_AccountSidebarPartial")
+@using (Ajax.BeginForm("EditAccount", "Account", null, new AjaxOptions() { UpdateTargetId = "editAccount", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }))
+{
+    <div class="col-md-9" id="editAccount">
+        @*<form id="edit" name="edit" method="post" action="/Account/EditAccount">*@
         <input type="hidden" name="accID" value="@Model.AccountID" />
         <div class="headline">
             <h2>Tài khoản của tôi</h2>
@@ -108,7 +115,7 @@
                     </tr>
                 </table>
             </div>
-            <div id="form2" class="col-md-8" style="display:none">
+            <div id="form2" class="col-md-8" style="display: none">
                 <table class="table">
                     <tr>
                         <td><b>Email: </b></td>
@@ -117,12 +124,12 @@
                     <tr>
                         <td><b>Họ:</b></td>
                         <td>
-                            <input type="text" value="@Model.Lastname" class="form-control"/></td>
+                            <input type="text" name="lastname" value="@Model.Lastname" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td><b>Ten:</b></td>
                         <td>
-                            <input type="text" value="@Model.Firstname" class="form-control"/></td>
+                            <input type="text" name="firstname" value="@Model.Firstname" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td><b>Ngày sinh: </b></td>
@@ -159,34 +166,70 @@
                     <tr>
                         <td><b>Số điện thoại </b></td>
                         <td>
-                            <input type="text" value="@Model.PhoneNumber" class="form-control"/></td>
+                            <input type="text" name="phonenumber" value="@Model.PhoneNumber" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td><b>Địa chỉ: </b></td>
                         <td>
-                            <input type="text" value="@Model.Address" class="form-control"/></td>
+                            <input type="text" name="address" value="@Model.Address" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td><b>Tỉnh/Thành phố:</b></td>
                         <td>
-                            <select id="province" name="province" class="btn" onchange="callAjax(this.value);">
+                            <select id="province" name="province" class="btn" onchange="callAjax(this.value)">
                                 <option value="null" selected>Tỉnh/Thành phố</option>
                                 @foreach (var item in (List<Province>)ViewData["provinces"])
                                 {
                                     <option value="@item.ProvinceID">@item.Name</option>
                                 }
+                                @* @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
+                                {
+                                    if (Model.DistrictID == null)
+                                    {
+                                    <option value="@item.ProvinceID">@item.Name</option>                                        
+                                    }
+                                    else
+                                    {
+                                        if (item.ProvinceID == Model.District.ProvinceID)
+                                        {
+                                    <option value="@item.ProvinceID" selected="selected">@item.Name</option> 
+                                        }
+                                        else
+                                        {
+                                    <option value="@item.ProvinceID">@item.Name</option>  
+                                        }
+                                    }
+                                }*@
                             </select></td>
                     </tr>
                     <tr>
                         <td><b>Quận: </b></td>
                         <td>
                             <select id="district" name="district" class="btn">
-                                <option value="null" selected>Quận</option>
+                                <option value="null" selected>Quận/Huyện</option>
+                                @*@foreach (var item in ViewData["districts"] as IEnumerable<District>)
+                                {
+                                    if (Model.DistrictID == null)
+                                    {
+                                        <option value="@item.DistrictID">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        if (item.DistrictID == Model.DistrictID)
+                                        {
+                                            <option value="@item.DistrictID" selected="selected">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.DistrictID">@item.Name</option>
+                                        }
+                                    }
+                                }*@
                             </select>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="Lưu thay đổi" class="btn btn-info" onclick="showForm1();" />
+                            <input type="submit" id="btnSubmit" value="Lưu thay đổi" class="btn btn-info" onclick="showForm1();" />
                             @*<input type="reset" value="Reset" class="btn btn-info" />*@
                             @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
                         </td>
@@ -200,7 +243,9 @@
         <div class="headline">
             <h2>Thông tin riêng</h2>
         </div>
-    </form>
+        @*</form>*@
 
 
-</div>
+    </div>
+    
+}
