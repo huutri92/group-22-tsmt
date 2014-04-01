@@ -1,6 +1,7 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Car
 @{
+    ViewBag.Title = "EditCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -39,34 +40,70 @@
                         <option value="0" selected  >---</option>
                         @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                         {
-                            <option value="@item.ExaminationID">@item.Name</option>
+                            if (Model.CharityExamID == null)
+                            { 
+                                 <option value="@item.ExaminationID">@item.Name</option>
+                            }
+                            else
+                            {
+                                if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
+                                {
+                                <option value="@item.ExaminationID" selected="selected">@item.Name</option>
+                                }
+                                else
+                                {
+                                <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            }
                         }
                     </select>
                 </td>
                 <td>Tổ Chức: </td>
                 <td>
-                    <select id="asd" name="asd" class="form-control"></select>
+                    <select id="asd" name="asd" class="form-control" >
+                        <option value="0" selected  >---</option>
+                        @foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
+                        {
+                            if (Model.CharityExamID == null)
+                            { 
+                                <option value="@item.CharityExamID">@item.CharityExamName</option>
+                            }
+                            else
+                            {
+                                if (item.CharityExamID == Model.CharityExamID)
+                                {
+                                <option value="@item.CharityExamID" selected="selected">@item.CharityExamName</option>
+                                }
+                                else
+                                {
+                                 <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                }
+                            }
+
+
+                        }
+                    </select>
                 </td>
         </tr>
         <tr>
             <td>Biển số xe</td>
             <td>
-                <input type="text" name="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
+                <input type="text" name="NumberPlate" value="@Model.NumberPlate"  readonly="true" class="form-control"/></td>
         </tr>
         <tr>
             <td>Tổng số chỗ ngồi</td>
             <td>
-                <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
+                <input type="text" name="TotalSlots" value="@Model.TotalSlots"  readonly="true" class="form-control"/></td>
         </tr>
          <tr>
             <td>Tên tài xế</td>
             <td>
-                <input type="text" name="DriverName" value="@Model.DriverName" class="form-control"/></td>
+                <input type="text" name="DriverName" value="@Model.DriverName"  readonly="true" class="form-control"/></td>
         </tr>
          <tr>
             <td>Số điện thoại tài xế</td>
             <td>
-                <input type="text" name="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
+                <input type="text" name="DriverPhone" value="@Model.DriverPhone"  readonly="true" class="form-control"/></td>
         </tr>
         <tr>
             <td colspan="2">
