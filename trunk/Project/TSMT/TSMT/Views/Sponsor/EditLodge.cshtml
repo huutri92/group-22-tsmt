@@ -1,7 +1,7 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Lodge
 @{
-    ViewBag.Title = "Thay đổi thông tin chỗ trọ";
+    ViewBag.Title = "Tài Trợ chỗ trọ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -27,6 +27,8 @@
             });
         }
     }
+
+   
 </script>
 
 
@@ -41,7 +43,6 @@
         <div class="panel panel-green margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list"></i>Thay đổi thông tin chỗ trọ
-                <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
                 </h3>
 
             </div>
@@ -54,24 +55,85 @@
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                                 {
+                                    if (Model.CharityExamID == null)
+                                    { 
                                     <option value="@item.ExaminationID">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
+                                        {
+                                    <option value="@item.ExaminationID" selected="selected">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                        }
+                                    }
                                 }
                             </select>
                         </td>
                         <td>Tổ Chức: </td>
                         <td>
-                            <select id="asd" name="asd" class="form-control"></select>
+                            <select id="asd" name="asd" class="form-control">
+                                <option value="0" selected>---</option>
+                                @foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
+                                {
+                                    if (Model.CharityExamID == null)
+                                    { 
+                                    <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                    }
+                                    else
+                                    {
+                                        if (item.CharityExamID == Model.CharityExamID)
+                                        {
+                                    <option value="@item.CharityExamID" selected="selected">@item.CharityExamName</option>
+                                        }
+                                        else
+                                        {
+                                    <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                        }
+                                    }
+
+
+                                }
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Địa chỉ</td>
-                        <td>
-                            <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
+                        <td colspan="3">
+                            <input  type="text" name="Address" value="@Model.Address" readonly="true" class="form-control"/></td>
                     </tr>
+                    <tr>
+                        <td colspan="4">Vui lòng chọn phòng bên dưới để tài trợ</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>STT</th>
+                        <th>Tên Phòng</th>
+                        <th>Tổng số chỗ</th>
+                        <th></th>
+                    </tr>
+                     @{
+                        int counter = 1;
 
+                        foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                        {
+                        <tr>
+                            <td>
+                                <input  type="checkbox" name ="charityexamid" value="@item.Lodge.CharityExamID" />
+                            </td>
+                            <td>@counter</td>
+                            <td>@item.RoomName</td>
+                            <td>@item.TotalSlots</td>
+                        </tr>
+                            ++counter;
+                        }
+                    }
                     <tr>
                         <td colspan="2">
-                            <input type="button"  class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                            <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
                             <input type="submit" value="Submit" class="btn btn-info" />
                             <input type="reset" value="Reset" class="btn btn-info" />
                         </td>
@@ -81,3 +143,5 @@
         </div>
     </div>
 }
+
+
