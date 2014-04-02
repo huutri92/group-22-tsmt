@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <select id="province" name="province" class="btn" onchange="callAjax(this.value)">
-                                        <option value="null" selected>Tỉnh/Thành phố</option>
+                                        <option value="0" selected>Tỉnh/Thành phố</option>
                                         @foreach (var item in (List<Province>)ViewData["provinces"])
                                         {
                                             <option value="@item.ProvinceID">@item.Name</option>
@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <select id="district" name="district" class="btn">
-                                        <option value="null" selected>Quận/Huyện</option>
+                                        <option value="0" selected>Quận/Huyện</option>
                                     </select>
                                 </div>
                             </div>

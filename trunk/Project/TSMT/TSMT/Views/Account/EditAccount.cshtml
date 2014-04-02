@@ -1,39 +1,42 @@
 ﻿@using TSMT.Models
-
+@*@model TSMT.Models.Profile*@
 @{
     ViewBag.Title = "Thông tin tài khoản";
     ViewBag.Active = "EditAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
- <script type="text/javascript" src="~/Content/js/jquery.js"></script>
 <script type="text/javascript">
-    function callAjax(id) {
-        $.ajax({
-            url: 'getLocationInformation/' + id,
-            type: 'GET',
-            success: function (results) {
-                $("#district").html("");
-                for (i in results) {
-                    var r = results[i];
-                    $("#district").append("<option value=\"" + r.value + "\">" + r.name + "</option>");
+    function getInfo(id) {
+        if (id == 0) {
+            $("#district").html("");
+        }
+        else {
+            $.ajax({
+                url: 'getLocationInformation/' + id,
+                type: 'GET',
+                success: function (results) {
+                    $("#district").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#district").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
-    function showForm1() {
-        document.getElementById('form1').style.display = "inline";
-        document.getElementById('form2').style.display = "none";
-    }
+    //function showForm1() {
+    //    document.getElementById('form1').style.display = "inline";
+    //    document.getElementById('form2').style.display = "none";
+    //}
 
-    function showForm2() {
-        document.getElementById('form2').style.display = "inline";
-        document.getElementById('form1').style.display = "none";
-    }
+    //function showForm2() {
+    //    document.getElementById('form2').style.display = "inline";
+    //    document.getElementById('form1').style.display = "none";
+    //}
 
-    $('#btnSubmit').click(function (e) {
-        e.preventDefault();
-    });
 </script>
 
 @section Breadcrumbs {
@@ -47,48 +50,47 @@
 
 
 @Html.Partial("_AccountSidebarPartial")
-@using (Ajax.BeginForm("EditAccount", "Account", null, new AjaxOptions() { UpdateTargetId = "editAccount", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }))
-{
-    <div class="col-md-9" id="editAccount">
-        @*<form id="edit" name="edit" method="post" action="/Account/EditAccount">*@
-        <input type="hidden" name="accID" value="@Model.AccountID" />
-        <div class="headline">
-            <h2>Tài khoản của tôi</h2>
-        </div>
-        <div class="row">
-            <div id="form1" class="col-md-8">
-                <table class="table">
-                    <tr>
-                        <td><b>Email: </b></td>
-                        <td>@Model.Account.Email</td>
-                    </tr>
-                    <tr>
-                        <td><b>Họ tên: </b></td>
-                        <td>@Model.Lastname @Model.Firstname</td>
-                    </tr>
-                    <tr>
-                        <td><b>Ngày sinh: </b></td>
-                        <td>@Model.DateOfBirth.ToString("dd/MM/yyyy")</td>
-                    </tr>
-                    <tr>
-                        <td><b>Giới tính: </b></td>
-                        <td>@if (Model.Gender == true)
-                            {
-                            @String.Format("{0}", "Nữ");
-                            }
-                            else
-                            { 
-                            @String.Format("{0}", "Nam");
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Số điện thoại: </b></td>
-                        <td>@Model.PhoneNumber</td>
-                    </tr>
-                    <tr>
-                        <td><b>Địa chỉ: </b></td>
-                        <td>@Model.Address,  
+
+<div class="col-md-9" id="editAccount">
+    @*<form id="edit" name="edit" method="post" action="/Account/EditAccount">*@
+    <input type="hidden" name="accID" value="@Model.AccountID" />
+    <div class="headline">
+        <h2>Tài khoản của tôi</h2>
+    </div>
+    <div class="row">
+        @* <div id="form1" class="col-md-8">
+            <table class="table">
+                <tr>
+                    <td><b>Email: </b></td>
+                    <td>@Model.Account.Email</td>
+                </tr>
+                <tr>
+                    <td><b>Họ tên: </b></td>
+                    <td>@Model.Lastname @Model.Firstname</td>
+                </tr>
+                <tr>
+                    <td><b>Ngày sinh: </b></td>
+                    <td>@Model.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td><b>Giới tính: </b></td>
+                    <td>@if (Model.Gender == true)
+                        {
+                        @String.Format("{0}", "Nữ");
+                        }
+                        else
+                        { 
+                        @String.Format("{0}", "Nam");
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Số điện thoại: </b></td>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td><b>Địa chỉ: </b></td>
+                    <td>@Model.Address,  
                         @foreach (var item in (List<District>)ViewData["districts"])
                         {
                             foreach (var item1 in (List<Province>)ViewData["provinces"])
@@ -103,19 +105,22 @@
                                 }
                             }
                         }
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td colspan="2">
-                            <input type="button" value="Thay đổi" class="btn btn-info" onclick="showForm2();" />
-                            @*<input type="reset" value="Reset" class="btn btn-info" />*@
-                            @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div id="form2" class="col-md-8" style="display: none">
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="Thay đổi" class="btn btn-info" onclick="showForm2();" />
+                        <input type="reset" value="Reset" class="btn btn-info"/>
+                        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        *@
+        @using (Ajax.BeginForm("EditAccount", "Account", null, new AjaxOptions() { UpdateTargetId = "editAccount", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }))
+        {
+            <div id="form2" class="col-md-8">
                 <table class="table">
                     <tr>
                         <td><b>Email: </b></td>
@@ -153,14 +158,6 @@
                                 }
 
                             </select>
-                            @*@if (Model.Gender == true)
-                        {
-                            Nữ;
-                        }
-                        else
-                        {
-                            Nam;
-                        }*@
                         </td>
                     </tr>
                     <tr>
@@ -176,9 +173,9 @@
                     <tr>
                         <td><b>Tỉnh/Thành phố:</b></td>
                         <td>
-                            <select id="province" name="province" class="btn" onchange="callAjax(this.value)">
-                                <option value="null" selected>Tỉnh/Thành phố</option>
-                                @foreach (var item in (List<Province>)ViewData["provinces"])
+                            <select id="province" name="province" class="btn" onchange="getInfo(this.value)">
+                                <option value="0" selected>Tỉnh/Thành phố</option>
+                                @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
                                 {
                                     <option value="@item.ProvinceID">@item.Name</option>
                                 }
@@ -206,7 +203,7 @@
                         <td><b>Quận: </b></td>
                         <td>
                             <select id="district" name="district" class="btn">
-                                <option value="null" selected>Quận/Huyện</option>
+                                <option value="0" selected>Quận/Huyện</option>
                                 @*@foreach (var item in ViewData["districts"] as IEnumerable<District>)
                                 {
                                     if (Model.DistrictID == null)
@@ -229,7 +226,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" id="btnSubmit" value="Lưu thay đổi" class="btn btn-info" onclick="showForm1();" />
+                            <input type="submit" id="btnSubmit" value="Lưu thay đổi" class="btn btn-info" />
                             @*<input type="reset" value="Reset" class="btn btn-info" />*@
                             @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
                         </td>
@@ -237,15 +234,11 @@
                 </table>
 
             </div>
-        </div>
-
-
-        <div class="headline">
-            <h2>Thông tin riêng</h2>
-        </div>
-        @*</form>*@
-
-
+        }
     </div>
-    
-}
+    <div class="headline">
+        <h2>Thông tin riêng</h2>
+    </div>
+</div>
+
+
