@@ -197,14 +197,14 @@ namespace TSMT.Controllers
 
         public JsonResult getLocationInformation(int id)
         {
-            var loc = from d in db.Districts
+            var location = from d in db.Districts
                       where d.ProvinceID == id
                       select new
                       {
                           value = d.DistrictID,
                           name = d.Name
                       };
-            return Json(loc, JsonRequestBehavior.AllowGet);
+            return Json(location, JsonRequestBehavior.AllowGet);
         }
 
         public string RandomCode(int codeCount)
@@ -291,7 +291,7 @@ namespace TSMT.Controllers
             ViewData["districts"] = db.Districts.ToList();
             return View(account);
         }
-
+      
         [HttpPost]
         public ActionResult EditAccount(FormCollection f)
         {
