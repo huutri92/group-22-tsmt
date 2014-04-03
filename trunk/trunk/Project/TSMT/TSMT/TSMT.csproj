@@ -438,10 +438,15 @@
     <Content Include="Content\js\highchart.js" />
     <Content Include="Content\js\html5shiv.js" />
     <Content Include="Content\js\isotope.js" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
+    <Content Include="Content\js\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Content\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\js\jquery.prettyPhoto.js" />
     <Content Include="Content\js\jquery.themepunch.plugins.min.js" />
     <Content Include="Content\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\js\jquery.ui.effect-fold.js" />
+    <Content Include="Content\js\jquery.ui.effect.js" />
     <Content Include="Content\js\pages\contact.js" />
     <Content Include="Content\js\pages\index.js" />
     <Content Include="Content\js\pages\portfolio.js" />
