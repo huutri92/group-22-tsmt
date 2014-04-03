@@ -65,12 +65,9 @@ namespace TSMT.Controllers
         # region Charity
         public ActionResult ViewCharity()
         {
-            //var ce = new List<ChairitiesExam>();
             ViewData["Exam"] = db.Examinations.ToList();
-            //int id = 15;
-            //var ce = db.ChairitiesExams.Where(r => r.ExamID == id).ToList();
-
-            return View();
+            var ce = db.ChairitiesExams.ToList();
+            return View(ce);
         }
         
         public JsonResult getCharityWithCondition(int id)
@@ -122,7 +119,10 @@ namespace TSMT.Controllers
             return View();
         }
 
+        #region Filter Charity
+      
 
+        #endregion
 
         #region OLD
         public ActionResult Entrance()

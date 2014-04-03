@@ -4,13 +4,13 @@
 }
 
 @using TSMT.Models
-@model TSMT.Models.DetailsScheduleExam
+@model TSMT.Models.ScheduleExam
 
 <h2 class="title_of_page">@ViewBag.Title</h2>
 
 @using (Html.BeginForm("EditScheduleExam", "Admin", FormMethod.Post))
 {
-    <input type="hidden" name="scheduleExamId" value="@Model.DetailsScheduleExamID"/>
+    <input type="hidden" name="scheduleExamId" value="@Model.ScheduleExamID"/>
     <div class="inner-page-content inner-careers">
         <table class="table table-hover table-bordered ">
             <tr>

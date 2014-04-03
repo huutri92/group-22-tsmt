@@ -13,7 +13,7 @@
         $.ajax({
             url: 'getCharityWithCondition/' + id,
             type: 'GET',
-            success: function (results) {               
+            success: function (results) {
                 $("#charityName").html("");
                 for (i in results) {
                     var r = results[i];
@@ -40,45 +40,75 @@
     </div>
 }
 
+<div class="sorting-block">
+    <ul class="sorting-nav sorting-nav-v1 text-center">
+        <li class="filter" data-filter="all">Tất cả Hội từ thiện </li> 
+        @foreach (var item in (List<Examination>)ViewData["Exam"])
+        {
+            <li class="filter" data-filter="@item.ExaminationID">&nbsp;@item.Name</li>
+        }
+
+    </ul>
+
+    <ul class="row sorting-grid">
+
+        @foreach (var item in Model)
+        {
+            <li class="col-md-3 col-sm-6 col-xs-12 mix @item.ExamID" data-cat="@item.ExamID">
+               <a href="@Url.Action("ViewDetailCharity", "Home", new { id = @item.CharityExamID })">
+                    
+                   <img class="img-responsive" src="~/Content/img/main/11.jpg" alt="">
+
+                    <span class="sorting-cover">
+                        <span>@item.CharityExamName</span>
+                        <p>@item.Description</p>
+                    </span>
+                </a>
+            </li>             
+        }
+
+
+
+    </ul>
+
+    <div class="clearfix"></div>
+</div>
+<!-- End Portfolio Sorting Blocks -->
+
+
+
+
+
+
+
+
+
+
+
+
+@*
 <div class="col-md-12">
     <div class="row margin-bottom-20">
         <div class="col-md-12">
             <div class="headline">
                 <h2>Các Hội từ thiện trong kỳ thi</h2>
 
+
                 <select id="Exam" class="btn" onchange="filterCharity(this.value)">
+                    <option value="0">Tất cả</option>
                     @foreach (var item in (List<Examination>)ViewData["Exam"])
                     {
                         <option value="@item.ExaminationID">@item.Name - Từ @item.BeginDate.ToString("dd/MM/yyyy") đến @item.EndDate.ToString("dd/MM/yyyy")</option>    
                     }
                 </select>
             </div>
-                <div class="row" id="loadCharity">
-                    <div class="col-md-6" id="showCharity">
-                        <div class="search-blocks search-blocks-left-blue" id="changeTheme">
-                            <div class="row">
-                                <div class="col-md-4 search-img">
-                                    <a href="/Home/ViewDetailCharity/12" id="charityID"><label id="charityName"></label>
-@*                                        <img class="img-responsive" src="~/Content/img/new/img1.jpg" alt="">*@</a>
-                                    @*<ul class="list-unstyled">
-                                        <li><i class="icon-briefcase"></i>Dell, Google</li>
-                                        <li><i class="icon-map-marker"></i>New York, US</li>
-                                    </ul>
-                                </div>
-                               <div class="col-md-8">
-                                    <h2><a href="/Home/ViewDetailCharity/" ><label id="charityName"></label></a>
-                                    </h2>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
-                                    <a href="/Home/ViewDetailCharity/" class="btn-u btn-u-default">Chi tiết</a>
-                                </div>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>            
-            @*@foreach (var item in Model)
-            {                                        
-                <div class="row" id="loadCharity">
-                    <div class="col-md-6" id="showCharity">
+
+            <div class="row" id="loadCharity">
+
+                @foreach (var item in Model)
+                {                                        
+                    
+                    <div class="col-md-6">
                         <div class="search-blocks search-blocks-left-blue" id="changeTheme">
                             <div class="row">
                                 <div class="col-md-4 search-img">
@@ -99,13 +129,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-            }*@
+                }
+            </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-
-</script>
+*@
