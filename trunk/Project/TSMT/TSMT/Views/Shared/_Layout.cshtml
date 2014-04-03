@@ -27,12 +27,15 @@
     <link rel="stylesheet" href="~/Content/css/pages/portfolio-v2.css">  
     <link rel="stylesheet" href="~/Content/css/pages/page_one.css">
     <link href="~/Content/css/pages/page_search.css" rel="stylesheet" />
-
-
+    
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <script src="~/Content/js/jquery.ui.effect.js"></script>
+    <script src="~/Content/js/jquery.ui.effect-fold.js"></script>
 
     <script src="~/Content/js/highchart.js"></script>
     <script src="~/Content/js/exporting.js"></script>
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/js/jquery.ui.effect-fold.js"></script>
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
 
     <!-- CSS Theme -->
@@ -128,18 +131,30 @@
     <!--/style-switcher-->
     <!--=== End Style Switcher ===-->*@
     <script type="text/javascript">
-        function toggleDiv() {
-            var duration = 1000;
-            if ($("#hideSidebar").width() == 0) {
-                $("#hideSidebar").animate({ width: "30%" }, duration);
-                $("#showInformation").animate({ width: "70%" }, duration);
-                $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
-            } else {
-                $("#hideSidebar").animate({ width: "-10%" }, duration);
-                $("#showInformation").animate({ width: "100%" }, duration);
-                $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
-            }
-        }
+        //function toggleDiv() {
+        //    var duration = 1000;
+        //    if ($("#hideSidebar").width() == 0) {
+        //        $("#hideSidebar").animate({ width: "30%" }, duration);
+        //        $("#showInformation").animate({ width: "70%" }, duration);
+        //        $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
+        //    } else {
+        //        $("#hideSidebar").animate({ width: "-10%" }, duration);
+        //        $("#showInformation").animate({ width: "100%" }, duration);
+        //        $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
+        //    }
+        //}
+
+        $(document).ready(function(){
+            $("i").click(function () {
+                //if ($("#hideSidebar")[0].style.display = '') {
+                //    $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');                }
+                //else {
+                //    $("#showInformation").toggleClass('col-md-12').toggleClass('col-md-9');
+                //}
+                $("#hideSidebar").toggle("drop");
+
+            });
+        });
     </script>
 
 
@@ -148,7 +163,7 @@
     @Html.Partial("_HeaderPartial")
 
     @RenderSection("Breadcrumbs", required: false)
-    <i class="style-switcher-btn icon-cogs hidden-xs" onclick="toggleDiv()"></i>
+    <i class="style-switcher-btn icon-cogs hidden-xs" id="clickToHide" "></i>
 
     <div class="container">
         <div class="row">
