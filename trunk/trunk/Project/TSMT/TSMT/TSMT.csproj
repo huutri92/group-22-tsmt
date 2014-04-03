@@ -2417,6 +2417,23 @@
     <Content Include="Views\Admin\ManualAssignToCar.cshtml" />
     <Content Include="Views\Admin\ManualAssignToRoom.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditLodgeHasCe.cshtml" />
+    <Content Include="Views\Sponsor\EditLodgeNotCe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditCarNotCe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\AddNewCar.cshtml" />
+    <Content Include="Views\Sponsor\AddNewFund.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\DetailsFund.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_FilterCharityPartial.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

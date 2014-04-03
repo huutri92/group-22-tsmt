@@ -24,10 +24,11 @@
     <link rel="stylesheet" href="~/Content/plugins/fancybox/source/jquery.fancybox.css">
     <link rel="stylesheet" href="~/Content/plugins/revolution_slider/rs-plugin/css/settings.css" type="text/css" media="screen">
     <!-- CSS Theme -->
+    <link rel="stylesheet" href="~/Content/css/pages/portfolio-v2.css">  
     <link rel="stylesheet" href="~/Content/css/pages/page_one.css">
     <link href="~/Content/css/pages/page_search.css" rel="stylesheet" />
 
-    
+
 
     <script src="~/Content/js/highchart.js"></script>
     <script src="~/Content/js/exporting.js"></script>
@@ -89,6 +90,14 @@
     <script type="text/javascript" src="~/Content/plugins/bxslider/jquery.bxslider.js"></script>
     <script type="text/javascript" src="~/Content/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
     <script type="text/javascript" src="~/Content/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script type="text/javascript" src="~/Content/plugins/jquery.mixitup.min.js"></script>
+    <!-- JS Page Level -->
+    <script type="text/javascript" src="~/Content/js/app.js"></script>
+    <script type="text/javascript" src="~/Content/js/pages/portfolio.js"></script>
+
+
     <!-- JS Page Level -->
     <script type="text/javascript" src="~/Content/js/app.js"></script>
     <script type="text/javascript" src="~/Content/js/pages/index.js"></script>
@@ -97,7 +106,7 @@
 
 </head>
 <body class="boxed-layout container">
-   @* <!--=== Style Switcher ===-->
+    @* <!--=== Style Switcher ===-->
     <i class="style-switcher-btn icon-cogs hidden-xs"></i>
     <div class="style-switcher">
         <div class="theme-close"><i class="icon-remove"></i></div>
@@ -121,29 +130,31 @@
     <script type="text/javascript">
         function toggleDiv() {
             var duration = 1000;
-            if ($("#left").width() == 0) {
-                $("#left").animate({ width: "30%" }, duration);
-                $("#right").animate({ width: "70%" }, duration);
+            if ($("#hideSidebar").width() == 0) {
+                $("#hideSidebar").animate({ width: "30%" }, duration);
+                $("#showInformation").animate({ width: "70%" }, duration);
+                $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
             } else {
-                $("#left").animate({ width: "0" }, duration);
-                $("#right").animate({ width: "100%" }, duration);
+                $("#hideSidebar").animate({ width: "-10%" }, duration);
+                $("#showInformation").animate({ width: "100%" }, duration);
+                $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12');
             }
         }
-	</script>
+    </script>
 
-    
+
 
     @Html.Partial("_TopPartial")
     @Html.Partial("_HeaderPartial")
-   
+
     @RenderSection("Breadcrumbs", required: false)
-    
+    <i class="style-switcher-btn icon-cogs hidden-xs" onclick="toggleDiv()"></i>
 
     <div class="container">
         <div class="row">
-            
+
             @RenderBody()
-            
+
         </div>
     </div>
     @Html.Partial("_FooterPartial")
@@ -153,6 +164,7 @@
     <script type="text/javascript">
         jQuery(document).ready(function () {
             App.init();
+            Portfolio.init();
             App.initSliders();
             App.initFancybox();
             App.initBxSlider();

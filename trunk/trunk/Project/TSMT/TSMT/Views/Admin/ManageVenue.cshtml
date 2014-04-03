@@ -69,7 +69,8 @@
                                 @item.Address
                             </td>
                             <td>
-                                <button onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</button>
+                                <a href="#" onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</a>
+                                @*<button onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</button>*@
                                    <a href="@Url.Action("EditVenue", "Admin", new { id = @item.VenueID })"  class="btn-u btn-u-blue">
                                     <i class="icon-edit"></i>&nbsp;Sửa </a>
                                 @*@Html.ActionLink("Xóa", "DeleteVenue", new { id = @item.VenueID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);" })*@

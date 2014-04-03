@@ -10,10 +10,11 @@
     function getInfo(id) {
         if (id == 0) {
             $("#district").html("");
+            $("#district").append("<option value='0' selected>Quận/Huyện</option>");
         }
         else {
             $.ajax({
-                url: 'getLocationInformation/' + id,
+                url: '/Account/getLocationInformation/' + id,
                 type: 'GET',
                 success: function (results) {
                     $("#district").html("");
@@ -27,15 +28,15 @@
         }
     }
 
-    //function showForm1() {
-    //    document.getElementById('form1').style.display = "inline";
-    //    document.getElementById('form2').style.display = "none";
-    //}
+    function showForm1() {
+        document.getElementById('form1').style.display = "inline";
+        document.getElementById('form2').style.display = "none";
+    }
 
-    //function showForm2() {
-    //    document.getElementById('form2').style.display = "inline";
-    //    document.getElementById('form1').style.display = "none";
-    //}
+    function showForm2() {
+        document.getElementById('form2').style.display = "inline";
+        document.getElementById('form1').style.display = "none";
+    }
 
 </script>
 
@@ -53,12 +54,11 @@
 
 <div class="col-md-9" id="editAccount">
     @*<form id="edit" name="edit" method="post" action="/Account/EditAccount">*@
-    <input type="hidden" name="accID" value="@Model.AccountID" />
     <div class="headline">
         <h2>Tài khoản của tôi</h2>
     </div>
     <div class="row">
-        @* <div id="form1" class="col-md-8">
+        <div id="form1" class="col-md-8">
             <table class="table">
                 <tr>
                     <td><b>Email: </b></td>
@@ -111,16 +111,18 @@
                 <tr>
                     <td colspan="2">
                         <input type="button" value="Thay đổi" class="btn btn-info" onclick="showForm2();" />
-                        <input type="reset" value="Reset" class="btn btn-info"/>
+                        <input type="reset" value="Reset" class="btn btn-info" />
                         <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />
                     </td>
                 </tr>
             </table>
         </div>
-        *@
+
         @using (Ajax.BeginForm("EditAccount", "Account", null, new AjaxOptions() { UpdateTargetId = "editAccount", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }))
         {
-            <div id="form2" class="col-md-8">
+            <input type="hidden" name="accID" value="@Model.AccountID" />
+            
+            <div id="form2" class="col-md-8" style="display: none">
                 <table class="table">
                     <tr>
                         <td><b>Email: </b></td>
@@ -139,7 +141,7 @@
                     <tr>
                         <td><b>Ngày sinh: </b></td>
                         <td>
-                            <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto" value="@Model.DateOfBirth.ToString("dd/MM/yyyy")">
+                            <input id="dateOfBirth" name="dateOfBirth" type="date" class="form-control" style="width: auto" value="@Model.DateOfBirth.ToString()">
                         </td>
                     </tr>
                     <tr>
@@ -175,11 +177,11 @@
                         <td>
                             <select id="province" name="province" class="btn" onchange="getInfo(this.value)">
                                 <option value="0" selected>Tỉnh/Thành phố</option>
-                                @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
+                                @*     @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
                                 {
                                     <option value="@item.ProvinceID">@item.Name</option>
-                                }
-                                @* @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
+                                }*@
+                                @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
                                 {
                                     if (Model.DistrictID == null)
                                     {
@@ -196,7 +198,7 @@
                                     <option value="@item.ProvinceID">@item.Name</option>  
                                         }
                                     }
-                                }*@
+                                }
                             </select></td>
                     </tr>
                     <tr>
@@ -204,24 +206,24 @@
                         <td>
                             <select id="district" name="district" class="btn">
                                 <option value="0" selected>Quận/Huyện</option>
-                                @*@foreach (var item in ViewData["districts"] as IEnumerable<District>)
+                                @foreach (var item in ViewData["districts"] as IEnumerable<District>)
                                 {
                                     if (Model.DistrictID == null)
                                     {
-                                        <option value="@item.DistrictID">@item.Name</option>
+                                    <option value="@item.DistrictID">@item.Name</option>
                                     }
                                     else
                                     {
                                         if (item.DistrictID == Model.DistrictID)
                                         {
-                                            <option value="@item.DistrictID" selected="selected">@item.Name</option>
+                                    <option value="@item.DistrictID" selected="selected">@item.Name</option>
                                         }
                                         else
                                         {
-                                            <option value="@item.DistrictID">@item.Name</option>
+                                    <option value="@item.DistrictID">@item.Name</option>
                                         }
                                     }
-                                }*@
+                                }
                             </select>
                     </tr>
                     <tr>

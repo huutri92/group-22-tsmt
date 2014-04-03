@@ -1,7 +1,7 @@
 ﻿<!--Begin Sidebar Menu-->
-<i class="style-switcher-btn icon-cogs hidden-xs" onclick="toggleDiv()"></i>
+@*<i class="style-switcher-btn icon-cogs hidden-xs" onclick="toggleDiv()"></i>*@
 @*<i class="style-switcher-btn icon-cogs hidden-xs" onclick="$('#hide').toggle('slow'); return false;"></i>*@
-<div class="col-md-3" id="left">
+<div class="col-md-3" id="hideSidebar">
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
@@ -17,10 +17,10 @@
     </div>
 </div>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         $("i").click(function () {
-            if ($("#hide")[0].style.display == '' || $("#hide")[0].style.display == 'block') {
+            if ($("#hideSidebar")[0].style.display == '' || $("#hideSidebar")[0].style.display == 'block') {
                 $("#showInformation").animate({ width: '100%' }, 'normal', function () {
                     $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12')
                 })
@@ -29,20 +29,7 @@
                     $("#showInformation").toggleClass('col-md-9').toggleClass('col-md-12')
                 })
             }
-            $("#hide").toggle('normal');
+            $("#hideSidebar").toggle('normal');
         });
     });
-</script>
-
-  <script type="text/javascript">
-      function toggleDiv() {
-          var duration = 1000;
-          if ($("#left").width() == 0) {
-              $("#left").animate({ width: "30%" }, duration);
-              $("#right").animate({ width: "70%" }, duration);
-          } else {
-              $("#left").animate({ width: "0" }, duration);
-              $("#right").animate({ width: "100%" }, duration);
-          }
-      }
-	</script>
+</script>*@
