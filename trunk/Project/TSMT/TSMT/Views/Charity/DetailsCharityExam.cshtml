@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @Html.Partial("_CharitySidebarPartial")
+
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về Hội từ thiện - Kỳ thi
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về kỳ thi c
                 <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
             </h3>
 
@@ -17,23 +19,23 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td>Kỳ thi</td>
+                    <td>Đợt thi</td>
                     <td>@Model.Examination.Name</td>
                 </tr>
                 <tr>
-                    <td>Total slots Lodges</td>
+                    <td>Tổng số chỗ trọ</td>
                     <td>@Model.TotalSlotsLodges</td>
                 </tr>
                 <tr>
-                    <td>Available slots Lodges</td>
+                    <td>Số chỗ trọ còn trống</td>
                     <td>@Model.AvailableSlotsLodges</td>
                 </tr>
                 <tr>
-                    <td>Total slots Vehicles</td>
+                    <td>Tổng số chỗ ngồi trên xe</td>
                     <td>@Model.TotalSlotsVehicles</td>
                 </tr>
                 <tr>
-                    <td>Available slots Vehicles</td>
+                    <td>Số chỗ ngồi còn trống</td>
                     <td>@Model.AvailableSlotsVehicles</td>
                 </tr>
             </table>
@@ -43,28 +45,28 @@
         </div>
     </div>
     <div class="row servive-block margin-bottom-10">
-        <a href="@Url.Action("ManageSponsor", "Charity", new { ceId = @Model.CharityExamID })">
+        @* <a href="@Url.Action("ManageSponsor", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageSponsor</h4>
+                    <h4>Quản lý Tài trợ</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
-        </a>
+        </a>*@
         <a href="@Url.Action("ManageVolunteer", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageVolunteer</h4>
+                    <h4>Quản lý Tình nguyện viên</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
         </a>
-        <a href="@Url.Action("ManageCandidate", "Charity", new { ceId = @Model.CharityExamID })">
+        <a href="@Url.Action("ManageCandidate", "Charity", new { id = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageCandidate</h4>
+                    <h4>Quản lý Thí sinh</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
@@ -73,133 +75,32 @@
         <a href="@Url.Action("ManageLodge", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageLodge</h4>
+                    <h4>Quản lý Chỗ trọ</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
         </a>
+
+    </div>
+    <div class="row servive-block margin-bottom-10">
         <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageCar</h4>
+                    <h4>Quản lý Xe</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
         </a>
-        <a href="@Url.Action("ManageFund", "Charity", new { ceId = @Model.CharityExamID })">
+        <a href="@Url.Action("ManageFunds", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageSponsor</h4>
+                    <h4>Quản lý Tiền được tài trợ</h4>
                     <div><i class="icon-flag"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
         </a>
-        <a href="@Url.Action("AssignToRoom", "Charity", new { ceId = @Model.CharityExamID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>ManageSponsor</h4>
-                    <div><i class="icon-flag"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-        <a href="@Url.Action("AssignToCar", "Charity", new { ceId = @Model.CharityExamID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>AssignToCar</h4>
-                    <div><i class="icon-flag"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-    </div>
 
-
-    <div class="service-one">
-        <div class="service-one-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-one">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Sponsors", "ManageSponsor", new { ceId = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-two">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Volunteers", "ManageVolunteer", new { ceId = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-three">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Candidates", "ManageCandidate", new { id = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-one">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Lodges", "ManageLodge", new { ceId = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-two">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Cars", "ManageCar", new { ceId = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-three">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Manage Funds", "ManageFund", new { ceId = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-one">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Assign Rooms", "AssignToRoom", new { id = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="s-one-item sitem-two">
-                            <i class="icon-gear"></i>
-                            <div class="s-one-caption">
-                                <h4>@Html.ActionLink("Assign Cars", "AssignToCar", new { id = @Model.CharityExamID })</h4>
-                                <p>Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>

@@ -12,18 +12,13 @@ namespace TSMT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Group
+    public partial class GroupRequest
     {
-        public Group()
-        {
-            this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
-        }
+        public int ID { get; set; }
+        public int ActiveID { get; set; }
+        public int ReceiveID { get; set; }
     
-        public int GroupID { get; set; }
-        public int OwnerID { get; set; }
-        public int Quantity { get; set; }
-    
-        public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
-        public virtual ExaminationsPaper Owner { get; set; }
+        public virtual ExaminationsPaper Active { get; set; }
+        public virtual ExaminationsPaper Receive { get; set; }
     }
 }

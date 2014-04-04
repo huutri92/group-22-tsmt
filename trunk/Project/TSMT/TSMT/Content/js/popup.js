@@ -38,6 +38,9 @@ $(document).ready(function () {
             } else if (tempt == "removeOut") {
                 callAjaxRemove(id);
             }
+            else if (tempt == "removeOutCe") {
+                callAjaxRemoveOutCe(id);
+            }
             $('#dialog-overlay, #dialog-box').fadeOut("slow");
             return false;
         } else {

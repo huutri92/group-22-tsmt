@@ -11,9 +11,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Mã số nhóm</th>
-                <th>Số lượng</th>
-                <th>Thao tác</th>
+                <th>Group ID</th>
+                <th>Quantity</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,5 +38,5 @@
     </table>
 </div>
 
-@Html.ActionLink("Tạo mới", "AddGroup", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Create", "AddGroup", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 @Html.ActionLink("Back to Manage Candidates", "ManageCandidate", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })

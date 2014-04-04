@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <h2 class="title_of_page">Edit Car</h2>
 @using (Html.BeginForm("EditCar", "Charity", FormMethod.Post))
 {
@@ -24,11 +24,12 @@
             <td>
                 <input type="text" name="DriverName" value="@Model.DriverName"/></td>
         </tr>
-         <tr>
+        <tr>
             <td>Số điện thoại tài xế</td>
             <td>
                 <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
         </tr>
+        
         <tr>
             <td colspan="2">
                 <input type="submit" value="Submit" class="btn btn-info" />

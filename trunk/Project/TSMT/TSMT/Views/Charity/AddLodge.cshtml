@@ -1,5 +1,5 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.ChairitiesExam
+@model TSMT.Models.Charity
 @{
     ViewBag.Title = "Add Lodge";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,12 +15,13 @@
 
 @using (Html.BeginForm("AddLodge", "Charity", FormMethod.Post, new { id = "FormAddLodge" }))
 {
-    <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
+    <input type="hidden" name="ceId" value="@Model.CharityID"/>
     <input type="hidden" id="Longitude" name="Longitude" />
     <input type="hidden" id="Latitude" name="Latitude" />
     <div id="map_container">
         <div id="panel">
             <table>
+
                 <tr>
                     <td>Address</td>
                     <td>
@@ -41,7 +42,7 @@
             <div id="controls">
                 <input type="submit" value="Add" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
                 <input type="reset" value="Reset" class="btn btn-info" />
-                @Html.ActionLink("Cancel", "ManageLodge", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Cancel", "ManageLodgeCharity", new { id = @Model.CharityID }, new { @class = "btn btn-info" })
             </div>
         </div>
         <div id="map_canvas"></div>

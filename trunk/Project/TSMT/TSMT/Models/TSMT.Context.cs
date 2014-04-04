@@ -38,6 +38,7 @@ namespace TSMT.Models
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<ExaminationsPaper> ExaminationsPapers { get; set; }
         public DbSet<Fund> Funds { get; set; }
+        public DbSet<GroupRequest> GroupRequests { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lodge> Lodges { get; set; }
         public DbSet<Profile> Profiles { get; set; }

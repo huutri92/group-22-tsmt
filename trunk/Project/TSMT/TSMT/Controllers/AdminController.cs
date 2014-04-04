@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,14 +25,207 @@ namespace TSMT.Controllers
         {
             return View();
         }
+        public ActionResult ImportData()
+        {
+            return View();
+        }
+
+        public ActionResult Importexcel(HttpPostedFileBase file)
+        {
+            if (Request.Files["FileUpload"].ContentLength > 0)
+            {
+                string fileExtension = Path.GetExtension(Request.Files["FileUpload"].FileName);
+
+                if (fileExtension == ".xls" || fileExtension == ".xlsx")
+                {
+
+                    // Create a folder in App_Data named ExcelFiles because you need to save the file temporarily location and getting data from there. 
+                    string fileLocation = string.Format("{0}/{1}", Server.MapPath("~/Content/UploadedFolder"), Request.Files["FileUpload"].FileName);
+
+                    if (System.IO.File.Exists(fileLocation))
+                        System.IO.File.Delete(fileLocation);
+
+                    Request.Files["FileUpload"].SaveAs(fileLocation);
+                    string excelConnectionString = string.Empty;
+
+                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //connection String for xls file format.
+                    if (fileExtension == ".xls")
+                    {
+                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //connection String for xlsx file format.
+                    else if (fileExtension == ".xlsx")
+                    {
+
+                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    }
+
+
+
+                    //Create Connection to Excel work book and add oledb namespace
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                    excelConnection.Open();
+                    DataTable dt = new DataTable();
+
+                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    if (dt == null)
+                    {
+                        return null;
+                    }
+
+                    String[] excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+                    DataSet ds = new DataSet();
+
+                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                    {
+                        dataAdapter.Fill(ds);
+                    }
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        University uni = new University();
+                        if (ds.Tables[0].Rows[i]["Name"].ToString() != "")
+                        {
+                            uni.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        if (ds.Tables[0].Rows[i]["Address"].ToString() != "")
+                        {
+                            uni.Address = ds.Tables[0].Rows[i]["Address"].ToString();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        uni.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "" ? ds.Tables[0].Rows[i]["UniversityCode"].ToString() : null;
+                        uni.Website = ds.Tables[0].Rows[i]["Website"].ToString() != "" ? ds.Tables[0].Rows[i]["Website"].ToString() : null;
+                        uni.Phone = int.Parse(ds.Tables[0].Rows[i]["Phone"].ToString());
+                        uni.IsRemovable = false;
+                        db.Universities.Add(uni);
+                        db.SaveChanges();
+                    }
+                    //ViewBag.message = "Information saved successfully.";
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "Plese select Excel File.");
+                }
+            }
+
+            return RedirectToAction("ManageUniversity");
+        }
+        [HttpPost]
+        public JsonResult ReviewDataImported(HttpPostedFileBase file)
+        {
+            ImportFromExcel model = new ImportFromExcel();
+            if (Request.Files["FileUpload"].ContentLength > 0)
+            {
+                string fileExtension = Path.GetExtension(Request.Files["FileUpload"].FileName);
+
+                if (fileExtension == ".xls" || fileExtension == ".xlsx")
+                {
+
+                    // Create a folder in App_Data named ExcelFiles because you need to save the file temporarily location and getting data from there. 
+                    string fileLocation = string.Format("{0}/{1}", Server.MapPath("~/Content/UploadedFolder"),
+                        Request.Files["FileUpload"].FileName);
+
+                    if (System.IO.File.Exists(fileLocation))
+                        System.IO.File.Delete(fileLocation);
+
+                    Request.Files["FileUpload"].SaveAs(fileLocation);
+                    string excelConnectionString = string.Empty;
+
+                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation +
+                                            ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //connection String for xls file format.
+                    if (fileExtension == ".xls")
+                    {
+                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation +
+                                                ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                    }
+                    //connection String for xlsx file format.
+                    else if (fileExtension == ".xlsx")
+                    {
+
+                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation +
+                                                ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    }
+
+
+
+                    //Create Connection to Excel work book and add oledb namespace
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                    excelConnection.Open();
+                    DataTable dt = new DataTable();
+
+                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    if (dt == null)
+                    {
+                        return null;
+                    }
+
+                    String[] excelSheets = new String[dt.Rows.Count];
+                    int t = 0;
+                    //excel data saves in temp file here.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        excelSheets[t] = row["TABLE_NAME"].ToString();
+                        t++;
+                    }
+                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+                    DataSet ds = new DataSet();
+
+                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                    {
+                        dataAdapter.Fill(ds);
+                    }
+
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        model.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                        model.Address = ds.Tables[0].Rows[i]["Address"].ToString();
+                        model.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString();
+                        model.Website = ds.Tables[0].Rows[i]["Website"].ToString();
+                        model.Phone = int.Parse(ds.Tables[0].Rows[i]["Phone"].ToString());
+                        model.IsRemovable = false;
+                    }
+                }
+
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
 
         #region Manual-Assign
-        public ActionResult ManualAssignToRoom()
+        public ActionResult ModelManualAssignToRoom()
         {
             ViewData["listRoom"] = db.Rooms.ToList();
             ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
             return View();
         }
+        public ActionResult ManualAssignToRoom()
+        {
+            //ViewData["listRoom"] = db.Rooms.Where(r=>r.LodgeID == lodgeId).ToList();
+            //ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
+            ViewData["listLodges"] = db.Lodges.ToList();
+            return View();
+        }
+
+
+
         public ActionResult ManualAssignToCar()
         {
             ViewData["listCar"] = db.Cars.ToList();
@@ -37,10 +233,36 @@ namespace TSMT.Controllers
             ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CarID == null && r.VolunteerID == null).ToList();
             return View();
         }
-        public JsonResult ResultAjaxRoom(int id)
+
+        public JsonResult ResultAjaxLodgeRoom(int id)
+        {
+            var exPaper = from r in db.Rooms
+                          where r.LodgeID == id
+                          select new
+                          {
+                              value = r.RoomID,
+                              name = r.RoomName,
+                              capacity = r.AvailableSlots
+                          };
+            return Json(exPaper, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ResultAjaxLodgeCandidate(int id)
         {
             var exPaper = from r in db.ExaminationsPapers
-                          where r.RoomID == id
+                          where r.LodgeRegisteredID == id && r.RoomID == null
+                          select new
+                          {
+                              value = r.CandidateID,
+                              name = r.Candidate.Account.Profile.Lastname
+                          };
+            return Json(exPaper, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ResultAjaxRoom(int id, int lodgeId)
+        {
+            var exPaper = from r in db.ExaminationsPapers
+                          where r.RoomID == id && r.LodgeRegisteredID == lodgeId
                           select new
                           {
                               value = r.CandidateID,

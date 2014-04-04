@@ -2,10 +2,10 @@
 @model TSMT.Models.ChairitiesExam
 
 @{
-    ViewBag.Title = "Thông tin chỗ trọ của các đợt thi";
+    ViewBag.Title = "Manage Lodges of Charity Exam";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <script src="/Content/js/ViewOnMap.js"></script>
 <script>
     $(document).ready(function () {
@@ -24,11 +24,11 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Địa chỉ</th>
+                        <th>Address</th>
                         <th>Tổng số phòng</th>
                         <th>Tổng số chỗ trọ</th>
                         <th>Số chỗ còn trống</th>
-                        <th>Thao tác</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,14 +40,14 @@
                         <tr id="@item.LodgeID">
                             <td>@counter</td>
                             <td>@item.Address</td>
-                            <td>@item.TotalRooms</td>
-                            <td>@item.TotalSlots</td>
+                            <td>@item.Rooms.Count(r => r.CharityExamID != null)</td>
+                            <td>@item.TotalSlotsInUsed</td>
                             <td>@item.AvailableSlots</td>
                             <td>
                                 <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
-                                @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
-                                @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
+                                @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
+                               @* @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
+                                @Html.ActionLink("Xóa", "RemoveLodgeOutCe", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOutCe' );" })
                             </td>
 
                         </tr>
@@ -63,13 +63,13 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Địa chỉ</th>
-                        <th>Nhà tài trợ</th>
+                        <th>Address</th>
+                        <th>Sponsor</th>
                         <th>Tổng số phòng</th>
                         <th>Tổng số chỗ trọ</th>
                         <th>Số chỗ còn trống</th>
                         <th>Trạng thái</th>
-                        <th>Thao tác</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,8 +86,8 @@
                                 @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
                                 }
                             </td>
-                            <td>@item.TotalRooms</td>
-                            <td>@item.TotalSlots</td>
+                            <td>@item.Rooms.Count(r => r.CharityExamID == Model.CharityExamID)</td>
+                            <td>@item.TotalSlotsInUsed</td>
                             <td>@item.AvailableSlots</td>
                             @if (item.IsApproved && item.SponsorID != null)
                             {
@@ -95,17 +95,17 @@
                                 <td>
                                     @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
                                     <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                    @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
                                     @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
 
                                 </td>
                             }
-                            else if (!item.IsApproved && item.SponsorID != null)
+                            else if (!item.IsApproved && item.SponsorID != null)    
                             {
                                 <td><span class="label label-danger">Chưa duyệt</span></td>
                                 <td>
                                     <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                    @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
+                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
                                     @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
                                     @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID + ")" })
                                     @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })
@@ -122,7 +122,7 @@
         </div>
     </div>
 </div>
-@Html.ActionLink("Tạo mới", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+@*@Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
 @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <script type="text/javascript">
@@ -175,15 +175,30 @@
         return false;
     }
 
-    function callAjaxRemove(carId) {
+    function callAjaxRemove(lodgeId) {
 
 
         $.ajax({
-            url: 'RemoveLodge/' + carId,
+            url: 'RemoveLodge/' + lodgeId,
             type: 'GET',
             success: function (results) {
-                $("#" + carId).hide(800, function () {
-                    $("#" + carId).remove();
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
+                });
+            }
+        });
+        return false;
+    }
+    
+    function callAjaxRemoveOutCe(lodgeId) {
+
+
+        $.ajax({
+            url: 'RemoveLodgeOutCe/' + lodgeId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + lodgeId).hide(800, function () {
+                    $("#" + lodgeId).remove();
                 });
             }
         });

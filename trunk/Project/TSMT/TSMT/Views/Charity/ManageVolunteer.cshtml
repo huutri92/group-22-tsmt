@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>
 <script>
@@ -79,7 +79,7 @@
                     <th onclick="sortBy('voName', this)" class="order orderDes orderHidden">Tên sinh viên</th>
                     <th onclick="sortBy('job', this)" class="order orderDes orderHidden">Công việc</th>
                     <th>Thông tin cá nhân</th>
-                    <th>Thao tác</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +101,7 @@
                 <th>Job</th>
                 <th>Description</th>
                 <th>Trạng thái</th>
-                <th>Thao tác</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

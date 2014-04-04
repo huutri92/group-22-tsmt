@@ -183,6 +183,10 @@
     <Compile Include="Models\Group.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupRequest.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImportFromExcel.cs" />
     <Compile Include="Models\Lodge.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
@@ -2398,6 +2402,43 @@
     <Content Include="Views\Candidate\JoinInGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Admin\ManualAssignToCar.cshtml" />
+    <Content Include="Views\Admin\ManualAssignToRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditLodgeHasCe.cshtml" />
+    <Content Include="Views\Sponsor\EditLodgeNotCe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\EditCarNotCe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\AddNewCar.cshtml" />
+    <Content Include="Views\Sponsor\AddNewFund.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\DetailsFund.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_FilterCharityPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsor\ViewLodge.cshtml" />
+    <Content Include="Views\Sponsor\ViewStatistic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\ImportData.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\AssignCarCE.cshtml" />
+    <Content Include="Views\Charity\AssignCarsToCe.cshtml" />
+    <Content Include="Views\Charity\AssignLodgetoCe.cshtml" />
+    <Content Include="Views\Charity\DetailLodgeCE.cshtml" />
+    <Content Include="Views\Charity\ManageCarCharity.cshtml" />
+    <Content Include="Views\Charity\ManageCE.cshtml" />
+    <Content Include="Views\Charity\ManageLodgeCharity.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
@@ -2419,25 +2460,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\ManualAssignToCar.cshtml" />
-    <Content Include="Views\Admin\ManualAssignToRoom.cshtml" />
+    <Content Include="Views\Candidate\FindFriend.cshtml" />
+    <Content Include="Views\Candidate\ViewGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Sponsor\EditLodgeHasCe.cshtml" />
-    <Content Include="Views\Sponsor\EditLodgeNotCe.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Sponsor\EditCarNotCe.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Sponsor\AddNewCar.cshtml" />
-    <Content Include="Views\Sponsor\AddNewFund.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Sponsor\DetailsFund.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_FilterCharityPartial.cshtml" />
+    <Content Include="Views\Charity\DetailsCarCharity.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
