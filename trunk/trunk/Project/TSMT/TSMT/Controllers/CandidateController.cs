@@ -79,9 +79,53 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageExamPaper");
         }
-        public ActionResult DetailsExamPaper(int id)
+        public ActionResult DetailsExamPaper(int id) // epID
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+
+            if (ep.GroupID == null) // has no group --> can ask, or being invited with a Group
+            {
+                Group g = new Group();
+                List<Group> actives = new List<Group>();
+                List<Group> receives = new List<Group>();
+
+                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id))
+                {
+                    g = db.Groups.SingleOrDefault(r => r.OwnerID == gr.ReceiveID);
+                    actives.Add(g);
+                }
+
+                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ReceiveID == id))
+                {
+                    g = db.Groups.SingleOrDefault(r => r.OwnerID == gr.ActiveID);
+                    receives.Add(g);
+                }
+
+                ViewData["actives"] = actives;
+                ViewData["receives"] = receives;
+            }
+            else // has group --> can invite, or being asked with a Candidate
+            {
+                ExaminationsPaper e = new ExaminationsPaper();
+                List<ExaminationsPaper> actives = new List<ExaminationsPaper>();
+                List<ExaminationsPaper> receives = new List<ExaminationsPaper>();
+
+                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == ep.Group.OwnerID))
+                {
+                    e = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == gr.ReceiveID);
+                    actives.Add(e);
+                }
+
+                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ReceiveID == ep.Group.OwnerID))
+                {
+                    e = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == gr.ActiveID);
+                    receives.Add(e);
+                }
+
+                ViewData["actives"] = actives;
+                ViewData["receives"] = receives;
+            }
+
             return View(ep);
         }
         #endregion
@@ -131,67 +175,117 @@ namespace TSMT.Controllers
             ViewData["members"] = ep.Group.ExaminationsPapers;
             return View(ep);
         }
-        public ActionResult CreateGroup(int id)
+        public ActionResult FindFriend(int id)
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            var eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == ep.LodgeRegisteredID && r.ExamPaperID != ep.ExamPaperID);
 
-            Group g = new Group();
-            g.OwnerID = id;
-            g.Quantity = 1;
-            db.Groups.Add(g);
-
-            ep.GroupID = g.GroupID;
-            db.SaveChanges();
-
-            return RedirectToAction("DetailsExamPaper", new { id = id });
-        }
-        public ActionResult JoinInGroup(int id)
-        {
-            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
-            var eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == ep.LodgeRegisteredID);
-            ViewData["ep"] = ep;
-            return View(eps);
-        }
-        [HttpPost]
-        public ActionResult JoinInGroup(FormCollection f)
-        {
-            int epId = int.Parse(f["epId"]);
-            int gId = int.Parse(f["gId"]);
-
-            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == epId);
-            Group g = db.Groups.SingleOrDefault(r => r.GroupID == gId);
-
-            // kiem tra gioi tinh
-            if (ep.Candidate.Account.Profile.Gender != g.Owner.Candidate.Account.Profile.Gender)
+            if (ep.GroupID != null)
             {
-                return RedirectToAction("JoinInGroup", new { id = epId });
+                List<GroupRequest> grs = new List<GroupRequest>();
+                foreach (ExaminationsPaper e in eps)
+                {
+                    var links = from r in db.GroupRequests
+                                where (r.ActiveID == e.ExamPaperID && r.ReceiveID == ep.Group.OwnerID)
+                                    || (r.ActiveID == ep.Group.OwnerID && r.ReceiveID == e.ExamPaperID)
+                                select r;
+                    foreach (GroupRequest gr in links) grs.Add(gr);
+                }
+                ViewData["grs"] = grs;
             }
 
-            ep.GroupID = gId;
-            ++g.Quantity;
+            ViewData["eps"] = eps;
+            return View(ep);
+        }
+        public ActionResult DeleteRequest(int id, int ownerID) // deny u join g
+        {
+            // Two way to delete:
+            // 1. One parameter
+            if (ownerID == -1)
+            {
+                GroupRequest gr = db.GroupRequests.SingleOrDefault(r => r.ID == id);
+                db.GroupRequests.Remove(gr);
+                db.SaveChanges();
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
+            }
+
+            // 2. Two parameters
+            GroupRequest active = db.GroupRequests.SingleOrDefault(r => r.ActiveID == id && r.ReceiveID == ownerID);
+            if (active != null) db.GroupRequests.Remove(active);
+
+            GroupRequest receive = db.GroupRequests.SingleOrDefault(r => r.ActiveID == ownerID && r.ReceiveID == id);
+            if (receive != null) db.GroupRequests.Remove(receive);
+
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+        public ActionResult AcceptRequest(int id, int ownerID) // u join g
+        {
+            ExaminationsPaper u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            ExaminationsPaper owner = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == ownerID);
+            u.GroupID = owner.GroupID;
+            ++owner.Group.Quantity;
+
+            foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id || r.ReceiveID == id))
+                db.GroupRequests.Remove(gr);
             db.SaveChanges();
 
-            return RedirectToAction("ViewGroup", new { id = epId });
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
-        public ActionResult LeaveGroup(int id) // Permission: thanh vien cua nhom va ko pai la owner.
+        public ActionResult InviteToGroup(int id, int oID) // u invite o
+        {
+            ExaminationsPaper u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+
+            if (u.GroupID == null) // u has no group
+            {
+                Group g = new Group();
+                g.OwnerID = id; // create new group
+                g.Quantity = 1;
+                db.Groups.Add(g);
+                db.SaveChanges();
+                u.GroupID = g.GroupID; // set u as owner
+                db.SaveChanges();
+                u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            }
+
+            GroupRequest gr = new GroupRequest();
+            gr.ActiveID = u.Group.OwnerID;
+            gr.ReceiveID = oID;
+            db.GroupRequests.Add(gr);
+            db.SaveChanges();
+
+            return RedirectToAction("FindFriend", new { id = id });
+        }
+        public ActionResult AskToJoinGroup(int id, int oID) // u ask to join to o's group
+        {
+            GroupRequest gr = new GroupRequest();
+            gr.ActiveID = id;
+            gr.ReceiveID = oID;
+            db.GroupRequests.Add(gr);
+            db.SaveChanges();
+
+            return RedirectToAction("FindFriend", new { id = id });
+        }
+        public ActionResult LeaveGroup(int id) // Permission: only team member, except owner
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
-
-            --ep.Group.Quantity;
+            Group g = ep.Group;
             ep.GroupID = null;
+            --g.Quantity;
             db.SaveChanges();
 
             return RedirectToAction("DetailsExamPaper", new { id = id });
         }
-        public ActionResult DeleteGroup(int id) // Permission: owner.
+        public ActionResult DeleteGroup(int id) // permission: owner only.
         {
             ExaminationsPaper owner = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
             Group g = owner.Group;
 
-            // xoa lien ket cua cac thanh vien, ke ca owner doi voi nhom nay.
-            foreach (ExaminationsPaper m in g.ExaminationsPapers) { m.GroupID = null;}
-
-            // xoa nhom nay
+            // clear all link between group members (owner included) and the group
+            foreach (ExaminationsPaper m in g.ExaminationsPapers) m.GroupID = null;
+            // clear all group request in or out this group
+            foreach (GroupRequest m in db.GroupRequests.Where(r => r.ActiveID == id || r.ReceiveID == id)) db.GroupRequests.Remove(m);
+            // remove the group
             db.Groups.Remove(g);
             db.SaveChanges();
 

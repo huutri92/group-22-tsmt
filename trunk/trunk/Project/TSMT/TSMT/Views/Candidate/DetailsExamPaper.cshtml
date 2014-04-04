@@ -112,15 +112,59 @@
                     <tr>
                         <td>Nhóm bạn</td>
                         <td>
-                            @if (Model.GroupID == null)
+                              @if (Model.GroupID != null) // has group --> can invite, or being asked with a Candidate
                             {
-                                @Html.ActionLink("Tạo nhóm", "CreateGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                <text>Nhóm @Model.GroupID </text>
+                                @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
+                                {
+                                @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                }
+                                else // is member
+                                { 
+                                @Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                }
+                                @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+
+                                foreach (ExaminationsPaper e in ViewData["actives"] as IEnumerable<ExaminationsPaper>)
+                                {
+                                    <text><br />Nhóm đã mời @e.Candidate.Account.Profile.Lastname @e.Candidate.Account.Profile.Firstname vào nhóm</text>
+                                    if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
+                                    {
+                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                    }
+                                }
+                                
+                                foreach (ExaminationsPaper e in ViewData["receives"] as IEnumerable<ExaminationsPaper>)
+                                {
+                                    <text><br />@e.Candidate.Account.Profile.Lastname @e.Candidate.Account.Profile.Firstname đã đề nghị được tham gia nhóm</text>
+                                    if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
+                                    {
+                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                    }
+                                }
                             }
-                            else
+                            else // has no group --> can ask, or being invited with a Group
                             {
-                                @Html.ActionLink("Xem nhóm", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                <text>#Chưa có nhóm# </text>
+                                @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+
+                                foreach (Group g in ViewData["actives"] as IEnumerable<Group>)
+                                {
+                                    <text><br />Bạn đã gửi lời đề nghị được tham gia vào nhóm @g.GroupID</text>
+                                    @Html.ActionLink("Huỷ", "DeleteRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
+                                }
+
+                                foreach (Group g in ViewData["receives"] as IEnumerable<Group>)
+                                {
+                                    <text><br />Nhóm @g.GroupID đã mời bạn tham gia nhóm</text>
+                                    @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Từ chối", "DeleteRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
+                                }
                             }
-                            @Html.ActionLink("Tìm kiếm bạn bè", "JoinInGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })</td>
+                        </td>
                     </tr>
                 </table>
             </div>

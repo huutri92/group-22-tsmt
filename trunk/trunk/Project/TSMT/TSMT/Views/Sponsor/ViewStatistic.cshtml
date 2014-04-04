@@ -1,0 +1,268 @@
+﻿@using TSMT.Models
+@{
+    ViewBag.Title = "ViewStatistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/js/highchart.js"></script>
+<script src="~/Content/js/exporting.js"></script>
+
+<script type="text/javascript">
+    function callAjax(id) {
+        if (id == 0) {
+            $("#ceId").html("");
+        }
+        else {
+            $.ajax({
+                url: 'ResultAjax',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#ceId").html("");
+                    $("#ceId").append("<option>------</option>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#ceId").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                    }
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $("#ceId").click(function () {
+            var ceId = document.getElementById("ceId").value;
+            $.ajax({
+                url: 'ShowCar',
+                data: { "ceId": ceId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showcar").html("");
+                    $("#showcar").append("<tr>");
+                    $("#showcar").append("<td>Biển Số Xe</td>");
+                    $("#showcar").append("<td>Tổng Số Chỗ Ngồi</td>");
+                    $("#showcar").append("<td>Số Chỗ Ngồi Còn Trống</td>");
+                    $("#showcar").append("</tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showcar").append("<tr>");
+                        $("#showcar").append("<td  value=\"" + r.value + "\">" + r["NumberPlate"] + "</td>");
+                        $("#showcar").append("<td class=\"totalslots\" value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
+                        $("#showcar").append("<td class=\"totalavaslots\" value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
+                        $("#showcar").append("</tr>");
+
+                    }
+                }
+            });
+
+            $.ajax({
+                url: 'ShowLodge',
+                data: { "ceId": ceId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showlodge").html("");
+                    $("#showlodge").append("<tr>");
+                    $("#showlodge").append("<td>Địa Chỉ</td>");
+                    $("#showlodge").append("<td>Tổng Số Chỗ</td>");
+                    $("#showlodge").append("<td>Số Chỗ Ở Còn Trống</td>");
+                    $("#showlodge").append("</tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showlodge").append("<tr>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["Address"] + "</td>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
+                        $("#showlodge").append("</tr>");
+                    }
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#seesponsor").click(function () {
+            var ceId = document.getElementById("ceId").value;
+            $.ajax({
+                url: 'ShowCarSponsor',
+                data: { "ceId": ceId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showcar").html("");
+                    $("#showcar").append("<tr>");
+                    $("#showcar").append("<td>Biển Số Xe</td>");
+                    $("#showcar").append("<td>Tổng Số Chỗ Ngồi</td>");
+                    $("#showcar").append("<td>Số Chỗ Ngồi Còn Trống</td>");
+                    $("#showcar").append("</tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showcar").append("<tr>");
+                        $("#showcar").append("<td value=\"" + r.value + "\">" + r["NumberPlate"] + "</td>");
+                        $("#showcar").append("<td value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
+                        $("#showcar").append("<td value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
+                        $("#showcar").append("</tr>");
+
+                    }
+                }
+            });
+
+            $.ajax({
+                url: 'ShowLodgeSponsor',
+                data: { "ceId": ceId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showlodge").html("");
+                    $("#showlodge").append("<tr>");
+                    $("#showlodge").append("<td>Địa Chỉ</td>");
+                    $("#showlodge").append("<td>Tổng Số Chỗ</td>");
+                    $("#showlodge").append("<td>Số Chỗ Ở Còn Trống</td>");
+                    $("#showlodge").append("</tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showlodge").append("<tr>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["Address"] + "</td>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
+                        $("#showlodge").append("<td value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
+                        $("#showlodge").append("</tr>");
+                    }
+                }
+            });
+
+            $.ajax({
+                url: 'ShowFundSponsor',
+                data: { "ceId": ceId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showfund").html("");
+                    $("#showfund").append("<tr>");
+                    $("#showfund").append("<td>Số Tiền</td>");
+                    $("#showfund").append("</tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showfund").append("<tr>");
+                        $("#showfund").append("<td id=\"fund1\" value=\"" + r.value + "\">" + r["FundSponsored"] + "</td>");
+                        $("#showfund").append("</tr>");
+                    }
+                }
+            });
+
+        });
+    });
+
+
+    function showForm1() {
+        document.getElementById('Resource').style.display = "inline";
+        document.getElementById('fund2').style.display = "none";
+    }
+    function showForm2() {
+        document.getElementById('Resource').style.display = "inline";
+        document.getElementById('fund2').style.display = "inline";
+    }
+    
+    function viewcarstatistic() {
+        var length = document.getElementsByClassName("totalslots").length;
+        var TotalCar = 0;
+        var TotalAvaCar = 0;
+        var TotalUsedCar = 0;
+        for (var i = 0; i < length; i++) {
+            var countslots = parseInt(document.getElementsByClassName("totalslots")[i].textContent);
+            var countavaslots = parseInt(document.getElementsByClassName("totalavaslots")[i].textContent);
+            TotalCar += countslots;
+            TotalAvaCar += countavaslots;
+        }
+        TotalUsedCar = TotalCar - TotalAvaCar;
+
+        $('#chart').highcharts({
+
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Thống Kê Số Chỗ Ngồi Trên Xe'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Phần trăm',
+                data: [
+                    ['Tổng Số Chỗ Đã Đăng Ký ' + '(' + TotalUsedCar + '/' + TotalCar + ')', TotalUsedCar],
+                    ['Tổng Số Chỗ Còn Trống ' + '(' + TotalAvaCar + '/' + TotalCar + ')', TotalAvaCar]
+
+                ]
+            }]
+        });
+    }
+    $("#fund1").priceFormat({ prefix: '', centsLimit: 0 });
+</script>
+<h2>Xem Thống Kê</h2>
+<table>
+    <tr>
+        <td>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</td>
+    </tr>
+    <tr>
+        <td>Kì Thi </td>
+        <td>
+            <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                <option value="0" selected>---</option>
+                @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                {
+                    <option value="@item.ExaminationID">@item.Name</option>
+                }
+            </select>
+        </td>
+        <td>Tổ Chức: </td>
+        <td>
+            <select id="ceId" onchange="showForm1()" name="ceId" class="form-control"></select>
+        </td>
+    </tr>
+    <tr>
+        @* <td>
+            <input type="button" value="Xem Thống Kê Của Hội Này" name="Xem Thống Kê" id="seeallce" onclick="showForm1();" />
+        </td>
+        <td>
+            <input type="button" value="Xem Thống Kê Những Gì Tôi Đã Tài Trợ Cho Hội Này" name="Xem Thống Kê" id="seesponsor" onclick="showForm2();" />
+        </td>*@
+    </tr>
+</table>
+
+<div id="Resource" style="display: none">
+    <h3>Xe</h3>
+    <table class="table table-hover">
+        <tbody id="showcar">
+        </tbody>
+    </table>
+    <h3>Nhà</h3>
+    <table class="table table-hover">
+        <tbody id="showlodge">
+        </tbody>
+    </table>
+    <div id="fund2" style="display: none">
+        <h3>Tiền</h3>
+        <table class="table table-hover">
+            <tbody id="showfund">
+            </tbody>
+        </table>
+    </div>
+    <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+<input type="button" value="Xem Thống Kê Xe" name="Xem Thống Kê"  onclick="viewcarstatistic();" />
+@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
+
+
+

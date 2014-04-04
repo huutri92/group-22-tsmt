@@ -25,11 +25,11 @@
     </tr>
     <tr>
         <td>Tổng số phòng</td>
-        <td>@Model.TotalRooms</td>
+        <td>@Model.Rooms.Count(r => r.CharityExamID != null)</td>
     </tr>
     <tr>
         <td>Tổng số chỗ trọ</td>
-        <td>@Model.TotalSlots</td>
+        <td>@Model.TotalSlotsInUsed</td>
     </tr>
     <tr>
         <td>Số chỗ còn trống</td>
@@ -62,7 +62,7 @@
                 <th>Tên phòng</th>
                 <th>Tổng số chỗ</th>
                 <th>Số chỗ còn trống</th>
-                <th>Actions</th>
+                @*<th>Actions</th>*@
             </tr>
         </thead>
         <tbody>
@@ -76,11 +76,11 @@
                         <td>@item.RoomName</td>
                         <td>@item.TotalSlots</td>
                         <td>@item.AvailableSlots</td>
-                        <td>
-                            @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
+@*                        <td>
+                            
                             @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
                             @Html.ActionLink("Delete", "DeleteRoom", new { id = @item.RoomID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
-                        </td>
+                        </td>*@
                     </tr>
                     ++counter;
                 }
@@ -88,8 +88,8 @@
         </tbody>
     </table>
 </div>
-@Html.ActionLink("Tạo phòng", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
-@Html.ActionLink("Trở về trang quản lý nhà trọ", "ManageLodgeCharity", "", new { @class = "btn btn-info" })
+@*@Html.ActionLink("Tạo phòng", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })*@
+@Html.ActionLink("Trở về", "ManageLodge", new { ceId = @Model.CharityExamID }, new { @class = "btn btn-info" })
 
 <script>
     //function DeleteConfirm() {

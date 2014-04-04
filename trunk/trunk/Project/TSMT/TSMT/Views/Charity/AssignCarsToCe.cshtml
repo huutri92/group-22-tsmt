@@ -1,0 +1,142 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Charity
+@{
+    ViewBag.Title = "Chọn xe cho hội từ thiện";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#saveall").click(function () {
+            var eId;
+            var carId ="";
+            //var lodgeId = document.getElementById("lodgeId").value;
+            var cId = document.getElementById("charityid").value;
+            $("[id*=tableroom] input:checked").each(function () {
+
+                carId += $(this).val() + "-";
+                
+            });
+            if (carId != "") {
+                eId = parseInt(document.getElementById("qwe").value);
+                $.ajax({
+                    url: 'AssignCarstoCe',
+                    data: { "eId": eId, "carId": carId, "cId": cId },
+                    type: 'POST',
+                    success: function (results) {
+                        window.location.assign("@Url.Content("~/Charity/ManageCarCharity")");
+
+                    }
+                });
+            } else {
+                eId = 0;
+                alert("No item has been selected.");
+            }
+
+        });
+    });
+
+
+
+</script>
+
+
+
+
+@*<input type="hidden" id="lodgeId" value="@Model.LodgeID"/>*@
+
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thay đổi thông tin chỗ trọ
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <tr>
+                    <td>Dùng Cho: </td>
+                    <td>
+                        <select id="qwe" class="form-control">
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {                                
+                                <option value="@item.ExaminationID">@item.Name</option>                                                               
+                            }
+                        </select>
+                    </td>
+                  @*  <td>Tổ Chức: </td>
+                    <td>
+                        <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control" >
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
+                            {
+                                if (Model.CharityExamID == null)
+                                { 
+                                <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                }
+                                else
+                                {
+                                    if (item.CharityExamID == Model.CharityExamID)
+                                    {
+                                <option value="@item.CharityExamID" selected="selected">@item.CharityExamName</option>
+                                    }
+                                    else
+                                    {
+                                <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                    }
+                                }
+
+
+                            }
+                        </select>
+                    </td>*@
+                    <input type="hidden"  value="@Model.CharityID" id ="charityid" />
+                </tr>
+                <tr>
+                    <td colspan="4">Vui lòng chọn xe bên dưới để sử dụng cho kì thi</td>
+                </tr>
+
+
+              
+            </table>
+            <table id="tableroom" class="table table-hover">
+                <tr>
+                    <td></td>
+                    <td>STT</td>
+                    <td>Biển Số Xe</td>
+                    <td>Tổng Số Chỗ</td>
+                </tr>
+                @{
+                    int counter = 1;
+
+                    foreach (var item in ViewData["Cars"] as IEnumerable<Car>)
+                    {
+                           
+                    <tr>
+                        <td>
+                            <input class="carid"   type="checkbox" name ="charityexamid" value="@item.CarID" />
+                        </td>
+                        <td>@counter</td>
+                        <td>@item.NumberPlate</td>
+                        <td>@item.TotalSlots</td>
+                    </tr>
+                        ++counter;
+                    }
+                }
+                  <tr>
+                    <td colspan="4">
+                        <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                        <input type="submit" value="Submit" class="btn btn-info" id="saveall" />
+                        <input type="reset" value="Reset" class="btn btn-info" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

@@ -3,7 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <link href="/Content/css/gmap_places.css" rel="stylesheet">
 <link href="/Content/css/popup.css" rel="stylesheet">
 <script src="/Content/js/jquery.js"></script>
@@ -11,9 +10,9 @@
 <script src="/Content/js/gmap_places.js"></script>
 <script src="/Content/js/popup.js"></script>
 
-@using (Html.BeginForm("EditLodge", "Charity", FormMethod.Post, new { id="FormEditVenue" }))
+@using (Html.BeginForm("EditLodge", "Charity", FormMethod.Post, new { id = "FormEditLodge" }))
 {
-    <input type="hidden" name="veId" value="@Model.LodgeID"/>
+    <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
     <input type="hidden" id="Longitude" name="Longitude" value="@Model.Longitude"/>
     <input type="hidden" id="Latitude" name="Latitude" value="@Model.Latitude"/>
     <div id="map_container">
@@ -38,7 +37,7 @@
             <div id="suggest"></div>
             <div id="controls">
                 <input type="submit" value="Submit" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
-                @Html.ActionLink("Cancel", "ManageLodge", new { id = @Model.CharityExamID}, new { @class = "btn btn-info" })
+                @Html.ActionLink("Cancel", "ManageLodgeCharity","", new { @class = "btn btn-info" })
             </div>
         </div>
         <div id="map_canvas"></div>
@@ -54,7 +53,7 @@
         $('.popup-confirm').click(function () {
             $("#Longitude").val(marker.getPosition().lng());
             $("#Latitude").val(marker.getPosition().lat());
-            $("#FormEditVenue").submit();
+            $("#FormEditLodge").submit();
         });
     });
 </script>

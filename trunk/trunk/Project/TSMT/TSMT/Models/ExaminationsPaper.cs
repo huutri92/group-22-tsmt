@@ -16,6 +16,8 @@ namespace TSMT.Models
     {
         public ExaminationsPaper()
         {
+            this.Actives = new HashSet<GroupRequest>();
+            this.Receives = new HashSet<GroupRequest>();
             this.Groups = new HashSet<Group>();
             this.SchedulesVolunteers = new HashSet<SchedulesVolunteer>();
         }
@@ -40,6 +42,8 @@ namespace TSMT.Models
         public virtual Room Room { get; set; }
         public virtual Venue Venue { get; set; }
         public virtual UniversitiesExamination UniversitiesExamination { get; set; }
+        public virtual ICollection<GroupRequest> Actives { get; set; }
+        public virtual ICollection<GroupRequest> Receives { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<SchedulesVolunteer> SchedulesVolunteers { get; set; }
     }

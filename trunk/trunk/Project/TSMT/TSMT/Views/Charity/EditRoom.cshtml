@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <h2 class="title_of_page">Edit Room</h2>
 @using (Html.BeginForm("EditRoom", "Charity", FormMethod.Post))
 {

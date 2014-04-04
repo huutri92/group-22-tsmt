@@ -4,7 +4,7 @@
 
 
 
-
+@Html.Partial("_CharitySidebarPartial")
 
 <!DOCTYPE html>
 
@@ -54,7 +54,16 @@
             <!--<div id="routeIndexInfo"></div>-->
             <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
             </div>
+            @*<div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
+            </div>*@
             <div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
+                <div><div>Tổng quãng đường :</div>
+                    <div  id="TotalDistance"></div>
+                </div>
+                
+                <div><div>Thời gian dự kiến:</div>
+                    <div  id="TotalTime"></div>
+                </div>
             </div>
             @*<h3>Distances by permutations</h3><span id="total"></span>
 		<h3>Best way</h3><span id="result"></span>*@
@@ -113,7 +122,7 @@
         var map = new google.maps.Map(map_canvas, map_options)
 
         directionsDisplay.setMap(map);
-        directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+        //directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
         //google.maps.event.addListener(directionsDisplay, 'directions_changed', function () {
         //    computeTotalDistance(directionsDisplay.getDirections());
@@ -287,8 +296,15 @@
 
                     //myJSONText = JSON.stringify(route);
                     //alert(myJSONText);
-
-
+                    var totalDistance;
+                    var totalTime;
+                    var routeDistance = response.routes[0];
+                    for (var i = 0; i < routeDistance.legs.length; i++) {
+                        totalDistance += routeDistance.legs[i].distance.value;
+                        
+                    }
+                    $('#TotalDistance').innerHTML = totalDistance;
+                    
                     //route[0] = response.routes[0];
                 }
             });

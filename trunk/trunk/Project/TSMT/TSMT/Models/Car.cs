@@ -29,9 +29,14 @@ namespace TSMT.Models
         public string DriverName { get; set; }
         public string DriverPhone { get; set; }
         public bool IsApproved { get; set; }
+        public Nullable<int> CharityID { get; set; }
+        public Nullable<int> LodgeID { get; set; }
+        public Nullable<int> VenueID { get; set; }
     
         public virtual ChairitiesExam ChairitiesExam { get; set; }
+        public virtual Lodge Lodge { get; set; }
         public virtual Sponsor Sponsor { get; set; }
+        public virtual Venue Venue { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual ICollection<SchedulesCar> SchedulesCars { get; set; }
     }

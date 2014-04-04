@@ -8,27 +8,21 @@
 <h2>ManualAssign</h2>
 <select id="capaRoomA" style="display: none">
     <option>Chọn phòng</option>
-    @foreach (var item in ViewData["listRoom"] as IEnumerable<Room>)
-    {
-        <option value="@item.AvailableSlots">@item.AvailableSlots</option>
-    }
 </select>
 <select id="capaRoomB" style="display: none">
     <option>Chọn phòng</option>
-    @foreach (var item in ViewData["listRoom"] as IEnumerable<Room>)
-    {
-        <option value="@item.AvailableSlots">@item.AvailableSlots</option>
-    }
+
 </select>
 <script>
-    function callAjax(id, cbbId,cbbRoomA,cbbRoomB) {
-        if (document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex==document.getElementById(cbbRoomB).selectedIndex) {
+    function callAjax(id, cbbId, cbbRoomA, cbbRoomB) {
+        if (document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex == document.getElementById(cbbRoomB).selectedIndex) {
             alert("Phòng này đã được chọn, hãy chọn phòng khác");
             document.getElementById(cbbRoomA).selectedIndex = 0;
         } else {
+            var lodgeId = document.getElementById("cbbLodge").value;
             $.ajax({
                 url: 'ResultAjaxRoom',
-                data: { "id": id },
+                data: { "id": id, "lodgeId": lodgeId },
                 type: 'GET',
                 success: function (results) {
                     $("#" + cbbId).html("");
@@ -41,6 +35,53 @@
             });
         }
     }
+
+    function callAjaxLodge(id, cbbRoomA, cbbRoomB, capA, capB) {
+        $("#cbbCandidate").html("");
+        $("#listboxCandidate2").html("");
+        $("#listboxCandidate1").html("");
+        if (document.getElementById("cbbLodge").selectedIndex == 0) {
+            $("#cbbCandidate").html("");
+        }
+        $.ajax({
+            url: 'ResultAjaxLodgeCandidate',
+            data: { "id": id },
+            type: 'GET',
+            success: function (results) {
+                $("#cbbCandidate").html("");
+                var r;
+                for (i in results) {
+                    r = results[i];
+                    $("#cbbCandidate").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                }
+            }
+        });
+        $.ajax({
+            url: 'ResultAjaxLodgeRoom',
+            data: { "id": id },
+            type: 'GET',
+            success: function (results) {
+                $("#" + cbbRoomA).html("");
+                $("#" + cbbRoomB).html("");
+                $("#" + capA).html("");
+                $("#" + capB).html("");
+                var r;
+                $("#" + cbbRoomA).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
+                $("#" + cbbRoomB).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
+                $("#" + capA).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
+                $("#" + capB).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
+                for (i in results) {
+                    r = results[i];
+                    $("#" + cbbRoomA).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    $("#" + cbbRoomB).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    $("#" + capA).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
+                    $("#" + capB).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
+                }
+            }
+        });
+
+    }
+
 
 
     function AddRemoveA(fromSourceId, toSourceId, capacity) {
@@ -73,7 +114,7 @@
         //    alert("Chọn phòng bên trái để xếp thí sinh");
         //}
         //else {
-        //var lengthA = document.getElementById("cbbLeft").length;
+        //var lengthA = document.getElementById("listboxCandidate1").length;
         //var capcityA = parseInt($("#capaRoomA").val());
         //if ($('#' + fromSourceId + ' :selected').length <= capcityA - lengthA) {
         var srcFrom = $("#" + fromSourceId)[0];
@@ -91,8 +132,8 @@
 
     function saveListCandidate() {
 
-        var listRoomA = document.getElementById("cbbLeft");
-        var listRoomB = document.getElementById("cbbRight");
+        var listRoomA = document.getElementById("listboxCandidate1");
+        var listRoomB = document.getElementById("listboxCandidate2");
         var listCandidate = document.getElementById("cbbCandidate");
         var caId;
         var roomId;
@@ -112,7 +153,7 @@
         if (listRoomB.length != 0 && listRoomA.length != 0) {
 
             for (var i = 0; i < listRoomA.length; i++) {
-                caId = document.getElementById("cbbLeft")[i].value;
+                caId = document.getElementById("listboxCandidate1")[i].value;
                 roomId = roomIdA;
                 $.ajax({
                     url: 'EditAssignRoom',
@@ -122,7 +163,7 @@
             }
 
             for (var x = 0; x < listRoomB.length; x++) {
-                caId = document.getElementById("cbbRight")[x].value;
+                caId = document.getElementById("listboxCandidate2")[x].value;
                 roomId = roomIdB;
                 $.ajax({
                     url: 'EditAssignRoom',
@@ -135,7 +176,7 @@
 
         if (listRoomA.length == 0) {
             for (var a = 0; a < listRoomB.length; a++) {
-                caId = document.getElementById("cbbRight")[a].value;
+                caId = document.getElementById("listboxCandidate2")[a].value;
                 roomId = roomIdB;
                 $.ajax({
                     url: 'EditAssignRoom',
@@ -147,7 +188,7 @@
         }
         if (listRoomB.length == 0) {
             for (var b = 0; b < listRoomA.length; b++) {
-                caId = document.getElementById("cbbLeft")[b].value;
+                caId = document.getElementById("listboxCandidate1")[b].value;
                 roomId = roomIdA;
                 $.ajax({
                     url: 'EditAssignRoom',
@@ -163,10 +204,10 @@
 
     function syncChange(id) {
         if (document.getElementById("cbbRoomLeft").selectedIndex == 0) {
-            $('#cbbLeft').empty();
+            $('#listboxCandidate1').empty();
         }
         if (document.getElementById("cbbRoomRight").selectedIndex == 0) {
-            $('#cbbRight').empty();
+            $('#listboxCandidate2').empty();
         }
         var selected = document.getElementById(id).selectedIndex;
         var select1 = document.getElementById("capaRoomA");
@@ -187,63 +228,105 @@
 
     }
 </script>
-<div class="row">
-    <div class="col-md-3 col-sm-6">
-        <div class="view view-tenth">
-            <select id="cbbRoomLeft" onchange=" callAjax(this.value, 'cbbLeft','cbbRoomLeft','cbbRoomRight'),syncChange('cbbRoomLeft')">
-                <option id="index1">Chọn phòng</option>
-                @foreach (var item in ViewData["listRoom"] as IEnumerable<Room>)
-                {
-                    <option value="@item.RoomID">@item.RoomName</option>
-                }
-            </select>
-            <select id="cbbLeft" multiple="multiple" size="5" style="width: 300px; height: 180px">
-            </select>
-        </div>
-    </div>
-    <div class="col-md-1" style="padding-left: 36px">
-        <div style="padding-bottom: 15px; padding-top: 70px">
-            <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'cbbLeft', 'capaRoomA');" value="<<<<<" />
-        </div>
-        <div style="padding-bottom: 15px">
-            <input type="button" id="btnA" onclick="AddRemoveB('cbbLeft', 'cbbCandidate');" value=">>>>>" />
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-        <div class="view view-tenth">
-            <label>Thí sinh chưa xếp phòng</label>
-            <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 300px; height: 180px">
-                @foreach (var item in ViewData["listCandidate"] as IEnumerable<ExaminationsPaper>)
-                {
-                    <option value="@item.CandidateID">@item.Candidate.Account.Profile.Lastname</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-md-1" style="padding-left: 36px">
-        <div style="padding-bottom: 15px; padding-top: 70px">
-            <input type="button" id="btnC" onclick="AddRemoveA('cbbCandidate', 'cbbRight', 'capaRoomB');" value=">>>>>" />
-        </div>
-        <div style="padding-bottom: 15px">
-            <input type="button" id="btnD" onclick="AddRemoveB('cbbRight', 'cbbCandidate');" value="<<<<<" />
-        </div>
 
-    </div>
-    <div class="col-md-3 col-sm-6">
-        <div class="view view-tenth">
-            <select id="cbbRoomRight" onchange=" callAjax(this.value, 'cbbRight','cbbRoomRight','cbbRoomLeft'),syncChange('cbbRoomRight') ">
-                <option id="index2">Chọn phòng</option>
-                @foreach (var item in ViewData["listRoom"] as IEnumerable<Room>)
-                {
-                    <option value="@item.RoomID">@item.RoomName</option>
-                }
-            </select>
-            <select id="cbbRight" multiple="multiple" size="5" style="width: 300px; height: 180px">
+<div class="col-md-9">
+    <select id="cbbLodge" onchange=" callAjaxLodge(this.value,'cbbRoomLeft','cbbRoomRight','capaRoomA','capaRoomB')">
+        <option id="index0">Chọn điểm trọ</option>
+        @foreach (var item in ViewData["listLodges"] as IEnumerable<Lodge>)
+        {
+            <option value="@item.LodgeID">@item.Address</option>
+        }
+    </select>
+
+    <div class="row margin-bottom-10">
+        <div class="col-md-5">
+            <label>Thí sinh chưa xếp phòng</label>
+            <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 275px; height: 500px">
             </select>
         </div>
+        <div class="col-md-2">
+            <div style="padding-bottom: 15px; padding-top: 70px">
+                <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'capaRoomA');" value=">>>>>" />
+            </div>
+            <div style="padding-bottom: 15px">
+                <input type="button" id="btnA" onclick="AddRemoveB('listboxCandidate1', 'cbbCandidate');" value="<<<<<" />
+            </div>
+            <div style="padding-bottom: 15px; padding-top: 200px">
+                <input type="button" id="btnE" onclick="AddRemoveB('listboxCandidate2', 'cbbCandidate');" value="<<<<<" />
+            </div>
+            <div style="padding-bottom: 15px">
+                <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'capaRoomB');" value=">>>>>" />
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="view view-tenth">
+                <select id="cbbRoomLeft" onchange=" callAjax(this.value, 'listboxCandidate1','cbbRoomLeft','cbbRoomRight'),syncChange('cbbRoomLeft')">
+                    <option id="index1" value="0">Chọn phòng</option>
+                </select>
+                <select id="listboxCandidate1" multiple="multiple" size="5" style="width: 300px; height: 180px">
+                </select>
+            </div>
+            <div style="padding-bottom: 15px; padding-top: 70px">
+                <input type="button" id="btnC" onclick="AddRemoveA('listboxCandidate2', 'listboxCandidate1', 'capaRoomA');" value="Lên" />
+                <input type="button" id="btnD" onclick="AddRemoveA('listboxCandidate1', 'listboxCandidate2', 'capaRoomB');" value="Xuống" />
+            </div>
+            <div class="view view-tenth">
+                <select id="cbbRoomRight" onchange=" callAjax(this.value, 'listboxCandidate2','cbbRoomRight','cbbRoomLeft'),syncChange('cbbRoomRight') ">
+                    <option id="index2" value="0">Chọn phòng</option>
+                </select>
+                <select id="listboxCandidate2" multiple="multiple" size="5" style="width: 300px; height: 180px">
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+     <input type="submit" value="Lưu lại" class="btn-info" onclick=" saveListCandidate()" />
+
+
+</div>
+
+
+@*<div class="col-md-1" style="padding-left: 36px">
+    <div style="padding-bottom: 15px; padding-top: 70px">
+        <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'capaRoomA');" value=">>>>>" />
+    </div>
+    <div style="padding-bottom: 15px">
+        <input type="button" id="btnA" onclick="AddRemoveB('listboxCandidate1', 'cbbCandidate');" value="<<<<<" />
+    </div>
+    <div style="padding-bottom: 15px; padding-top: 200px">
+        <input type="button" id="btnE" onclick="AddRemoveB('listboxCandidate2', 'cbbCandidate');" value="<<<<<" />
+    </div>
+    <div style="padding-bottom: 15px">
+        <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'capaRoomB');" value=">>>>>" />
+    </div>
+</div>*@
+
+@*<div class="col-md-3">
+    <div class="view view-tenth">
+        <select id="cbbRoomLeft" onchange=" callAjax(this.value, 'listboxCandidate1','cbbRoomLeft','cbbRoomRight'),syncChange('cbbRoomLeft')">
+            <option id="index1" value="0">Chọn phòng</option>
+        </select>
+        <select id="listboxCandidate1" multiple="multiple" size="5" style="width: 300px; height: 180px">
+        </select>
+    </div>
+    <div style="padding-bottom: 15px; padding-top: 70px">
+        <input type="button" id="btnC" onclick="AddRemoveA('listboxCandidate2', 'listboxCandidate1', 'capaRoomA');" value="Lên" />
+        <input type="button" id="btnD" onclick="AddRemoveA('listboxCandidate1', 'listboxCandidate2', 'capaRoomB');" value="Xuống" />
+    </div>
+    <div class="view view-tenth">
+        <select id="cbbRoomRight" onchange=" callAjax(this.value, 'listboxCandidate2','cbbRoomRight','cbbRoomLeft'),syncChange('cbbRoomRight') ">
+            <option id="index2" value="0">Chọn phòng</option>
+        </select>
+        <select id="listboxCandidate2" multiple="multiple" size="5" style="width: 300px; height: 180px">
+        </select>
     </div>
 </div>
-<div>
-    <input type="submit" value="Lưu lại" class="btn-info" onclick=" saveListCandidate()" />
+*@
+
+@*<div class="col-md-1" style="padding-left: 36px">
 </div>
+<div class="col-md-3 col-sm-6">
+</div>*@
+
 

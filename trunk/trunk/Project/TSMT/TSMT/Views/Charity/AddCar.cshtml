@@ -1,9 +1,25 @@
-﻿@model TSMT.Models.ChairitiesExam
+﻿@using TSMT.Models
+@model TSMT.Models.Charity
 @{
     ViewBag.Title = "AddCharityExam";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
 
 <style type="text/css">
 		.validationMsg{
@@ -13,37 +29,37 @@
 	<script type="text/javascript">
 
 		
-		function checkEmpty(id){
-			var e = document.getElementById(id);
-			var err = document.getElementById("valMsg" + id);
-			var msg = "Please fill in this field.";
-			if (e.value == ""){err.innerHTML = msg; return false;} else {err.innerHTML = "";}
-			return true;
-		}
+		//function checkEmpty(id){
+		//	var e = document.getElementById(id);
+		//	var err = document.getElementById("valMsg" + id);
+		//	var msg = "Please fill in this field.";
+		//	if (e.value == ""){err.innerHTML = msg; return false;} else {err.innerHTML = "";}
+		//	return true;
+		//}
 		
-		function checkRegex(id, re, instruction, showValue){
-			if (!checkEmpty(id)) return false;
-			var e = document.getElementById(id);
-			var err = document.getElementById("valMsg" + id);
-			var msg = ' is not a valid ' + instruction + '.';
-			if (showValue){msg = '"' + e.value + '"' + msg} else {msg = 'It' + msg}
-			if (re.test(e.value)){err.innerHTML = ""} else {err.innerHTML = msg; return false;}
-			return true;
-		}
-		function checkValidations() {
-		    var goSubmit = true;
-		    goSubmit = checkEmpty("NumberPlate") && goSubmit;
-		    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
-		    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
+		//function checkRegex(id, re, instruction, showValue){
+		//	if (!checkEmpty(id)) return false;
+		//	var e = document.getElementById(id);
+		//	var err = document.getElementById("valMsg" + id);
+		//	var msg = ' is not a valid ' + instruction + '.';
+		//	if (showValue){msg = '"' + e.value + '"' + msg} else {msg = 'It' + msg}
+		//	if (re.test(e.value)){err.innerHTML = ""} else {err.innerHTML = msg; return false;}
+		//	return true;
+		//}
+		//function checkValidations() {
+		//    var goSubmit = true;
+		//    goSubmit = checkEmpty("NumberPlate") && goSubmit;
+		//    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
+		//    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
 
-		    var reDriverName = /^\w$/;
-		    goSubmit = checkRegex("DriverName") && goSubmit;
+		//    var reDriverName = /^\w$/;
+		//    goSubmit = checkRegex("DriverName") && goSubmit;
 
-		    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
-		    var rePhone = /^(09|01)\d{8,9}$/;
-		    goSubmit = checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
-		    return goSubmit;
-		}
+		//    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
+		//    var rePhone = /^(09|01)\d{8,9}$/;
+		//    goSubmit = checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
+		//    return goSubmit;
+		//}
 		
 		//function checkRegexCar(id, id2 , id3,re, instruction, showValue) {
 		//    if (!checkEmpty(id2)) return false;
@@ -74,9 +90,9 @@
 		//}
 	</script>
 <h2 class="title_of_page">Add Car</h2>
-@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post, new {onsubmit = "return checkValidations()"}))
+@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post))
 {
-    <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
+    <input type="hidden" name="id" value="@Model.CharityID"/>
 <table>
         <tr>
             <td>Biển số xe *</td>
@@ -101,6 +117,19 @@
             <td>
                 <input type="text" name="DriverPhone" id ="DriverPhone" /></td>
             <td><span class="validationMsg" id="valMsgDriverPhone"></span></td>
+        </tr>
+     <tr>
+            <td>Kì thi</td>
+            <td>
+                                 <select name="CharityExamID">
+                                        <option value=0 selected>---</option>
+                                        @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
+                                        {
+                                            <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                        }
+                                     </select>
+                                </td>
+            @*<td><span class="validationMsg" id="valMsgDriverPhone"></span></td>*@
         </tr>
         <tr>
             <td colspan="2">

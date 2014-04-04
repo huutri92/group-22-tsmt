@@ -4,7 +4,7 @@
     ViewBag.Title = "EditCharityExam";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <h2 class="title_of_page">Edit Charity Exam</h2>
 @using (Html.BeginForm("EditCharityExam", "Charity", FormMethod.Post))
 {
@@ -27,13 +27,13 @@
                     }
                 </select></td>
         </tr>
-        <tr>
+        @*<tr>
             <td>Khu vực</td>
             <td>
                 <select name="DistrictId">
                     @foreach (var item in ViewData["districts"] as IEnumerable<District>)
                     {
-                        if (item.DistrictID == Model.DistrictID)
+                        if (item.DistrictID == Model.Charity.Account.Profile.DistrictID)
                         {
                         <option value="@item.DistrictID" selected>@item.Name</option>
                         }
@@ -43,7 +43,7 @@
                         }
                     }
                 </select></td>
-        </tr>
+        </tr>*@
         <tr>
             <td colspan="2">
                 <input type="submit" value="Submit" class="btn btn-info" />

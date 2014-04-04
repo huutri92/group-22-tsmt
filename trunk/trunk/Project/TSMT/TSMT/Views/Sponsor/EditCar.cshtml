@@ -19,6 +19,7 @@
                     type: 'GET',
                     success: function (results) {
                         $("#asd").html("");
+                        $("#asd").append("<option >-----</option>");
                         for (i in results) {
                             var r = results[i];
                             $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
@@ -27,7 +28,29 @@
                     }
                 });
             }
+        }
+
+
+        function callAjaxCharityid(id) {
+            if (id == 0) {
+                $("#charityid").html("");
             }
+            else {
+                $.ajax({
+                    url: 'ResultAjaxCharityid',
+                    data: { "id": id },
+                    type: 'GET',
+                    success: function (results) {
+                        $("#charityid").html("");
+                        for (i in results) {
+                            var r = results[i];
+                            $("#charityid").val(r["charityid"]);
+
+                        }
+                    }
+                });
+            }
+        }
          </script>
 @using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post))
 {
@@ -55,35 +78,19 @@
                                 <option value="@item.ExaminationID">@item.Name</option>
                                 }
                             }
+                            
                         }
                     </select>
                 </td>
                 <td>Tổ Chức: </td>
                 <td>
-                    <select id="asd" name="asd" class="form-control" >
-                        <option value="0" selected  >---</option>
-                        @foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
-                        {
-                            if (Model.CharityExamID == null)
-                            { 
-                                <option value="@item.CharityExamID">@item.CharityExamName</option>
-                            }
-                            else
-                            {
-                                if (item.CharityExamID == Model.CharityExamID)
-                                {
-                                <option value="@item.CharityExamID" selected="selected">@item.CharityExamName</option>
-                                }
-                                else
-                                {
-                                 <option value="@item.CharityExamID">@item.CharityExamName</option>
-                                }
-                            }
-
-
-                        }
+                    <select id="asd" name="asd" onchange="callAjaxCharityid(this.value)" class="form-control" >
+                         
+                            
+                      
                     </select>
                 </td>
+                <input type="hidden"  name ="charityid" id ="charityid" />
         </tr>
         <tr>
             <td>Biển số xe</td>

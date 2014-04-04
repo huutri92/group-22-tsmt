@@ -1,4 +1,5 @@
 /*!
+
  * jQuery UI Effects Fold 1.10.4
  * http://jqueryui.com
  *

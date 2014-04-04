@@ -5,7 +5,7 @@
     ViewBag.Title = "Manage Candidates of Charity Exam";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("_CharitySidebarPartial")
 <script>
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
@@ -16,14 +16,13 @@
     <table class="table table-hover table-bordered ">
         <thead>
             <tr>
-                <th>STT</th>
+               <th>STT</th>
                 <th>Candidate Name</th>
-                @*<th>Nhóm</th>*@
+                <th>Nhóm</th>
                 <th>Chỗ trọ</th>
                 <th>Phòng</th>
                 <th>Xe</th>
-                <th>Trạng thái</th>
-                <th>Thao tác</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,16 +34,16 @@
                 <tr id="@item.ExamPaperID">
                     <td>@counter</td>
                     <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
-@*                    <td>
+                     <td>
                         @if (item.GroupID != null)
                         {
                             @item.GroupID
                         }
                         else
                         {
-                            <span>Không thuộc nhóm nào</span>
+                            <span>Không có nhóm</span>
                         }
-                    </td>*@
+                    </td>
                     <td>
                         @if (item.LodgeRegisteredID != null)
                         {
@@ -75,25 +74,10 @@
                             <span>Chưa được sắp xếp</span>
                         }
                     </td>
-                    @if (item.IsApproved)
-                    {
-                        <td><span class="label label-success">Đã duyệt</span></td>
                         <td>
                             @Html.ActionLink("Details", "DetailsCandidate", new { id = @item.ExamPaperID })
                             @Html.ActionLink("Remove", "RemoveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
-                        </td>
-                    }
-                    else
-                    {
-                        <td><span class="label label-danger">Chưa duyệt</span></td>   
-                        <td>
-                            @Html.ActionLink("Details", "DetailsCandidate", new { joininId = @item.ExamPaperID })
-                            @Html.ActionLink("Remove", "RemoveCandidate", new { id = @item.ExamPaperID }, new { style = "display: none", onclick = "return showPopup('Are you sure to remove it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
-                            @Html.ActionLink("Approve", "ApproveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return callAjaxApprove(" + @item.ExamPaperID + ")" })
-                            @Html.ActionLink("Denie", "RemoveCandidate", new { id = @item.ExamPaperID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.ExamPaperID + ", 'remove' );" })
-                        </td>
-                    }
-
+                        </td>                 
                 </tr>
                     ++counter;
                 }
@@ -101,8 +85,34 @@
         </tbody>
     </table>
 </div>
+
+
+
+@if (Model.Count(r => r.RoomID != null) > 0)
+{
+    @Html.ActionLink("Xoá kết quả sắp phòng hiện tại", "ResetRooms", new { id = @ViewData["ceId"], ReAssign = false }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Sắp phòng", "ResetRooms", new { id = @ViewData["ceId"], ReAssign = true }, new { @class = "btn btn-info" })
+}
+else 
+{
+    @Html.ActionLink("Sắp phòng", "AssignToRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+}
+
+@if (Model.Count(r => r.CarID != null) > 0)
+{
+    @Html.ActionLink("Xoá kết quả sắp xe hiện tại", "ResetCars", new { id = @ViewData["ceId"], ReAssign = false }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Sắp xe", "ResetCars", new { id = @ViewData["ceId"], ReAssign = true }, new { @class = "btn btn-info" })
+}
+else 
+{
+    @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+}
+
 @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
+
+
+@*
 <div class="service-one">
     <div class="service-one-inner">
         <div class="container">
@@ -120,7 +130,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 <script>

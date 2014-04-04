@@ -19,24 +19,42 @@
             </ul>
         </div>
     </div>
-   
+
 }
 @Html.Partial("_CharitySidebarPartial")
 
 
 <div class="col-md-9">
-  
-    <a href="@Url.Action("ManageCharityExam", "Charity")">
-        <div class="row servive-block margin-bottom-10">
+    <div class="row servive-block margin-bottom-10">
+
+        <a href="@Url.Action("ManageCharityExam", "Charity")">
             <div class="col-md-4 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-blue">
-                    <h4>Quản lý Hội từ thiện - Kỳ thi</h4>
+                    <h4>Quản lý thông tin kỳ thi</h4>
                     <div><i class="icon-user"></i></div>
                     <p>HDSD</p>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
+        <a href="@Url.Action("ManageCarCharity", "Charity")">
+            <div class="col-md-4 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <h4>Quản lý Xe</h4>
+                    <div><i class="icon-user"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageLodgeCharity", "Charity")">
+            <div class="col-md-4 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <h4>Quản lý Chỗ trọ</h4>
+                    <div><i class="icon-user"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
 
 

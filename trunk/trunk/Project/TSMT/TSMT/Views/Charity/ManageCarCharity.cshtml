@@ -1,9 +1,9 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.ChairitiesExam
+@model TSMT.Models.Charity
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Active = "ManageCar";
+    ViewBag.Active = "ManageCarCharity";
     ViewBag.Title = "Quản lý xe";
        
 }
@@ -39,7 +39,7 @@
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe
-                <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+               @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
 
         </div>
@@ -47,7 +47,6 @@
             <div class="tab-v1">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab">Xe của Hội từ thiện</a></li>
-                    <li><a href="#sponsored" data-toggle="tab">Xe được tài trợ</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
@@ -56,10 +55,12 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Biển số xe</th>
+                                    <th>Kì thi</th>
+                                    <th>Tên tổ chức</th>
                                     <th>Tổng số chỗ</th>
                                     <th>Số chỗ còn trống</th>
-                                    <th>Tên tài xế</th>
-                                    <th>SĐT tài xế</th>
+                                    @*<th>Tên tài xế</th>
+                                    <th>SĐT tài xế</th>*@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -72,10 +73,20 @@
                                     <tr id ="@car.CarID">
                                         <td>@counter</td>
                                         <td>@car.NumberPlate</td>
+                                        @if (car.CharityExamID == null)
+                                        {
+                                            <td>Chưa thiết lập</td>
+                                            <td>Chưa thiết lập</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@car.ChairitiesExam.Examination.Name</td>
+                                            <td>@car.ChairitiesExam.CharityExamName</td>
+                                        }
                                         <td>@car.TotalSlots</td>
                                         <td>@car.AvailableSlots</td>
-                                        <td>@car.DriverName</td>
-                                        <td>@car.DriverPhone</td>
+                                        @* <td>@car.DriverName</td>
+                                        <td>@car.DriverPhone</td>*@
 
                                         <td>
                                             @if (car.AvailableSlots < car.TotalSlots)
@@ -84,71 +95,17 @@
                                                 @Html.ActionLink("Show Routes", "DisplayRoute", new { id = @car.CarID })
                                             }
                                             @Html.ActionLink("Details", "DetailsCar", new { carId = @car.CarID })
-                                            @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
+                                            @if (car.SchedulesCars.FirstOrDefault() == null)
+                                            {
+                                                @Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })
+                                                @Html.ActionLink("AssignCar", "AssignCarCE", new { id = @car.CarID })
+                                            }
                                             @Html.ActionLink("Delete", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'del' );" })
                                         </td>
 
 
                                     </tr>
                                             ++counter;
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="sponsored">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Sponsor</th>
-                                    <th>Biển số xe</th>
-                                    <th>Tổng số chỗ</th>
-                                    <th>Số chỗ còn trống</th>
-                                    <th>Tên tài xế</th>
-                                    <th>SĐT tài xế</th>
-                                    <th>Trạng thái</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int count = 1;
-
-                                    foreach (var item in ViewData["carsSponsor"] as IEnumerable<Car>)
-                                    {                   
-                                    <tr id ="@item.CarID">
-                                        <td>@count</td>
-                                        <td>
-                                            @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
-                                        </td>
-                                        <td>@item.NumberPlate</td>
-                                        <td>@item.TotalSlots</td>
-                                        <td>@item.AvailableSlots</td>
-                                        <td>@item.DriverName</td>
-                                        <td>@item.DriverPhone</td>
-                                        @if (item.IsApproved)
-                                        {
-                                            <td><span class="label label-success">Đã duyệt</span></td>
-                                            <td>
-                                                @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
-                                                @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
-
-                                            </td>
-                                        }
-                                        else if (!item.IsApproved)
-                                        {
-                                            <td><span class="label label-danger">Chưa duyệt</span></td>
-                                            <td>
-                                                @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
-                                                @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
-                                                @Html.ActionLink("Approve", "ApproveCar", new { id = @item.CarID }, new { onclick = "return callAjaxApprove(" + @item.CarID + ")" })
-                                                @Html.ActionLink("Denie", "DenieCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.CarID + ", 'remove' );" })
-                                                @* @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })*@
-                                            </td>
-                                        }
-                                    </tr>
-                                        ++count;
                                     }
                                 }
                             </tbody>
@@ -161,13 +118,9 @@
     </div>
 </div>
 
-
-
-
-
-
-@*@Html.ActionLink("Create", "AddCar", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
-@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Thêm xe", "AddCar", new { id = Model.CharityID }, new { @class = "btn btn-info" })
+@Html.ActionLink("Sử dụng xe", "AssignCarsToCe","", new { @class = "btn btn-info" })
+@Html.ActionLink("Quay lại", "Index", "",new { @class = "btn btn-info" })
 
 <script type="text/javascript">
 

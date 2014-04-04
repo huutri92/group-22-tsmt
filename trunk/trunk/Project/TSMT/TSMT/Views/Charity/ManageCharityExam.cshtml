@@ -23,7 +23,7 @@
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về Hội từ thiện - Kỳ thi
-                <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+                <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
             </h3>
 
         </div>
@@ -38,7 +38,7 @@
                         <th>Số trọ trống</th>
                         <th>Tổng số phương tiện</th>
                         <th>Phương tiện trống</th>
-                        <th>Thao tác</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,8 +48,8 @@
                         foreach (var item in Model)
                         {
                         <tr>
-                            <td>@Html.ActionLink(i.ToString(), "DetailsCharityExam", new { ceId = item.CharityExamID })</td>
-                            <td>@Html.ActionLink(item.Examination.Name, "DetailsCharityExam", new { ceId = item.CharityExamID })</td>
+                            <td>@Html.ActionLink(i.ToString(), "ManageCE", new { ceId = item.CharityExamID })</td>
+                            <td>@Html.ActionLink(item.Examination.Name, "ManageCE", new { ceId = item.CharityExamID })</td>
                             <td>@item.CharityExamName</td>
                             <td>@item.TotalSlotsLodges</td>
                             <td>@item.AvailableSlotsLodges</td>
@@ -70,5 +70,5 @@
     </div>
 </div>
 
-@*@Html.ActionLink("Tạo mới", "AddCharityExam", null, new { @class = "btn btn-info" })*@
+@*@Html.ActionLink("Create", "AddCharityExam", null, new { @class = "btn btn-info" })*@
 <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>

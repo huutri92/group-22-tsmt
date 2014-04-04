@@ -16,6 +16,7 @@ namespace TSMT.Models
     {
         public Lodge()
         {
+            this.Cars = new HashSet<Car>();
             this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
             this.Rooms = new HashSet<Room>();
         }
@@ -30,7 +31,10 @@ namespace TSMT.Models
         public int TotalSlots { get; set; }
         public int AvailableSlots { get; set; }
         public bool IsApproved { get; set; }
+        public Nullable<int> CharityID { get; set; }
+        public int TotalSlotsInUsed { get; set; }
     
+        public virtual ICollection<Car> Cars { get; set; }
         public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual Sponsor Sponsor { get; set; }

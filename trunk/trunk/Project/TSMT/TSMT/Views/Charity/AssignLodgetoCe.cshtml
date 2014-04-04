@@ -1,62 +1,61 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Lodge
 @{
-    ViewBag.Title = "Tài Trợ chỗ trọ";
+    ViewBag.Title = "Chọn phòng cho hội từ thiện";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script type="text/javascript" src="~/Content/js/jquery.js"></script>
 <script type="text/javascript">
-    function callAjax(id) {
-        if (id == 0) {
-            $("#asd").html("");
-        }
-        else {
-            $.ajax({
-                url: 'ResultAjax',
-                data: { "id": id },
-                type: 'GET',
-                success: function (results) {
-                    $("#asd").html("");
-                    $("#asd").append("<option >-----</option>");
-                    for (i in results) {
-                        var r = results[i];
-                        $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+    //function callAjax(id, cId) {
+    //    if (id == 0) {
+    //        $("#asd").html("");
+    //    }   
+    //    else {
+    //        $.ajax({
+    //            url: 'ResultAjax',
+    //            data: { "id": id , "charityId": cId },
+    //            type: 'GET',
+    //            success: function (results) {
+    //                $("#asd").html("");
+    //                $("#asd").append("<option >-----</option>");
+    //                for (i in results) {
+    //                    var r = results[i];
+    //                    $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
 
-                    }
-                }
-            });
-        }
-    }
+    //                }
+    //            }
+    //        });
+    //    }
+    //}
    
 
-    function callAjaxLodgeCharityid(id) {
-        if (id == 0) {
-            $("#charityid").html("");
-        }
-        else {
-            $.ajax({
-                url: 'ResultAjaxCharityid',
-                data: { "id": id },
-                type: 'GET',
-                success: function (results) {
-                    $("#charityid").html("");
+    //function callAjaxLodgeCharityid(id) {
+    //    if (id == 0) {
+    //        $("#charityid").html("");
+    //    }
+    //    else {
+    //        $.ajax({
+    //            url: 'ResultAjaxCharityid',
+    //            data: { "id": id },
+    //            type: 'GET',
+    //            success: function (results) {
+    //                $("#charityid").html("");
                     
-                    for (i in results) {
-                        var r = results[i];
-                        $("#charityid").val(r["charityid"]);
+    //                for (i in results) {
+    //                    var r = results[i];
+    //                    $("#charityid").val(r["charityid"]);
 
-                    }
-                }
-            });
-        }
-    }
+    //                }
+    //            }
+    //        });
+    //    }
+    //}
 
 
 
     $(document).ready(function () {
         $("#saveall").click(function () {
-            var ceId;
+            var eId;
             var roomId ="";
             var lodgeId = document.getElementById("lodgeId").value;
             var cId = document.getElementById("charityid").value;
@@ -66,18 +65,18 @@
                 
             });
             if (roomId != "") {
-                ceId = parseInt(document.getElementById("asd").value);
+                eId = parseInt(document.getElementById("qwe").value);
                 $.ajax({
-                    url: 'EditLodge',
-                    data: { "ceId": ceId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
+                    url: 'AssignLodgetoCeC',
+                    data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
                     type: 'POST',
                     success: function (results) {
-                        window.location.assign("@Url.Content("~/Sponsor/ManageLodge")");
+                        window.location.assign("@Url.Content("~/Charity/ManageLodgeCharity")");
 
                     }
                 });
             } else {
-                ceId = 0;
+                eId = 0;
                 alert("No item has been selected.");
             }
 
@@ -97,16 +96,16 @@
 <div class="col-md-9">
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tài Trợ Chỗ Trọ
+            <h3 class="panel-title"><i class="icon-list"></i>Thay đổi thông tin chỗ trọ
             </h3>
 
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td>Tài Trợ Cho: </td>
+                    <td>Dùng Cho: </td>
                     <td>
-                        <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                        <select id="qwe" class="form-control">
                             <option value="0" selected>---</option>
                             @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                             {
@@ -128,7 +127,7 @@
                             }
                         </select>
                     </td>
-                    <td>Tổ Chức: </td>
+                  @*  <td>Tổ Chức: </td>
                     <td>
                         <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control" >
                             <option value="0" selected>---</option>
@@ -153,8 +152,8 @@
 
                             }
                         </select>
-                    </td>
-                    <input type="hidden"  name ="charityid" id ="charityid" />
+                    </td>*@
+                    <input type="hidden"  value="@Model.CharityID" id ="charityid" />
                 </tr>
                 <tr>
                     <td>Địa chỉ</td>
@@ -162,7 +161,7 @@
                     @Model.Address
                 </tr>
                 <tr>
-                    <td colspan="4">Vui lòng chọn phòng bên dưới để tài trợ</td>
+                    <td colspan="4">Vui lòng chọn phòng bên dưới để sử dụng cho kì thi</td>
                 </tr>
 
 
