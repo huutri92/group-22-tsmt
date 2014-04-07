@@ -16,7 +16,6 @@ namespace TSMT.Controllers
         {
             return View();
         }
-
         public JsonResult ResultAjax(int id)
         {
             var ves = from r in db.Venues
@@ -54,14 +53,18 @@ namespace TSMT.Controllers
             return View();
         }
         #endregion
-
-        # region LODGE
-        public ActionResult ViewLodge()
+        # region LODGE & VENUE
+        public ActionResult ViewLodge(int id)
         {
-            return View();
+            Lodge lod = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            return View(lod);
+        }
+        public ActionResult ViewVenue(int id)
+        {
+            Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);
+            return View(ve);
         }
         #endregion
-
         # region Charity
         public ActionResult ViewCharity()
         {
@@ -69,7 +72,6 @@ namespace TSMT.Controllers
             var ce = db.ChairitiesExams.ToList();
             return View(ce);
         }
-        
         public JsonResult getCharityWithCondition(int id)
         {
             var charity = from e in db.ChairitiesExams
@@ -82,7 +84,6 @@ namespace TSMT.Controllers
                           };
             return Json(charity, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ViewDetailCharity(int id)
         {
             var charityExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
@@ -90,40 +91,26 @@ namespace TSMT.Controllers
             return View(charityExam);
         }
         #endregion
-
         # region Volunteer
         public ActionResult Volunteer()
         {
             return View();
         }
         #endregion
-
         # region Sponsor
         public ActionResult Sponsor()
         {
             return View();
         }
-
         #endregion
-
         # region Admin
 
         #endregion
-
         #region Functions
 
         #endregion
-
-        public ActionResult Demo()
-        {
-            return View();
-        }
-
         #region Filter Charity
-      
-
         #endregion
-
         #region OLD
         public ActionResult Entrance()
         {
@@ -212,6 +199,5 @@ namespace TSMT.Controllers
             return RedirectToAction("Index", identity);
         }
         #endregion
-
     }
 }

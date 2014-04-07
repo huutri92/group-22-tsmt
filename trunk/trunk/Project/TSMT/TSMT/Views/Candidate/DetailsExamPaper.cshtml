@@ -1,20 +1,21 @@
-﻿@using TSMT.Models
-@model ExaminationsPaper
-@{
+﻿@{
     ViewBag.Title = "Xem chi tiết phiếu báo thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using TSMT.Models
+@model ExaminationsPaper
+
+<script src="/Content/js/TSMTViewOnMap.js"></script>
 
 @section Breadcrumbs {
-    <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-20">
         <div class="container">
             <h1 class="pull-left">@ViewBag.Title</h1>
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
-                <li><a href="@Url.Action("Index", "Candidate")">Thí sinh</a></li>
-                <li><a href="@Url.Action("ManageExamPaper", "Candidate")">Thông tin phiếu báo thi</a></li>
+                <li>@Html.ActionLink("Thí sinh", "Index")</li>
+                <li>@Html.ActionLink("Thông tin phiếu báo thi", "ManageExamPaper")</li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -26,38 +27,34 @@
     <div class="headline">
         @if (Model.CharityExamID == null)
         {
-            <h3>Phiếu báo thi của bạn chưa được đăng ký vào Hội từ thiện.
-                    <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search">&nbsp;Tìm Hội từ thiện</i></a>
-                @*@Html.ActionLink("Find one now!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
+            <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
+                @Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })
             </h3>
         }
         else
         {
-            if (Model.GroupID == null && Model.RoomID == null)
+            if (Model.GroupID == null && Model.RoomID == null && Model.CarID == null)
             {
-            <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội @Model.ChairitiesExam.CharityExamName! 
-                      <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Bạn có muốn rời Hội từ thiện này không?', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
-                @*@Html.ActionLink("Leave them", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-info", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
+            <h3>Phiếu báo thi đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.CharityExamName" onclick="">@Model.ChairitiesExam.CharityExamName!</a>
+                @Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })
             </h3>
             }
             else
             {
-            <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội @Model.ChairitiesExam.CharityExamName!
-                   <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default" onclick="return showPopup('Bạn có muốn rời Hội từ thiện này không?', this.href)" ><i class="icon-chevron-sign-left">&nbsp;Rời Hội từ thiện</i></a>
+            <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.CharityExamName" onclick="">@Model.ChairitiesExam.CharityExamName!</a>
             </h3>
             }
         }
     </div>
-
     <div class="panel panel-blue margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin thi</i></h3>
+            <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin phiếu báo thi</i></h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
                     <td>Kỳ thi</td>
-                    <td>@Model.UniversitiesExamination.Examination.Name</td>
+                    <td><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a></td>
                 </tr>
                 <tr>
                     <td>Trường</td>
@@ -65,27 +62,26 @@
                 </tr>
                 <tr>
                     <td>Địa điểm thi</td>
-                    <td>@Model.Venue.Address</td>
+                    <td><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewVenue/', @Model.VenueID); return false;">@Model.Venue.Address</a></td>
                 </tr>
             </table>
         </div>
     </div>
-
     @if (Model.LodgeRegisteredID != null)
     {
         <div class="panel panel-blue margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin đăng kí được hỗ trợ</i></h3>
+                <h3 class="panel-title"><i class="icon-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
                         <td>Hội từ thiện</td>
-                        <td>@Model.ChairitiesExam.CharityExamName</td>
+                        <td><a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.CharityExamName" onclick="">@Model.ChairitiesExam.CharityExamName</a></td>
                     </tr>
                     <tr>
                         <td>Địa chỉ trọ</td>
-                        <td>@Model.Lodge.Address</td>
+                        <td><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @Model.LodgeRegisteredID); return false;">@Model.Lodge.Address</a></td>
                     </tr>
                     <tr>
                         <td>Phòng trọ</td>
@@ -109,12 +105,28 @@
                             <td>#Chưa có xe đưa đón#</td>
                         }
                     </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-blue margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin riêng</i></h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
                     <tr>
                         <td>Nhóm bạn</td>
+                        @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
+                        {
+                            <td>Nhóm @Model.GroupID</td>
+                        }
+                        else
+                        {
+                            <td>#Chưa có nhóm#</td>
+                        }
                         <td>
-                              @if (Model.GroupID != null) // has group --> can invite, or being asked with a Candidate
+                            @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
-                                <text>Nhóm @Model.GroupID </text>
                                 @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
                                 if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
                                 {
@@ -124,91 +136,82 @@
                                 { 
                                 @Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
                                 }
-                                @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
-
-                                foreach (ExaminationsPaper e in ViewData["actives"] as IEnumerable<ExaminationsPaper>)
-                                {
-                                    <text><br />Nhóm đã mời @e.Candidate.Account.Profile.Lastname @e.Candidate.Account.Profile.Firstname vào nhóm</text>
-                                    if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
-                                    {
-                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                                    }
-                                }
-                                
-                                foreach (ExaminationsPaper e in ViewData["receives"] as IEnumerable<ExaminationsPaper>)
-                                {
-                                    <text><br />@e.Candidate.Account.Profile.Lastname @e.Candidate.Account.Profile.Firstname đã đề nghị được tham gia nhóm</text>
-                                    if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
-                                    {
-                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = e.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn btn-info" })
-                                    }
-                                }
                             }
-                            else // has no group --> can ask, or being invited with a Group
-                            {
-                                <text>#Chưa có nhóm# </text>
-                                @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
-
-                                foreach (Group g in ViewData["actives"] as IEnumerable<Group>)
-                                {
-                                    <text><br />Bạn đã gửi lời đề nghị được tham gia vào nhóm @g.GroupID</text>
-                                    @Html.ActionLink("Huỷ", "DeleteRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
-                                }
-
-                                foreach (Group g in ViewData["receives"] as IEnumerable<Group>)
-                                {
-                                    <text><br />Nhóm @g.GroupID đã mời bạn tham gia nhóm</text>
-                                    @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
-                                    @Html.ActionLink("Từ chối", "DeleteRequest", new { id = Model.ExamPaperID, ownerID = g.OwnerID }, new { @class = "btn btn-info" })
-                                }
-                            }
+                            @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
                         </td>
                     </tr>
+                </table>
+                <table class="table table-hover">
+                    @{
+                            ExaminationsPaper ep = new ExaminationsPaper();
+                            foreach (GroupRequest gr in ViewData["actives"] as IEnumerable<GroupRequest>)
+                            {
+                        <tr>
+                            @if (Model.GroupID != null) // in a group
+                            {
+                                <td>
+                                    @if (gr.ActiveID == Model.ExamPaperID) // who invited?
+                                    {
+                                        <text>Bạn đã mời @gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Middlename @gr.Receive.Candidate.Account.Profile.Firstname vào nhóm</text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                        @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Middlename @gr.Active.Candidate.Account.Profile.Firstname
+                                        đã mời @gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Middlename @gr.Receive.Candidate.Account.Profile.Firstname vào nhóm
+                                        </text>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
+                                    {
+                                        @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
+                                    }
+                                </td>
+                            }
+                            else // has no group
+                            {
+                                <td>Bạn đã gửi lời đề nghị được tham gia vào nhóm @gr.GroupID</td>
+                                <td>@Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })</td>
+                            }
+                        </tr>
+                            }
+
+                            foreach (GroupRequest gr in ViewData["receives"] as IEnumerable<GroupRequest>)
+                            {
+                        <tr>
+                            @if (Model.GroupID != null) // in a group
+                            {
+                                <td>
+                                    @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Middlename @gr.Active.Candidate.Account.Profile.Firstname
+                                    đã đề nghị được tham gia nhóm
+                                </td>
+                                <td>
+                                    @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
+                                    {
+                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = gr.ReceiveID, gID = gr.GroupID }, new { @class = "btn btn-info" })
+                                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
+                                    }
+                                </td>
+                            }
+                            else // has no group
+                            {
+                                <td>
+                                    @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Middlename @gr.Active.Candidate.Account.Profile.Firstname
+                                    đã mời bạn tham gia nhóm @gr.GroupID
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
+                                </td>
+                            }
+                        </tr>
+                            }
+                    }
                 </table>
             </div>
         </div>
     }
+    @Html.ActionLink("Quay về trang trước", "Index", null, new { @class = "btn btn-info" })
 
-
-
-    @if (ViewData["joinIn"] != null)
-    {
-        <div class="headline">
-            <h2>Thông tin liên quan</h2>
-        </div>
-        <div class="row servive-block margin-bottom-10">
-            <a href="@Url.Action("ViewSchedule", "Candidate")">
-                <div class="col-md-4 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-green">
-                        <h4>Xem lịch đưa đón</h4>
-                        <div><i class="icon-bell"></i></div>
-                        <p>HDSD</p>
-                    </div>
-                </div>
-            </a>
-            <a href="@Url.Action("ViewRoute", "Candidate")" >
-                <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-red">
-                        <h4>Xem đường đi</h4>
-                        <div><i class="icon-bullhorn"></i></div>
-                        <p>HDSD</p>
-                    </div>
-                </div>
-            </a>
-            if (Model.GroupID != null)
-                       {
-        <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-sea">
-                    <h4>Xem nhóm</h4>
-                    <div><i class="icon-lightbulb"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-            }
-        </div>
-    }
 </div>

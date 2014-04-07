@@ -62,7 +62,7 @@
                 <th>Tên phòng</th>
                 <th>Tổng số chỗ</th>
                 <th>Số chỗ còn trống</th>
-                <th>Actions</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -78,8 +78,8 @@
                         <td>@item.AvailableSlots</td>
                         <td>
                             @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
-                            @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                            @Html.ActionLink("Delete", "DeleteRoom", new { id = @item.RoomID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
+                            @Html.ActionLink("Chỉnh sửa", "EditRoom", new { roomId = @item.RoomID })
+                            @Html.ActionLink("Xóa", "DeleteRoom", new { id = @item.RoomID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
                         </td>
                     </tr>
                     ++counter;

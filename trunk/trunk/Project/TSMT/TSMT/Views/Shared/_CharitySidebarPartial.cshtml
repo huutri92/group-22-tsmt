@@ -1,126 +1,25 @@
 ﻿@using TSMT.Models
 
-
-<!--Begin Sidebar Menu-->
-@*<div class="col-md-3">
+@*
+<div class="col-md-3">
     <div class="row tab-v3">
         <div class="col-sm-12">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
-                <li class="panel-group acc-v1">
-                    <ul class="panel panel-default">
-                        <li class="panel-heading">
-
-                        </li>
-                    </ul>
-                </li>
-                <div class="panel-group acc-v1" id="accordion-1">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">Collapsible Group Item #1
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse-One" class="panel-collapse in" style="height: auto;">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img class="img-responsive" src="~/Content/img/new/img5.jpg" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
-            </ul>
-        </div>
-    </div>
-    @*<i class="icon-cogs" onclick="$('#hehe').toggle('slow'); return false;"></i>
-</div>
-
-*@
-@*<div class="panel-group acc-v1" id="accordion-1">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">Collapsible Group Item #1
-                </a>
-            </h4>
-        </div>
-        <div id="collapse-One" class="panel-collapse in" style="height: auto;">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img class="img-responsive" src="assets/img/new/img5.jpg" alt="">
-                    </div>
-                    <div class="col-md-8">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Two">Collapsible Group Item #2
-                </a>
-            </h4>
-        </div>
-        <div id="collapse-Two" class="panel-collapse collapse" style="height: 0px;">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="icon-ok color-green"></i>Donec id elit non mi porta gravida at eget metus..</li>
-                            <li><i class="icon-ok color-green"></i>Fusce dapibus, tellus ac cursus comodo egetine..</li>
-                            <li><i class="icon-ok color-green"></i>Food truck quinoa nesciunt laborum eiusmod runch..</li>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+                    <li class="">
+                        <a href="#" data-toggle="collapse" data-parent="#accordion"><i class="icon-tint"></i>Đợt thi</a>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li> ABC</li>
+                            <li> 12345</li>
                         </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <img class="img-responsive" src="assets/img/main/6.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </li>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Three">Collapsible Group Item #3
-                </a>
-            </h4>
-        </div>
-        <div id="collapse-Three" class="panel-collapse collapse" style="height: 0px;">
-            <div class="panel-body">
-                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Food truck quinoa nesciunt laborum eiusmodolf moon tempor, sunt aliqua put a bird. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+                </ul>
             </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Four">Collapsible Group Item #4
-                </a>
-            </h4>
-        </div>
-        <div id="collapse-Four" class="panel-collapse collapse" style="height: 0px;">
-            <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </div>
-        </div>
     </div>
 </div>*@
+
 
 <style>
     #cssmenu,
@@ -178,7 +77,7 @@
         #cssmenu > ul > li.active > a,
         #cssmenu > ul > li.open > a {
             color: #eeeeee;
-            background: #1fa0e4;
+            background: #e67e22;
             background: -webkit-linear-gradient(#1fa0e4, #1992d1);
             background: -moz-linear-gradient(#1fa0e4, #1992d1);
             background: -o-linear-gradient(#1fa0e4, #1992d1);
@@ -250,7 +149,7 @@
         text-decoration: none;
         font-size: 13px;
         color: #eeeeee;
-        background: #49505a;
+        background: #fff;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
@@ -334,27 +233,21 @@
 </script>
 <div class="col-md-3">
     <div class="row tab-v3">
-        <div class="col-sm-12">
-            
+        <div class="col-sm-12" style="width:292px;height:164px;">
             <div id="cssmenu">
-               <ul class="nav nav-pills nav-stacked">
-                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>             
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
 
                     <li class="has-sub">
                         <a href='#'>
-                            <span>Kì Thi</span>                           
+                            <i class="icon-tint"></i> Đợt thi
                         </a>
                         <ul style="display: none">
                             @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
                             {
-                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { ceId = item.CharityExamID })"><span>@item.CharityExamName</span></a>
-                                    @*<ul>
-                                    <li><a href='#'><span>Sub Item</span></a></li>
-                                    <li class='last'><a href='#'><span>Sub Item</span></a></li>
-                                </ul>*@
+                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { ceId = item.CharityExamID })"><span>@item.CharityExamName (@item.Examination.Name)</span></a>
+
                                 </li>
-@*<li class='last'><a href='#'><span>Product 2</span></a>
-                                </li>*@
                             }
                         </ul>
                     </li>
@@ -363,5 +256,4 @@
             </div>
         </div>
     </div>
-    @*<i class="icon-cogs" onclick="$('#hehe').toggle('slow'); return false;"></i>*@
 </div>

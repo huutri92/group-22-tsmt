@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Count()<1)
+                    @if (Model.Count() < 1)
                     {
                         <tr>
                             <td>
@@ -72,8 +72,8 @@
                             <td>@item.UniversitiesExamination.Examination.Name</td>
                             <td>@item.Venue.Address</td>
                             <td>
-                                <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-default"><i class="icon-info"></i> Xem </a>
-                                <a href="@Url.Action("DeleteExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i> Xóa </a>
+                                <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-default"><i class="icon-info"></i>&nbsp;Xem</a>
+                                <a href="@Url.Action("DeleteExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i>&nbsp;Xóa</a>
                             </td>
                         </tr>
                             ++counter;

@@ -6,12 +6,12 @@
 @using TSMT.Models
 @model TSMT.Models.Venue
 
-<link href="/Content/css/gmap_places.css" rel="stylesheet">
-<link href="/Content/css/popup.css" rel="stylesheet">
+<link href="/Content/css/TSMTPlaces.css" rel="stylesheet">
+<link href="/Content/css/TSMTPopup.css" rel="stylesheet">
 <script src="/Content/js/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
-<script src="/Content/js/gmap_places.js"></script>
-<script src="/Content/js/popup.js"></script>
+<script src="/Content/js/TSMTPlaces.js"></script>
+<script src="/Content/js/TSMTPopup.js"></script>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -43,7 +43,7 @@
                 <tr style="text-align: center">
                     <td style="vertical-align: middle">Địa chỉ</td>
                     <td>
-                        <input type="text" name="Address" class="form-control" value="@Model.Address"/></td>
+                        <input type="text" name="Address" id="Address" class="form-control" value="@Model.Address"/></td>
                     <td>
                         @*<input type="button" value="Đi đến địa điểm thi" class="btn-u btn-u-sea margin-bottom-5" onclick="goThere(true)" />*@
                     <a href="#" onclick="goThere(true)" class="btn-u btn-u-sea margin-bottom-5"><i class="icon-hand-right"></i>&nbsp;Đi đến địa điểm thi</a>
@@ -84,5 +84,21 @@
             </div>
         </div>
     </div>   
-
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
+    });
+
+    $(document).ready(function () {
+        initialize();
+
+        // submit
+        $('.popup-confirm').click(function () {
+            $("#Longitude").val(marker.getPosition().lng());
+            $("#Latitude").val(marker.getPosition().lat());
+            $("#FormAddVenue").submit();
+        });
+    });
+</script>

@@ -240,6 +240,7 @@ namespace TSMT.Controllers
         {
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
             ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
+            ViewData["roomsCE"] = db.Rooms.Where(r => r.LodgeID == lodgeId && r.CharityExamID != null).ToList();
             return View(lodge);
         }
         public ActionResult AddRoom(int lodgeId)

@@ -53,11 +53,11 @@
                                         {
                                             if (Model.CharityExamID == item.CharityExamID)
                                             {
-                                                <option value="@item.CharityExamID" selected>@item.CharityExamName</option>
+                                                <option value="@item.CharityExamID" selected>@item.Examination.Name</option>
                                             }
                                             else
                                             {
-                                               <option value="@item.CharityExamID">@item.CharityExamName</option> 
+                                               <option value="@item.CharityExamID">@item.Examination.Name</option> 
                                             }
                                         }
                                      </select>
@@ -66,8 +66,8 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Submit" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
+                <input type="submit" value="Chọn" class="btn btn-info" />
+                <input type="reset" value="Làm lại" class="btn btn-info" />
             </td>
         </tr>
     </table>

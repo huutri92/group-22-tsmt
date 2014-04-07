@@ -1,7 +1,7 @@
 ﻿@model TSMT.Models.ChairitiesExam
 
 @{
-    ViewBag.Title = "DetailsCharityExam";
+    ViewBag.Title = "Thông tin của tổ chức";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về kỳ thi c
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về tổ chức @Model.CharityExamName
                 <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
             </h3>
 
@@ -40,7 +40,7 @@
                 </tr>
             </table>
             <p>
-                @Html.ActionLink("Edit", "EditCharityExam", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Chỉnh sửa", "EditCharityExam", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
             </p>
         </div>
     </div>
@@ -102,5 +102,5 @@
                 </div>
             </div>
         </a>
-
     </div>
+</div>

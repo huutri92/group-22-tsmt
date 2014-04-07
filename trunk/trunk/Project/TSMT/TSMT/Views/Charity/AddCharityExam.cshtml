@@ -20,7 +20,7 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Add Charity Exam</h2>
+<h2 class="title_of_page">Thêm tổ chức cho đợt thi</h2>
     @using (Html.BeginForm("AddCharityExam", "Charity", FormMethod.Post))
     {
         <table>
@@ -42,7 +42,7 @@
                 <td colspan="2">
                     <input type="submit" value="Tạo mới" class="btn btn-info" />
                     <input type="reset" value="Làm lại" class="btn btn-info" />
-                    <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+                    <button class="btn btn-info" onclick="window.history.back(-1);">Quay lại</button>
                 </td>
             </tr>
         </table>

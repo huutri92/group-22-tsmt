@@ -33,8 +33,9 @@
                 for (i in results) {
                     var r = results[i];
                     $("#uniName").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-
+                    document.getElementById("");
                 }
+                $("#uniName")[0].onchange();
             }
         });
     }
@@ -105,8 +106,11 @@
                     </tr>
                 </table>
                 <input type="button" value="Trở về" class="btn-u btn-u-yellow" onclick="history.go(-1);" />
-                <input type="submit" value="Tạo mới" class="btn-u" />
-                <input type="reset" value="Xóa hết" class="btn-u btn-u-default" />
+                <div style="float:right">
+                      <input type="submit" value="Tạo mới" class="btn-u"/>
+                <input type="reset" value="Xóa hết" class="btn-u btn-u-default"/>
+                </div>
+              
             }
         </div>
     </div>

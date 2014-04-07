@@ -24,7 +24,7 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Details Volunteer</h2>
+<h2 class="title_of_page">Thông tin về tình nguyện viên</h2>
 <div class="inner-page-content inner-testimonial">
     <div class="container">
         <div class="row">
@@ -41,7 +41,7 @@
 
                         <h5>Năm sinh : @Model.Account.Profile.DateOfBirth</h5>
                         <h5>Công việc hiện tại : @Model.JobName</h5>
-                        <h5>Decription :</h5>
+                        <h5>Về bản thân :</h5>
                     </ol>
                     
                     <!-- User comments -->
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    @Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Quay lại", "ManageVolunteer", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 </div>

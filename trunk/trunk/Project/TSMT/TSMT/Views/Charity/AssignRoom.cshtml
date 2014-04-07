@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Trang quản lý thí sinh";
+    ViewBag.Title = "Trang sắp xếp phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,16 +12,24 @@
             <tr>
                 <th>STT</th>
                 <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
-                <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
-                <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
+                <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Chỗ trọ</th>
+                <th onclick="sortBy('group', this)" class="order orderDes orderHidden">Nhóm</th>
+                <th onclick="sortBy('room', this)" class="order orderDes orderHidden">Phòng</th>
             </tr>
         </thead>
         <tbody id="TSMTPaging"></tbody>
     </table>
 </div>
 
-@Html.ActionLink("Sắp xếp phòng", "AssignRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Sắp xếp xe", "AssignCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+<span id="HasRoom" style="display: none">
+    @Html.ActionLink("Xoá kết quả sắp phòng hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @ViewData["ceId"] + "?ReAssign=false')" })
+    @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại phòng sẽ xoá kết quả sắp phòng hiện tại.</br>Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @ViewData["ceId"] + "?ReAssign=true')" })
+</span>
+<span id="NoRoom" style="display: none">
+    @Html.ActionLink("Sắp phòng", "AssignToRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+</span>
+
+@Html.ActionLink("Về trang quản lý thí sinh", "ManageCandidate", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 @Html.ActionLink("Về trang quản lý chung", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
@@ -32,12 +40,13 @@
     });
     function fetchData() {
         $.ajax({
-            url: '/Charity/GetDataManageCandidate',
+            url: '/Charity/GetDataAssignRoom',
             data: { id: @ViewData["ceId"] },
             type: 'POST',
             success: function (results) {
                 if (results.success == true) {
-                    init(2, 4, results.data);
+                    if (results.IsAssigned) $("#HasRoom").css("display", ""); else $("#NoRoom").css("display", "");
+                    init(2, 5, results.data);
                 }
             }
         });
@@ -46,7 +55,8 @@
         var tmp = "<tr><td>" + index;
         tmp += "</td><td>" + record.lname + " " + record.fname;
         tmp += "</td><td>" + record.lodge;
-        tmp += "</td><td>" + record.venue;
+        tmp += "</td><td>" + record.group;
+        tmp += "</td><td>" + record.room;
         tmp += "</td></tr>";
         return tmp;
     }
@@ -54,8 +64,9 @@
         var r = false;
         r = r || (TSMTPagingData[i].lname.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].fname.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].group.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].lodge.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].venue.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].room.toUpperCase().indexOf(text) > -1);
         return r;
     }
 </script>

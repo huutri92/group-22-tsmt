@@ -1,11 +1,11 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.ChairitiesExam
 @{
-    ViewBag.Title = "EditCharityExam";
+    ViewBag.Title = "Chỉnh sửa tổ chức";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_CharitySidebarPartial")
-<h2 class="title_of_page">Edit Charity Exam</h2>
+<h2 class="title_of_page">Chỉnh sửa tổ chức của kì thi</h2>
 @using (Html.BeginForm("EditCharityExam", "Charity", FormMethod.Post))
 {
     <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
@@ -46,9 +46,9 @@
         </tr>*@
         <tr>
             <td colspan="2">
-                <input type="submit" value="Submit" class="btn btn-info" />
+                <input type="submit" value="Sửa" class="btn btn-info" />
                 <input type="reset" value="Làm lại" class="btn btn-info" />
-                <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+                <button class="btn btn-info" onclick="window.history.back(-1);">Quay lại</button>
             </td>
         </tr>
     </table>

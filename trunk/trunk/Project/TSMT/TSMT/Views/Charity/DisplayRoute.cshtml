@@ -34,7 +34,7 @@
             text-overflow: ellipsis;
         }
     </style>
-    <title>Google Map Demo</title>
+    <title>Đường đi của xe</title>
     <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>-->
 
 </head>
@@ -54,9 +54,9 @@
             <!--<div id="routeIndexInfo"></div>-->
             <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
             </div>
-            @*<div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
-            </div>*@
             <div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
+            </div>
+            <div id="directionsPanel2" style="float: right; width: 30%; height: 1000px;">
                 <div><div>Tổng quãng đường :</div>
                     <div  id="TotalDistance"></div>
                 </div>
@@ -122,7 +122,7 @@
         var map = new google.maps.Map(map_canvas, map_options)
 
         directionsDisplay.setMap(map);
-        //directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+        directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
         //google.maps.event.addListener(directionsDisplay, 'directions_changed', function () {
         //    computeTotalDistance(directionsDisplay.getDirections());
@@ -269,6 +269,7 @@
         //var route = JSON.parse(routeString);
         //console.log(3333333333);
         //test = shortestRoute;
+        $('#TotalDistance').innerHTML = "";
         var route = shortestRoute;
         var way = [];
         if (route.length >= 3) {

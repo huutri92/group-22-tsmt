@@ -1,0 +1,29 @@
+
+.orderAsc{
+	background:url('../img/TSMTasc.png') no-repeat 95% center;
+}
+.orderDes{
+	background:url('../img/TSMTdes.png') no-repeat 95% center;
+}
+.orderHidden{
+	background: none;
+}
+.pageIndex{
+	padding:0 3px;
+	border:1px solid gray;
+	color:black;
+	text-decoration:none
+}
+.pageIndex:hover{
+	color:red;
+	background: yellow;
+}
+.pageActive{
+	background: cyan;
+}
+#leftNavigator{
+	float:left
+}
+#rightNavigator{
+	float:right
+}

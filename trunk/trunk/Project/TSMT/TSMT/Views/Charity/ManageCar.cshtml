@@ -39,7 +39,7 @@
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe
-                <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+                <a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chọn xe cho đợt thi</a>
             </h3>
 
         </div>
@@ -81,11 +81,11 @@
                                             @if (car.AvailableSlots < car.TotalSlots)
                                             {
                                     
-                                                @Html.ActionLink("Show Routes", "DisplayRoute", new { id = @car.CarID })
+                                                @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })
                                             }
-                                            @Html.ActionLink("Details", "DetailsCar", new { carId = @car.CarID })
+                                            @Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })
                                             @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
-                                            @Html.ActionLink("Delete", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'del' );" })
+                                            @Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })
                                         </td>
 
 
@@ -241,6 +241,18 @@
         return false;
     }
 
+    function callAjaxRemoveOutCe(carId) {
+        $.ajax({
+            url: 'RemoveCarOutOfCe/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+            }
+        });
+        return false;
+    }
 </script>
 @*<script>
     function DeleteConfirm() {

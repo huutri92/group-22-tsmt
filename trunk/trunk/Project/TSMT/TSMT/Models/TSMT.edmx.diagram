@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fa744d97da6c4fb8b3e2d4f0ba0e5619" Name="Diagram1">
+      <Diagram DiagramId="d67a81e499eb442d88b63694cb7272c7" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="TSMTModel.Account" Width="1.5" PointX="1.5" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Article" Width="1.5" PointX="3.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ArticlesTag" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
@@ -18,8 +18,8 @@
         <EntityTypeShape EntityType="TSMTModel.Examination" Width="1.5" PointX="0.75" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ExaminationsPaper" Width="1.5" PointX="12.75" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Fund" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.GroupRequest" Width="1.5" PointX="15" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.Group" Width="1.5" PointX="15" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.GroupRequest" Width="1.5" PointX="17.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Group" Width="1.5" PointX="15" PointY="22.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Lodge" Width="1.5" PointX="5.25" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Profile" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Province" Width="1.5" PointX="1.5" PointY="29.5" IsExpanded="true" />
@@ -27,9 +27,9 @@
         <EntityTypeShape EntityType="TSMTModel.Room" Width="1.5" PointX="7.5" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ScheduleExam" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.SchedulesCar" Width="1.5" PointX="12.75" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.SchedulesVolunteer" Width="1.5" PointX="15" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.SchedulesVolunteer" Width="1.5" PointX="15" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Sponsor" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.sysdiagram" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.University" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.UniversitiesExamination" Width="1.5" PointX="6" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Venue" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
@@ -73,6 +73,7 @@
         <AssociationConnector Association="TSMTModel.FK_Groups_ExaminationsPapers" ManuallyRouted="false" />
         <AssociationConnector Association="TSMTModel.FK_SchedulesVolunteers_ExaminationsPapers" ManuallyRouted="false" />
         <AssociationConnector Association="TSMTModel.FK_Funds_Sponsores" ManuallyRouted="false" />
+        <AssociationConnector Association="TSMTModel.FK_GroupRequest_Groups" ManuallyRouted="false" />
         <AssociationConnector Association="TSMTModel.FK_Lodges_Sponsors" ManuallyRouted="false" />
         <AssociationConnector Association="TSMTModel.FK_Rooms_Lodges" ManuallyRouted="false" />
         <AssociationConnector Association="TSMTModel.FK_DetailScheduleVolunteers_Volunteers" ManuallyRouted="false" />

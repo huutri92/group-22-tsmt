@@ -18,13 +18,6 @@ public class CheckAuth : ActionFilterAttribute
         this.invalid_authorize = "/";
     }
 
-    public CheckAuth(string ilogin, int vroleId, string iauth)
-    {
-        this.invalid_login = ilogin;
-        this.valid_role_id = vroleId;
-        this.invalid_authorize = iauth;
-    }
-
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         HttpContext ctx = HttpContext.Current;
