@@ -16,7 +16,6 @@ namespace TSMT.Controllers
         //
         // GET: /Post/
         private readonly TSMTEntities db = new TSMTEntities();
-        [CheckAuth("~/Home/Entrance/", 5, "/Post/ManagePost")]
         public ActionResult ManagePost()
         {
             var ar = db.Articles.ToList();

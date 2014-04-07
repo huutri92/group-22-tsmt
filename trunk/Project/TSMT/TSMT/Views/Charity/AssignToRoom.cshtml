@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Assign Candidates To Rooms";
+    ViewBag.Title = "Sắp xếp sinh viên vào phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("AssignToRoom", "Charity", FormMethod.Post))
 { 
     <input type="hidden" name="ceId" value="@ViewData["ceId"]" />
-    <input type="submit" class="btn btn-info" value="Assign" />
-    @Html.ActionLink("Cancel", "ManageExamPaper", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+    <input type="submit" class="btn btn-info" value="Sắp xếp" />
+    @Html.ActionLink("Quay lại", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 }

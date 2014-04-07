@@ -151,6 +151,10 @@
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
             <End Role="GroupRequest" EntitySet="GroupRequest" />
           </AssociationSet>
+          <AssociationSet Name="FK_GroupRequest_Groups" Association="TSMTModel.Store.FK_GroupRequest_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupRequest" EntitySet="GroupRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_Groups_ExaminationsPapers" Association="TSMTModel.Store.FK_Groups_ExaminationsPapers">
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
             <End Role="Groups" EntitySet="Groups" />
@@ -365,6 +369,7 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ActiveID" Type="int" Nullable="false" />
           <Property Name="ReceiveID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -490,8 +495,8 @@
             <PropertyRef Name="UniversityID" />
           </Key>
           <Property Name="UniversityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="UniversityCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Website" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="int" />
@@ -876,6 +881,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GroupRequest_Groups">
+          <End Role="Groups" Type="TSMTModel.Store.Groups" Multiplicity="1" />
+          <End Role="GroupRequest" Type="TSMTModel.Store.GroupRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupRequest">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Groups_ExaminationsPapers">
           <End Role="ExaminationsPapers" Type="TSMTModel.Store.ExaminationsPapers" Multiplicity="1" />
           <End Role="Groups" Type="TSMTModel.Store.Groups" Multiplicity="*" />
@@ -1247,6 +1264,10 @@
             <End Role="Sponsors" EntitySet="Sponsors" />
             <End Role="Funds" EntitySet="Funds" />
           </AssociationSet>
+          <AssociationSet Name="FK_GroupRequest_Groups" Association="TSMTModel.FK_GroupRequest_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupRequest" EntitySet="GroupRequests" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lodges_Sponsors" Association="TSMTModel.FK_Lodges_Sponsors">
             <End Role="Sponsors" EntitySet="Sponsors" />
             <End Role="Lodges" EntitySet="Lodges" />
@@ -1474,8 +1495,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ActiveID" Type="Int32" Nullable="false" />
           <Property Name="ReceiveID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Active" Relationship="TSMTModel.FK_GroupRequest_ExaminationsPapers" FromRole="GroupRequest" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Receive" Relationship="TSMTModel.FK_GroupRequest_ExaminationsPapers1" FromRole="GroupRequest" ToRole="ExaminationsPapers" />
+          <NavigationProperty Name="Group" Relationship="TSMTModel.FK_GroupRequest_Groups" FromRole="GroupRequest" ToRole="Groups" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -1486,6 +1509,7 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Groups" FromRole="Groups" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Owner" Relationship="TSMTModel.FK_Groups_ExaminationsPapers" FromRole="Groups" ToRole="ExaminationsPapers" />
+          <NavigationProperty Name="GroupRequests" Relationship="TSMTModel.FK_GroupRequest_Groups" FromRole="Groups" ToRole="GroupRequest" />
         </EntityType>
         <EntityType Name="Lodge">
           <Key>
@@ -1623,8 +1647,8 @@
             <PropertyRef Name="UniversityID" />
           </Key>
           <Property Name="UniversityID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
           <Property Name="UniversityCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Phone" Type="Int32" />
@@ -2140,6 +2164,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GroupRequest_Groups">
+          <End Role="Groups" Type="TSMTModel.Group" Multiplicity="1" />
+          <End Role="GroupRequest" Type="TSMTModel.GroupRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="GroupRequest">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lodges_Sponsors">
           <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="0..1" />
           <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="*" />
@@ -2371,6 +2407,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ActiveID" ColumnName="ActiveID" />
                 <ScalarProperty Name="ReceiveID" ColumnName="ReceiveID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

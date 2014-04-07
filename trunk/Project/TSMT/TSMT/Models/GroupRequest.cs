@@ -17,8 +17,10 @@ namespace TSMT.Models
         public int ID { get; set; }
         public int ActiveID { get; set; }
         public int ReceiveID { get; set; }
+        public int GroupID { get; set; }
     
         public virtual ExaminationsPaper Active { get; set; }
         public virtual ExaminationsPaper Receive { get; set; }
+        public virtual Group Group { get; set; }
     }
 }

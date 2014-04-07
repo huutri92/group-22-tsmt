@@ -17,6 +17,7 @@ namespace TSMT.Models
         public Group()
         {
             this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
+            this.GroupRequests = new HashSet<GroupRequest>();
         }
     
         public int GroupID { get; set; }
@@ -25,5 +26,6 @@ namespace TSMT.Models
     
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual ExaminationsPaper Owner { get; set; }
+        public virtual ICollection<GroupRequest> GroupRequests { get; set; }
     }
 }

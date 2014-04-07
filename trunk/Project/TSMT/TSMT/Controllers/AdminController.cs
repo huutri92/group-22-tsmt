@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -384,7 +385,7 @@ namespace TSMT.Controllers
 
             db.Universities.Add(uni);
             db.SaveChanges();
-
+           
             return RedirectToAction("ManageUniversity");
         }
         
@@ -609,17 +610,17 @@ namespace TSMT.Controllers
         public ActionResult DeleteVenue(int id)
         {
             Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);
-            //int ueId = ve.UniExamID;
+            int ueId = ve.UniExamID;
 
-            //if (!ve.IsRemovable)
-            //{
-            //    //redirect toi trang bao loi ko cho delete!
-            //    return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
-            //}
+            if (!ve.IsRemovable)
+            {
+                //redirect toi trang bao loi ko cho delete!
+                return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
+            }
 
-            //if (db.Venues.Count(r => r.UniExamID == ueId) < 2) { ve.UniversitiesExamination.IsRemovable = true; }
-            //db.Venues.Remove(ve);
-            //db.SaveChanges();
+            if (db.Venues.Count(r => r.UniExamID == ueId) < 2) { ve.UniversitiesExamination.IsRemovable = true; }
+            db.Venues.Remove(ve);
+            db.SaveChanges();
             return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
         }
         #endregion

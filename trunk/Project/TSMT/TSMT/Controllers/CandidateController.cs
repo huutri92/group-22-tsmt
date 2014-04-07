@@ -5,8 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using TSMT.Models;
 
-namespace TSMT.Controllers
+namespace TSMT.Controllerss
 {
+    [CheckAuth(1)]
     public class CandidateController : Controller
     {
         private readonly TSMTEntities db = new TSMTEntities();
@@ -83,47 +84,15 @@ namespace TSMT.Controllers
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
 
-            if (ep.GroupID == null) // has no group --> can ask, or being invited with a Group
+            if (ep.GroupID == null) // has no group --> can ask, or being invited by a Group
             {
-                Group g = new Group();
-                List<Group> actives = new List<Group>();
-                List<Group> receives = new List<Group>();
-
-                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id))
-                {
-                    g = db.Groups.SingleOrDefault(r => r.OwnerID == gr.ReceiveID);
-                    actives.Add(g);
-                }
-
-                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ReceiveID == id))
-                {
-                    g = db.Groups.SingleOrDefault(r => r.OwnerID == gr.ActiveID);
-                    receives.Add(g);
-                }
-
-                ViewData["actives"] = actives;
-                ViewData["receives"] = receives;
+                ViewData["actives"] = db.GroupRequests.Where(r => r.ActiveID == ep.ExamPaperID).ToList();
+                ViewData["receives"] = db.GroupRequests.Where(r => r.ReceiveID == ep.ExamPaperID).ToList();
             }
             else // has group --> can invite, or being asked with a Candidate
             {
-                ExaminationsPaper e = new ExaminationsPaper();
-                List<ExaminationsPaper> actives = new List<ExaminationsPaper>();
-                List<ExaminationsPaper> receives = new List<ExaminationsPaper>();
-
-                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == ep.Group.OwnerID))
-                {
-                    e = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == gr.ReceiveID);
-                    actives.Add(e);
-                }
-
-                foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ReceiveID == ep.Group.OwnerID))
-                {
-                    e = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == gr.ActiveID);
-                    receives.Add(e);
-                }
-
-                ViewData["actives"] = actives;
-                ViewData["receives"] = receives;
+                ViewData["actives"] = db.GroupRequests.Where(r => r.GroupID == ep.GroupID && r.ReceiveID != ep.ExamPaperID).ToList();
+                ViewData["receives"] = db.GroupRequests.Where(r => r.GroupID == ep.GroupID && r.ReceiveID == ep.ExamPaperID).ToList();
             }
 
             return View(ep);
@@ -178,89 +147,168 @@ namespace TSMT.Controllers
         public ActionResult FindFriend(int id)
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
-            var eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == ep.LodgeRegisteredID && r.ExamPaperID != ep.ExamPaperID);
-
-            if (ep.GroupID != null)
-            {
-                List<GroupRequest> grs = new List<GroupRequest>();
-                foreach (ExaminationsPaper e in eps)
-                {
-                    var links = from r in db.GroupRequests
-                                where (r.ActiveID == e.ExamPaperID && r.ReceiveID == ep.Group.OwnerID)
-                                    || (r.ActiveID == ep.Group.OwnerID && r.ReceiveID == e.ExamPaperID)
-                                select r;
-                    foreach (GroupRequest gr in links) grs.Add(gr);
-                }
-                ViewData["grs"] = grs;
-            }
-
-            ViewData["eps"] = eps;
             return View(ep);
         }
-        public ActionResult DeleteRequest(int id, int ownerID) // deny u join g
+        [HttpPost]
+        public JsonResult GetDataFindFriend(int id)
         {
-            // Two way to delete:
-            // 1. One parameter
-            if (ownerID == -1)
+            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            var eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == ep.LodgeRegisteredID && r.ExamPaperID != ep.ExamPaperID);
+
+            List<DataFindFriend> results = new List<DataFindFriend>();
+            DataFindFriend record = new DataFindFriend();
+            GroupRequest gr = new GroupRequest();
+            foreach (ExaminationsPaper item in eps)
             {
-                GroupRequest gr = db.GroupRequests.SingleOrDefault(r => r.ID == id);
-                db.GroupRequests.Remove(gr);
-                db.SaveChanges();
-                return Redirect(Request.UrlReferrer.AbsoluteUri);
+                record = new DataFindFriend();
+                record.name = item.Candidate.Account.Profile.Lastname + " " + @item.Candidate.Account.Profile.Middlename + " " + @item.Candidate.Account.Profile.Firstname;
+                record.gender = item.Candidate.Account.Profile.Gender ? "Nam" : "Nữ";
+                record.group = item.GroupID == null ? "Chưa có nhóm" : "Nhóm " + item.GroupID;
+
+                if (ep.GroupID == null) // A has no group
+                {
+                    if (item.GroupID == null) // both are free
+                    {
+                        if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
+                        {
+                            record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
+                            record.note = "";
+                        }
+                    }
+                    else // B has group
+                    {
+                        gr = ep.Receives.SingleOrDefault(r => r.GroupID == item.GroupID); // B's group invited A?
+                        if (gr != null) // invited
+                        {
+                            record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AcceptRequest", ep.ExamPaperID, "gID", gr.GroupID, "Đồng ý");
+                            record.actions += String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
+                            record.note = gr.Active.Candidate.Account.Profile.Firstname + " đã mời bạn vào nhóm " + gr.GroupID;
+                        }
+                        else // not yet invited
+                        {
+                            gr = ep.Actives.SingleOrDefault(r => r.GroupID == item.GroupID); // A asked to join in B's group?
+                            if (gr != null) // asked
+                            {
+                                record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Huỷ");
+                                record.note = "Bạn đã gửi lời đề nghị được vào nhóm " + item.GroupID;
+                            }
+                            else // not invited, not asked --> not linked: can ask to join in b's group if same gender
+                            {
+                                if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
+                                {
+                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AskToJoinGroup", ep.ExamPaperID, "gID", item.GroupID, "Gửi yêu cầu vào nhóm");
+                                    record.note = "";
+                                }
+                            }
+                        }
+                    }
+                }
+                else // A has group
+                {
+                    if (item.GroupID == null) // B has no group
+                    {
+                        gr = item.Receives.SingleOrDefault(r => r.GroupID == ep.GroupID); // A's group invited B?
+                        if (gr != null) // invited
+                        {
+                            if (ep.Group.OwnerID == ep.ExamPaperID) // is owner of the group
+                                record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Huỷ lời mời");
+                            record.note = (gr.ActiveID == ep.ExamPaperID ? "Bạn đã mời vào nhóm" : gr.Active.Candidate.Account.Profile.Firstname + " đã mời vào nhóm");
+                        }
+                        else // not yet invited
+                        {
+                            gr = item.Actives.SingleOrDefault(r => r.GroupID == ep.GroupID); // B asked to join to A's group?
+                            if (gr != null) // asked
+                            {
+                                if (ep.Group.OwnerID == ep.ExamPaperID) // is owner of the group
+                                {
+                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AcceptRequest", item.ExamPaperID, "gID", ep.GroupID, "Đồng ý");
+                                    record.actions += String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
+                                }
+                                record.note = "Đang yêu cầu được vào nhóm";
+                            }
+                            else // not invited, not asked --> not linked: can invite if same gender
+                            {
+                                if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
+                                {
+                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
+                                    record.note = "";
+                                }
+                            }
+                        }
+                    }
+                    else // both are in groups
+                    {
+                        if (ep.GroupID == item.GroupID) // and in the same group
+                        {
+                            if (item.ExamPaperID == ep.Group.OwnerID) // B is the owner of A's group
+                            {
+                                record.actions = "";
+                                record.note = "Nhóm trưởng của nhóm bạn";
+                            }
+                            else  // B is group member of A's group
+                            {
+                                record.actions = "";
+                                record.note = "Thành viên của nhóm bạn";
+                            }
+                        }
+                    }
+                }
+                results.Add(record);
             }
 
-            // 2. Two parameters
-            GroupRequest active = db.GroupRequests.SingleOrDefault(r => r.ActiveID == id && r.ReceiveID == ownerID);
-            if (active != null) db.GroupRequests.Remove(active);
-
-            GroupRequest receive = db.GroupRequests.SingleOrDefault(r => r.ActiveID == ownerID && r.ReceiveID == id);
-            if (receive != null) db.GroupRequests.Remove(receive);
-
+            return Json(new { success = true, data = results });
+        }
+        public ActionResult DeleteRequest(int id) // group request ID
+        {
+            GroupRequest gr = db.GroupRequests.SingleOrDefault(r => r.ID == id);
+            db.GroupRequests.Remove(gr);
             db.SaveChanges();
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
-        public ActionResult AcceptRequest(int id, int ownerID) // u join g
+        public ActionResult AcceptRequest(int id, int gID) // u join g
         {
             ExaminationsPaper u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
-            ExaminationsPaper owner = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == ownerID);
-            u.GroupID = owner.GroupID;
-            ++owner.Group.Quantity;
+            Group g = db.Groups.SingleOrDefault(r => r.GroupID == gID);
+            u.GroupID = gID;
+            ++g.Quantity;
 
-            foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id || r.ReceiveID == id))
-                db.GroupRequests.Remove(gr);
+            foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id || r.ReceiveID == id)) db.GroupRequests.Remove(gr);
             db.SaveChanges();
 
             return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
-        public ActionResult InviteToGroup(int id, int oID) // u invite o
+        public ActionResult InviteToGroup(int id, int oID) // u invite o to u's group
         {
             ExaminationsPaper u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
 
             if (u.GroupID == null) // u has no group
             {
-                Group g = new Group();
-                g.OwnerID = id; // create new group
+                Group g = new Group(); // create new group
+                g.OwnerID = id; // set u as owner
                 g.Quantity = 1;
                 db.Groups.Add(g);
                 db.SaveChanges();
-                u.GroupID = g.GroupID; // set u as owner
+                u.GroupID = g.GroupID; // connect u to the group
                 db.SaveChanges();
-                u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+                u = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id); // retrieve new info
             }
 
             GroupRequest gr = new GroupRequest();
-            gr.ActiveID = u.Group.OwnerID;
+            gr.ActiveID = id;
             gr.ReceiveID = oID;
+            gr.GroupID = u.GroupID.Value; // sure u already in a group
             db.GroupRequests.Add(gr);
             db.SaveChanges();
 
             return RedirectToAction("FindFriend", new { id = id });
         }
-        public ActionResult AskToJoinGroup(int id, int oID) // u ask to join to o's group
+        public ActionResult AskToJoinGroup(int id, int gID) // u ask to join to a group
         {
+            Group g = db.Groups.SingleOrDefault(r => r.GroupID == gID);
             GroupRequest gr = new GroupRequest();
             gr.ActiveID = id;
-            gr.ReceiveID = oID;
+            gr.ReceiveID = g.OwnerID;
+            gr.GroupID = g.GroupID;
             db.GroupRequests.Add(gr);
             db.SaveChanges();
 
@@ -269,6 +317,9 @@ namespace TSMT.Controllers
         public ActionResult LeaveGroup(int id) // Permission: only team member, except owner
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+
+            foreach (GroupRequest gr in db.GroupRequests.Where(r => r.ActiveID == id)) db.GroupRequests.Remove(gr);
+
             Group g = ep.Group;
             ep.GroupID = null;
             --g.Quantity;
@@ -284,7 +335,7 @@ namespace TSMT.Controllers
             // clear all link between group members (owner included) and the group
             foreach (ExaminationsPaper m in g.ExaminationsPapers) m.GroupID = null;
             // clear all group request in or out this group
-            foreach (GroupRequest m in db.GroupRequests.Where(r => r.ActiveID == id || r.ReceiveID == id)) db.GroupRequests.Remove(m);
+            foreach (GroupRequest m in db.GroupRequests.Where(r => r.GroupID == g.GroupID)) db.GroupRequests.Remove(m);
             // remove the group
             db.Groups.Remove(g);
             db.SaveChanges();

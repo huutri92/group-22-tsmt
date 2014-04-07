@@ -47,15 +47,15 @@
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết của chỗ trọ
                 
-                     @if(Model.CharityExamID == null)
+                     @if (Model.CharityExamID == null)
                      {
-                          <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
                      }
-                    else
-                    {
-                         if(!Model.IsApproved)
+                     else
+                     {
+                         if (!Model.IsApproved)
                          {
-                              <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
                          }
                      }
             </h3>
@@ -86,13 +86,23 @@
                     <td>Địa Chỉ</td>
                     <td>@Model.Address</td>
                 </tr>
-                <tr>
-                    <td>Tổng số phòng</td>
-                    <td>@Model.TotalRooms</td>
-                </tr>
+                @if (Model.CharityExamID == null)
+                {
+                    <tr>
+                        <td>Tổng Số Phòng</td>
+                        <td>@Model.TotalRooms</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>Tổng số phòng</td>
+                        <td>@Model.Rooms.Count(r => r.CharityExamID != null)</td>
+                    </tr>
+                }
                 <tr>
                     <td>Tổng số chỗ trọ</td>
-                    <td>@Model.TotalSlots</td>
+                    <td>@Model.TotalSlotsInUsed</td>
                 </tr>
                 @if (Model.IsApproved)
                 {
@@ -105,7 +115,7 @@
             </table>
         </div>
     </div>
-     <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn btn-info"  id="back1" >Quay lại</a>
+    <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn btn-info"  id="back1" >Quay lại</a>
     <input id="buttonshow" type="button" value="Xem Danh Sách Phòng" class="btn btn-info" onclick="showForm2();" />
 
     <div id="form2" style="display: none" class="panel panel-green margin-bottom-20">
@@ -135,9 +145,27 @@
                 <tbody>
                     @{
                         int counter = 1;
-
-                        foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                        if (Model.CharityExamID == null)
                         {
+                            foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                            {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.RoomName</td>
+                            <td>@item.TotalSlots</td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
+                                @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                            </td>
+                        </tr>
+                                ++counter;
+                            }
+                        }
+
+                        else
+                        {
+                            foreach (var item in ViewData["roomsCE"] as IEnumerable<Room>)
+                            {
                         <tr>
                             <td>@counter</td>
                             <td>@item.RoomName</td>
@@ -145,19 +173,21 @@
                             @if (Model.IsApproved)
                             {
                                 <td>@item.AvailableSlots</td>
+                                <td></td>
                             }
-                            @if (!Model.IsApproved)
+                            else
                             {
                                 <td>
                                     @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
                                     @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
                                 </td>
                             }
-
                         </tr>
-                            ++counter;
+                                ++counter;
+                            }
                         }
                     }
+
                 </tbody>
             </table>
         </div>

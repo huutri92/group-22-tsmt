@@ -55,7 +55,7 @@ function initialize(venuePos) {
         if (a[i] == -1) continue;
         var lodge = lodges[a[i]];
         s += '<a class="lodge" name="' + lodge.ceId + '" href="#" style="display:block" ';
-        s += 'onclick="clickOnMarker(' + lodge.lodgeId + ', true)">'+ i +'. ' + lodge.name;
+        s += 'onclick="clickOnMarker(' + lodge.lodgeId + ', true)">' + lodge.name;
         s += ' (' + lodge.availSlots + '/' + lodge.totalSlots + ')</a>';
     }
     document.getElementById('examVenues').innerHTML = s;

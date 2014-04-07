@@ -8,16 +8,14 @@ var addressLng;
 
 function initialize() {
     var map_options = {
-        center: new google.maps.LatLng(10.772139, 106.6979917), // Ben Thanh
+        center: new google.maps.LatLng(10.772139, 106.698284),
         zoom: 16,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
     }
     map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
-    putMarker(10.772139, 106.6979917); // Ben Thanh
-    useSuggestion("Chợ Bến Thành, Phường Bến Thành, Quận 1", 10.772139, 106.6979917);
-} 
+}
 
 function putMarker(lat, lng) {
     var thePosition = new google.maps.LatLng(lat, lng);

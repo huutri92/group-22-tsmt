@@ -89,7 +89,7 @@
 		//    return goSubmit;
 		//}
 	</script>
-<h2 class="title_of_page">Add Car</h2>
+<h2 class="title_of_page">Thêm xe</h2>
 @using (Html.BeginForm("AddCar", "Charity", FormMethod.Post))
 {
     <input type="hidden" name="id" value="@Model.CharityID"/>
@@ -125,7 +125,7 @@
                                         <option value=0 selected>---</option>
                                         @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
                                         {
-                                            <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                            <option value="@item.CharityExamID">@item.Examination.Name</option>
                                         }
                                      </select>
                                 </td>
@@ -133,8 +133,8 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Create" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
+                <input type="submit" value="Tạo" class="btn btn-info" />
+                <input type="reset" value="Làm lại" class="btn btn-info" />
             </td>
         </tr>
     </table>

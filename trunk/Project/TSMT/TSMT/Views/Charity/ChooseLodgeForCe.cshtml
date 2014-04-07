@@ -1,0 +1,85 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Charity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Active = "ChooseLodgeForCe ";
+    ViewBag.Title = "Chọn nhà trò cho kì thi";
+       
+}
+
+<script src="/Content/js/TSMTViewOnMap.js"></script>
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ
+               @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <div class="tab-v1">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">Nhà trọ của Hội từ thiện</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Tổng số phòng</th>
+                                    <th>Tổng số chỗ</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int counter = 1;
+
+                                    foreach (var item in ViewData["Lodge"] as IEnumerable<Lodge>)
+                                    {
+                                    <tr id="@item.LodgeID">
+                                        <td>@counter</td>
+                                        <td>@item.Address</td>                                       
+                                        <td>@item.TotalRooms</td>
+                                        <td>@item.TotalSlots</td>
+                                        <td>
+                                            <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">Xem bản đồ</button>
+                                            @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
+                                            @Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})
+                                        </td>
+
+                                    </tr>
+                                        ++counter;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@Html.ActionLink("Quay lại ", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+

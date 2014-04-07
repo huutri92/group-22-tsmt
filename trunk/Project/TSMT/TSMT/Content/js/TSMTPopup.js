@@ -8,19 +8,18 @@ $(document).ready(function () {
     popUp += '<div id="dialog-content">';
     popUp += '<div id="dialog-message"></div>';
     popUp += '<div id="dialog-buttons">';
-    popUp += '<a href="#" class="popup-confirm">Confirm</a>';
-    popUp += '<a href="#" class="popup-cancel">Close</a></div></div></div>';
+    popUp += '<a href="#" class="popup-confirm">Xác nhận</a>';
+    popUp += '<a href="#" class="popup-cancel">Đóng</a></div></div></div>';
     $('body').append(popUp);
 
     $('#dialog-overlay').click(function (e) {
         e.stopPropagation();
-        $('#dialog-overlay, #dialog-box').fadeOut("slow");
         return false;
     });
 
     $('.popup-cancel').click(function (e) {
         e.stopPropagation();
-        $('#dialog-overlay, #dialog-box').fadeOut("slow");
+        $('#dialog-overlay, #dialog-box').fadeOut("fast");
         return false;
     });
 
@@ -38,10 +37,7 @@ $(document).ready(function () {
             } else if (tempt == "removeOut") {
                 callAjaxRemove(id);
             }
-            else if (tempt == "removeOutCe") {
-                callAjaxRemoveOutCe(id);
-            }
-            $('#dialog-overlay, #dialog-box').fadeOut("slow");
+            $('#dialog-overlay, #dialog-box').fadeOut("fast");
             return false;
         } else {
             window.location.href = this.href;
@@ -70,8 +66,8 @@ function showPopup(message, href, aid, flag) {
         $('#dialog-box').css({ top: dialogTop, left: dialogLeft }).fadeIn("fast");
     }
     else {
-        $('#dialog-overlay').css({ height: maskHeight, width: maskWidth }).fadeIn("slow");
-        $('#dialog-box').css({ top: dialogTop, left: dialogLeft }).fadeIn("slow");
+        $('#dialog-overlay').css({ height: maskHeight, width: maskWidth }).fadeIn("fast");
+        $('#dialog-box').css({ top: dialogTop, left: dialogLeft }).fadeIn("fast");
     }
 
     // display the message

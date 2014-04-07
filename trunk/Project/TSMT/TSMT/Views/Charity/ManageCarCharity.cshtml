@@ -61,7 +61,7 @@
                                     <th>Số chỗ còn trống</th>
                                     @*<th>Tên tài xế</th>
                                     <th>SĐT tài xế</th>*@
-                                    <th>Actions</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,15 +92,15 @@
                                             @if (car.AvailableSlots < car.TotalSlots)
                                             {
                                     
-                                                @Html.ActionLink("Show Routes", "DisplayRoute", new { id = @car.CarID })
+                                                @Html.ActionLink("Xem đường đi", "DisplayRoute", new { id = @car.CarID })
                                             }
-                                            @Html.ActionLink("Details", "DetailsCar", new { carId = @car.CarID })
+                                            @Html.ActionLink("Chi tiết", "DetailsCarCharity", new { carId = @car.CarID })
                                             @if (car.SchedulesCars.FirstOrDefault() == null)
                                             {
-                                                @Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })
-                                                @Html.ActionLink("AssignCar", "AssignCarCE", new { id = @car.CarID })
+                                                @Html.ActionLink("Chỉnh sửa", "EditCar", new { carId = @car.CarID })
+                                                @Html.ActionLink("Sử dụng", "AssignCarCE", new { id = @car.CarID })
                                             }
-                                            @Html.ActionLink("Delete", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'del' );" })
+                                            @Html.ActionLink("Xóa", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'del' );" })
                                         </td>
 
 

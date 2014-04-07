@@ -5,7 +5,6 @@
 @using TSMT.Models;
 @model ExaminationsPaper
 
-
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
         <h3 class="panel-title"><i class="icon-list">&nbsp;Tìm kiếm bạn bè</i></h3>
@@ -14,7 +13,7 @@
         <table class="table table-hover">
             <tr>
                 <td>Thí sinh</td>
-                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</td>
+                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Middlename @Model.Candidate.Account.Profile.Firstname</td>
             </tr>
             <tr>
                 <td>Hội từ thiện</td>
@@ -33,140 +32,62 @@
                     }
                     else
                     {
-                        <text>Nhóm @Model.GroupID</text>
+                        <text><a href="#" title="Xem danh sách nhóm @Model.GroupID" onclick="">Nhóm @Model.GroupID</a></text>
                     }
                 </td>
             </tr>
         </table>
     </div>
 </div>
-
-<table class="table table-hover" id="showdata">
+<div style="float: right" id="TSMTSearching"></div>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>STT</th>
-            <th>Tên</th>
-            <th>Giới tính</th>
-            <th>Nhóm</th>
-            <th colspan="2">Thao tác / Ghi chú</th>
+            <th onclick="sortBy('name', this)" class="order orderDes orderHidden">Tên</th>
+            <th onclick="sortBy('gender', this)" class="order orderDes orderHidden">Giới tính</th>
+            <th onclick="sortBy('group', this)" class="order orderDes orderHidden">Nhóm</th>
+            <th>Thao tác</th>
+            <th>Ghi chú</th>
         </tr>
     </thead>
-    <tbody>
-        @{ 
-            int counter = 1;
-            Group g = new Group();
-            GroupRequest gr = new GroupRequest();
-        }
-
-        @foreach (ExaminationsPaper item in ViewData["eps"] as IEnumerable<ExaminationsPaper>)
-        {
-            <tr>
-                <td>@counter @{++counter;}</td>
-                <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
-                <td>
-                    @if (item.Candidate.Account.Profile.Gender)
-                    { <text>Nam</text> }
-                    else
-                    { <text>Nữ</text> }
-                </td>
-
-                <td>
-                    @if (item.GroupID == null)
-                    { <text>Chưa có nhóm</text> }
-                    else
-                    { <text>Nhóm @item.GroupID</text> }
-                </td>
-
-                <td>
-                    @if (Model.GroupID == null) // A has no group
-                    {
-                        if (item.GroupID == null) // both are free
-                        {
-                            if (item.Candidate.Account.Profile.Gender == Model.Candidate.Account.Profile.Gender) // same gender
-                            { 
-                        @Html.ActionLink("Gửi lời mời vào nhóm", "InviteToGroup", new { id = Model.ExamPaperID, oID = item.ExamPaperID }, new { @class = "btn-u btn-u-default" })
-                            }
-                        }
-                        else // B has group
-                        {
-                            g = item.Group; // B's group
-                            gr = Model.Receives.SingleOrDefault(r => r.ActiveID == g.OwnerID); // B's group invited A?
-                            if (gr != null) // invited
-                            {
-                        <text>Nhóm @item.GroupID đã mời bạn vào nhóm</text>
-                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = Model.ExamPaperID, ownerID = item.Group.OwnerID }, new { @class = "btn-u btn-u-default" })
-                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID, ownerID = -1 }, new { @class = "btn-u btn-u-default" })
-                            }
-                            else // not yet invited
-                            {
-                                gr = Model.Actives.SingleOrDefault(r => r.ReceiveID == g.OwnerID); // A asked to join in B's group?
-                                if (gr != null) // asked
-                                { 
-                        <text>Bạn đã gửi lời đề nghị được vào nhóm @item.GroupID</text>
-                        @Html.ActionLink("Huỷ", "DeleteRequest", new { id = gr.ID, ownerID = -1 }, new { @class = "btn-u btn-u-default" })
-                                }
-                                else // // not invited, not asked --> not linked: can ask to join in b's group if same gender
-                                {
-                                     if (item.Candidate.Account.Profile.Gender == Model.Candidate.Account.Profile.Gender) // same gender
-                                     {
-                                          @Html.ActionLink("Gửi yêu cầu vào nhóm", "AskToJoinGroup", new { id = Model.ExamPaperID, oID = item.Group.OwnerID }, new { @class = "btn-u btn-u-green    " })
-                                     }
-                                }
-                            }
-                        }
-                    }
-                    else // A has group
-                    {
-                        g = Model.Group; // A's group
-                        if (item.GroupID == null) // B has no group
-                        {
-                            gr = item.Receives.SingleOrDefault(r => r.ActiveID == g.OwnerID); // A's group invited B?
-                            if (gr != null) // invited
-                            { 
-                                <text>Nhóm đã mời tham gia</text>
-                                if (g.OwnerID == Model.ExamPaperID) // is owner of the group
-                                { 
-                        @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID, ownerID = -1 }, new { @class = "btn-u" })
-                                }
-                            }
-                            else // not yet invited
-                            {
-                                gr = item.Actives.SingleOrDefault(r => r.ReceiveID == g.OwnerID); // B asked to join to A's group?
-                                if (gr != null) // asked
-                                {
-                        <text>Đang yêu cầu được vào nhóm</text>
-                                    if (g.OwnerID == Model.ExamPaperID) // is owner of the group
-                                    { 
-                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = item.ExamPaperID, ownerID = Model.ExamPaperID }, new { @class = "btn-u btn-u-default" })
-                        @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID, ownerID = -1 }, new { @class = "btn-u btn-u-default" })
-                                    }
-                                }
-                                else // not invited, not asked --> not linked: can invite if same gender
-                                {
-                                    if (item.Candidate.Account.Profile.Gender == Model.Candidate.Account.Profile.Gender) // same gender
-                                    { 
-                        @Html.ActionLink("Mời vào nhóm", "InviteToGroup", new { id = Model.ExamPaperID, oID = item.ExamPaperID }, new { @class = "btn-u btn-u-default" })
-                                    }
-                                }
-                            }
-                        }
-                        else // both are in groups
-                        {
-                            if (Model.GroupID == item.GroupID) // and in the same group
-                            {
-                                if (item.ExamPaperID == g.OwnerID) // B is the owner of A's group
-                                {
-                        <text>Nhóm trưởng của nhóm bạn</text>
-                                }
-                                else  // B is group member of A's group
-                                {
-                        <text>Thành viên của nhóm bạn</text>
-                                }
-                            }
-                        }
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
+    <tbody id="TSMTPaging"></tbody>
 </table>
+
+@Html.ActionLink("Quay về trang trước", "DetailsExamPaper", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+
+<link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
+<script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        fetchData();
+    });
+    function fetchData() {
+        $.ajax({
+            url: '/Candidate/GetDataFindFriend',
+            data: { id: @Model.ExamPaperID },
+            type: 'POST',
+            success: function (results) {
+                if (results.success == true) {
+                    init(2, 6, results.data);
+                }
+            }
+        });
+    }
+    function showData(index, record) {
+        var tmp = "<tr><td>" + index;
+        tmp += "</td><td>" + record.name;
+        tmp += "</td><td>" + record.gender;
+        tmp += "</td><td>" + record.group;
+        tmp += "</td><td>" + record.actions;
+        tmp += "</td><td>" + record.note;
+        tmp += "</td></tr>";
+        return tmp;
+    }
+    function matchSearch(i, text) {
+        var r = false;
+        r = r || (TSMTPagingData[i].name.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].group.toString().toUpperCase().indexOf(text) > -1);
+        return r;
+    }
+</script>

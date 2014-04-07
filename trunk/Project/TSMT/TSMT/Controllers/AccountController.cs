@@ -22,57 +22,43 @@ namespace TSMT.Controllers
         {
             return View();
         }
-
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-
-            ViewBag.returnUrl = Request.UrlReferrer;
             return View();
         }
-
         [HttpPost]
-        public ActionResult Login(FormCollection f, string returnUrl)
+        public ActionResult Login(FormCollection f)
         {
             string email = f["Email"];
             string password = f["Password"];
             Account acc = db.Accounts.FirstOrDefault(r => r.Email == email && r.Password == password);
-            if (acc.IsActive == false)
-            {
-                return RedirectToAction("VerifyAccount", "Account");
-            }
+            if (acc == null) return RedirectToAction("Login");
+
+            if (acc.IsActive == false) return RedirectToAction("VerifyAccount", "Account");
             else
             {
                 Session["acc"] = acc;
-                int roleID = acc.RoleID;
-                switch (roleID)
+                if (Session["fromUrl"] == null)
                 {
-                  
-                    case 2:
-                        return RedirectToAction("Index", "Charity");
-                    case 4:
-                        return RedirectToAction("Index", "Volunteer");
-                    case 3:
-                        return RedirectToAction("Index", "Sponsor");
-                    case 5:
-                        return RedirectToAction("Index", "Admin");
-                    default:
-                        return Redirect(returnUrl);
+                    int roleID = acc.RoleID;
+                    switch (roleID)
+                    {
+                        case 1:
+                            return RedirectToAction("Index", "Candidate");
+                        case 2:
+                            return RedirectToAction("Index", "Charity");
+                        case 4:
+                            return RedirectToAction("Index", "Volunteer");
+                        case 3:
+                            return RedirectToAction("Index", "Sponsor");
+                        case 5:
+                            return RedirectToAction("Index", "Admin");
+                    }
                 }
-                //string temp = "http://localhost:1045/";
-                //if (returnUrl != temp)
-                //{
-                //    return Redirect(returnUrl);
-
-                //}
-                //else if (returnUrl == temp)
-                //{
-                //    return RedirectToAction("Index", "Home");
-                //}
+                else return Redirect(Session["fromUrl"].ToString());
             }
-            //if (acc == null) return View();
 
-
-            //return Redirect(returnUrl);
+            return Redirect("/");
         }
 
 
@@ -175,21 +161,21 @@ namespace TSMT.Controllers
                     db.SaveChanges();
                     Session.Clear();
 
-                    string strRandomCode = RandomCode(6);
-                    string abc = null;
-                    MailMessage loginInfo = new MailMessage();
-                    loginInfo.To.Add(acc.Email);
-                    loginInfo.From = new MailAddress("TSMT<trilnhse60687@fpt.edu.vn>");
-                    loginInfo.Subject = "Confirm Your Registration";
-                    loginInfo.Body = "Hello. Mr/Mrs/Miss <b>" + acc.Profile.Lastname + " " + acc.Profile.Firstname + "</b> Welcome to TSMT. Thanks for your registration! Your confirmation code: <b>" + strRandomCode + "</b><br/><br/>Please click <a href=" + abc + ">here </a>to confirm registration";
-                    //loginInfo.Body = "Tên khách hàng: " + TBten.Text + "<br><br>Nhấp <a href=" + sss + ">vào đây</a> để xác nhận tài khoản   ";
-                    loginInfo.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.Credentials = new System.Net.NetworkCredential("trilnhse60687@fpt.edu.vn", "64689205");
-                    smtp.Send(loginInfo);
+                    //string strRandomCode = RandomCode(6);
+                    //string abc = null;
+                    //MailMessage loginInfo = new MailMessage();
+                    //loginInfo.To.Add(acc.Email);
+                    //loginInfo.From = new MailAddress("TSMT<trilnhse60687@fpt.edu.vn>");
+                    //loginInfo.Subject = "Confirm Your Registration";
+                    //loginInfo.Body = "Hello. Mr/Mrs/Miss <b>" + acc.Profile.Lastname + " " + acc.Profile.Firstname + "</b> Welcome to TSMT. Thanks for your registration! Your confirmation code: <b>" + strRandomCode + "</b><br/><br/>Please click <a href=" + abc + ">here </a>to confirm registration";
+                    ////loginInfo.Body = "Tên khách hàng: " + TBten.Text + "<br><br>Nhấp <a href=" + sss + ">vào đây</a> để xác nhận tài khoản   ";
+                    //loginInfo.IsBodyHtml = true;
+                    //SmtpClient smtp = new SmtpClient();
+                    //smtp.Host = "smtp.gmail.com";
+                    //smtp.Port = 587;
+                    //smtp.EnableSsl = true;
+                    //smtp.Credentials = new System.Net.NetworkCredential("trilnhse60687@fpt.edu.vn", "64689205");
+                    //smtp.Send(loginInfo);
                 }
             }
             return RedirectToAction("Index", "Home");
