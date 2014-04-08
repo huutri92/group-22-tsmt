@@ -404,7 +404,6 @@
           <Property Name="AccountID" Type="int" Nullable="false" />
           <Property Name="Firstname" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="Lastname" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="Middlename" Type="nvarchar" MaxLength="30" />
           <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="13" />
@@ -1541,7 +1540,6 @@
           <Property Name="AccountID" Type="Int32" Nullable="false" />
           <Property Name="Firstname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="Lastname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="Middlename" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
           <Property Name="Gender" Type="Boolean" Nullable="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="PhoneNumber" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
@@ -2445,7 +2443,6 @@
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
-                <ScalarProperty Name="Middlename" ColumnName="Middlename" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

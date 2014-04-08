@@ -199,5 +199,10 @@ namespace TSMT.Controllers
             return RedirectToAction("Index", identity);
         }
         #endregion
+
+        public void autoGenerateStudent()
+        {
+            
+        }
     }
 }

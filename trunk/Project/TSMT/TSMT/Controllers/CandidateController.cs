@@ -161,7 +161,7 @@ namespace TSMT.Controllerss
             foreach (ExaminationsPaper item in eps)
             {
                 record = new DataFindFriend();
-                record.name = item.Candidate.Account.Profile.Lastname + " " + @item.Candidate.Account.Profile.Middlename + " " + @item.Candidate.Account.Profile.Firstname;
+                record.name = item.Candidate.Account.Profile.Lastname  + " " + @item.Candidate.Account.Profile.Firstname;
                 record.gender = item.Candidate.Account.Profile.Gender ? "Nam" : "Nữ";
                 record.group = item.GroupID == null ? "Chưa có nhóm" : "Nhóm " + item.GroupID;
 
