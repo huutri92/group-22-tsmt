@@ -1,31 +1,57 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Fund
 @{
-    ViewBag.Title = "EditFund";
+    ViewBag.Title = "Chỉnh sửa tiền tài trợ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script type="text/javascript" src="~/Content/js/jquery.js"></script>
-<h2 class="title_of_page">Edit Fund</h2>
-@using (Html.BeginForm("EditFund", "Sponsor", FormMethod.Post))
-{
-    <input type="hidden" name="fundId" value="@Model.FundID"/>
-    <table>
-        <tr>
-            <td>Số Tiền</td>
-            <td>
-                <input type="text" name="FundSponsored" value="@Model.FundSponsored" id ="input"/></td>
-            <script>
-                    $("#input").priceFormat({ prefix: '', centsLimit: 0 });
-                </script>
-             <td>VNĐ</td>
-        </tr>
-        
-        <tr>
-            <td colspan="2">
-                <input type="button" onclick="history.go(-1);" value="Quay lại"/>
-                <input type="submit" value="Submit" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li><a href="@Url.Action("ManageCar", "Sponsor")">Quản Lý tiền tài trợ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
 }
+@Html.Partial("_SponsorSidebarPartial")
+
+<script type="text/javascript" src="~/Content/js/jquery.js"></script>
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa tiền tài trợ
+            </h3>
+        </div>
+        @using (Html.BeginForm("EditFund", "Sponsor", FormMethod.Post))
+        {
+            <div class="panel-body">
+            <input type="hidden" name="fundId" value="@Model.FundID"/>
+            <table class="table table-hover">
+                <tr>
+                    <td>Số Tiền</td>
+                    <td>
+                        <input type="text" name="FundSponsored" value="@Model.FundSponsored" id ="input"/></td>
+                    <script>
+                        $("#input").priceFormat({ prefix: '', centsLimit: 0 });
+                    </script>
+                    <td>VNĐ</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                         @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
+                        <input type="submit" value="Lưu lại" class="btn btn-info" />
+                        @*<input type="reset" value="Làm mới" class="btn btn-info" />*@
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+                </div>
+        }
+    </div>
+</div>

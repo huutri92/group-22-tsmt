@@ -424,9 +424,7 @@ namespace TSMT.Controllers
             int carId = int.Parse(f["carId"]);
             Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
 
-            //ChairitiesExam ce = car.ChairitiesExam;
-            //ce.TotalSlotsVehicles -= car.TotalSlots;
-            //ce.AvailableSlotsVehicles -= car.AvailableSlots;
+            
             car.CharityExamID = int.Parse(f["asd"]);
             car.CharityID = int.Parse(f["charityid"]);
             car.NumberPlate = f["NumberPlate"];
@@ -435,12 +433,7 @@ namespace TSMT.Controllers
             car.DriverName = f["DriverName"];
             car.DriverPhone = f["DriverPhone"];
 
-            //ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == car.CharityExamID);
-            //ce.TotalSlotsVehicles += car.TotalSlots;
-            //ce.AvailableSlotsVehicles += car.AvailableSlots;
-            //ce.TotalSlotsVehicles += car.TotalSlots;
-            //ce.AvailableSlotsVehicles += car.AvailableSlots;
-
+           
             db.SaveChanges();
 
             return RedirectToAction("ManageCar");

@@ -4,12 +4,12 @@
     ViewBag.Title = "Thay đổi thông tin chỗ trọ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="/Content/css/TSMTPlaces.css" rel="stylesheet">
-<link href="/Content/css/TSMTPopup.css" rel="stylesheet">
+<link href="/Content/css/gmap_places.css" rel="stylesheet">
+<link href="/Content/css/popup.css" rel="stylesheet">
 <script src="/Content/js/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
-<script src="/Content/js/TSMTPlaces.js"></script>
-<script src="/Content/js/TSMTPopup.js"></script>
+<script src="/Content/js/gmap_places.js"></script>
+<script src="/Content/js/popup.js"></script>
 
 @using (Html.BeginForm("EditLodgeHasCe", "Sponsor", FormMethod.Post, new { id = "FormEditLodgeHasCe" }))
 {

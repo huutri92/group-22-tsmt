@@ -171,12 +171,10 @@
             <table id="tableroom" class="table table-hover">
                 <tr>
                     <td></td>
-                    <td>STT</td>
                     <td>Tên Phòng</td>
                     <td>Tổng Số Chỗ</td>
                 </tr>
                 @{
-                    int counter = 1;
 
                     foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
                     {
@@ -185,11 +183,9 @@
                         <td>
                             <input class="roomid"   type="checkbox" name ="charityexamid" value="@item.RoomID" />
                         </td>
-                        <td>@counter</td>
                         <td>@item.RoomName</td>
                         <td>@item.TotalSlots</td>
                     </tr>
-                        ++counter;
                     }
                 }
                   <tr>
