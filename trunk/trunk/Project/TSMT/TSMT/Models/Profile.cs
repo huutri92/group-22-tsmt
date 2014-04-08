@@ -23,7 +23,6 @@ namespace TSMT.Models
         public int AccountID { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string Middlename { get; set; }
         public bool Gender { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }

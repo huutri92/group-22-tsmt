@@ -2461,6 +2461,16 @@
     <Content Include="Views\Home\ViewVenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\font\sk05J8GA1NvUxDnk43EgAQ.woff" />
+    <Content Include="Content\css\font\uCFS-jQepl-zVlhjycME2fesZW2xOQ-xsNqO47m55DA.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\font\VNHoD96LpZ9rGZTwjozAOvesZW2xOQ-xsNqO47m55DA.woff" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>

@@ -1008,7 +1008,8 @@ namespace TSMT.Controllers
             foreach (var item in eps)
             {
                 record = new DataManageCandidate();
-                record.lname = item.Candidate.Account.Profile.Lastname + " " + item.Candidate.Account.Profile.Middlename;
+                record.lname = item.Candidate.Account.Profile.Lastname;
+                //+" " + item.Candidate.Account.Profile.Middlename;
                 record.fname = item.Candidate.Account.Profile.Firstname;
                 record.lodge = item.Lodge.Address;
                 record.venue = item.Venue.Address;
@@ -1099,7 +1100,8 @@ namespace TSMT.Controllers
             foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id))
             {
                 record = new DataAssignRoom();
-                record.lname = ep.Candidate.Account.Profile.Lastname + " " + ep.Candidate.Account.Profile.Middlename;
+                record.lname = ep.Candidate.Account.Profile.Lastname;
+                //+" " + ep.Candidate.Account.Profile.Middlename;
                 record.fname = ep.Candidate.Account.Profile.Firstname;
                 record.lodge = ep.Lodge.Address;
                 record.group = ep.GroupID == null ? "Chưa có nhóm" : ep.GroupID.ToString();
@@ -1297,7 +1299,8 @@ namespace TSMT.Controllers
             foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id))
             {
                 record = new DataAssignCar();
-                record.lname = ep.Candidate.Account.Profile.Lastname + " " + ep.Candidate.Account.Profile.Middlename;
+                record.lname = ep.Candidate.Account.Profile.Lastname;
+                //+" " + ep.Candidate.Account.Profile.Middlename;
                 record.fname = ep.Candidate.Account.Profile.Firstname;
                 record.university = ep.UniversitiesExamination.University.Name;
                 record.lodge = ep.Lodge.Address;
