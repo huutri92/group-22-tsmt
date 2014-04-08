@@ -1,42 +1,67 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Car
 @{
-    ViewBag.Title = "EditCarNotCe";
+    ViewBag.Title = "Chỉnh sửa thông tin xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="title_of_page">Chỉnh sửa Xe</h2>
- 
-@using (Html.BeginForm("EditCarNotCe", "Sponsor", FormMethod.Post))
-{
-    <input type="hidden" name="carId" value="@Model.CarID"/>
-    <table>
-        <tr>
-            <td>Biển số xe</td>
-            <td>
-                <input type="text" name="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Tổng số chỗ ngồi</td>
-            <td>
-                <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
-        </tr>
-         <tr>
-            <td>Tên tài xế</td>
-            <td>
-                <input type="text" name="DriverName" value="@Model.DriverName" class="form-control"/></td>
-        </tr>
-         <tr>
-            <td>Số điện thoại tài xế</td>
-            <td>
-                <input type="text" name="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-               <input type="button" class = "btn btn-info" onclick="history.go(-1);" value="Quay lại"/>
-                <input type="submit" value="Submit" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li><a href="@Url.Action("ManageCar", "Sponsor")">Quản Lý Xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
 }
+@Html.Partial("_SponsorSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa thông tin xe
+            </h3>
+        </div>
+        @using (Html.BeginForm("EditCarNotCe", "Sponsor", FormMethod.Post))
+        {
+            <div class="panel-body">
+                <input type="hidden" name="carId" value="@Model.CarID"/>
+                <table class="table table-hover">
+                    <tr>
+                        <td>Biển số xe</td>
+                        <td>
+                            <input type="text" name="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Tổng số chỗ ngồi</td>
+                        <td>
+                            <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Tên tài xế</td>
+                        <td>
+                            <input type="text" name="DriverName" value="@Model.DriverName" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại tài xế</td>
+                        <td>
+                            <input type="text" name="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                             @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
+                            <input type="submit" value="Lưu lại" class="btn btn-info" />
+                            <input type="reset" value="Làm mới" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+</div>

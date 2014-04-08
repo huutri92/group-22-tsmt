@@ -1,4 +1,6 @@
 ﻿@using TSMT.Models
+
+
 @{
     ViewBag.Title = "Tài trợ";
     ViewBag.Active = "AddResource";
@@ -163,10 +165,6 @@
                             </td>
                         </tr>
                     </table>
-                    <div id="showMessage" class="alert alert-danger fade in" style="display: none">
-                        @*<button type="button" class="close" data-dismiss="alert">×</button>*@
-                        <strong>Bạn chưa có phiếu báo thi!</strong> Bạn hãy click vào nút "Tạo mới" để tạo một phiếu báo thi cho riêng mình.
-                    </div>
                     
                          <div id="Tiền" style="display: none">
                         <table class="table table-hover">
@@ -193,8 +191,24 @@
                     </div>
 
                     <div id="Xe" style="display: none">
-                        <table class="table table-hover">
-                            <tr>
+                        <div id="showMessage" class="alert alert-danger fade in" style="display: none">
+                            @*<button type="button" class="close" data-dismiss="alert">×</button>*@
+                            <strong>Bạn không có xe để tài trợ!</strong> Bạn hãy tạo mới xe cho mình.
+                        </div>
+                        <table class="table table-hover" id ="showdata">
+                          @*  @if ((((IEnumerable)ViewData["Car"]).count) == 0)
+                            {
+                                  <tr>
+                                        <td>
+                                            <script type="text/javascript">
+                                                document.getElementById("showdata").style.display = "none";
+                                                document.getElementById("showMessage").style.display = "block";
+                                            </script>
+                                        </td>
+                                    </tr>
+                            }
+                            else{
+                            *@<tr>
                                 <td>Xe đã có - Biển Số Xe: 
                                 </td>
                                 <td>
@@ -226,6 +240,7 @@
                                 <td>
                                     <input type="text" id="DriverPhone" name="DriverPhone" readonly="true" class="form-control" /></td>
                             </tr>
+                           @* }*@
                         </table>
                     </div>
 
@@ -265,9 +280,9 @@
                     </div>                    
                 </div>
             </div>
-            <input type="button" value="Trở về" class="btn" onclick="history.go(-1);" />
-            <input type="submit" value="Tài Trợ" class="btn" />
-            <input type="reset" value="Xóa hết" class="btn" />
+            @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
+            <input type="submit" value="Tài Trợ" class="btn btn-info" />
+            <input type="reset" value="Xóa hết" class="btn btn-info" />
         </form>
     </div>
 

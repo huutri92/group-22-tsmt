@@ -1,51 +1,67 @@
 ﻿@model IEnumerable<TSMT.Models.ChairitiesExam>
 @{
-    ViewBag.Title = "AddCharityExam";
+    ViewBag.Title = "Tạo mới xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
 
-<h2 class="title_of_page">Add Car</h2>
-@using (Html.BeginForm("AddCar", "Sponsor", FormMethod.Post))
-{
-    <table>
-       @* <tr>
-            <td>Kỳ thi + Tổ chức</td>
-            <td>
-                <select name="ceId">
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.CharityExamID">@item.Examination.Name - @item.CharityExamName</option>
-                    }
-                </select>
-            </td>
-        </tr>*@
-        <tr>
-            <td>Biển số xe</td>
-            <td>
-                <input type="text" name="NumberPlate" /></td>
-        </tr>
-        <tr>
-            <td>Tổng số chỗ ngồi</td>
-            <td>
-                <input type="text" name="TotalSlots" /></td>
-        </tr>
-        <tr>
-            <td>Tên tài xế</td>
-            <td>
-                <input type="text" name="DriverName" /></td>
-        </tr>
-        <tr>
-            <td>Số điện thoại tài xế</td>
-            <td>
-                <input type="text" name="DriverPhone" /></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="button" onclick="history.go(-1);" value="Quay lại"/>
-                <input type="submit" value="Create" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li><a href="@Url.Action("ManageCar", "Sponsor")">Quản Lý Xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
 }
+@Html.Partial("_SponsorSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Tạo mới xe
+            </h3>
+        </div>
+        @using (Html.BeginForm("AddCar", "Sponsor", FormMethod.Post))
+        {
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Biển số xe</td>
+                        <td>
+                            <input type="text" name="NumberPlate" /></td>
+                    </tr>
+                    <tr>
+                        <td>Tổng số chỗ ngồi</td>
+                        <td>
+                            <input type="text" name="TotalSlots" /></td>
+                    </tr>
+                    <tr>
+                        <td>Tên tài xế</td>
+                        <td>
+                            <input type="text" name="DriverName" /></td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại tài xế</td>
+                        <td>
+                            <input type="text" name="DriverPhone" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                           @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
+                            <input type="submit" value="Tạo Mới" class="btn btn-info" />
+                            <input type="reset" value="Làm mới" class="btn btn-info" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+   
+</div>
