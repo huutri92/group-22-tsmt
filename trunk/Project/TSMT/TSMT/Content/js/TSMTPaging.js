@@ -88,7 +88,7 @@ function createLeftNavigator(){
 function createRightNavigator(){
 	var tmp = "Số bản ghi mỗi trang <select id='cbbRecordPerPage' onchange='changeRecordPerPage(this.value)'>";
 	tmp += "<option value='" + step + "'>" + step + "</option>"
-	for (var i = step*2; i <= TSMTPagingDataUsing.length+1; i+=step) tmp += "<option value=" + i + ">" + i + "</option>";
+	for (var i = step*2; i <= TSMTPagingDataUsing.length + step; i+=step) tmp += "<option value=" + i + ">" + i + "</option>";
 	tmp += "</select>";
 	$("#rightNavigator").html(tmp);
 	$("#cbbRecordPerPage").val(recordPerPage).change();
