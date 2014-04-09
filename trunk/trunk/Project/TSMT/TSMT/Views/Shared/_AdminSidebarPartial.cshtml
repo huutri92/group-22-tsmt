@@ -17,7 +17,7 @@
                                 <a href="@Url.Action("ManageExam","Admin")"><i class="icon-calendar"></i>Thông tin các đợt thi</a></li>
                             <li class="@(ViewBag.Active == "ManageUniversityExam" ? "active" : "")">
                                 <a href="@Url.Action("ManageUniversityExam","Admin")"><i class="icon-gear"></i>Thông tin liên quan đến các đợt thi </a></li>
-                            <li class="">Quản lý </li>
+                            @*<li class="">Quản lý </li>*@
                             <li class="@(ViewBag.Active == "Statistics" ? "active" : "")">
                                 <a href="@Url.Action("Statistics","Admin")"><i class="icon-rocket"></i>Thống kê</a></li>
                         </ul>
