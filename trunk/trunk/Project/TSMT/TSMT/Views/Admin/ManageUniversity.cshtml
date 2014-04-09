@@ -28,7 +28,7 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tất cả thông tin về trường ĐHCĐ hiện có trong TSMT
+            <h3 class="panel-title"><i class="icon-list"></i>Danh sách các trường ĐHCĐ hiện có trong TSMT
                 <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-default"><i class="icon-plus"></i>Tạo mới</a>
             </h3>
         </div>
@@ -37,58 +37,54 @@
             <div id="showMessage" class="alert alert-danger fade in" style="display: none; vertical-align: middle">
                 <strong>Chưa có thông tin trường ĐHCĐ trong cơ sở dữ liệu!</strong> Bạn hãy click vào nút "Tạo mới" để tạo thông tin trường ĐHCĐ.
             </div>
-            <table class="table table-hover"  id="showdata">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th style="vertical-align: middle">Tên trường</th>
-                        <th style="vertical-align: middle">Mã trường</th>
-                        <th style="vertical-align: middle">Địa chỉ</th>
-                        @*  <th>Website</th>
-                        <th>Số điện thoại</th>*@
-                        <th style="vertical-align: middle">Thao tác</th>
+                        <th onclick="sortBy('name', this)" class="order orderDes orderHidden">Tên trường</th>
+                        <th onclick="sortBy('code', this)" class="order orderDes orderHidden">Mã trường</th>
+                        <th onclick="sortBy('address', this)" class="order orderDes orderHidden">Địa chỉ</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @if (Model.Count() < 1)
-                    {
-                        <tr>
-                            <td>
-                                <script type="text/javascript">
-                                    document.getElementById("showdata").style.display = "none";
-                                    document.getElementById("showMessage").style.display = "inline";
-                                </script>
-                            </td>
-                        </tr>
-                    }
-                    else
-                    {
-                        int counter = 1;
-                        foreach (var item in Model)
-                        {
-                        <tr>
-                            <td style="vertical-align: middle">@counter</td>
-                            <td style="vertical-align: middle">@item.Name</td>
-                            <td style="vertical-align: middle">@item.UniversityCode</td>
-                            <td style="vertical-align: middle">@item.Address</td>
-                            @*  <td>
-                                <a href="@item.Website">@item.Website</a>
-                            </td>
-                            <td>@item.Phone</td>*@
-                            <td>
-                                <a href="@Url.Action("EditUniversity", "Admin", new { id = @item.UniversityID })"  class="btn-u btn-u-blue" title="Thay đổi thông tin trường ĐHCĐ"><i class="icon-edit"></i></a>
-                                @if (item.IsRemovable)
-                                {
-                                    <a href="@Url.Action("DeleteUniversity", "Admin", new { id = @item.UniversityID })" class="btn-u btn-u-red" title="Xóa thông tin trường ĐHCĐ" onclick="return showPopup('Bạn có muốn xóa tất cả thông tin về trường ĐHCĐ này không?', this.href);"><i class="icon-trash"></i></a>
-                                }
-                            </td>
-                        </tr>
-                                ++counter;
-                        }
-                    }
-                </tbody>
+                <tbody id="TSMTPaging"></tbody>
             </table>
         </div>
     </div>
     <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
 </div>
+
+<link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
+<script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        fetchData();
+    });
+    function fetchData() {
+        $.ajax({
+            url: '/Admin/GetDataManageUniversity',
+            type: 'POST',
+            success: function (results) {
+                if (results.success == true) {
+                    init(5, 5, results.data);
+                }
+            }
+        });
+    }
+    function showData(index, record) {
+        var tmp = "<tr><td>" + index;
+        tmp += "</td><td>" + record.name;
+        tmp += "</td><td>" + record.code;
+        tmp += "</td><td>" + record.address;
+        tmp += "</td><td>" + record.actions;
+        tmp += "</td></tr>";
+        return tmp;
+    }
+    function matchSearch(i, text) {
+        var r = false;
+        r = r || (TSMTPagingData[i].name.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].code.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].address.toUpperCase().indexOf(text) > -1);
+        return r;
+    }
+</script>

@@ -235,13 +235,29 @@ namespace TSMT.Controllers
         }
         #endregion
         #region UNIVERSITIES
-
         public ActionResult ManageUniversity()
         {
-            var unis = db.Universities.ToList();
-            return View(unis);
+            return View();
         }
-
+        [HttpPost]
+        public JsonResult GetDataManageUniversity()
+        {
+            DataManageUniversity record = new DataManageUniversity();
+            List<DataManageUniversity> results = new List<DataManageUniversity>();
+            foreach (University u in db.Universities)
+            {
+                record = new DataManageUniversity();
+                record.name = u.Name;
+                record.code = u.UniversityCode;
+                record.address = u.Address;
+                record.actions = "<a href='/Admin/EditUniversity/" + u.UniversityID + "'";
+                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='icon-edit'></i></a>";
+                record.actions += "<a href='/Admin/DeleteUniversity/" + u.UniversityID + "'";
+                record.actions += " class='btn-u btn-u-red' title='Xoá thông tin trường ĐHCĐ'><i class='icon-remove'></i></a>";
+                results.Add(record);
+            }
+            return Json(new { success = true, data = results });
+        }
         public ActionResult AddUniversity()
         {
             return View();
@@ -263,7 +279,6 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageUniversity");
         }
-
         public ActionResult EditUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
