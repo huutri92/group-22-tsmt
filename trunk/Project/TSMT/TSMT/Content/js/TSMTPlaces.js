@@ -1,20 +1,22 @@
 
 var geocoder = new google.maps.Geocoder();
 
+var BenThanh = { lat: 10.771992, lng: 106.698264 };
 var map;
 var marker;
 var addressLat;
 var addressLng;
 
-function initialize() {
+function initialize(lat, lng) {
     var map_options = {
-        center: new google.maps.LatLng(10.772139, 106.698284),
+        center: new google.maps.LatLng(lat, lng),
         zoom: 16,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
     }
     map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
+    putMarker(lat, lng);
 }
 
 function putMarker(lat, lng) {
