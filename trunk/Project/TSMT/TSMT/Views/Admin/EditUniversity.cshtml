@@ -27,49 +27,51 @@
 {
     <input type="hidden" name="uniId" value="@Model.UniversityID" />    
     
-    <div class="col-md-9">
-        <div class="panel panel-red margin-bottom-40">
+    <div class="col-md-8">
+        <div class="panel panel-red">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-user"></i>Thay đổi thông tin trường ĐHCĐ</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td><b>Tên trường ĐHCĐ</b></td>
-                        <td style="width:auto">
+                        <td style="vertical-align: middle; max-width: 100px"><b>Tên trường ĐHCĐ</b></td>
+                        <td>
                             <input type="text" name="Name" value="@Model.Name" class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td><b>Địa chỉ</b></td>
+                        <td style="vertical-align: middle"><b>Địa chỉ</b></td>
                         <td>
                             <input type="text" name="Address" value="@Model.Address" class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td><b>Mã trường</b></td>
+                        <td style="vertical-align: middle">Mã trường</td>
                         <td>
-                            <input type="text" name="UniversityCode" value="@Model.UniversityCode" class="form-control"/></td>
+                            <input type="text" name="UniversityCode" class="form-control" style="width:65px" value="@Model.UniversityCode"/></td>
                     </tr>
                     <tr>
-                        <td><b>Website</b></td>
+                        <td style="vertical-align: middle">Website</td>
                         <td>
-                            <input type="url" name="Website" value="@Model.Website"  class="form-control"/></td>
+                            <input type="text" name="Website" class="form-control" style="width:270px" value="@Model.Website" /></td>
                     </tr>
                     <tr>
-                        <td><b>Số điện thoại</b></td>
+                        <td style="vertical-align: middle">Số điện thoại</td>
                         <td>
-                            <input type="text" name="Phone" value="@Model.Phone" class="form-control"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Submit" class="btn btn-info" />
-                            <input type="reset" value="Reset" class="btn btn-info" />
-                            <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />
-                        </td>
-                    </tr>
+                            <input type="text" name="Phone" class="form-control" style="width:230px" value="@Model.Phone" /></td>
+                    </tr>                   
                 </table>
-
             </div>
         </div>
+        
+        <div style="float: right">
+            @*<input type="submit" value="Submit" class="btn btn-info" />*@
+            @*<button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>*@
+            <button type="submit" class="btn-u btn-u-blue"><i class="icon-ok-sign"></i>&nbsp;Lưu</button>
+            @*<input type="reset" value="Reset" class="btn btn-info" />*@
+            @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
+            @*<button type="button" class="btn-u btn-u-red" onclick="location.href = '/Admin/ManageUniversity'; return false;" ><i class="icon-remove-sign"></i>&nbsp;Hủy</button>*@
+        </div>
+             <button type="button" class="btn-u btn-u-sea" onclick="location.href = '/admin/ManageUniversity'"><i class="icon-chevron-sign-left" ></i>&nbsp;Quay lại </button>
     </div>
 }
 

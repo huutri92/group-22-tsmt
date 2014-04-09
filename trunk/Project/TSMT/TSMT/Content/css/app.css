@@ -205,6 +205,21 @@ a.btn-u-lg {
    background: #f39c12 !important;
 }
 
+
+.btn-u-purpose {
+   background: #bc0ff1 !important;
+}
+.btn-u-purpose:hover {
+   background: #c812f3 !important;
+}
+
+.btn-u-pink {
+   background: #f10fe0 !important;
+}
+.btn-u-pink:hover {
+   background: #f312cf !important;
+}
+
 .btn-u-default {
    background: #95a5a6 !important;
 }
