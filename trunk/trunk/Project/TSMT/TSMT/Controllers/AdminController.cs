@@ -26,11 +26,11 @@ namespace TSMT.Controllers
         {
             return View();
         }
+        #region Import data from excel
         public ActionResult ImportData()
         {
             return View();
         }
-
         public ActionResult Importexcel(HttpPostedFileBase file)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
@@ -209,128 +209,7 @@ namespace TSMT.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
-        #region Manual-Assign
-        public ActionResult ModelManualAssignToRoom()
-        {
-            ViewData["listRoom"] = db.Rooms.ToList();
-            ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
-            return View();
-        }
-        public ActionResult ManualAssignToRoom()
-        {
-            //ViewData["listRoom"] = db.Rooms.Where(r=>r.LodgeID == lodgeId).ToList();
-            //ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
-            ViewData["listLodges"] = db.Lodges.ToList();
-            return View();
-        }
-
-
-
-        public ActionResult ManualAssignToCar()
-        {
-            ViewData["listCar"] = db.Cars.ToList();
-            ViewData["listVolunteer"] = db.Volunteers.ToList();
-            ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CarID == null && r.VolunteerID == null).ToList();
-            return View();
-        }
-
-        public JsonResult ResultAjaxLodgeRoom(int id)
-        {
-            var exPaper = from r in db.Rooms
-                          where r.LodgeID == id
-                          select new
-                          {
-                              value = r.RoomID,
-                              name = r.RoomName,
-                              capacity = r.AvailableSlots
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ResultAjaxLodgeCandidate(int id)
-        {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.LodgeRegisteredID == id && r.RoomID == null
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ResultAjaxRoom(int id, int lodgeId)
-        {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.RoomID == id && r.LodgeRegisteredID == lodgeId
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult ResultAjaxCar(int id)
-        {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.CarID == id
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult ResultAjaxVolunteer(int id)
-        {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.VolunteerID == id
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult EditAssignRoom(int caId, int roomId)
-        {
-            var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
-            if (roomId == 0)
-            {
-                expp.RoomID = null;
-            }
-            else
-            {
-                expp.RoomID = roomId;
-            }
-            db.SaveChanges();
-            return Json("");
-        }
-        public JsonResult EditAssignCar(int caId, int carId, int voId)
-        {
-            var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
-            if (carId == 0 && voId == 0)
-            {
-                expp.CarID = null;
-                expp.VolunteerID = null;
-            }
-            else if (carId != 0 && voId == 0)
-            {
-                expp.CarID = carId;
-                expp.VolunteerID = null;
-            }
-            else
-            {
-                expp.CarID = null;
-                expp.VolunteerID = voId;
-            }
-            db.SaveChanges();
-            return Json("");
-        }
         #endregion
-
         #region ACCOUNTS
         public ActionResult ManageAccount()
         {
@@ -344,7 +223,7 @@ namespace TSMT.Controllers
         {
             return View();
         }
-        
+
         #endregion
         #region CATEGORIES
         public ActionResult ManageCategory()
@@ -360,19 +239,19 @@ namespace TSMT.Controllers
         }
         #endregion
         #region UNIVERSITIES
-        
+
         public ActionResult ManageUniversity()
         {
             var unis = db.Universities.ToList();
             return View(unis);
         }
-        
+
         public ActionResult AddUniversity()
         {
             return View();
         }
         [HttpPost]
-        
+
         public ActionResult AddUniversity(FormCollection f)
         {
             University uni = new University();
@@ -385,16 +264,16 @@ namespace TSMT.Controllers
 
             db.Universities.Add(uni);
             db.SaveChanges();
-           
+
             return RedirectToAction("ManageUniversity");
         }
-        
+
         public ActionResult EditUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
             return View(uni);
         }
-        [HttpPost]        
+        [HttpPost]
         public ActionResult EditUniversity(FormCollection f)
         {
             int uniId = int.Parse(f["uniId"]);
@@ -407,7 +286,7 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
         }
-        
+
         public ActionResult DeleteUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
@@ -422,19 +301,19 @@ namespace TSMT.Controllers
         }
         #endregion
         #region EXAMINATIONS
-        
+
         public ActionResult ManageExam()
         {
-            var exams = db.Examinations.ToList();
+            var exams = db.Examinations.Where(r => r.BeginDate.Year == DateTime.Now.Year);
             return View(exams);
         }
-        
+
         public ActionResult AddExam()
         {
             return View();
         }
         [HttpPost]
-        
+
         public ActionResult AddExam(FormCollection f)
         {
             Examination exam = new Examination();
@@ -457,7 +336,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageExam");
         }
-        
+
         public ActionResult DeleteExam(int id)
         {
             Examination exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == id);
@@ -480,20 +359,20 @@ namespace TSMT.Controllers
         }
         #endregion
         #region SCHEDULE-EXAMS
-        
+
         public ActionResult ManageScheduleExam(int id)
         {
             var scheduleExams = db.ScheduleExams.Where(r => r.ExamID == id);
             return View(scheduleExams);
         }
-        
+
         public ActionResult EditScheduleExam(int id)
         {
             ScheduleExam scheduleExam = db.ScheduleExams.SingleOrDefault(r => r.ScheduleExamID == id);
             return View(scheduleExam);
         }
         [HttpPost]
-        
+
         public ActionResult EditScheduleExam(FormCollection f)
         {
             int scheduleExamId = int.Parse(f["id"]);
@@ -505,13 +384,13 @@ namespace TSMT.Controllers
         }
         #endregion
         #region UNI-EXAMS
-        
+
         public ActionResult ManageUniversityExam()
         {
             var uniExams = db.UniversitiesExaminations.ToList();
             return View(uniExams);
         }
-        
+
         public ActionResult AddUniversityExam()
         {
             ViewData["exams"] = db.Examinations.ToList();
@@ -519,7 +398,7 @@ namespace TSMT.Controllers
             return View();
         }
         [HttpPost]
-        
+
         public ActionResult AddUniversityExam(FormCollection f)
         {
             UniversitiesExamination ue = new UniversitiesExamination();
@@ -531,7 +410,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageUniversityExam");
         }
-        
+
         public ActionResult DeleteUniversityExam(int id)
         {
             UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == id);
@@ -624,7 +503,6 @@ namespace TSMT.Controllers
             return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
         }
         #endregion
-
         #region Statistics
         public ActionResult Statistics()
         {

@@ -375,6 +375,14 @@
     <Content Include="Content\img\main\7.jpg" />
     <Content Include="Content\img\main\8.jpg" />
     <Content Include="Content\img\main\9.jpg" />
+    <Content Include="Content\img\markers\blue-dot.png" />
+    <Content Include="Content\img\markers\green-dot.png" />
+    <Content Include="Content\img\markers\ltblue-dot.png" />
+    <Content Include="Content\img\markers\orange-dot.png" />
+    <Content Include="Content\img\markers\pink-dot.png" />
+    <Content Include="Content\img\markers\purple-dot.png" />
+    <Content Include="Content\img\markers\red-dot.png" />
+    <Content Include="Content\img\markers\yellow-dot.png" />
     <Content Include="Content\img\mockup\iphone.png" />
     <Content Include="Content\img\mockup\iphone1.png" />
     <Content Include="Content\img\new\img1.jpg" />
@@ -2405,8 +2413,8 @@
     <Content Include="Views\Candidate\JoinInGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\ManualAssignToCar.cshtml" />
-    <Content Include="Views\Admin\ManualAssignToRoom.cshtml" />
+    <Content Include="Views\Charity\ManualAssignToCar.cshtml" />
+    <Content Include="Views\Charity\ManualAssignToRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Sponsor\EditLodgeHasCe.cshtml" />
