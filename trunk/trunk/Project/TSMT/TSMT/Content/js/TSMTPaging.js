@@ -18,7 +18,7 @@ function init(s, c, data) {
     TSMTPagingData = TSMTPagingDataUsing = data;
 	createLeftNavigator();
 	
-	recordPerPage = TSMTPagingDataUsing.length <= step ? step : step*2;
+	recordPerPage = TSMTPagingDataUsing.length < step*2 ? step : step*2;
 	createRightNavigator();
 	goToPage(1);
 }
