@@ -1,251 +1,144 @@
 ﻿@using TSMT.Models
 
-@*
-<div class="col-md-3">
+<link rel="stylesheet" href="~/Content/css/stylesDropSideBar.css">
+<!--Begin Sidebar Menu-->
+@*<div class="col-md-3">
     <div class="row tab-v3">
         <div class="col-sm-12">
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
-                    <li class="">
-                        <a href="#" data-toggle="collapse" data-parent="#accordion"><i class="icon-tint"></i>Đợt thi</a>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li> ABC</li>
-                            <li> 12345</li>
-                        </ul>
-                    </li>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+                <li class="panel-group acc-v1">
+                    <ul class="panel panel-default">
+                        <li class="panel-heading">
 
-                    <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
-                </ul>
+                        </li>
+                    </ul>
+                </li>
+                <div class="panel-group acc-v1" id="accordion-1">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">Collapsible Group Item #1
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse-One" class="panel-collapse in" style="height: auto;">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-responsive" src="~/Content/img/new/img5.jpg" alt="">
+                                    </div>
+                                    <div class="col-md-8">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+            </ul>
+        </div>
+    </div>
+    @*<i class="icon-cogs" onclick="$('#hehe').toggle('slow'); return false;"></i>
+</div>
+
+*@
+@*<div class="panel-group acc-v1" id="accordion-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">Collapsible Group Item #1
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-One" class="panel-collapse in" style="height: auto;">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="assets/img/new/img5.jpg" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Two">Collapsible Group Item #2
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-Two" class="panel-collapse collapse" style="height: 0px;">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="icon-ok color-green"></i>Donec id elit non mi porta gravida at eget metus..</li>
+                            <li><i class="icon-ok color-green"></i>Fusce dapibus, tellus ac cursus comodo egetine..</li>
+                            <li><i class="icon-ok color-green"></i>Food truck quinoa nesciunt laborum eiusmod runch..</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="assets/img/main/6.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Three">Collapsible Group Item #3
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-Three" class="panel-collapse collapse" style="height: 0px;">
+            <div class="panel-body">
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Food truck quinoa nesciunt laborum eiusmodolf moon tempor, sunt aliqua put a bird. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Four">Collapsible Group Item #4
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-Four" class="panel-collapse collapse" style="height: 0px;">
+            <div class="panel-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+            </div>
+        </div>
     </div>
 </div>*@
 
 
-<style>
-    #cssmenu,
-    #cssmenu ul,
-    #cssmenu ul li,
-    #cssmenu ul li a {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        list-style: none;
-        line-height: 1;
-        display: block;
-        position: relative;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    #cssmenu {
-        width: 200px;
-        font-family: Helvetica, Arial, sans-serif;
-        color: #ffffff;
-    }
-
-        #cssmenu ul ul {
-            display: none;
-        }
-
-    .align-right {
-        float: right;
-    }
-
-    #cssmenu > ul > li > a {
-        padding: 15px 20px;
-        border-left: 1px solid #1682ba;
-        border-right: 1px solid #1682ba;
-        border-top: 1px solid #1682ba;
-        cursor: pointer;
-        z-index: 2;
-        font-size: 14px;
-        font-weight: bold;
-        text-decoration: none;
-        color: #ffffff;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
-        background: #36aae7;
-        background: -webkit-linear-gradient(#36aae7, #1fa0e4);
-        background: -moz-linear-gradient(#36aae7, #1fa0e4);
-        background: -o-linear-gradient(#36aae7, #1fa0e4);
-        background: -ms-linear-gradient(#36aae7, #1fa0e4);
-        background: linear-gradient(#36aae7, #1fa0e4);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-
-        #cssmenu > ul > li > a:hover,
-        #cssmenu > ul > li.active > a,
-        #cssmenu > ul > li.open > a {
-            color: #eeeeee;
-            background: #e67e22;
-            background: -webkit-linear-gradient(#1fa0e4, #1992d1);
-            background: -moz-linear-gradient(#1fa0e4, #1992d1);
-            background: -o-linear-gradient(#1fa0e4, #1992d1);
-            background: -ms-linear-gradient(#1fa0e4, #1992d1);
-            background: linear-gradient(#1fa0e4, #1992d1);
-        }
-
-    #cssmenu > ul > li.open > a {
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.15);
-        border-bottom: 1px solid #1682ba;
-    }
-
-    #cssmenu > ul > li:last-child > a,
-    #cssmenu > ul > li.last > a {
-        border-bottom: 1px solid #1682ba;
-    }
-
-    .holder {
-        width: 0;
-        height: 0;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-        .holder::after,
-        .holder::before {
-            display: block;
-            position: absolute;
-            content: '';
-            width: 6px;
-            height: 6px;
-            right: 20px;
-            z-index: 10;
-            -webkit-transform: rotate(-135deg);
-            -moz-transform: rotate(-135deg);
-            -ms-transform: rotate(-135deg);
-            -o-transform: rotate(-135deg);
-            transform: rotate(-135deg);
-        }
-
-        .holder::after {
-            top: 17px;
-            border-top: 2px solid #ffffff;
-            border-left: 2px solid #ffffff;
-        }
-
-    #cssmenu > ul > li > a:hover > span::after,
-    #cssmenu > ul > li.active > a > span::after,
-    #cssmenu > ul > li.open > a > span::after {
-        border-color: #eeeeee;
-    }
-
-    .holder::before {
-        top: 18px;
-        border-top: 2px solid;
-        border-left: 2px solid;
-        border-top-color: inherit;
-        border-left-color: inherit;
-    }
-
-    #cssmenu ul ul li a {
-        cursor: pointer;
-        border-bottom: 1px solid #32373e;
-        border-left: 1px solid #32373e;
-        border-right: 1px solid #32373e;
-        padding: 10px 20px;
-        z-index: 1;
-        text-decoration: none;
-        font-size: 13px;
-        color: #eeeeee;
-        background: #fff;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    #cssmenu ul ul li:hover > a,
-    #cssmenu ul ul li.open > a,
-    #cssmenu ul ul li.active > a {
-        background: #424852;
-        color: #ffffff;
-    }
-
-    #cssmenu ul ul li:first-child > a {
-        box-shadow: none;
-    }
-
-    #cssmenu ul ul ul li:first-child > a {
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    #cssmenu ul ul ul li a {
-        padding-left: 30px;
-    }
-
-    #cssmenu > ul > li > ul > li:last-child > a,
-    #cssmenu > ul > li > ul > li.last > a {
-        border-bottom: 0;
-    }
-
-    #cssmenu > ul > li > ul > li.open:last-child > a,
-    #cssmenu > ul > li > ul > li.last.open > a {
-        border-bottom: 1px solid #32373e;
-    }
-
-    #cssmenu > ul > li > ul > li.open:last-child > ul > li:last-child > a {
-        border-bottom: 0;
-    }
-
-    #cssmenu ul ul li.has-sub > a::after {
-        display: block;
-        position: absolute;
-        content: '';
-        width: 5px;
-        height: 5px;
-        right: 20px;
-        z-index: 10;
-        top: 11.5px;
-        border-top: 2px solid #eeeeee;
-        border-left: 2px solid #eeeeee;
-        -webkit-transform: rotate(-135deg);
-        -moz-transform: rotate(-135deg);
-        -ms-transform: rotate(-135deg);
-        -o-transform: rotate(-135deg);
-        transform: rotate(-135deg);
-    }
-
-    #cssmenu ul ul li.active > a::after,
-    #cssmenu ul ul li.open > a::after,
-    #cssmenu ul ul li > a:hover::after {
-        border-color: #ffffff;
-    }
-</style>
-<script>
-    $(document).ready(function () {
-        $('#cssmenu li.has-sub>a').on('click', function () {
-            $(this).removeAttr('href');
-            var element = $(this).parent('li');
-            if (element.hasClass('open')) {
-                element.removeClass('open');
-                element.find('li').removeClass('open');
-                element.find('ul').slideUp();
-            } else {
-                element.addClass('open');
-                element.children('ul').slideDown();
-                element.siblings('li').children('ul').slideUp();
-                element.siblings('li').removeClass('open');
-                element.siblings('li').find('li').removeClass('open');
-                element.siblings('li').find('ul').slideUp();
-            }
-        });
-    });
-    $('#cssmenu>ul>li.has-sub>a').append('<span class="holder"></span>');
-</script>
-<div class="col-md-3">
+@*<div class="col-md-3">
     <div class="row tab-v3">
-        <div class="col-sm-12" style="width:292px;height:164px;">
+        <div class="col-sm-12">
+            
             <div id="cssmenu">
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+               <ul class="nav nav-pills nav-stacked">
+                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>             
 
                     <li class="has-sub">
                         <a href='#'>
-                            <i class="icon-tint"></i> Đợt thi
+                            <span>Kì Thi</span>                           
                         </a>
                         <ul style="display: none">
                             @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
                             {
-                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })"><span>@item.Examination.Name</span></a>
+                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })"><span>@item.CharityExamName (@item.Examination.Name)</span></a>
 
                                 </li>
                             }
@@ -256,4 +149,27 @@
             </div>
         </div>
     </div>
+</div>*@
+<div id='cssmenu'>
+    <ul>
+        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+        <li class='has-sub'><a href='#'><span>Đợt thi tài trợ</span></a>
+            @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
+            {
+                <ul>
+                    <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })"><span>@item.Examination.Name</span></a>
+                        <ul>
+                            <li><a href="@Url.Action("ManageLodge", "Charity", new { id = item.CharityExamID })"><span>Quản lý Chỗ trọ</span></a></li>
+                            <li><a href="@Url.Action("ManageCar", "Charity", new { id = item.CharityExamID })"><span>Quản lý Xe</span></a></li>
+                            <li><a href="@Url.Action("ManageFunds", "Charity", new { id = item.CharityExamID })"><span>Quản lý Tiền được tài trợ</span></a></li>
+                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })"><span>Quản lý Thí sinh</span></a></li>
+                            <li class='last'><a href="@Url.Action("ManageVolunteer", "Charity", new { id = item.CharityExamID })"><span>Quản lý Tình nguyện viên</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </li>
+        <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+        <li class='last'><a href='#'><span>Contact</span></a></li>
+    </ul>
 </div>
