@@ -34,7 +34,7 @@
                     <tr style="vertical-align:middle">
                         <th>STT</th>
                         <th>Kỳ thi</th>
-                        <th style="vertical-align:middle">Tên hội từ thiện</th>
+                        @*<th style="vertical-align:middle">Tên hội từ thiện</th>*@
                         <th>Tổng số chỗ trọ</th>
                         <th>Số trọ trống</th>
                         <th>Tổng số phương tiện</th>
@@ -51,7 +51,7 @@
                         <tr>
                             <td>@Html.ActionLink(i.ToString(), "ManageCE", new { ceId = item.CharityExamID })</td>
                             <td>@Html.ActionLink(item.Examination.Name, "ManageCE", new { ceId = item.CharityExamID })</td>
-                            <td>@item.CharityExamName</td>
+                            @*<td>@item.Charity.Name</td>*@
                             <td>@item.TotalSlotsLodges</td>
                             <td>@item.AvailableSlotsLodges</td>
                             <td>@item.TotalSlotsVehicles</td>

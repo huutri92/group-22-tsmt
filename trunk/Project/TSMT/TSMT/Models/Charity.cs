@@ -23,6 +23,7 @@ namespace TSMT.Models
         public int AccountID { get; set; }
         public string PhoneNumber { get; set; }
         public string FullDescription { get; set; }
+        public string Name { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<ChairitiesExam> ChairitiesExams { get; set; }

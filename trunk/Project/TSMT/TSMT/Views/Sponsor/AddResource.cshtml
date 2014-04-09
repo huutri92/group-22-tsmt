@@ -1,6 +1,5 @@
 ﻿@using TSMT.Models
 
-
 @{
     ViewBag.Title = "Tài trợ";
     ViewBag.Active = "AddResource";
@@ -130,7 +129,7 @@
 
     <div class="col-md-9">
         <form method="post" action="/Sponsor/AddResource">
-            <div class="panel panel-green margin-bottom-20">
+            <div class="panel panel-green">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
                 </div>
@@ -196,7 +195,7 @@
                             <strong>Bạn không có xe để tài trợ!</strong> Bạn hãy tạo mới xe cho mình.
                         </div>
                         <table class="table table-hover" id ="showdata">
-                          @*  @if ((((IEnumerable)ViewData["Car"]).count) == 0)
+                            @if (((IEnumerable<Car>)ViewData["Car"]).Count() == 0)
                             {
                                   <tr>
                                         <td>
@@ -208,7 +207,7 @@
                                     </tr>
                             }
                             else{
-                            *@<tr>
+                            <tr>
                                 <td>Xe đã có - Biển Số Xe: 
                                 </td>
                                 <td>
@@ -240,7 +239,7 @@
                                 <td>
                                     <input type="text" id="DriverPhone" name="DriverPhone" readonly="true" class="form-control" /></td>
                             </tr>
-                           @* }*@
+                            }
                         </table>
                     </div>
 

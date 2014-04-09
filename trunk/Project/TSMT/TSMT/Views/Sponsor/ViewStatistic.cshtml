@@ -4,6 +4,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Content/js/highchart.js"></script>
+<script src="~/Content/js/exporting.js"></script>
+
+<h1></h1>
+<h5></h5>
+<div class="col-md-9" id="showInformation">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-user"></i>Xem Thống Kê
+            </h3>
+        </div>
+        <div class="panel-body">
+            <h3>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</h3>
+            <table class="table table-hover">
+                @* <tr>
+                        <td>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</td>
+                    </tr>*@
+                <tr>
+                    <td style="vertical-align:middle">Kì Thi </td>
+                    <td>
+                        <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {
+                                <option value="@item.ExaminationID">@item.Name</option>
+                            }
+                        </select>
+                    </td>
+                    <td style=""vertical-align: middle">Tổ Chức: </td>
+                    <td>
+                        <select id="ceId" onchange="showForm1()" name="ceId" class="form-control"></select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div id="Resource" style="display: none">
+                <h3>Xe</h3>
+                <table class="table table-hover">
+                    <tbody id="showcar">
+                    </tbody>
+                </table>
+                <h3>Nhà</h3>
+                <table class="table table-hover">
+                    <tbody id="showlodge">
+                    </tbody>
+                </table>
+
+                @*<h3>Tiền</h3>
+        <table class="table table-hover">
+            <tbody id="showfund">
+            </tbody>
+        </table>*@
+
+            </div>
+            <div id="chart" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
+            <div id="chartlodge" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
+
+            <input id="buttonshow" type="button" value="Xem Thống Kê" name="Xem Thống Kê" onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" onchange="" style="display: none" class="btn btn-info" />
+
+            @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-info" })
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     function callAjax(id) {
@@ -27,9 +91,6 @@
             });
         }
     }
-
-
-
 
     $(document).ready(function () {
         $("#ceId").click(function () {
@@ -56,7 +117,7 @@
                     }
                 }
             });
-
+                
             $.ajax({
                 url: 'ShowLodgeSponsor',
                 data: { "ceId": ceId },
@@ -99,7 +160,6 @@
 
         });
     });
-
 
     function showForm1() {
         document.getElementById('Resource').style.display = "inline";
@@ -215,12 +275,8 @@
         });
     }
 
-
-
-
     $("#fund1").priceFormat({ prefix: '', centsLimit: 0 });
-</script>
-<script>
+
     $(function () {
         var lengthadd = document.getElementsByClassName("add").length;
         for (var i = 0; i < lengthadd; i++) {
@@ -229,73 +285,5 @@
             var add1 = add[0];
             document.getElementsByClassName("add")[i].innerHTML = add1;
         }
-
     });
 </script>
-<h1></h1>
-<h5></h5>
-<div class="col-md-9" id="showInformation">
-    <div class="panel panel-green margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-user"></i>Xem Thống Kê
-            </h3>
-        </div>
-        <div class="panel-body">
-            <h3>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</h3>
-            <table class="table table-hover">
-                @* <tr>
-                        <td>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</td>
-                    </tr>*@
-                <tr>
-                    <td style="vertical-align:middle">Kì Thi </td>
-                    <td>
-                        <select id="qwe" onchange="callAjax(this.value)" class="form-control">
-                            <option value="0" selected>---</option>
-                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
-                            {
-                                <option value="@item.ExaminationID">@item.Name</option>
-                            }
-                        </select>
-                    </td>
-                    <td style=""vertical-align: middle">Tổ Chức: </td>
-                    <td>
-                        <select id="ceId" onchange="showForm1()" name="ceId" class="form-control"></select>
-                    </td>
-                </tr>
-
-            </table>
-
-            <div id="Resource" style="display: none">
-                <h3>Xe</h3>
-                <table class="table table-hover">
-                    <tbody id="showcar">
-                    </tbody>
-                </table>
-                <h3>Nhà</h3>
-                <table class="table table-hover">
-                    <tbody id="showlodge">
-                    </tbody>
-                </table>
-
-                @*<h3>Tiền</h3>
-        <table class="table table-hover">
-            <tbody id="showfund">
-            </tbody>
-        </table>*@
-
-
-            </div>
-            </br>
-            <div id="chart" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
-            <div id="chartlodge" style="display: none; min-width: 710px; height: 400px; margin: 0 auto"></div>
-
-            <input id="buttonshow" type="button" value="Xem Thống Kê" name="Xem Thống Kê" onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" onchange="" style="display: none" class="btn btn-info" />
-
-            @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-info" })
-        </div>
-    </div>
-</div>
-
-
-
-

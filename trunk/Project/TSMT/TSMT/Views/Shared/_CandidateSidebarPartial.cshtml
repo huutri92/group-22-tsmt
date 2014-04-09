@@ -6,7 +6,6 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="@(ViewBag.Active == "CandidateHome" ? "active" : "")"><a href="@Url.Action("Index", "")"><i class="icon-home"></i>Home</a></li>
                 <li class="@(ViewBag.Active == "ManageExamPaper" ? "active" : "")"><a href="@Url.Action("ManageExamPaper", "Candidate")"><i class="icon-star"></i>Quản lý Phiếu báo thi</a></li>
-
                 <li class="@(ViewBag.Active == "ViewLodgeInformation" ? "active" : "")"><a href="@Url.Action("Index", "ViewLodgeInformation")"><i class="icon-map-marker"></i>Xem thông tin Chỗ trọ</a></li>
                 <li class="@(ViewBag.Active == "ViewCharityInformation" ? "active" : "")"><a href="@Url.Action("Index", "ViewCharityInformation")"><i class="icon-info"></i>Xem thông tin Hội từ thiện</a></li>
                 <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Index", "Statistics")"><i class="icon-rocket"></i>Thống kê</a></li>

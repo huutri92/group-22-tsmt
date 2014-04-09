@@ -290,7 +290,6 @@
           <Property Name="CharityExamID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ExamID" Type="int" Nullable="false" />
           <Property Name="CharityID" Type="int" Nullable="false" />
-          <Property Name="CharityExamName" Type="nvarchar" MaxLength="50" />
           <Property Name="TotalSlotsLodges" Type="int" Nullable="false" />
           <Property Name="AvailableSlotsLodges" Type="int" Nullable="false" />
           <Property Name="TotalSlotsVehicles" Type="int" Nullable="false" />
@@ -305,6 +304,7 @@
           <Property Name="AccountID" Type="int" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" />
           <Property Name="FullDescription" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -1384,7 +1384,6 @@
           <Property Name="CharityExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ExamID" Type="Int32" Nullable="false" />
           <Property Name="CharityID" Type="Int32" Nullable="false" />
-          <Property Name="CharityExamName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="TotalSlotsLodges" Type="Int32" Nullable="false" />
           <Property Name="AvailableSlotsLodges" Type="Int32" Nullable="false" />
           <Property Name="TotalSlotsVehicles" Type="Int32" Nullable="false" />
@@ -1406,6 +1405,7 @@
           <Property Name="AccountID" Type="Int32" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
           <Property Name="FullDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Charities_Accounts" FromRole="Charities" ToRole="Accounts" />
           <NavigationProperty Name="ChairitiesExams" Relationship="TSMTModel.FK_ChairitiesExams_Charities" FromRole="Charities" ToRole="ChairitiesExams" />
         </EntityType>
@@ -2319,7 +2319,6 @@
                 <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
                 <ScalarProperty Name="ExamID" ColumnName="ExamID" />
                 <ScalarProperty Name="CharityID" ColumnName="CharityID" />
-                <ScalarProperty Name="CharityExamName" ColumnName="CharityExamName" />
                 <ScalarProperty Name="TotalSlotsLodges" ColumnName="TotalSlotsLodges" />
                 <ScalarProperty Name="AvailableSlotsLodges" ColumnName="AvailableSlotsLodges" />
                 <ScalarProperty Name="TotalSlotsVehicles" ColumnName="TotalSlotsVehicles" />
@@ -2335,6 +2334,7 @@
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="FullDescription" ColumnName="FullDescription" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

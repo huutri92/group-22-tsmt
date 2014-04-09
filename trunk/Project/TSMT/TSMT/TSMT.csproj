@@ -442,6 +442,8 @@
     <Content Include="Content\img\testimonials\img1.jpg" />
     <Content Include="Content\img\testimonials\img2.jpg" />
     <Content Include="Content\img\testimonials\user.jpg" />
+    <Content Include="Content\img\TSMTasc.png" />
+    <Content Include="Content\img\TSMTdes.png" />
     <Content Include="Content\img\up.png" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\bootstrap.min.js" />

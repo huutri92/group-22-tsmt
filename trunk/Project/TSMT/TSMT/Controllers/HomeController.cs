@@ -79,7 +79,7 @@ namespace TSMT.Controllers
                           select new
                           {
                               value = e.CharityExamID,
-                              name = e.CharityExamName,
+                              name = e.Charity.Name,
                               desp = e.Description
                           };
             return Json(charity, JsonRequestBehavior.AllowGet);

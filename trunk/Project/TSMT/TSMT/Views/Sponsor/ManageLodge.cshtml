@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="/Content/js/ViewOnMap.js"></script>
+<script src="/Content/js/TSMTViewOnMap.js"></script>
 <script>
     $(function () {
         var lengthadd = document.getElementsByClassName("add").length;
@@ -28,6 +28,8 @@
     });
 </script>
 
+<link href="/Content/css/TSMTPopup.css" rel="stylesheet">
+<script src="/Content/js/TSMTPopup.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -62,7 +64,7 @@
                     <div class="tab-pane active" id="notsponsored">
                          <div id="showMessage" class="alert alert-danger fade in" style="display: none">
                             @*<button type="button" class="close" data-dismiss="alert">×</button>*@
-                            <strong>Bạn không có nhà để tài trợ!</strong> Bạn hãy click vào nút "Tạo mới" để Tạo mới nhà cho mình.
+                            <strong>Bạn không có nhà để tài trợ!</strong> Bạn hãy nhấn vào nút "Tạo mới" để tạo mới nhà cho mình.
                         </div>
                         <table class="table table-hover" id="showdata">
                             <thead>
@@ -99,10 +101,11 @@
                                         <td>@lodge.TotalRooms</td>
                                         <td>@lodge.TotalSlots</td>
                                         <td>
-                                            <button onclick="openWindowPopup('/sponsor/ViewLodge/', @lodge.LodgeID)">Xem Bản Đồ</button>
+                                            @*<button type="button" onclick="openWindowPopup('/sponsor/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-marker"></i></button>*@
+                                            <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
                                             <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                             <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
-                                            <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-red" title="Tài Trợ"><i class="icon-heart"></i></a>
+                                            <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
                                             <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-orange" title="Xóa Nhà"><i class="icon-trash"></i></a>
                                         </td>
                                     </tr>
@@ -149,7 +152,7 @@
                                     <tr>
                                         <td>@count</td>
                                         <td>@item.ChairitiesExam.Examination.Name</td>
-                                        <td>@item.ChairitiesExam.CharityExamName</td>
+                                        <td>@item.ChairitiesExam.Charity.Name</td>
                                         <td  class="addd">@item.Address</td>
                                         <td>@item.TotalSlotsInUsed/@item.AvailableSlots</td>
                                         @if (item.IsApproved)
@@ -164,8 +167,10 @@
                                         {
                                             <td><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td>
-                                                <button onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)">Xem Bản Đồ</button>
-                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
+                                                   <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                
+                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem"><i class="icon-info"></i></a>
+                                                
                                                 <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
                                                  @*@Html.ActionLink("Hủy tài Trợ", "DenieLodge", new { carId = @item.LodgeID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ căn nhà này?', this.href);" })*@
                                                 <a href="@Url.Action("DenieLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
@@ -181,9 +186,11 @@
                     </div>
                 </div>
             </div>
-            @Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
         </div>
     </div>
+            @*@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })*@
+<a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default">
+				 <i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
 

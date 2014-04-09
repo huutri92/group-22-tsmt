@@ -423,17 +423,8 @@ namespace TSMT.Controllers
         {
             int carId = int.Parse(f["carId"]);
             Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
-
-            
             car.CharityExamID = int.Parse(f["asd"]);
             car.CharityID = int.Parse(f["charityid"]);
-            car.NumberPlate = f["NumberPlate"];
-            car.TotalSlots = int.Parse(f["TotalSlots"]);
-            car.AvailableSlots = car.TotalSlots;
-            car.DriverName = f["DriverName"];
-            car.DriverPhone = f["DriverPhone"];
-
-           
             db.SaveChanges();
 
             return RedirectToAction("ManageCar");
@@ -596,7 +587,7 @@ namespace TSMT.Controllers
                      select new
                      {
                          value = r.CharityExamID,
-                         name = r.CharityExamName
+                         name = r.Charity.Name
                      };
             return Json(CE, JsonRequestBehavior.AllowGet);
         }

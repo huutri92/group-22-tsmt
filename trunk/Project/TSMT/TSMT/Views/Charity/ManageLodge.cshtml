@@ -7,6 +7,8 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 <script src="/Content/js/TSMTViewOnMap.js"></script>
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script src="~/Content/js/TSMTPopup.js"></script>
 <script>
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
@@ -123,7 +125,7 @@
     </div>
 </div>
 @*@Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
-@Html.ActionLink("Trở về trang quản lý", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Trở về trang quản lý", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 @Html.ActionLink("Thêm nhà trọ", "ChooseLodgeForCe", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <script type="text/javascript">

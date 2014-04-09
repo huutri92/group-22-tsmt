@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d065d687d8684496931c5381d16d4242" Name="Diagram1">
+      <Diagram DiagramId="b8f65fade579467dab602a6e6cca4baa" Name="Diagram1">
         <EntityTypeShape EntityType="TSMTModel.Account" Width="1.5" PointX="1.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Article" Width="1.5" PointX="3.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ArticlesTag" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Candidate" Width="1.5" PointX="10.5" PointY="21.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Car" Width="1.5" PointX="10.5" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Category" Width="1.5" PointX="1.5" PointY="33.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.ChairitiesExam" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.Charity" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.ChairitiesExam" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.Charity" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Comment" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.District" Width="1.5" PointX="1.5" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Examination" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
@@ -25,7 +25,7 @@
         <EntityTypeShape EntityType="TSMTModel.Province" Width="1.5" PointX="1.5" PointY="27.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Role" Width="1.5" PointX="1.5" PointY="31" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Room" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.ScheduleExam" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.ScheduleExam" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.SchedulesCar" Width="1.5" PointX="12.75" PointY="22.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.SchedulesVolunteer" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Sponsor" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
