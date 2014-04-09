@@ -21,47 +21,45 @@
 }
 @Html.Partial("_SponsorSidebarPartial")
 
+@using (Html.BeginForm("AddCar", "Sponsor", FormMethod.Post))
+{
+    <div class="col-md-7">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Tạo mới xe
+                </h3>
+            </div>
 
-<div class="col-md-9">
-    <div class="panel panel-green margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tạo mới xe
-            </h3>
-        </div>
-        @using (Html.BeginForm("AddCar", "Sponsor", FormMethod.Post))
-        {
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td>Biển số xe</td>
+                        <td style="vertical-align:middle">Biển số xe</td>
                         <td>
-                            <input type="text" name="NumberPlate" /></td>
+                            <input type="text" name="NumberPlate" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Tổng số chỗ ngồi</td>
+                        <td style="vertical-align:middle">Tổng số chỗ ngồi</td>
                         <td>
-                            <input type="text" name="TotalSlots" /></td>
+                            <input type="text" name="TotalSlots" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Tên tài xế</td>
+                        <td style="vertical-align:middle">Tên tài xế</td>
                         <td>
-                            <input type="text" name="DriverName" /></td>
+                            <input type="text" name="DriverName" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td>Số điện thoại tài xế</td>
+                        <td style="vertical-align:middle">Số điện thoại tài xế</td>
                         <td>
-                            <input type="text" name="DriverPhone" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                           @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
-                            <input type="submit" value="Tạo Mới" class="btn btn-info" />
-                            <input type="reset" value="Làm mới" class="btn btn-info" />
-                        </td>
+                            <input type="text" name="DriverPhone" class="form-control" /></td>
                     </tr>
                 </table>
             </div>
-        }
+        </div>
+        <div style="float:right">
+            <button type="submit" class="btn-u btn-u-default"><i class="icon-plus">&nbsp;Tạo</i></button>
+            <button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageCar/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
+  
     </div>
-   
-</div>
+}

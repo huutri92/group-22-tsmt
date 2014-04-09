@@ -37,6 +37,9 @@ $(document).ready(function () {
             } else if (tempt == "removeOut") {
                 callAjaxRemove(id);
             }
+            else if (tempt == "removeOutCe") {
+                callAjaxRemoveOutCe(id);
+            }
             $('#dialog-overlay, #dialog-box').fadeOut("fast");
             return false;
         } else {

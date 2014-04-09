@@ -9,6 +9,8 @@
 }
 
 <script src="/Content/js/TSMTViewOnMap.js"></script>
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script src="~/Content/js/TSMTPopup.js"></script>
 <script>
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
@@ -33,16 +35,16 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ của hội từ thiện
                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
 
         </div>
         <div class="panel-body">
             <div class="tab-v1">
-                <ul class="nav nav-tabs">
+               @* <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab">Nhà trọ của Hội từ thiện</a></li>
-                </ul>
+                </ul>*@
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <table class="table table-hover">
@@ -51,13 +53,13 @@
                                     <th>STT</th>
                                     <th>Địa chỉ</th>
                                     <th>Kì thi</th>
-                                    <th>Tên tổ chức</th>
-                                    <th>Tổng số phòng</th>
+                                    @*<th>Tên tổ chức</th>*@
+                                    @*<th>Tổng số phòng</th>*@
                                     <th>Số phòng được sử dụng</th>
-                                    <th>Tổng số chỗ</th>
+                                    @*<th>Tổng số chỗ</th>*@
                                     <th>Số chỗ có thể sử dụng</th>
-                                    <th>Số chỗ còn trống</th>
-                                    <th>Actions</th>
+                                    @*<th>Số chỗ còn trống</th>*@
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,24 +75,29 @@
                                         @if (item.CharityExamID == null)
                                         {
                                             <td>Chưa thiết lập</td>
-                                            <td>Chưa thiết lập</td>
+                                            @*<td>Chưa thiết lập</td>*@
                                         }
                                         else
                                         {
                                             <td>@item.ChairitiesExam.Examination.Name</td>
-                                            <td>@item.ChairitiesExam.CharityExamName</td>
+                                            @*<td>@item.ChairitiesExam.CharityExamName</td>*@
                                         }
-                                        <td>@item.TotalRooms</td>
-                                        <td>@item.Rooms.Count(r => r.CharityExamID != null)</td>
-                                        <td>@item.TotalSlots</td>
+                                        @*<td>@item.TotalRooms</td>*@
+                                        <td>@item.Rooms.Count(r => r.CharityExamID != null) / @item.TotalRooms</td>
+                                        @*<td>@item.TotalSlots</td>
                                         <td>@item.TotalSlotsInUsed</td>
-                                        <td>@item.AvailableSlots</td>
+                                        <td>@item.AvailableSlots</td>*@
+                                        <td>@item.AvailableSlots / @item.TotalSlotsInUsed</td>
                                         <td>
                                             <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
                                             @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
                                             @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
                                             @Html.ActionLink("Sử dụng", "AssignLodgetoCe", new { lodgeId = @item.LodgeID })
-                                            @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
+                                            @if (item.TotalSlotsInUsed == item.AvailableSlots)
+                                            { 
+                                                @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
+                                            }
+                                            
                                         </td>
 
                                     </tr>
@@ -106,9 +113,10 @@
 
         </div>
     </div>
-</div>
-@Html.ActionLink("Create", "AddLodge", new { id = Model.CharityID }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Create", "AddLodge", new { id = Model.CharityID }, new { @class = "btn btn-info" })
 @Html.ActionLink("Quay lại ", "Index", "", new { @class = "btn btn-info" })
+</div>
+
 
 <script type="text/javascript">
 

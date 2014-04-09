@@ -75,6 +75,7 @@
         </div>
         @using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post))
         {
+             <input type="hidden" name="charityid" id="charityid" />
             <div class="panel-body">
                 <input type="hidden" name="carId" value="@Model.CarID"/>
                 <table class="table table-hover">
@@ -104,24 +105,26 @@
                                 }
                             </select>
                         </td>
+                        </tr>
+                    <tr>
                         <td style="vertical-align: middle">Tổ Chức: </td>
                         <td>
                             <select id="asd" name="asd" onchange="callAjaxCharityid(this.value)" class="form-control">
                             </select>
                         </td>
-                        <input type="hidden" name="charityid" id="charityid" />
                     </tr>
+                   
                     <tr>
                         <td>Biển số xe</td>
                         <td>
-                            <input type="text" name="NumberPlate" value="@Model.NumberPlate"  readonly="true" class="form-control"/></td>
+                            @Model.NumberPlate
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Tổng số chỗ ngồi</td>
                         <td>
-                            <input type="text" name="TotalSlots" value="@Model.TotalSlots"  readonly="true" class="form-control"/></td>
+                            @Model.TotalSlots
 
                         <td></td>
                         <td></td>
@@ -129,14 +132,14 @@
                     <tr>
                         <td>Tên tài xế</td>
                         <td>
-                            <input type="text" name="DriverName" value="@Model.DriverName"  readonly="true" class="form-control"/></td>
+                            @Model.DriverName
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Số điện thoại tài xế</td>
                         <td>
-                            <input type="text" name="DriverPhone" value="@Model.DriverPhone"  readonly="true" class="form-control"/></td>
+                            @Model.DriverPhone
                         <td></td>
                         <td></td>
                     </tr>
@@ -146,6 +149,7 @@
                             <input type="submit" value="Tài Trợ" class="btn btn-info" />
                             <input type="reset" value="Làm Mới" class="btn btn-info" />
                         </td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

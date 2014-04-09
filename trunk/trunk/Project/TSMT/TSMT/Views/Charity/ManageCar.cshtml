@@ -8,7 +8,8 @@
        
 }
 
-
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script src="~/Content/js/TSMTPopup.js"></script>
 <script>
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
@@ -83,9 +84,12 @@
                                     
                                                 @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })
                                             }
-                                            @Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })
+                                            else
+                                            {
+                                                @Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })
+                                            }
                                             @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
-                                            @Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })
+                                            @Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })
                                         </td>
 
 
@@ -132,7 +136,14 @@
                                             <td><span class="label label-success">Đã duyệt</span></td>
                                             <td>
                                                 @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
-                                                @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
+                                                @if (item.AvailableSlots == item.TotalSlots)
+                                                {
+                                                    @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
+                                                }
+                                                else {
+                                                    @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @item.CarID })
+                                                }
+
 
                                             </td>
                                         }
@@ -167,7 +178,7 @@
 
 
 @*@Html.ActionLink("Create", "AddCar", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
-@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <script type="text/javascript">
 

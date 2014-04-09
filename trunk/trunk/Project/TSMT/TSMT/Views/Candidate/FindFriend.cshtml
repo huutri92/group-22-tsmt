@@ -5,6 +5,23 @@
 @using TSMT.Models;
 @model ExaminationsPaper
 
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Candidate")">Thí sinh</a></li>
+
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AccountSidebarPartial")
+<div class="col-md-9">
+    
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
         <h3 class="panel-title"><i class="icon-list">&nbsp;Tìm kiếm bạn bè</i></h3>
@@ -13,11 +30,11 @@
         <table class="table table-hover">
             <tr>
                 <td>Thí sinh</td>
-                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Middlename @Model.Candidate.Account.Profile.Firstname</td>
+                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</td>
             </tr>
             <tr>
                 <td>Hội từ thiện</td>
-                <td>@Model.ChairitiesExam.CharityExamName</td>
+                <td>@Model.ChairitiesExam.Charity.Name</td>
             </tr>
             <tr>
                 <td>Địa chỉ trọ</td>
@@ -53,6 +70,7 @@
     </thead>
     <tbody id="TSMTPaging"></tbody>
 </table>
+</div>
 
 @Html.ActionLink("Quay về trang trước", "DetailsExamPaper", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
 

@@ -26,7 +26,6 @@ namespace TSMT.Models
         public int CharityExamID { get; set; }
         public int ExamID { get; set; }
         public int CharityID { get; set; }
-        public string CharityExamName { get; set; }
         public int TotalSlotsLodges { get; set; }
         public int AvailableSlotsLodges { get; set; }
         public int TotalSlotsVehicles { get; set; }

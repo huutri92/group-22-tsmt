@@ -245,7 +245,7 @@
                         <ul style="display: none">
                             @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
                             {
-                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { ceId = item.CharityExamID })"><span>@item.CharityExamName (@item.Examination.Name)</span></a>
+                                <li class='last'><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })"><span>@item.Examination.Name</span></a>
 
                                 </li>
                             }

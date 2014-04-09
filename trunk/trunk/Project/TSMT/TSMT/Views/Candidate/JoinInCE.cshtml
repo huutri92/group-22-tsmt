@@ -67,7 +67,7 @@
                                 <option value="null">Tất cả tổ chức</option>
                                 @foreach (var item in Model)
                                 {
-                                    <option value="@item.CharityExamID">@item.CharityExamName</option>
+                                    <option value="@item.CharityExamID">@item.Charity.Name</option>
                                 }
                             </select></td>
                     </tr>
@@ -156,7 +156,7 @@
         des += "<tr><td>Khoảng cách đến nơi thi:</td><td align='center'>" + Math.round(distance) + " mét</td></tr>";
         des += "<tr><td>Tổng số chỗ:</td><td align='center'>@l.TotalSlots</td></tr>";
         des += "<tr><td>Số chỗ còn trống:</td><td align='center'>@l.AvailableSlots</td></tr>";
-        des += "<tr><td>Tổ chức từ thiện:</td><td align='center'>@l.ChairitiesExam.CharityExamName</td></tr>";
+        des += "<tr><td>Tổ chức từ thiện:</td><td align='center'>@l.ChairitiesExam.Charity.Name</td></tr>";
         des += "<tr><td align='center' colspan='2'><button onclick='return prepareToSubmit(@l.LodgeID)' class='btn-u btn-u-blue'>Đăng kí vào nhà trọ này!</button></td></tr></table>";
 
         lodges[@l.LodgeID] = {

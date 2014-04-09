@@ -7,5 +7,5 @@
 { 
     <input type="hidden" name="ceId" value="@ViewData["ceId"]" />
     <input type="submit" class="btn btn-info" value="Sắp xếp" />
-    @Html.ActionLink("Quay lại", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Quay lại", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 }

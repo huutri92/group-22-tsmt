@@ -104,16 +104,12 @@ namespace TSMT.Controllers
                         }
                         if (ds.Tables[0].Rows[i]["Address"].ToString() != "")
                         {
-                            uni.Address = ds.Tables[0].Rows[i]["Address"].ToString();
-                        }
-                        else
-                        {
-                            break;
+                            uni.Address = "";
                         }
                         uni.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "" ? ds.Tables[0].Rows[i]["UniversityCode"].ToString() : null;
                         uni.Website = ds.Tables[0].Rows[i]["Website"].ToString() != "" ? ds.Tables[0].Rows[i]["Website"].ToString() : null;
-                        uni.Phone = int.Parse(ds.Tables[0].Rows[i]["Phone"].ToString());
-                        uni.IsRemovable = false;
+                        uni.Phone = null;
+                        uni.IsRemovable = true;
                         db.Universities.Add(uni);
                         db.SaveChanges();
                     }
