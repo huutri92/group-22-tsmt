@@ -28,7 +28,8 @@
         @if (Model.CharityExamID == null)
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
-                @Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })
+                @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
+                <a href="@Url.Action("JoinInCE","Candidate",new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
@@ -36,7 +37,8 @@
             if (Model.GroupID == null && Model.RoomID == null && Model.CarID == null)
             {
             <h3>Phiếu báo thi đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name!</a>
-                @Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })
+                @*@Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn-u btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
+                <a href="@Url.Action("LeaveCE","Candidate",new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="icon-signout"></i>Rời Hội từ thiện</a>
             </h3>
             }
             else

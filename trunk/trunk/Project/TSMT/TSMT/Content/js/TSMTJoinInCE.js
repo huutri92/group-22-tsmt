@@ -3,14 +3,19 @@ var lodges = [];
 var markers = [];
 var circle;
 var ces = [];
-var orangeIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+//var orangeIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+var orangeIcon = '/Content/img/markers/yellow-dot.png';
 var icons = [
     /*'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',*/
     /*'http://maps.google.com/mapfiles/ms/icons/green-dot.png',*/
     /*'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'*/
-    '../img/markers/blue-dot.png',
-    '../img/markers/green-dot.png',
-    '../img/markers/purple-dot.png',
+    '/Content/img/markers/blue-dot.png',
+    '/Content/img/markers/green-dot.png',
+    '/Content/img/markers/purple-dot.png',
+    '/Content/img/markers/ltblue-dot.png',
+    '/Content/img/markers/orange-dot.png',
+    '/Content/img/markers/pink-dot.png',
+    '/Content/img/markers/red-dot.png'
 ];
 
 function getIcon(ceId) {
