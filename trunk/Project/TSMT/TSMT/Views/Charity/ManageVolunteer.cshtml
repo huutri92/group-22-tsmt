@@ -5,8 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_CharitySidebarPartial")
-<link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>
+@*<link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>*@
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script src="~/Content/js/TSMTPopup.js"></script>
 <script>
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");

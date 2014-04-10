@@ -12,7 +12,7 @@
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về tổ chức @Model.Charity.Name , kì thi @Model.Examination.Name
-                <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Create</a>
+                <a href="@Url.Action("EditCharityExam", "Charity", new {ceId = Model.CharityExamID } )" class="btn-u btn-u-green"><i class="icon-edit"></i>Chỉnh Sửa</a>
             </h3>
 
         </div>
@@ -39,9 +39,6 @@
                     <td>@Model.AvailableSlotsVehicles</td>
                 </tr>
             </table>
-            <p>
-                @Html.ActionLink("Chỉnh sửa", "EditCharityExam", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })
-            </p>
         </div>
     </div>
     <div class="row servive-block margin-bottom-10">
@@ -54,6 +51,36 @@
                 </div>
             </div>
         </a>*@
+        <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Quản lý Xe</h4>
+                    <div><i class="icon-flag"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+        <a href="@Url.Action("ManageLodge", "Charity", new { ceId = @Model.CharityExamID })">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Quản lý Chỗ trọ</h4>
+                    <div><i class="icon-flag"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
+
+    </div>
+    <div class="row servive-block margin-bottom-10">
+        <a href="@Url.Action("ManageFunds", "Charity", new { ceId = @Model.CharityExamID })">
+            <div class="col-md-3 col-sm-6">
+                <div class="servive-block-in servive-block-colored servive-block-orange">
+                    <h4>Quản lý Tiền được tài trợ</h4>
+                    <div><i class="icon-flag"></i></div>
+                    <p>HDSD</p>
+                </div>
+            </div>
+        </a>
         <a href="@Url.Action("ManageVolunteer", "Charity", new { ceId = @Model.CharityExamID })">
             <div class="col-md-3 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-orange">
@@ -72,35 +99,6 @@
                 </div>
             </div>
         </a>
-        <a href="@Url.Action("ManageLodge", "Charity", new { ceId = @Model.CharityExamID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>Quản lý Chỗ trọ</h4>
-                    <div><i class="icon-flag"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-
     </div>
-    <div class="row servive-block margin-bottom-10">
-        <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>Quản lý Xe</h4>
-                    <div><i class="icon-flag"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-        <a href="@Url.Action("ManageFunds", "Charity", new { ceId = @Model.CharityExamID })">
-            <div class="col-md-3 col-sm-6">
-                <div class="servive-block-in servive-block-colored servive-block-orange">
-                    <h4>Quản lý Tiền được tài trợ</h4>
-                    <div><i class="icon-flag"></i></div>
-                    <p>HDSD</p>
-                </div>
-            </div>
-        </a>
-    </div>
+    <button type="button" onclick="location.href ='/Charity/ManageCharityExam/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
 </div>

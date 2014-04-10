@@ -36,7 +36,7 @@
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ của hội từ thiện
-                <a href="@Url.Action("AddLodge", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+                <a href="@Url.Action("AddLodge", "Charity", new { id = @Model.CharityID})" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
                 @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
         </div>
@@ -91,7 +91,7 @@
                                                 <a href="@Url.Action("AssignLodgetoCe", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-pink" title="Sử dụng"><i class="icon-heart"></i></a>
                                                 @if (item.TotalSlotsInUsed == item.AvailableSlots)
                                                 { 
-                                                    <a href="@Url.Action("DeleteLodge", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange" title="Xóa"><i class="icon-trash"></i></a>
+                                                    <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-orange" title="Xóa" onclick = "return showPopup('Are you sure to delete it?', this.href, @item.LodgeID , 'del' );"><i class="icon-trash"></i></a>
                                                 }
                                             </td>
                                         </tr>

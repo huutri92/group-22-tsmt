@@ -4,29 +4,59 @@
     ViewBag.Title = "Chỉnh sửa tổ chức";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("ManageCarCharity", "Charity")">Quản lý thông tin xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
 @Html.Partial("_CharitySidebarPartial")
-<h2 class="title_of_page">Chỉnh sửa tổ chức của kì thi</h2>
 @using (Html.BeginForm("EditCharityExam", "Charity", FormMethod.Post))
 {
-    <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
-    <table>
-        <tr>
-            <td>Kỳ thi</td>
-            <td>
-                <select name="ExamId">
-                    @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
-                    {
-                        if (item.ExaminationID == Model.ExamID)
-                        {     
-                        <option value="@item.ExaminationID" selected>@item.Name</option>
-                        }
-                        else
-                        {
-                        <option value="@item.ExaminationID">@item.Name</option>
-                        }
-                    }
-                </select></td>
-        </tr>
+    <div class="col-md-7">
+        <div class="panel panel-orange margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Chỉnh sửa thông tin kì thi</h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="ceId" value="@Model.CharityExamID"/>
+                <table class="table">
+                    <tr>
+                        <td style="vertical-align: middle">Kỳ thi</td>
+                        <td>
+                            <select name="ExamId" class="form-control">
+                                <option value="0">---</option>
+                                @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
+                                {
+                                    if (item.ExaminationID == Model.ExamID)
+                                    {     
+                                        <option value="@item.ExaminationID" selected>@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.ExaminationID">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="float: right">
+            <button type="submit" class="btn-u btn-u-default"><i class="icon-edit">&nbsp;Sửa</i></button>
+            <button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+        </div>
+        <button type="button" onclick="location.href ='/Charity/ManageCharityExam/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
+    </div>
         @*<tr>
             <td>Khu vực</td>
             <td>
@@ -44,12 +74,11 @@
                     }
                 </select></td>
         </tr>*@
-        <tr>
+        @*<tr>
             <td colspan="2">
                 <input type="submit" value="Sửa" class="btn btn-info" />
                 <input type="reset" value="Làm lại" class="btn btn-info" />
                 <button class="btn btn-info" onclick="window.history.back(-1);">Quay lại</button>
             </td>
-        </tr>
-    </table>
+        </tr>*@
 }
