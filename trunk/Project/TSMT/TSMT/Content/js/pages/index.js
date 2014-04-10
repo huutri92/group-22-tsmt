@@ -13,7 +13,7 @@ var Index = function () {
         initLayerSlider: function () {
 		    $(document).ready(function(){
 		        $('#layerslider').layerSlider({
-		            skinsPath : 'Content/plugins/layer_slider/skins/',
+		            skinsPath : 'assets/plugins/layer_slider/skins/',
 		            skin : 'fullwidth',
 		            thumbnailNavigation : 'hover',
 		            hoverPrevNext : true,
