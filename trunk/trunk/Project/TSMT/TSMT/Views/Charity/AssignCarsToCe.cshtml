@@ -6,17 +6,14 @@
 }
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         $("#saveall").click(function () {
             var eId;
-            var carId ="";
+            var carId = "";
             //var lodgeId = document.getElementById("lodgeId").value;
             var cId = document.getElementById("charityid").value;
             $("[id*=tableroom] input:checked").each(function () {
-
                 carId += $(this).val() + "-";
-                
             });
             if (carId != "") {
                 eId = parseInt(document.getElementById("qwe").value);
@@ -26,33 +23,36 @@
                     type: 'POST',
                     success: function (results) {
                         window.location.assign("@Url.Content("~/Charity/ManageCarCharity")");
-
                     }
                 });
-            } else {
-                eId = 0;
-                alert("No item has been selected.");
-            }
-
+                } else {
+                    eId = 0;
+                    alert("No item has been selected.");
+                }
         });
     });
-
-
-
 </script>
 
-
-
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
 
 @*<input type="hidden" id="lodgeId" value="@Model.LodgeID"/>*@
-
-
 <div class="col-md-9">
-    <div class="panel panel-red margin-bottom-20">
+    <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Chọn xe 
-            </h3>
-
+            <h3 class="panel-title"><i class="icon-list"></i>Chọn xe</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -67,7 +67,7 @@
                             }
                         </select>
                     </td>
-                  @*  <td>Tổ Chức: </td>
+                    @*  <td>Tổ Chức: </td>
                     <td>
                         <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control" >
                             <option value="0" selected>---</option>
@@ -88,8 +88,6 @@
                                 <option value="@item.CharityExamID">@item.CharityExamName</option>
                                     }
                                 }
-
-
                             }
                         </select>
                     </td>*@
@@ -98,9 +96,6 @@
                 <tr>
                     <td colspan="4">Vui lòng chọn xe bên dưới để sử dụng cho kì thi</td>
                 </tr>
-
-
-              
             </table>
             <table id="tableroom" class="table table-hover">
                 <tr>
@@ -111,10 +106,8 @@
                 </tr>
                 @{
                     int counter = 1;
-
                     foreach (var item in ViewData["Cars"] as IEnumerable<Car>)
                     {
-                           
                     <tr>
                         <td>
                             <input class="carid"   type="checkbox" name ="charityexamid" value="@item.CarID" />
@@ -126,17 +119,20 @@
                         ++counter;
                     }
                 }
-                  <tr>
+                @*<tr>
                     <td colspan="4">
-                        <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                        <a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
                         <input type="submit" value="Chọn" class="btn btn-info" id="saveall" />
                         <input type="reset" value="Làm lại" class="btn btn-info" />
                     </td>
-                </tr>
+                </tr>*@
             </table>
         </div>
     </div>
+    <div style="float: right">
+        <button type="submit" value="Chọn" class="btn" id="saveall"><i class="icon-pencil"></i>&nbsp;Chọn</button>
+        @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
+        <input type="reset" value="Làm lại" class="btn-u btn-u-purple" />
+    </div>
+    <a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
-
-
-

@@ -19,56 +19,42 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Sử dụng xe cho kỳ thi</h2>
 @using (Html.BeginForm("AssignCarCE", "Charity", FormMethod.Post))
 {
-    <input type="hidden" name="carId" value="@Model.CarID"/>
-    <table>
- @*       <tr>
-            <td>Biển số xe</td>
-            <td>
-                <input type="text" name="NumberPlate" value="@Model.NumberPlate"/></td>
-        </tr>
-        <tr>
-            <td>Tổng số chỗ ngồi</td>
-            <td>
-                <input type="text" name="TotalSlots" value="@Model.TotalSlots"/></td>
-        </tr>
-         <tr>
-            <td>Tên tài xế</td>
-            <td>
-                <input type="text" name="DriverName" value="@Model.DriverName"/></td>
-        </tr>
-        <tr>
-            <td>Số điện thoại tài xế</td>
-            <td>
-                <input type="text" name="DriverPhone" value="@Model.DriverPhone"/></td>
-        </tr>*@
-        <tr>
-            <td>Kì thi</td>
-            <td>
-                                 <select name="CharityExamID">
-                                        <option value= "null">---</option>
-                                        @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
-                                        {
-                                            if (Model.CharityExamID == item.CharityExamID)
-                                            {
-                                                <option value="@item.CharityExamID" selected>@item.Examination.Name</option>
-                                            }
-                                            else
-                                            {
-                                               <option value="@item.CharityExamID">@item.Examination.Name</option> 
-                                            }
-                                        }
-                                     </select>
-                                </td>
-            @*<td><span class="validationMsg" id="valMsgDriverPhone"></span></td>*@
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Chọn" class="btn btn-info" />
-                <input type="reset" value="Làm lại" class="btn btn-info" />
-            </td>
-        </tr>
-    </table>
+    <div class="col-md-7">
+        <div class="panel panel-orange margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Sử dụng xe cho kỳ thi</h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="carId" value="@Model.CarID"/>
+                <table class="table">
+                    <tr>
+                        <td style="vertical-align: middle">Kì thi</td>
+                        <td>
+                            <select name="CharityExamID" class="form-control">
+                                <option value="0" selected>---</option>
+                                @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
+                                {
+                                    if (Model.CharityExamID == item.CharityExamID)
+                                    {
+                                    <option value="@item.CharityExamID" selected>@item.Examination.Name</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@item.CharityExamID">@item.Examination.Name</option> 
+                                    }
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="float: right">
+            <button type="submit" class="btn-u btn-u-default"><i class="icon-plus">&nbsp;Sử dụng</i></button>
+            <button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+        </div>
+        <button type="button" onclick="location.href ='/Charity/ManageCarCharity/'" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
+    </div>
 }
