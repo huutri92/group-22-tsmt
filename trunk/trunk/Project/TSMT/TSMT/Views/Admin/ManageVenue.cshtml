@@ -75,6 +75,6 @@
         </div>
     </div>
     <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-sea" style="float:left"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
-    <a href="@Url.Action("AddVenue", "Admin", new { id = @ViewData["ueId"] })" class="btn-u btn-u-default" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
+    <a href="@Url.Action("AddVenue", "Admin", new { id = @Model.UniExamID })" class="btn-u btn-u-default" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
 </div>
 

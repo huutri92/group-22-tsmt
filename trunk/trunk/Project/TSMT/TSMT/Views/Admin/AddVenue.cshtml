@@ -32,16 +32,15 @@
 
 @using (Html.BeginForm("AddVenue", "Admin", FormMethod.Post, new { id = "FormAddVenue" }))
 {
+    <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
+    <input type="hidden" id="Longitude" name="Longitude" />
+    <input type="hidden" id="Latitude" name="Latitude" />
     <div class="col-md-12 margin-bottom-5">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <h3 class="panel-title" id="scrollToMe"><i class="icon-list"></i>&nbsp;Thêm địa điểm cho trường ĐHCĐ
                 </h3>
             </div>
-            <input type="hidden" name="ueId" value="@ViewData["ueId"]" />
-            <input type="hidden" id="Longitude" name="Longitude" />
-            <input type="hidden" id="Latitude" name="Latitude" />
-
             <table class="table table-hover">
                 <tr style="text-align: center">
                     <td style="vertical-align: middle">Địa chỉ</td>
