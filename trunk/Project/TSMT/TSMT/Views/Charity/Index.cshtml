@@ -6,8 +6,6 @@
     ViewBag.Title = "Hội từ thiện";
     ViewBag.Active = "CharityHome";
 }
-
-
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -19,16 +17,13 @@
             </ul>
         </div>
     </div>
-
 }
 @Html.Partial("_CharitySidebarPartial")
-
-
 <div class="col-md-9">
     <div class="row servive-block margin-bottom-10">
-        <div class="headline">
+        @*<div class="headline">
             <h2>Các chức năng</h2>
-        </div>
+        </div>*@
         <a href="@Url.Action("ManageCharityExam", "Charity")">
             <div class="col-md-4 col-sm-6">
                 <div class="servive-block-in servive-block-colored servive-block-sea">
@@ -58,6 +53,3 @@
         </a>
     </div>
 </div>
-
-
-
