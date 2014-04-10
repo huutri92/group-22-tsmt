@@ -55,10 +55,10 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageCharityExam");
         }
-        public ActionResult DeleteCharityExam(int ceId)
+        public JsonResult DeleteCharityExam(int id)
         {
-            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceId);
-            var lodges = db.Lodges.Where(r => r.CharityExamID == ceId);
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            var lodges = db.Lodges.Where(r => r.CharityExamID == id);
             foreach (Lodge lodge in lodges)
             {
                 var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
@@ -75,7 +75,7 @@ namespace TSMT.Controllers
                 db.Lodges.Remove(lodge);
             }
 
-            var cars = db.Cars.Where(r => r.CharityExamID == ceId);
+            var cars = db.Cars.Where(r => r.CharityExamID == id);
             foreach (Car car in cars)
             {
                 ce.TotalSlotsVehicles -= car.TotalSlots;
@@ -85,7 +85,7 @@ namespace TSMT.Controllers
 
             db.ChairitiesExams.Remove(ce);
             db.SaveChanges();
-            return RedirectToAction("ManageCharityExam");
+            return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult ManageCE(int ceId)
         {
@@ -164,7 +164,7 @@ namespace TSMT.Controllers
             Account acc = (Account)Session["acc"];
             ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Charity charity = db.Charities.SingleOrDefault(r => r.CharityID == id);
-            ViewData["CharityExam"] = db.ChairitiesExams.Where(c => c.CharityID == id).ToList();
+            ViewData["CharityExam"] = db.ChairitiesExams.Where(c => c.CharityID == id).OrderBy(r => r.Examination.Name).ToList();
             return View(charity);
         }
         [HttpPost]
@@ -914,19 +914,21 @@ namespace TSMT.Controllers
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
             lodge.TotalSlots -= room.TotalSlots;
             lodge.AvailableSlots -= room.AvailableSlots;
+            lodge.TotalSlotsInUsed -= room.TotalSlots;
 
-            ChairitiesExam ce = lodge.ChairitiesExam;
-            ce.TotalSlotsLodges -= room.TotalSlots;
-            ce.AvailableSlotsLodges -= room.AvailableSlots;
+            //ChairitiesExam ce = lodge.ChairitiesExam;
+            //ce.TotalSlotsLodges -= room.TotalSlots;
+            //ce.AvailableSlotsLodges -= room.AvailableSlots;
 
             room.TotalSlots = int.Parse(f["TotalSlots"]);
             room.AvailableSlots = room.TotalSlots;
 
             lodge.TotalSlots += room.TotalSlots;
             lodge.AvailableSlots += room.AvailableSlots;
+            lodge.TotalSlotsInUsed += room.TotalSlots;
 
-            ce.TotalSlotsLodges += room.TotalSlots;
-            ce.AvailableSlotsLodges += room.AvailableSlots;
+            //ce.TotalSlotsLodges += room.TotalSlots;
+            //ce.AvailableSlotsLodges += room.AvailableSlots;
 
             db.SaveChanges();
 
@@ -1478,12 +1480,12 @@ namespace TSMT.Controllers
         }
         #endregion
         #region Manual-Assign
-        public ActionResult ModelManualAssignToRoom()
-        {
-            ViewData["listRoom"] = db.Rooms.ToList();
-            ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
-            return View();
-        }
+        //public ActionResult ModelManualAssignToRoom()
+        //{
+        //    ViewData["listRoom"] = db.Rooms.ToList();
+        //    ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
+        //    return View();
+        //}
         public ActionResult ManualAssignToRoom()
         {
             //ViewData["listRoom"] = db.Rooms.Where(r=>r.LodgeID == lodgeId).ToList();

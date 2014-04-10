@@ -5,6 +5,13 @@
     ViewBag.Title = "Quản lý thông tin kỳ thi cho Hội từ thiện";
     ViewBag.Active = "ManageCharityExam";
 }
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script src="~/Content/js/TSMTPopup.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -45,7 +52,7 @@
                         int i = 1;
                         foreach (var item in Model)
                         {
-                            <tr>
+                            <tr id="@item.CharityExamID">
                                 <td>@Html.ActionLink(i.ToString(), "ManageCE", new { ceId = item.CharityExamID })</td>
                                 <td>@Html.ActionLink(item.Examination.Name, "ManageCE", new { ceId = item.CharityExamID })</td>
                                 <td>@item.TotalSlotsLodges</td>
@@ -55,7 +62,7 @@
                                 <td>
                                     <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                     <a href="@Url.Action("EditCharityExam", "Charity", new { ceId = @item.CharityExamID })" class="btn-u" title="Sửa"><i class="icon-edit"></i></a>
-                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { ceId = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
+                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Are you sure to delete it?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
                                 </td>
                             </tr>
                             i++;
@@ -67,3 +74,20 @@
     </div>
     <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
+<script type="text/javascript">
+    function callAjaxDelete(ceId) {
+
+
+        $.ajax({
+            url: 'DeleteCharityExam/' + ceId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + ceId).hide(800, function () {
+                    $("#" + ceId).remove();
+                });
+
+            }
+        });
+        return false;
+    }
+    </script>
