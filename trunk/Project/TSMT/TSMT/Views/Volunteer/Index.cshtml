@@ -21,7 +21,7 @@
 }
 @Html.Partial("_VolunteerSidebarPartial")
 <div class="col-md-9">
-    @if (Model.CharityExamID == null)
+    @if (Model.CharityExamID == null && Model.IsApproved==false)
     {
    
         <div id="showMessage" class="alert alert-danger fade in" style="height: auto">
@@ -44,14 +44,17 @@
     
     }
     else
-    { 
-    
+    {
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list"></i>
                     Bạn đã đăng ký vào Hội từ thiện
-                    <b><span style="color:yellow">@Model.ChairitiesExam.Charity.Name!</span></b>
-                    <a href="@Url.Action("LeaveCE", "Volunteer")" onclick="return showPopup('Please confirm to delete it.', this.href)" class="btn-u btn-u-blue">Hủy đăng ký</a>
+                    <b><span style="color: yellow">@Model.ChairitiesExam.Charity.Name!</span></b>
+                    @if (Model.CharityExamID != null && Model.IsApproved == false)
+                    {
+                        <a href="@Url.Action("LeaveCE", "Volunteer")" onclick=" return showPopup('Please confirm to delete it.', this.href) " class="btn-u btn-u-blue">Hủy đăng ký</a>
+                    }
+                    
                 </h3>
             </div>
         </div>
@@ -78,6 +81,7 @@
                 </div>
             </a>
         </div>
-    
+
     }
+    
 </div>

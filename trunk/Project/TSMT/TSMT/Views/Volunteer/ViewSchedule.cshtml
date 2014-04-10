@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "ViewSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Lịch đưa đón</h4>
+@using TSMT.Models
+@model IEnumerable<SchedulesVolunteer>
+<div class="inner-page-content inner-careers">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Thí sinh chở đi</th>
+                <th>Ngày đón</th>
+                <th>Giờ đón</th>
+                <th>Giờ đến</th>
+                <th>Điểm đón</th>
+                <th>Điểm đến</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    <tr id="@item.ScheduleVolunteerID">
+                        <td>@i</td>
+                        <td>@item.ExaminationsPaper.Candidate.Account.Profile.Lastname @item.ExaminationsPaper.Candidate.Account.Profile.Firstname</td>
+                        <td>@item.Day.ToString("dd-MM-yyyy")</td>
+                        <td>@item.PickUpTime.ToShortTimeString()</td>
+                        <td>@item.ArriveTime.ToShortTimeString()</td>
+                        <td>@item.WayPoint</td>
+                        <td>@item.StartEndPoint</td>
+                    </tr>
+                    i = i + 1;
+                }
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+</div>

@@ -7,7 +7,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-
+<script src="/Content/js/TSMTViewOnMap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-confirm').addClass("popup-remove");
+    });
+</script>
 <script type="text/javascript">
     function getCharityName(id) {
         if (id == 'null') {
@@ -19,6 +24,7 @@
             type: 'GET',
             success: function (results) {
                 $("#getCharity").html("");
+                $("#getCharity").append("<option value=\"null\">Hội từ thiện</option>");
                 for (i in results) {
                     var r = results[i];
                     $("#getCharity").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
@@ -26,6 +32,31 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        $("#getCharity").click(function () {
+            var ceId = document.getElementById("getCharity").value;
+            $.ajax({
+                url: 'ShowCeLodge',
+                data: { "ceId": ceId },
+                type: 'Get',
+                success: function (results) {
+                    $("#showLodge").html("");
+                    $("#showLodge").append("<tr><td >Địa chỉ</td><td>Bản đồ</td></tr>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showLodge").append("<tr><td>" + r.address + "</td><td><input type=\"button\" value=\"Xem bản đồ\" onclick=\"openWindowPopup('/Volunteer/ViewLodge/'," + r.value + " )\"></td></tr>");
+                        //$("#showLodge").append("<td><button onclick=\"openWindowPopup('/Volunteer/ViewLodge/'," + r.value + " )\">Bản đồ</button></td></tr>");
+                        //onclick=\"openWindowPopup('/Volunteer/ViewLodge/'," + r.value + " )\
+                    }
+                }
+            });
+        });
+    });
+    function showForm1() {
+        document.getElementById('Resource').style.display = "inline";
+    }
+
 </script>
 
 @section Breadcrumbs {
@@ -70,19 +101,26 @@
                     <tr>
                         <td>Hội từ thiện</td>
                         <td>
-                            <select name="ceId" id="getCharity"  class="form-control">
+                            <select name="ceId" id="getCharity" class="form-control" onchange="showForm1()">
                                 <option value="null">Hội từ thiện</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                              <input type="button" value="Trở về" class="btn btn-info" onclick="history.go(-1);" />
+                            <input type="button" value="Trở về" class="btn btn-info" onclick="history.go(-1);" />
                             <input type="submit" value="Đăng ký" class="btn btn-info" />
-                            <input type="reset" value="Làm lại" class="btn btn-info" />
+                            <input type="reset" value="Xóa hết" class="btn btn-info" />
                         </td>
                     </tr>
                 </table>
+                <div id="Resource" style="display: none">
+                    <h3>Các điểm trọ của hội</h3>
+                    <table class="table table-hover">
+                        <tbody id="showLodge">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

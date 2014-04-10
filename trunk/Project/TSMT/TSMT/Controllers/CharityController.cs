@@ -1309,6 +1309,7 @@ namespace TSMT.Controllers
                 record.lodge = ep.Lodge.Address;
                 record.venue = ep.Venue.Address;
                 record.car = ep.CarID == null ? "Chưa sắp xe" : ep.Car.NumberPlate;
+                record.actions = ep.CarID == null ? "" : "<a href='/Charity/DisplayRoute/" + ep.CarID + "'>Xem đường đi</a>";
                 results.Add(record);
 
                 if (!IsAssigned) IsAssigned = ep.CarID != null;
@@ -1342,7 +1343,22 @@ namespace TSMT.Controllers
                         }
                 }
             }
+            db.SaveChanges();
 
+            ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id); // new infor
+            SchedulesCar sc = new SchedulesCar();
+            foreach (Car c in ce.Cars.Where(r => r.ExaminationsPapers.Count > 0))
+            {
+                foreach (ScheduleExam se in c.ChairitiesExam.Examination.ScheduleExams)
+                {
+                    sc = new SchedulesCar();
+                    sc.CarID = c.CarID;
+                    sc.Day = se.Day;
+                    sc.ArriveTime = se.BeginHour.AddHours(-1);
+                    sc.PickUpTime = se.EndHour.AddHours(-0.5);
+                    db.SchedulesCars.Add(sc);
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("AssignCar", new { id = id });
         }
@@ -1581,7 +1597,7 @@ namespace TSMT.Controllers
             return Json("");
         }
         #endregion
-        public ActionResult DisplayRoute(int id)
+        public ActionResult DisplayRoute(int id) // carId
         {
             Account acc = (Account)Session["acc"];
             ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);

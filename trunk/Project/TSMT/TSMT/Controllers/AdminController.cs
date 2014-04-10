@@ -252,8 +252,10 @@ namespace TSMT.Controllers
                 record.address = u.Address;
                 record.actions = "<a href='/Admin/EditUniversity/" + u.UniversityID + "'";
                 record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='icon-edit'></i></a>";
+                record.actions = "<a href='/Admin/EditUniversity/" + u.UniversityID + "'";
+                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='icon-edit'></i></a>";
                 record.actions += "<a href='/Admin/DeleteUniversity/" + u.UniversityID + "'";
-                record.actions += " class='btn-u btn-u-red' title='Xoá thông tin trường ĐHCĐ'><i class='icon-remove'></i></a>";
+                if (u.UniversitiesExaminations.Count == 0) record.actions += " class='btn-u btn-u-red' title='Xoá thông tin trường ĐHCĐ'><i class='icon-remove'></i></a>";
                 results.Add(record);
             }
             return Json(new { success = true, data = results });
@@ -263,7 +265,6 @@ namespace TSMT.Controllers
             return View();
         }
         [HttpPost]
-
         public ActionResult AddUniversity(FormCollection f)
         {
             University uni = new University();
@@ -297,7 +298,6 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
         }
-
         public ActionResult DeleteUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
@@ -312,19 +312,16 @@ namespace TSMT.Controllers
         }
         #endregion
         #region EXAMINATIONS
-
         public ActionResult ManageExam()
         {
             var exams = db.Examinations.Where(r => r.BeginDate.Year == DateTime.Now.Year);
             return View(exams);
         }
-
         public ActionResult AddExam()
         {
             return View();
         }
         [HttpPost]
-
         public ActionResult AddExam(FormCollection f)
         {
             Examination exam = new Examination();
@@ -347,43 +344,34 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageExam");
         }
-
         public ActionResult DeleteExam(int id)
         {
             Examination exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == id);
 
-            if (!exam.IsRemovable)
+            if (exam.ChairitiesExams.Count == 0 && exam.UniversitiesExaminations.Count == 0)
             {
-                // redirect toi trang bao loi ko cho delete!
-                return RedirectToAction("ManageExam");
+                var scheduleExams = db.ScheduleExams.Where(r => r.ExamID == id);
+                foreach (var scheduleExam in scheduleExams) db.ScheduleExams.Remove(scheduleExam);
+
+                db.Examinations.Remove(exam);
+                db.SaveChanges();
             }
 
-            var scheduleExams = db.ScheduleExams.Where(r => r.ExamID == id);
-            foreach (var scheduleExam in scheduleExams)
-            {
-                db.ScheduleExams.Remove(scheduleExam);
-            }
-
-            db.Examinations.Remove(exam);
-            db.SaveChanges();
             return RedirectToAction("ManageExam");
         }
         #endregion
         #region SCHEDULE-EXAMS
-
         public ActionResult ManageScheduleExam(int id)
         {
-            var scheduleExams = db.ScheduleExams.Where(r => r.ExamID == id);
-            return View(scheduleExams);
+            var exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == id);
+            return View(exam);
         }
-
         public ActionResult EditScheduleExam(int id)
         {
             ScheduleExam scheduleExam = db.ScheduleExams.SingleOrDefault(r => r.ScheduleExamID == id);
             return View(scheduleExam);
         }
         [HttpPost]
-
         public ActionResult EditScheduleExam(FormCollection f)
         {
             int scheduleExamId = int.Parse(f["id"]);
@@ -395,7 +383,6 @@ namespace TSMT.Controllers
         }
         #endregion
         #region UNI-EXAMS
-
         public ActionResult ManageUniversityExam()
         {
             var uniExams = db.UniversitiesExaminations.ToList();
@@ -446,9 +433,8 @@ namespace TSMT.Controllers
         #region VENUES
         public ActionResult ManageVenue(int id) // ueId
         {
-            var ves = db.Venues.Where(r => r.UniExamID == id);
-            ViewData["ueId"] = id;
-            return View(ves);
+            var ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == id);
+            return View(ue);
         }
         public ActionResult ViewVenue(int id) // ueId
         {

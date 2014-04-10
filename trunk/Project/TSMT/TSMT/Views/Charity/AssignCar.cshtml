@@ -47,7 +47,7 @@
             success: function (results) {
                 if (results.success == true) {
                     if (results.IsAssigned) $("#HasCar").css("display", ""); else $("#NoCar").css("display", "");
-                    init(2, 6, results.data);
+                    init(10, 7, results.data);
                 }
             }
         });
@@ -59,6 +59,7 @@
         tmp += "</td><td>" + record.lodge;
         tmp += "</td><td>" + record.venue;
         tmp += "</td><td>" + record.car;
+        tmp += "</td><td>" + record.actions;
         tmp += "</td></tr>";
         return tmp;
     }

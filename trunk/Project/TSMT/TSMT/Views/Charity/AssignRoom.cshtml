@@ -46,7 +46,7 @@
             success: function (results) {
                 if (results.success == true) {
                     if (results.IsAssigned) $("#HasRoom").css("display", ""); else $("#NoRoom").css("display", "");
-                    init(2, 5, results.data);
+                    init(10, 5, results.data);
                 }
             }
         });

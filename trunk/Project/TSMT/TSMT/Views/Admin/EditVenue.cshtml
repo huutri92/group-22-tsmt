@@ -74,10 +74,9 @@
                             </td>
                         </tr>
                     </table>
-                    <input type="submit" value="Thêm" class="btn-u btn-u-green" onclick="return PrepareDataToSubmit()" />
+                    <input type="submit" value="Lưu" class="btn-u btn-u-green" onclick="return PrepareDataToSubmit()" />
                     <input type="reset" value="Làm lại" class="btn btn-info" />
-                    <input type="button" value="Hủy" class="btn btn-info" onclick="location.href = '/Admin/ManageVenue/' + @Model.UniversitiesExamination.UniExamID"/>
-                    @*@Html.ActionLink("Hủy", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
+                    <a href="@Url.Action("ManageVenue","Admin")" class="btn-u btn-u-sea"><i class=" icon-chevron-sign-left"></i> Quay lại</a>
                 </div>
             </div>
             <div class="col-md-9" id="map_canvas" style="height: 500px; vertical-align: middle">
@@ -88,11 +87,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
-    });
-
-    $(document).ready(function () {
-        initialize();
+        initialize(@Model.Latitude, @Model.Longitude);
 
         // submit
         $('.popup-confirm').click(function () {
@@ -100,5 +95,7 @@
             $("#Latitude").val(marker.getPosition().lat());
             $("#FormAddVenue").submit();
         });
+
+        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
     });
 </script>

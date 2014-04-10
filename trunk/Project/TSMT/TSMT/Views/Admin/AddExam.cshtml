@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "AddExam";
+    ViewBag.Title = "Tạo đợt thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,7 +23,7 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo kỳ thi
+            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo đợt thi
             </h3>
         </div>
         <div class="panel-body">
@@ -33,7 +33,7 @@
     
                 <table class="table table-hover">
                     <tr>
-                        <td>Tên kỳ thi</td>
+                        <td>Tên đợt thi</td>
                         <td>
                             <input type="text" name="Name" class="form-control" /></td>
                     </tr>
@@ -48,11 +48,11 @@
                             <input type="date" name="EndDate" class="form-control" /></td>
                     </tr>
                 </table>
-                <input type="submit" value="Create" class="btn btn-info" />
-                <input type="reset" value="Reset" class="btn btn-info" />
-                <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageExam'" />
             }
 
         </div>
     </div>
+    <input type="submit" value="Tạo" class="btn btn-info" />
+    <input type="reset" value="Làm lại" class="btn btn-info" />
+    <a href="@Url.Action("ManageExam", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
 </div>

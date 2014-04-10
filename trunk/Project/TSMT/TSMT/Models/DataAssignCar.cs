@@ -13,5 +13,6 @@ namespace TSMT.Models
         public string lodge { get; set; }
         public string venue { get; set; }
         public string car { get; set; }
+        public string actions { get; set; }
     }
 }
