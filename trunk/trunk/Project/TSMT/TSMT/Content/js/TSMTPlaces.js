@@ -8,15 +8,21 @@ var addressLat;
 var addressLng;
 
 function initialize(lat, lng) {
+    var useDefault = lat == undefined || lng == undefined;
+    if (useDefault) center = new google.maps.LatLng(BenThanh.lat, BenThanh.lng);
+    else center = new google.maps.LatLng(lat, lng);
+
     var map_options = {
-        center: new google.maps.LatLng(lat, lng),
+        center: center,
         zoom: 16,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
     }
     map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
-    putMarker(lat, lng);
+
+    if (useDefault) putMarker(BenThanh.lat, BenThanh.lng)
+    else putMarker(lat, lng);
 }
 
 function putMarker(lat, lng) {
