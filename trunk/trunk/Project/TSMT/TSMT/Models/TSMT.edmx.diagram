@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b8f65fade579467dab602a6e6cca4baa" Name="Diagram1">
+      <Diagram DiagramId="96e2f12ff4654dda86287f08499c7687" Name="Diagram1">
         <EntityTypeShape EntityType="TSMTModel.Account" Width="1.5" PointX="1.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Article" Width="1.5" PointX="3.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ArticlesTag" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
@@ -26,10 +26,10 @@
         <EntityTypeShape EntityType="TSMTModel.Role" Width="1.5" PointX="1.5" PointY="31" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Room" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ScheduleExam" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.SchedulesCar" Width="1.5" PointX="12.75" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.SchedulesCar" Width="1.5" PointX="12.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.SchedulesVolunteer" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Sponsor" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.sysdiagram" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.University" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.UniversitiesExamination" Width="1.5" PointX="6" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Venue" Width="1.5" PointX="8.25" PointY="16.25" IsExpanded="true" />
