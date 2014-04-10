@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Quản lý thông tin các trường ĐHCĐ";
+    ViewBag.Title = "Quản lý thông tin các trường ĐH-CĐ";
     ViewBag.Active = "ManageUniversity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,14 +28,15 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Danh sách các trường ĐHCĐ hiện có trong TSMT
+            <h3 class="panel-title"><i class="icon-list"></i>Danh sách các trường ĐH-CĐ hiện có trong TSMT
                 <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-default"><i class="icon-plus"></i>Tạo mới</a>
+                <div style="float: right" id="TSMTSearching"></div>
             </h3>
         </div>
 
         <div class="panel-body">
             <div id="showMessage" class="alert alert-danger fade in" style="display: none; vertical-align: middle">
-                <strong>Chưa có thông tin trường ĐHCĐ trong cơ sở dữ liệu!</strong> Bạn hãy click vào nút "Tạo mới" để tạo thông tin trường ĐHCĐ.
+                <strong>Chưa có thông tin trường ĐH-CĐ trong cơ sở dữ liệu!</strong> Bạn hãy nhấn vào "Tạo mới" để tạo thông tin trường ĐH-CĐ.
             </div>
             <table class="table table-hover">
                 <thead>

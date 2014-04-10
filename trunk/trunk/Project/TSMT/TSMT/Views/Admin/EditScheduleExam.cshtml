@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Edit Examination-Schedule";
+    ViewBag.Title = "Thay đổi giờ thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using TSMT.Models
-@model TSMT.Models.ScheduleExam
+@model ScheduleExam
 
-<h2 class="title_of_page">@ViewBag.Title</h2>
+<h2 class="title_of_page">Thay đổi giờ thi - @Model.Examination.Name (@DateTime.Now.Year)</h2>
 
 @using (Html.BeginForm("EditScheduleExam", "Admin", FormMethod.Post))
 {
@@ -14,18 +14,50 @@
     <div class="inner-page-content inner-careers">
         <table class="table table-hover table-bordered ">
             <tr>
+                <td>Ngày thi</td>
+                <td>@Model.BeginHour.Date.ToShortDateString()</td>
+            </tr>
+            <tr>
                 <td>Giờ bắt đầu</td>
                 <td>
-                    <input type="text" name="BeginHour" value="@Model.BeginHour"/></td>
+                    <select name="BeginHour">
+                    @for (int i = 5; i < 21; ++i)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    </select>
+                    giờ
+                    <select name="BeginMinute">
+                    @for (int i = 0; i < 60; i+=5)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    </select>
+                    phút
+                </td>
             </tr>
             <tr>
                 <td>Giờ kết thúc</td>
                 <td>
-                    <input type="text" name="EndHour" value="@Model.EndHour"/></td>
+                    <select name="EndHour">
+                    @for (int i = 5; i < 21; ++i)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    </select>
+                    giờ
+                    <select name="EndMinute">
+                    @for (int i = 0; i < 60; i+=5)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                    </select>
+                    phút
+                </td>
             </tr>
         </table>
-        <input type="submit" value="Submit" class="btn btn-info" />
-        <input type="reset" value="Reset" class="btn btn-info" />
-        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageScheduleExam/' + @Model.ExamID"/>
+        <input type="submit" value="Lưu" class="btn btn-info" />
+        <input type="reset" value="Làm lại" class="btn btn-info" />
+        <input type="button" value="Quay lại" class="btn btn-info" onclick="location.href = '/admin/ManageScheduleExam/' + @Model.ExamID"/>
     </div>
 }

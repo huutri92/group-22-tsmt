@@ -259,6 +259,7 @@
     <Content Include="Content\css\headers\header1.css" />
     <Content Include="Content\css\headers\header2.css" />
     <Content Include="Content\css\img\bg-black.html" />
+    <Content Include="Content\css\leftmenu\styles.css" />
     <Content Include="Content\css\less\style.html" />
     <Content Include="Content\css\pages\blog.css" />
     <Content Include="Content\css\pages\page_404_error.css" />
@@ -280,6 +281,7 @@
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\settings.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\stylesDropSideBar.css" />
     <Content Include="Content\css\themes\blue.css" />
     <Content Include="Content\css\themes\default.css" />
     <Content Include="Content\css\themes\headers\default.html" />
@@ -463,6 +465,7 @@
     <Content Include="Content\js\jquery.themepunch.revolution.min.js" />
     <Content Include="Content\js\jquery.ui.effect-fold.js" />
     <Content Include="Content\js\jquery.ui.effect.js" />
+    <Content Include="Content\js\menu_jquery.js" />
     <Content Include="Content\js\pages\contact.js" />
     <Content Include="Content\js\pages\index.js" />
     <Content Include="Content\js\pages\portfolio.js" />
@@ -2501,6 +2504,13 @@
       <DependentUpon>TSMT.edmx</DependentUpon>
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Volunteer\ViewLodge.cshtml" />
+    <Content Include="Views\Volunteer\ViewSchedule.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

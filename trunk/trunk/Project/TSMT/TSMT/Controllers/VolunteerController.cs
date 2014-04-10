@@ -7,7 +7,7 @@ using TSMT.Models;
 
 namespace TSMT.Controllers
 {
-
+    [CheckAuth(4)]
     public class VolunteerController : Controller
     {
         private readonly TSMTEntities db = new TSMTEntities();
@@ -18,6 +18,7 @@ namespace TSMT.Controllers
             Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
             return View(vo);
         }
+        
 
         //[CheckAuth("/Account/Login", 4, "/")]
         public ActionResult JoinIn()
@@ -58,7 +59,27 @@ namespace TSMT.Controllers
         }
         public ActionResult ViewSchedule()
         {
-            return View();
+            Account acc = (Account)Session["acc"];
+            var vo = db.SchedulesVolunteers.Where(r=>r.Volunteer.AccountID == acc.AccountID).ToList();
+            return View(vo);
+        }
+        public ActionResult ViewLodge(int id)
+        {
+            //Account acc = (Account)Session["acc"];
+            //ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Chariy.AccountID == acc.AccountID);
+            Lodge lod = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            return View(lod);
+        }
+        public JsonResult ShowCeLodge(int ceId)
+        {
+            var lod = from r in db.Lodges
+                      where r.CharityExamID == ceId && r.IsApproved
+                      select new
+                      {
+                          value = r.LodgeID,
+                          address = r.Address,
+                      };
+            return Json(lod, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ViewRoutes()
         {

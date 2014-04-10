@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Thông tin thời gian kỳ thi";
+    ViewBag.Title = "Chi tiết lịch thi - " + @Model.Name + "(" + @DateTime.Now.Year + ")";
     ViewBag.Active = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using TSMT.Models
-@model IEnumerable<ScheduleExam>
+@model Examination
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -26,7 +26,7 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin thời gian kỳ thi</h3>
+            <h3 class="panel-title"><i class="icon-list"></i>Chi tiết lịch thi - @Model.Name (@DateTime.Now.Year)</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -41,14 +41,14 @@
                 <tbody>
                     @{
                         int counter = 1;
-                        foreach (ScheduleExam item in Model)
+                        foreach (ScheduleExam item in Model.ScheduleExams)
                         {
                         <tr>
                             <td>@counter</td>
-                            <td>@item.BeginHour</td>
-                            <td>@item.EndHour</td>
+                            <td>@item.BeginHour.ToString("HH:mm")</td>
+                            <td>@item.EndHour.ToString("HH:mm")</td>
                             <td>
-                                <a href="@Url.Action("EditScheduleExam","Admin",new { id = @item.ScheduleExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Sửa</a>
+                                <a href="@Url.Action("EditScheduleExam","Admin",new { id = @item.ScheduleExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>&nbsp;Sửa</a>
                             </td>
                         </tr>
                             ++counter;
@@ -60,7 +60,7 @@
 
         </div>
     </div>
-    <a href="@Url.Action("ManageExam","Admin")" class="btn-u btn-u-default"><i class=" icon-chevron-sign-left"></i> Trở về trang Quản lý kỳ thi</a>
+    <a href="@Url.Action("ManageExam","Admin")" class="btn-u btn-u-sea"><i class=" icon-chevron-sign-left"></i> Quay lại</a>
 </div>
 
 

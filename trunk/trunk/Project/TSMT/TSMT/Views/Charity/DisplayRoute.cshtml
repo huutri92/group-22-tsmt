@@ -2,43 +2,53 @@
 @using Microsoft.Ajax.Utilities
 @using TSMT.Models
 
+@*@Html.Partial("_CharitySidebarPartial")*@
+@{
+    
+    ViewBag.Title = "Xem đường đi";
+    
+}
+<style>
+    controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
 
+    #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+    }
+</style>
 
-@Html.Partial("_CharitySidebarPartial")
+<!--<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>-->
 
-<!DOCTYPE html>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-10">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("AssignCar", "Charity")">Sắp xếp xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
-    <meta charset="utf-8" />
-    <style>
-        controls {
-            margin-top: 16px;
-            border: 1px solid transparent;
-            border-radius: 2px 0 0 2px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            height: 32px;
-            outline: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        #pac-input {
-            background-color: #fff;
-            padding: 0 11px 0 13px;
-            width: 400px;
-            font-family: Roboto;
-            font-size: 15px;
-            font-weight: 300;
-            text-overflow: ellipsis;
-        }
-    </style>
-    <title>Đường đi của xe</title>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>-->
-
-</head>
-<body>
+<div class="col-md-12">
     <div id="route" style="display: none">@ViewData["RouteString"]</div>
 
     @*<div id="place" style="display: none">@ViewData["Address"]</div>*@
@@ -52,24 +62,27 @@
                     <button id ="Load" onclick="loadRoute()">Load</button>-->
 
             <!--<div id="routeIndexInfo"></div>-->
-            <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
+            <div id="map_canvas" style="float: left; width: 70%; height: 890px; margin: 0px; padding: 0px">
             </div>
-            <div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
-            </div>
-            <div id="directionsPanel2" style="float: right; width: 30%; height: 1000px;">
-                <div><div>Tổng quãng đường :</div>
-                    <div  id="TotalDistance"></div>
+            <div id="directionsPanel2" style="float: right; width: 30%">
+                <div>
+                    Tổng quãng đường : <span id="TotalDistance"></span>
+                    @*<div id="TotalDistance"></div>*@
                 </div>
-                
-                <div><div>Thời gian dự kiến:</div>
-                    <div  id="TotalTime"></div>
+
+                <div>
+                    Thời gian dự kiến: <span id="TotalTime"></span>
                 </div>
             </div>
+            <div id="directionsPanel" style="float: right; width: 30%; height: 890px;">
+            </div>
+
             @*<h3>Distances by permutations</h3><span id="total"></span>
 		<h3>Best way</h3><span id="result"></span>*@
         </form>
     </div>
-</body>
+</div>
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
 <script>
@@ -95,7 +108,7 @@
         name: '@place'
             @*data: new google.maps.LatLng(@v.Latitude, @v.Longitude),
             description: "@v.Address"*@
-            }
+    }
     count++;
 
             </text>
@@ -182,8 +195,8 @@
 
 
     function genRoute() {
-       
-                var n = allwaypoints.length;
+
+        var n = allwaypoints.length;
         var i = n - 1;
 
         while (i > 0) {
@@ -240,14 +253,20 @@
 
     function computeTotalDistance(result) {
         var total = 0;
+        var time = 0;
         var myroute = result.routes[0];
         for (var i = 0; i < myroute.legs.length; i++) {
             total += myroute.legs[i].distance.value;
+            time += myroute.legs[i].duration.value;
         }
         total = total / 1000.0;
 
         if (total < minD) {
             minD = total;
+            var DistanceCount = document.getElementById('TotalDistance');
+            var TimeCount = document.getElementById('TotalTime');
+            DistanceCount.innerHTML = "~" + Math.round(minD) + "km";
+            TimeCount.innerHTML = "~ " + Math.round(time / 60) + " phút";
             shortestRoute = [];
             var s = '';
             for (var i = 0; i < myroute.legs.length; ++i) {
@@ -259,6 +278,7 @@
             shortestRoute.push(myroute.legs[myroute.legs.length - 1].end_address);
 
         }
+
 
         //console.log(2222222);
         calcRoute();
@@ -297,15 +317,16 @@
 
                     //myJSONText = JSON.stringify(route);
                     //alert(myJSONText);
-                    var totalDistance;
-                    var totalTime;
-                    var routeDistance = response.routes[0];
-                    for (var i = 0; i < routeDistance.legs.length; i++) {
-                        totalDistance += routeDistance.legs[i].distance.value;
-                        
-                    }
-                    $('#TotalDistance').innerHTML = totalDistance;
-                    
+                    //var totalDistance;
+                    //var totalTime;
+                    //var routeDistance = response.routes[0];
+                    //for (var i = 0; i < routeDistance.legs.length; i++) {
+                    //    totalDistance += routeDistance.legs[i].distance.value;
+
+                    //}
+                    //$('#TotalDistance').innerHTML = "";
+                    //$('#TotalDistance').innerHTML = totalDistance;
+
                     //route[0] = response.routes[0];
                 }
             });

@@ -4,22 +4,12 @@
 }
 
 @using TSMT.Models
-@model IEnumerable<Venue>
+@model UniversitiesExamination
 
 <link href="/Content/css/TSMTPopup.css" rel="stylesheet">
 <script src="/Content/js/jquery.js"></script>
 <script src="/Content/js/TSMTPopup.js"></script>
 <script src="/Content/js/TSMTViewOnMap.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        // submit
-        $('.popup-confirm').click(function () {
-            window.location.href = this.href;
-        });
-    });
-</script>
-
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -29,7 +19,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
-                <li><a href="@Url.Action("ManageUniversityExam", "Admin")">Thông tin kỳ thi của trường ĐHCĐ</a></li>
+                <li><a href="@Url.Action("ManageUniversityExam", "Admin")">Thông tin kỳ thi của trường ĐH-CĐ</a></li>
 
                 <li class="active">@ViewBag.Title</li>
             </ul>
@@ -42,17 +32,15 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về địa điểm thi của trường ĐHCĐ
-                <a href="@Url.Action("AddVenue", "Admin", new { id = @ViewData["ueId"] })" class="btn-u btn-u-green"><i class="icon-pencil"></i>&nbsp;Tạo mới</a>
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin địa điểm thi của @Model.University.Name - @Model.Examination.Name (@DateTime.Now.Year)
             </h3>
             <div class="devider"></div>
-
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>STT</th>
+                        <th>#</th>
                         <th>Địa điểm thi</th>
                         <th>Thao tác</th>
                     </tr>
@@ -61,7 +49,7 @@
                     @{
                         int counter = 1;
 
-                        foreach (var item in Model)
+                        foreach (Venue item in Model.Venues)
                         {
                         <tr>
                             <td>@counter</td>
@@ -70,12 +58,13 @@
                             </td>
                             <td>
                                 <a href="#" onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</a>
-                                @*<button onclick="openWindowPopup('/admin/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</button>*@
-                                   <a href="@Url.Action("EditVenue", "Admin", new { id = @item.VenueID })"  class="btn-u btn-u-blue">
+                                <a href="@Url.Action("EditVenue", "Admin", new { id = @item.VenueID })"  class="btn-u btn-u-blue">
                                     <i class="icon-edit"></i>&nbsp;Sửa </a>
-                                @*@Html.ActionLink("Xóa", "DeleteVenue", new { id = @item.VenueID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);" })*@
-                                <a href="@Url.Action("DeleteVenue", "Admin", new { id = @item.VenueID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);">
+                                @if (item.ExaminationsPapers.Count == 0)
+                                {
+                                    <a href="@Url.Action("DeleteVenue", "Admin", new { id = @item.VenueID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);">
                                     <i class="icon-trash"></i>&nbsp;Xóa </a>
+                                }
                             </td>
                         </tr>
                             ++counter;
@@ -83,12 +72,9 @@
                     }
                 </tbody>
             </table>
-            @*@Html.ActionLink("Tạo mới", "AddVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
         </div>
     </div>
-    @*@Html.ActionLink("Quay lại", "/ManageUniversityExam", null, new { @class = "btn btn-info" })*@
-    		 <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-default">
-				 <i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
-
+    <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-sea" style="float:left"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("AddVenue", "Admin", new { id = @ViewData["ueId"] })" class="btn-u btn-u-default" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
 </div>
 
