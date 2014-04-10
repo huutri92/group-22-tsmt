@@ -456,8 +456,6 @@
           <Property Name="Day" Type="datetime" Nullable="false" />
           <Property Name="ArriveTime" Type="datetime" Nullable="false" />
           <Property Name="PickUpTime" Type="datetime" Nullable="false" />
-          <Property Name="WayGo" Type="nvarchar(max)" />
-          <Property Name="WayBack" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SchedulesVolunteers">
           <Key>
@@ -1600,8 +1598,6 @@
           <Property Name="Day" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ArriveTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PickUpTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="WayGo" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="WayBack" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Car" Relationship="TSMTModel.FK_SchedulesCars_Cars" FromRole="SchedulesCars" ToRole="Cars" />
         </EntityType>
         <EntityType Name="SchedulesVolunteer">
@@ -2500,8 +2496,6 @@
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="ArriveTime" ColumnName="ArriveTime" />
                 <ScalarProperty Name="PickUpTime" ColumnName="PickUpTime" />
-                <ScalarProperty Name="WayGo" ColumnName="WayGo" />
-                <ScalarProperty Name="WayBack" ColumnName="WayBack" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

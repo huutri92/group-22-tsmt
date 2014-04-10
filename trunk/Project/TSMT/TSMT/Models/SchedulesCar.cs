@@ -19,8 +19,6 @@ namespace TSMT.Models
         public System.DateTime Day { get; set; }
         public System.DateTime ArriveTime { get; set; }
         public System.DateTime PickUpTime { get; set; }
-        public string WayGo { get; set; }
-        public string WayBack { get; set; }
     
         public virtual Car Car { get; set; }
     }
