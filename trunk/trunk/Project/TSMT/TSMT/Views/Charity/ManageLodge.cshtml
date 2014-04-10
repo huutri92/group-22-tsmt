@@ -2,10 +2,10 @@
 @model TSMT.Models.ChairitiesExam
 
 @{
-    ViewBag.Title = "Manage Lodges of Charity Exam";
+    ViewBag.Title = "Quản lý nhà trọ của " + @Model.Charity.Name + " trong đợt thi " + @Model.Examination.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("_CharitySidebarPartial")
+
 <script src="/Content/js/TSMTViewOnMap.js"></script>
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script src="~/Content/js/TSMTPopup.js"></script>
@@ -15,118 +15,146 @@
     });
 </script>
 
-<div class="tab-v1">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">Chỗ trọ của Hội từ thiện</a></li>
-        <li><a href="#sponsored" data-toggle="tab">Chỗ trọ được tài trợ</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="home">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Address</th>
-                        <th>Tổng số phòng</th>
-                        <th>Tổng số chỗ trọ</th>
-                        <th>Số chỗ còn trống</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int counter = 1;
-
-                        foreach (var item in ViewData["lodgesOfCharity"] as IEnumerable<Lodge>)
-                        {
-                        <tr id="@item.LodgeID">
-                            <td>@counter</td>
-                            <td>@item.Address</td>
-                            <td>@item.Rooms.Count(r => r.CharityExamID != null)</td>
-                            <td>@item.TotalSlotsInUsed</td>
-                            <td>@item.AvailableSlots</td>
-                            <td>
-                                <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
-                               @* @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
-                                @Html.ActionLink("Xóa", "RemoveLodgeOutCe", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOutCe' );" })
-                            </td>
-
-                        </tr>
-                            ++counter;
-                        }
-                    }
-                </tbody>
-            </table>
-
-        </div>
-        <div class="tab-pane" id="sponsored">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Address</th>
-                        <th>Sponsor</th>
-                        <th>Tổng số phòng</th>
-                        <th>Tổng số chỗ trọ</th>
-                        <th>Số chỗ còn trống</th>
-                        <th>Trạng thái</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int count = 1;
-
-                        foreach (var item in ViewData["lodgesSponsor"] as IEnumerable<Lodge>)
-                        {
-                        <tr id="@item.LodgeID">
-                            <td>@count</td>
-                            <td>@item.Address</td>
-                            <td>@if (@item.SponsorID != null)
-                                {
-                                @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
-                                }
-                            </td>
-                            <td>@item.Rooms.Count(r => r.CharityExamID == Model.CharityExamID)</td>
-                            <td>@item.TotalSlotsInUsed</td>
-                            <td>@item.AvailableSlots</td>
-                            @if (item.IsApproved && item.SponsorID != null)
-                            {
-                                <td><span class="label label-success">Đã duyệt</span></td>
-                                <td>
-                                    @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
-                                    <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
-                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
-
-                                </td>
-                            }
-                            else if (!item.IsApproved && item.SponsorID != null)    
-                            {
-                                <td><span class="label label-danger">Chưa duyệt</span></td>
-                                <td>
-                                    <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
-                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
-                                    @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID + ")" })
-                                    @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })
-
-
-                                </td>
-                            }
-                        </tr>
-                            ++counter;
-                        }
-                    }
-                </tbody>
-            </table>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
         </div>
     </div>
+}
+@Html.Partial("_CharitySidebarPartial")
+<div class="col-md-9">
+    <div class="panel panel-orange margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe
+                <a href="@Url.Action("ChooseLodgeForCe", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-pink"><i class="icon-plus"></i>Chọn nhà trọ cho đợt thi</a>
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <div class="tab-v1">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">Chỗ trọ của Hội từ thiện</a></li>
+                    <li><a href="#sponsored" data-toggle="tab">Chỗ trọ được tài trợ</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Address</th>
+                                    <th>Tổng số phòng</th>
+                                    <th>Tổng số chỗ trọ</th>
+                                    <th>Số chỗ còn trống</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int counter = 1;
+
+                                    foreach (var item in ViewData["lodgesOfCharity"] as IEnumerable<Lodge>)
+                                    {
+                                        <tr id="@item.LodgeID">
+                                            <td>@counter</td>
+                                            <td>@item.Address</td>
+                                            <td>@item.Rooms.Count(r => r.CharityExamID != null)</td>
+                                            <td>@item.TotalSlotsInUsed</td>
+                                            <td>@item.AvailableSlots</td>
+                                            <td>
+                                                <a href="#" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
+                                                @* @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
+                                                @Html.ActionLink("Xóa", "RemoveLodgeOutCe", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOutCe' );" })
+                                            </td>
+
+                                        </tr>
+                                        ++counter;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="tab-pane" id="sponsored">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Address</th>
+                                    <th>Sponsor</th>
+                                    <th>Tổng số phòng</th>
+                                    <th>Tổng số chỗ trọ</th>
+                                    <th>Số chỗ còn trống</th>
+                                    <th>Trạng thái</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int count = 1;
+
+                                    foreach (var item in ViewData["lodgesSponsor"] as IEnumerable<Lodge>)
+                                    {
+                                        <tr id="@item.LodgeID">
+                                            <td>@count</td>
+                                            <td>@item.Address</td>
+                                            <td>@if (@item.SponsorID != null)
+                                                {
+                                                    @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
+                                                }
+                                            </td>
+                                            <td>@item.Rooms.Count(r => r.CharityExamID == Model.CharityExamID)</td>
+                                            <td>@item.TotalSlotsInUsed</td>
+                                            <td>@item.AvailableSlots</td>
+                                            @if (item.IsApproved && item.SponsorID != null)
+                                            {
+                                                <td><span class="label label-success">Đã duyệt</span></td>
+                                                <td>
+                                                    @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
+                                                    <a href="#" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
+                                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
+
+                                                </td>
+                                            }
+                                            else if (!item.IsApproved && item.SponsorID != null)
+                                            {
+                                                <td><span class="label label-danger">Chưa duyệt</span></td>
+                                                <td>
+                                                    @*<button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>*@
+                                                    <a href="#" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                    @Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })
+                                                    @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
+                                                    @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID + ")" })
+                                                    @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })
+
+
+                                                </td>
+                                            }
+                                        </tr>
+                                        ++counter;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 @*@Html.ActionLink("Create", "AddLodge", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
-@Html.ActionLink("Trở về trang quản lý", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Thêm nhà trọ", "ChooseLodgeForCe", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@*@Html.ActionLink("Trở về trang quản lý", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+@*@Html.ActionLink("Thêm nhà trọ", "ChooseLodgeForCe", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
 
 <script type="text/javascript">
 
@@ -192,7 +220,7 @@
         });
         return false;
     }
-    
+
     function callAjaxRemoveOutCe(lodgeId) {
 
 
