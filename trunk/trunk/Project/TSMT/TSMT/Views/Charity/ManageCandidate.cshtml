@@ -1,28 +1,56 @@
 ﻿@{
-    ViewBag.Title = "Trang quản lý thí sinh";
+    ViewBag.Title = "Quản lý thí sinh";
+    ViewBag.Active = "ManageCandidate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
-<div style="float: right" id="TSMTSearching"></div>
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
-                <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
-                <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
-            </tr>
-        </thead>
-        <tbody id="TSMTPaging"></tbody>
-    </table>
-</div>
 
-@Html.ActionLink("Sắp xếp phòng", "AssignRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Sắp xếp xe", "AssignCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Về trang quản lý chung", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("DetailCharityExam", "Charity")">Thông tin tổ chức</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
+
+<div class="col-md-9">
+
+    <div style="float: right" id="TSMTSearching"></div>
+    <div class="inner-page-content inner-careers">
+        <table class="table table-hover table-bordered ">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
+                    <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
+                    <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
+                </tr>
+            </thead>
+            <tbody id="TSMTPaging"></tbody>
+        </table>
+    </div>
+
+    <div style="float: right">
+        @*@Html.ActionLink("Sắp xếp phòng", "AssignRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+        <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Sắp xếp phòng</a>
+        @*@Html.ActionLink("Sắp xếp xe", "AssignCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+        <a href="@Url.Action("AssignCar", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-brown"><i class="icon-key"></i>&nbsp;Sắp xếp xe</a>
+    </div>
+
+    @*@Html.ActionLink("Về trang quản lý chung", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Về trang quản lý chung</a>
+</div>
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
 <script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
