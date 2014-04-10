@@ -115,25 +115,6 @@
 	border-left-color: #5fb611;
 }
 
-/*Search Blue Border Left*/
-.search-blocks-left-blue {
-	border-left: solid 2px #3498db;
-}
-
-.search-blocks-left-blue:hover {
-	border-left-color: #5fb611;
-}
-
-/*Search Red Border Left*/
-.search-blocks-left-red {
-	border-left: solid 2px #e74c3c;
-}
-
-.search-blocks-left-red:hover {
-	border-left-color: #5fb611;
-}
-
-
 /*Search Green Border Right*/
 .search-blocks-right-green {
 	border-right: solid 2px #72c02c;

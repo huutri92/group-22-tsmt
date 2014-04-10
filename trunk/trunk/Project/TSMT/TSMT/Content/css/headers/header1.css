@@ -1,31 +1,31 @@
-/*Top Bar (Login, search etc.)
+/*Top Bar (login, search etc.)
 ------------------------------------*/
 .top {
 	padding-top: 8px;
 }
 
-.top ul.Loginbar {
+.top ul.loginbar {
 	margin: 0;
 	padding: 0;
 	z-index: 9999;
 	position: relative;
 }
 
-.top ul.Loginbar > li {
+.top ul.loginbar > li {
 	display: inline;
 	list-style: none;
 	padding-bottom: 15px;
 }
 
-.top ul.Loginbar > li > a, 
-.top ul.Loginbar > li > a:hover {
+.top ul.loginbar > li > a, 
+.top ul.loginbar > li > a:hover {
 	color: #7c8082;
 	font-size: 11px;
 	text-transform: uppercase;
 	font-family: 'Open Sans', sans-serif;
 }
 
-.top ul.Loginbar li.devider { 
+.top ul.loginbar li.devider { 
 	top: -1px;
 	padding: 0;
 	font-size: 8px;
@@ -35,13 +35,13 @@
 	border-right: solid 1px #bbb;
 }
 
-.top ul.Loginbar li i.icon-globe { 
+.top ul.loginbar li i.icon-globe { 
 	color: #bbb;
 }
 
 /*Lenguages*/
 .top ul.lenguages {
-	top: 25px;  
+	top: 25px;
 	left: -5px;
 	display: none;
 	padding: 4px 0;
