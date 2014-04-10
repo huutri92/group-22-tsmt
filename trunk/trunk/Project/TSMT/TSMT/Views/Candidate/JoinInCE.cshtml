@@ -35,8 +35,8 @@
 {
     <div class="col-md-12 margin-bottom-5">
         <div class="panel panel-blue">
-            <div class="panel-heading">
-                <h3 class="panel-title" id="scrollToMe"><i class="icon-user"></i>Thông tin đã đăng ký</h3>
+            <div class="panel-heading"  id="scrollToMe">
+                <h3 class="panel-title"><i class="icon-user"></i>Thông tin đã đăng ký</h3>
             </div>
             <input type="hidden" name="epId" value="@ep.ExamPaperID" />
             <input type="hidden" id="lodgeId" name="lodgeId" />
@@ -130,10 +130,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('html').animate({scrollTop: $("#scrollToMe").offset().top - 20},'slow')
         createData();
         initialize(new google.maps.LatLng("@ve.Latitude", "@ve.Longitude"));
         createTheCircle();
-        $('html').animate({scrollTop: $("#scrollToMe").offset().top - 20},'slow')
+        
     });
 
     function createData() {
