@@ -218,6 +218,9 @@
     <Compile Include="Models\Sponsor.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TSMT.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -435,6 +438,7 @@
     <Content Include="Content\img\sliders\revolution\thumbs\thumb2.jpg" />
     <Content Include="Content\img\sliders\revolution\thumbs\thumb3.jpg" />
     <Content Include="Content\img\sliders\revolution\thumbs\thumb4.jpg" />
+    <Content Include="Content\img\sliders\slider1.jpg" />
     <Content Include="Content\img\team\1.jpg" />
     <Content Include="Content\img\team\2.jpg" />
     <Content Include="Content\img\team\3.jpg" />
