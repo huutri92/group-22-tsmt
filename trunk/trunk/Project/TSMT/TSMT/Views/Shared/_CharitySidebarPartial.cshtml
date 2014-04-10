@@ -37,24 +37,32 @@
                     <ul>
                         <li class="has-sub"><a href="#" style="width: 262px"><span>Các đợt thi</span></a>
                             <ul>
-                                <li class="has-sub"><a href="#" style="width: 262px"><span>Đợt 1</span></a>
-                                    <ul>
-                                        <li><a href="#" style="width: 262px"><span>DEF</span></a></li>
-                                        <li><a href="#" style="width: 262px"><span>ABC</span></a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-sub"><a href="#" style="width: 262px"><span>Đợt 2</span></a>
-                                    <ul>
-                                        <li><a href="#" style="width: 262px"><span>123</span></a></li>
-                                        <li><a href="#" style="width: 262px"><span>234</span></a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-sub"><a href="#" style="width: 262px"><span>Đợt 3</span></a>
-                                    <ul>
-                                        <li><a href="#" style="width: 262px"><span>123</span></a></li>
-                                        <li><a href="#" style="width: 262px"><span>234</span></a></li>
-                                    </ul>
-                                </li>
+                                 @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
+                                 {
+                                     <li class="has-sub"><a href="#" style="width: 262px"><span>@item.Examination.Name</span></a>
+                                         <ul>
+@*                                             <li><a href="#" style="width: 262px"><span>DEF</span></a></li>
+                                             <li><a href="#" style="width: 262px"><span>ABC</span></a></li>*@
+                                             <li><a href="@Url.Action("ManageLodge", "Charity", new { ceId = item.CharityExamID })" style="width: 262px"><span>Quản lý Chỗ trọ</span></a></li>
+                            <li><a href="@Url.Action("ManageCar", "Charity", new { ceId = item.CharityExamID })" style="width: 262px"><span>Quản lý Xe</span></a></li>
+                            <li><a href="@Url.Action("ManageFunds", "Charity", new { ceId = item.CharityExamID })" style="width: 262px"><span>Quản lý Tiền được tài trợ</span></a></li>
+                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })" style="width: 262px"><span>Quản lý Thí sinh</span></a></li>
+                            <li class='last'><a href="@Url.Action("ManageVolunteer", "Charity", new { ceId = item.CharityExamID })" style="width: 262px"><span>Quản lý Tình nguyện viên</span></a></li>
+                                         </ul>
+                                     </li>@*
+                                     <li class="has-sub"><a href="#" style="width: 262px"><span>Đợt 2</span></a>
+                                         <ul>
+                                             <li><a href="#" style="width: 262px"><span>123</span></a></li>
+                                             <li><a href="#" style="width: 262px"><span>234</span></a></li>
+                                         </ul>
+                                     </li>
+                                     <li class="has-sub"><a href="#" style="width: 262px"><span>Đợt 3</span></a>
+                                         <ul>
+                                             <li><a href="#" style="width: 262px"><span>123</span></a></li>
+                                             <li><a href="#" style="width: 262px"><span>234</span></a></li>
+                                         </ul>
+                                     </li>*@
+                                 }
                             </ul>
                         </li>
 
