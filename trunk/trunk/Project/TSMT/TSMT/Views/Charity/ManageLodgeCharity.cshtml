@@ -36,13 +36,13 @@
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ của hội từ thiện
-               @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
+                <a href="@Url.Action("AddLodge", "Charity")" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
+                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
-
         </div>
         <div class="panel-body">
             <div class="tab-v1">
-               @* <ul class="nav nav-tabs">
+                @* <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab">Nhà trọ của Hội từ thiện</a></li>
                 </ul>*@
                 <div class="tab-content">
@@ -65,61 +65,50 @@
                             <tbody>
                                 @{
                                     int counter = 1;
-
                                     foreach (var item in ViewData["lodgesOfCharity"] as IEnumerable<Lodge>)
                                     {
-                                    <tr id="@item.LodgeID">
-                                        <td>@counter</td>
-                                        <td>@item.Address</td>
-                                        
-                                        @if (item.CharityExamID == null)
-                                        {
-                                            <td>Chưa thiết lập</td>
-                                            @*<td>Chưa thiết lập</td>*@
-                                        }
-                                        else
-                                        {
-                                            <td>@item.ChairitiesExam.Examination.Name</td>
-                                            @*<td>@item.ChairitiesExam.CharityExamName</td>*@
-                                        }
-                                        @*<td>@item.TotalRooms</td>*@
-                                        <td>@item.Rooms.Count(r => r.CharityExamID != null) / @item.TotalRooms</td>
-                                        @*<td>@item.TotalSlots</td>
+                                        <tr id="@item.LodgeID">
+                                            <td>@counter</td>
+                                            <td>@item.Address</td>
+                                            @if (item.CharityExamID == null)
+                                            {
+                                                <td>Chưa thiết lập</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.ChairitiesExam.Examination.Name</td>
+                                            }
+                                            @*<td>@item.TotalRooms</td>*@
+                                            <td>@item.Rooms.Count(r => r.CharityExamID != null) / @item.TotalRooms</td>
+                                            @*<td>@item.TotalSlots</td>
                                         <td>@item.TotalSlotsInUsed</td>
                                         <td>@item.AvailableSlots</td>*@
-                                        <td>@item.AvailableSlots / @item.TotalSlotsInUsed</td>
-                                        <td>
-                                            <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">View on Map</button>
-                                            @Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })
-                                            @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })
-                                            @Html.ActionLink("Sử dụng", "AssignLodgetoCe", new { lodgeId = @item.LodgeID })
-                                            @if (item.TotalSlotsInUsed == item.AvailableSlots)
-                                            { 
-                                                @Html.ActionLink("Delete", "DeleteLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'del' );" })
-                                            }
-                                            
-                                        </td>
-
-                                    </tr>
+                                            <td>@item.AvailableSlots / @item.TotalSlotsInUsed</td>
+                                            <td>
+                                                <button class="btn-u btn-u-red" title="Xem trên bản đồ" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>
+                                                <a href="@Url.Action("DetailsLodge", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
+                                                <a href="@Url.Action("EditLodge", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
+                                                <a href="@Url.Action("AssignLodgetoCe", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-pink" title="Sử dụng"><i class="icon-heart"></i></a>
+                                                @if (item.TotalSlotsInUsed == item.AvailableSlots)
+                                                { 
+                                                    <a href="@Url.Action("DeleteLodge", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange" title="Xóa"><i class="icon-trash"></i></a>
+                                                }
+                                            </td>
+                                        </tr>
                                         ++counter;
                                     }
                                 }
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    @Html.ActionLink("Create", "AddLodge", new { id = Model.CharityID }, new { @class = "btn btn-info" })
-@Html.ActionLink("Quay lại ", "Index", "", new { @class = "btn btn-info" })
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
-
 <script type="text/javascript">
-
     function callAjaxApprove(lodgeId) {
         $.ajax({
             url: 'ApproveLodge/' + lodgeId,
@@ -133,7 +122,6 @@
                 lastTd.removeChild(lastTd.lastElementChild);
 
                 lastTd.lastElementChild.style.display = "inline";
-                //lastTd.firstElementChild.style.display = "inline";
                 var spanStatus = preLastTd.lastElementChild;
                 spanStatus.textContent = "Đã duyệt";
                 spanStatus.className = "label label-success";
@@ -169,8 +157,6 @@
     }
 
     function callAjaxRemove(carId) {
-
-
         $.ajax({
             url: 'RemoveLodge/' + carId,
             type: 'GET',
