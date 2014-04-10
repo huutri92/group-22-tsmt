@@ -5,6 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
 @Html.Partial("_CharitySidebarPartial")
 <script>
     $(document).ready(function () {
@@ -12,8 +26,75 @@
     });
 </script>
 
-<h2 class="title_of_page">Chi tiết nhà trọ và quản lý phòng</h2>
-
+<div class="col-md-9">
+    <div class="panel panel-orange margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Chi tiết nhà trọ và quản lý phòng
+                <a href="@Url.Action("AddRoom", "Charity", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo phòng</a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <tr>
+                    <td>Địa chỉ:</td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td>Sponsor:</td>
+                    <td>@Model.SponsorID</td>
+                </tr>
+                <tr>
+                    <td>Tổng số phòng:</td>
+                    <td>@Model.TotalRooms</td>
+                </tr>
+                <tr>
+                    <td>Tổng số chỗ trọ</td>
+                    <td>@Model.TotalSlots</td>
+                </tr>
+                <tr>
+                    <td>Số chỗ còn trống</td>
+                    <td>@Model.AvailableSlots</td>
+                </tr>
+            </table>
+            <div class="inner-page-content inner-careers">
+                <table class="table table-hover table-bordered ">
+                    <thead>
+                        <tr>
+                            @*<th>STT</th>*@
+                            <th>Tên phòng</th>
+                            <th>Tổng số chỗ</th>
+                            <th>Số chỗ còn trống</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
+                            {
+                            <tr id ="@item.RoomID">
+                                <td>@item.RoomName</td>
+                                <td>@item.TotalSlots</td>
+                                <td>@item.AvailableSlots</td>
+                                <td>
+                                    @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
+                                    <a href="@Url.Action("EditRoom", "Charity", new { roomId = @item.RoomID })" class="btn-u">
+                                        <i class="icon-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-red">
+                                        <i class="icon-remove"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+</div>
+@*<h2 class="title_of_page">Chi tiết nhà trọ và quản lý phòng</h2>
 <table>
     <tr>
         <td>Address</td>
@@ -37,7 +118,7 @@
     </tr>
 </table>
 
-@*<div class="service-one">
+<div class="service-one">
     <div class="service-one-inner">
         <div class="container">
             <div class="row">
@@ -53,12 +134,12 @@
             </div>
         </div>
     </div>
-</div>*@
+</div>
 <div class="inner-page-content inner-careers">
     <table class="table table-hover table-bordered ">
         <thead>
             <tr>
-                @*<th>STT</th>*@
+                <th>STT</th>
                 <th>Tên phòng</th>
                 <th>Tổng số chỗ</th>
                 <th>Số chỗ còn trống</th>
@@ -70,23 +151,23 @@
 
                 foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
                 {
-                    <tr id ="@item.RoomID">
-                        <td>@item.RoomName</td>
-                        <td>@item.TotalSlots</td>
-                        <td>@item.AvailableSlots</td>
-                        <td>
-                            @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
-                            @Html.ActionLink("Chỉnh sửa", "EditRoom", new { roomId = @item.RoomID })
-                            @Html.ActionLink("Xóa", "DeleteRoom", new { id = @item.RoomID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
-                        </td>
-                    </tr>
+                <tr id ="@item.RoomID">
+                    <td>@item.RoomName</td>
+                    <td>@item.TotalSlots</td>
+                    <td>@item.AvailableSlots</td>
+                    <td>
+                        @Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })
+                        @Html.ActionLink("Chỉnh sửa", "EditRoom", new { roomId = @item.RoomID })
+                        @Html.ActionLink("Xóa", "DeleteRoom", new { id = @item.RoomID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.RoomID + ", 'del' );" })
+                    </td>
+                </tr>
                 }
             }
         </tbody>
     </table>
 </div>
 @Html.ActionLink("Tạo phòng", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
-@Html.ActionLink("Trở về trang quản lý nhà trọ", "ManageLodgeCharity", "", new { @class = "btn btn-info" })
+@Html.ActionLink("Trở về trang quản lý nhà trọ", "ManageLodgeCharity", "", new { @class = "btn btn-info" })*@
 
 <script>
     //function DeleteConfirm() {
@@ -97,8 +178,6 @@
     //}
 
     function callAjaxDelete(roomId) {
-
-
         $.ajax({
             url: 'DeleteRoom/' + roomId,
             type: 'GET',
@@ -110,5 +189,4 @@
             }
         });
     }
-
 </script>
