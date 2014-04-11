@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Xem chi tiết tham gia đợt thi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model ParticipantVolunteer
+
+<h2>Chi tiết tham gia đợt thi @Model.ChairitiesExam.Examination.Name</h2>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Ngày thi</th>
+        <th>Giờ bắt đầu</th>
+        <th>Giờ kết thúc</th>
+    </tr>
+    @{
+        int counter = 1;
+        foreach (ScheduleExam se in Model.ChairitiesExam.Examination.ScheduleExams)
+        {
+        <tr>
+            <td>@counter</td>
+            <td>@se.Day.ToShortDateString()</td>
+            <td>@se.BeginHour.ToShortTimeString()</td>
+            <td>@se.EndHour.ToShortTimeString()</td>
+        </tr>            
+            ++counter;
+        }
+    }
+</table>
+
+@if (Model.ExamPaperID != null)
+{
+    <table>
+    <tr>
+        <th>Thí sinh</th>
+        <td>@Model.ExaminationsPaper.Candidate.Account.Profile.Lastname @Model.ExaminationsPaper.Candidate.Account.Profile.Firstname</td>
+    </tr>
+    <tr>
+        <th>Địa điểm trọ</th>
+        <td>@Model.ExaminationsPaper.Lodge.Address</td>
+    </tr>
+    <tr>
+        <th>Địa điểm thi</th>
+        <td>@Model.ExaminationsPaper.Venue.Address</td>
+    </tr>
+</table>
+
+<a href="@Url.Action("ViewRoute", "Volunteer")">
+    <div class="col-md-3 col-sm-6">
+        <div class="servive-block-in servive-block-colored servive-block-grey">
+            <h4>Xem đường đi</h4>
+            <div><i class="icon-thumbs-up"></i></div>
+            <p>HDSD.</p>
+        </div>
+    </div>
+</a>
+}
+else {
+    <h3>Chưa được sắp xếp đưa đón</h3>
+}

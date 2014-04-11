@@ -1,7 +1,7 @@
 ﻿@using TSMT.Models
 @{
     ViewBag.Title = "ViewStatistic";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutStatistic.cshtml";
 }
 
 <script src="~/Content/js/highchart.js"></script>
@@ -59,16 +59,20 @@
         </table>*@
 
             </div>
-            <div id="chart" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
-            <div id="chartlodge" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
-
-            <input id="buttonshow" type="button" value="Xem Thống Kê" name="Xem Thống Kê" onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" onchange="" style="display: none" class="btn btn-info" />
-
-            @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-info" })
+           
         </div>
     </div>
+    <a href="@Url.Action("Index", "Sponsor")" class="btn btn-info"  id="back1" >Quay lại</a>
+    <a  onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" class="btn btn-info"  id="buttonshow" style="display: none; float:right" >Xem Thống Kê</a>
+    @*<input id="buttonshow" type="button" value="Xem Thống Kê" name="Xem Thống Kê" onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" onchange="" style="display: none" class="btn btn-info" />*@
 </div>
+ <div id="chart" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
+            <div id="chartlodge" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
+<a href="@Url.Action("Index", "Sponsor")" class="btn btn-info"  id="back2" style="display: none">Quay lại</a>
 
+            
+
+          
 <script type="text/javascript">
     function callAjax(id) {
         if (id == 0) {
@@ -101,41 +105,27 @@
                 type: 'POST',
                 success: function (results) {
                     $("#showcar").html("");
-                    $("#showcar").append("<tr>");
-                    $("#showcar").append("<td >Biển Số Xe</td>");
-                    $("#showcar").append("<td>Tổng Số Chỗ Ngồi</td>");
-                    $("#showcar").append("<td>Số Chỗ Ngồi Còn Trống</td>");
-                    $("#showcar").append("</tr>");
+                    $("#showcar").append("<tr><td> Biển Số Xe</td><td>Tổng Số Chỗ Ngồi</td><td>Số Chỗ Ngồi Còn Trống</td></tr>");
+
                     for (i in results) {
                         var r = results[i];
-                        $("#showcar").append("<tr>");
-                        $("#showcar").append("<td value=\"" + r.value + "\">" + r["NumberPlate"] + "</td>");
-                        $("#showcar").append("<td class=\"totalslots\" value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
-                        $("#showcar").append("<td class =\"totalavaslots\" value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
-                        $("#showcar").append("</tr>");
-
+                        $("#showcar").append("<tr><td style=\"width: 40%\" value=\"" + r.value + "\">" + r["NumberPlate"] + "</td>" + "<td style=\"width: 25%\" class=\"totalslots\" value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>" + "<td  class =\"totalavaslots\" value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td></tr>");
                     }
                 }
             });
-                
+
             $.ajax({
                 url: 'ShowLodgeSponsor',
                 data: { "ceId": ceId },
                 type: 'POST',
                 success: function (results) {
                     $("#showlodge").html("");
-                    $("#showlodge").append("<tr>");
-                    $("#showlodge").append("<td>Địa Chỉ</td>");
-                    $("#showlodge").append("<td>Tổng Số Chỗ</td>");
-                    $("#showlodge").append("<td>Số Chỗ Ở Còn Trống</td>");
-                    $("#showlodge").append("</tr>");
+                    $("#showlodge").append("<tr><td>Địa Chỉ</td><td>Tổng Số Chỗ</td><td>Số Chỗ Ở Còn Trống</td></tr>");
+
                     for (i in results) {
                         var r = results[i];
-                        $("#showlodge").append("<tr>");
-                        $("#showlodge").append("<td class=\"add\" value=\"" + r.value + "\">" + r["Address"] + "</td>");
-                        $("#showlodge").append("<td class=\"totalslotslodge\" value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>");
-                        $("#showlodge").append("<td class =\"totalavaslotslodge\" value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td>");
-                        $("#showlodge").append("</tr>");
+                        $("#showlodge").append("<tr><td style=\"width: 40%\" class=\"add\" value=\"" + r.value + "\">" + r["Address"] + "</td>" + "<td style=\"width: 25%\" class=\"totalslotslodge\" value=\"" + r.value + "\">" + r["TotalSlots"] + "</td>" + "<td class =\"totalavaslotslodge\" value=\"" + r.value + "\">" + r["AvailableSlots"] + "</td></tr>");
+
                     }
                 }
             });
@@ -166,11 +156,15 @@
         document.getElementById('chart').style.display = "none"
         document.getElementById('chartlodge').style.display = "none";
         document.getElementById('buttonshow').style.display = "inline";
+        document.getElementById('back1').style.display = "inline";
+        document.getElementById('back2').style.display = "none";
     }
     function showForm2() {
         document.getElementById('chart').style.display = "inline";
         document.getElementById('chartlodge').style.display = "inline";
         document.getElementById('buttonshow').style.display = "none";
+        document.getElementById('back1').style.display = "none";
+        document.getElementById('back2').style.display = "inline";
     }
 
     function viewcarstatistic() {

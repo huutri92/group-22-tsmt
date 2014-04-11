@@ -1,21 +1,21 @@
-﻿@using TSMT.Models
-@model IEnumerable<Volunteer>
-
+﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_CharitySidebarPartial")
-@*<link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>*@
+
+@using TSMT.Models
+@model IEnumerable<ParticipantVolunteer>
+
+
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
-<script src="~/Content/js/TSMTPopup.js"></script>
-<script>
+<script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
+<script type="text/javascript">
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
     });
 </script>
-
-<h2 class="title_of_page">Manage Volunteers of Charity Exam</h2>
+<h2 class="title_of_page">Danh sách các tình nguyện viên</h2>
 <div class="inner-page-content inner-careers">
 
    @* <script type="text/javascript">
@@ -98,12 +98,10 @@
      <table class="table table-hover table-bordered ">
         <thead>
             <tr>
-                <th>STT</th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Description</th>
+                <th>#</th>
+                <th>Tình nguyện viên</th>
                 <th>Trạng thái</th>
-                <th>Actions</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -112,30 +110,26 @@
 
                 foreach (var item in Model)
                 {
-                <tr id="@item.VolunteerID">
+                <tr id="@item.ParticipantVolunteerID">
                     <td>@counter</td>
-                    <td>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</td>
-                    <td>@item.JobName</td>
-                    <td>@item.Description</td>
+                    <td>@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</td>
                     
                     @if (@item.IsApproved)
                     {
                         <td><span class="label label-success">Đã duyệt</span></td>
                         <td>
-                        @Html.ActionLink("Details", "DetailsVolunteer", new { voId = @item.VolunteerID })
-                        @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.VolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'del' );" })
-                   
+                        @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
+                        @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick="return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
                     </td>
                     }
                     else
                     {
                         <td><span class="label label-danger">Chưa duyệt</span></td>
                         <td>
-                            @Html.ActionLink("Details", "DetailsVolunteer", new { voId = @item.VolunteerID })
-                            @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.VolunteerID }, new {style="display: none", onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'del' );" })
-                            @Html.ActionLink("Approve", "ApproveVolunteer", new { id = @item.VolunteerID }, new { onclick = "return callAjaxApprove(" + @item.VolunteerID +")"})
-                            @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.VolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.VolunteerID + ", 'remove' );" })
-                   
+                            @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
+                            @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new {style="display: none", onclick="return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
+                            @Html.ActionLink("Approve", "ApproveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return callAjaxApprove(" + @item.ParticipantVolunteerID +")"})
+                            @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'remove' );" })
                         </td>
                     }
                    
@@ -155,13 +149,10 @@
     //    else
     //        return false;
 
-
-
-
     function callAjaxApprove(voId) {
         $.ajax({
-            url: 'ApproveVolunteer/' + voId,
-            type: 'GET',
+            url: '/Charity/ApproveVolunteer/' + voId,
+            type: 'POST',
             success: function (results) {
                 var tr = document.getElementById(voId);
                 var lastTd = tr.lastElementChild;
@@ -181,11 +172,9 @@
     }
 
     function callAjaxDelete(voId) {
-
-
         $.ajax({
-            url: 'RemoveVolunteer/' + voId,
-            type: 'GET',
+            url: '/Charity/RemoveVolunteer/' + voId,
+            type: 'POST',
             success: function (results) {
                 $("#" + voId).hide(800, function () {
                     $("#" + voId).remove();
@@ -197,11 +186,9 @@
     }
 
     function callAjaxDenie(voId) {
-
-
         $.ajax({
-            url: 'DenieVolunteer/' + voId,
-            type: 'GET',
+            url: '/Charity/DenieVolunteer/' + voId,
+            type: 'POST',
             success: function (results) {
                 $("#" + voId).hide(800, function () {
                     $("#" + voId).remove();

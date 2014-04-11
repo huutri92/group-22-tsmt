@@ -194,6 +194,9 @@
     <Compile Include="Models\Lodge.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParticipantVolunteer.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Profile.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
@@ -209,16 +212,7 @@
     <Compile Include="Models\ScheduleExam.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SchedulesCar.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SchedulesVolunteer.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Sponsor.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TSMT.Context.cs">
@@ -2409,7 +2403,7 @@
     <Content Include="Views\Charity\ViewLodge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Volunteer\DisplayRoute.cshtml" />
+    <Content Include="Views\Volunteer\DisplayRouteVolunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\ViewVenue.cshtml" />
@@ -2494,6 +2488,12 @@
     <Content Include="Views\Volunteer\ViewSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Volunteer\ViewDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\AfterAssignRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
@@ -2513,6 +2513,9 @@
       <DependentUpon>TSMT.edmx</DependentUpon>
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\DisplayRouteVolunteer.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TSMT.Models;
 namespace TSMT.Controllers
 {
+    [CheckAuth(3)]
     public class SponsorController : Controller
     {
         private readonly TSMTEntities db = new TSMTEntities();
@@ -143,7 +144,7 @@ namespace TSMT.Controllers
             foreach (var room in rooms)
             {
                 room.CharityExamID = null;
-                
+
             }
             db.SaveChanges();
             return RedirectToAction("ManageLodge");
@@ -181,9 +182,9 @@ namespace TSMT.Controllers
 
             string[] listStringId = roomId.Split('-');
 
-            int[] listIntId = new int[listStringId.Length-1];
+            int[] listIntId = new int[listStringId.Length - 1];
 
-            for (int i = 0; i < listStringId.Length-1; i++ )
+            for (int i = 0; i < listStringId.Length - 1; i++)
             {
                 listIntId[i] = int.Parse(listStringId[i]);
             }
@@ -195,7 +196,7 @@ namespace TSMT.Controllers
             listRoom = lodge.Rooms.ToList();
             foreach (var room in listRoom)
             {
-                
+
                 room.CharityExamID = null;
                 db.SaveChanges();
             }
@@ -254,7 +255,7 @@ namespace TSMT.Controllers
             Room room = new Room();
             room.RoomName = f["RoomName"];
             room.LodgeID = int.Parse(f["lodgeId"]);
-            room.Gender = null ;
+            room.Gender = null;
             room.TotalSlots = int.Parse(f["TotalSlots"]);
             room.AvailableSlots = room.TotalSlots;
 
@@ -369,6 +370,35 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageCar");
         }
+        public ActionResult SponsoredAllCar()
+        {
+            Account acc = (Account)Session["acc"];
+            ViewData["Car"] = db.Cars.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID == null).ToList();
+            ViewData["CE"] = db.ChairitiesExams.ToList();
+            ViewData["Exam"] = db.Examinations.ToList();
+            return View();
+            
+        }
+        [HttpPost]
+        public void SponsoredAllCar(int ceId, string carId, int cId)
+        {
+            string[] listStringId = carId.Split('-');
+
+            int[] listIntId = new int[listStringId.Length - 1];
+
+            for (int i = 0; i < listStringId.Length - 1; i++)
+            {
+                listIntId[i] = int.Parse(listStringId[i]);
+            }
+            
+            foreach (var i in listIntId)
+            {
+                Car car = db.Cars.SingleOrDefault(r => r.CarID == i);
+                car.CharityID = cId;
+                car.CharityExamID = ceId;
+                db.SaveChanges();
+            }
+        }
         public ActionResult DeleteCar(int carId)
         {
             Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
@@ -435,6 +465,14 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             var funds = db.Funds.Where(r => r.Sponsor.AccountID == acc.AccountID).ToList();
+            ViewData["funds"] = db.Funds.Where(r => r.Sponsor.AccountID == acc.AccountID).ToList();
+            double totalFunds = 0;
+            foreach (var item in (IEnumerable<Fund>)ViewData["funds"])
+            {
+                totalFunds = totalFunds + item.FundSponsored;
+            }
+            string s = totalFunds.ToString("##,###");
+            ViewData["totalfunds"] = s;
             return View(funds);
         }
 
@@ -511,7 +549,7 @@ namespace TSMT.Controllers
             int s = int.Parse(f["resource"]);
             int lodgeId = int.Parse(f["lodgeId"]);
 
-            int carId = int.Parse(f["carId"]);
+
             switch (s)
             {
                 case 1:
@@ -523,29 +561,18 @@ namespace TSMT.Controllers
                     db.Funds.Add(fund);
                     break;
                 case 2:
-                    if (carId == 0)
-                    {
-                        Car car = new Car();
-                        car.SponsorID = sp.SponsorID;
-                        car.CharityExamID = int.Parse(f["asd"]);
-                        car.NumberPlate = f["NumberPlate"];
-                        car.TotalSlots = int.Parse(f["TotalSlots"]);
-                        car.AvailableSlots = car.TotalSlots;
-                        car.DriverName = f["DriverName"];
-                        car.DriverPhone = f["DriverPhone"];
-                        db.Cars.Add(car);
-                    }
-                    else
-                    {
-                        Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
-                        car.SponsorID = sp.SponsorID;
-                        car.CharityExamID = int.Parse(f["asd"]);
-                        car.NumberPlate = f["NumberPlate"];
-                        car.TotalSlots = int.Parse(f["TotalSlots"]);
-                        car.AvailableSlots = car.TotalSlots;
-                        car.DriverName = f["DriverName"];
-                        car.DriverPhone = f["DriverPhone"];
-                    }
+
+                    int carId = int.Parse(f["carId"]);
+                    Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+                    car.SponsorID = sp.SponsorID;
+                    car.CharityExamID = int.Parse(f["asd"]);
+                    car.CharityID = int.Parse(f["charityid"]);
+                    car.NumberPlate = f["NumberPlate"];
+                    car.TotalSlots = int.Parse(f["TotalSlots"]);
+                    car.AvailableSlots = car.TotalSlots;
+                    car.DriverName = f["DriverName"];
+                    car.DriverPhone = f["DriverPhone"];
+
 
                     break;
                 case 3:
@@ -553,9 +580,19 @@ namespace TSMT.Controllers
                     lodge.SponsorID = sp.SponsorID;
                     lodge.Address = f["Address"];
                     lodge.CharityExamID = int.Parse(f["asd"]);
+                    lodge.CharityID = int.Parse(f["charityid"]);
                     lodge.TotalRooms = int.Parse(f["TotalRooms"]);
                     lodge.TotalSlots = int.Parse(f["TotalSlotsL"]);
                     lodge.AvailableSlots = lodge.TotalSlots;
+
+                    List<Room> listRoom = new List<Room>();
+                    listRoom = lodge.Rooms.ToList();
+                    foreach (var room in listRoom)
+                    {
+
+                        room.CharityExamID = int.Parse(f["asd"]);
+                        db.SaveChanges();
+                    }
                     break;
 
             }
@@ -595,17 +632,17 @@ namespace TSMT.Controllers
         public JsonResult ResultAjaxCharityid(int id)
         {
             var cid = from r in db.ChairitiesExams
-                     where r.CharityExamID == id
-                     select new
-                     {
-                         value = r.CharityID,
-                         charityid =r.CharityID
-                         
-                     };
+                      where r.CharityExamID == id
+                      select new
+                      {
+                          value = r.CharityID,
+                          charityid = r.CharityID
+
+                      };
             return Json(cid, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         public JsonResult ResultAjaxcar(int id)
         {
@@ -641,7 +678,7 @@ namespace TSMT.Controllers
         public JsonResult ShowCar(int ceId)
         {
             var car = from r in db.Cars
-                      where r.CharityExamID == ceId && r.IsApproved ==true
+                      where r.CharityExamID == ceId && r.IsApproved == true
                       select new
                       {
                           value = r.CarID,
@@ -655,14 +692,14 @@ namespace TSMT.Controllers
         public JsonResult ShowLodge(int ceId)
         {
             var lodge = from r in db.Lodges
-                      where r.CharityExamID == ceId && r.IsApproved == true
-                      select new
-                      {
-                          value = r.LodgeID,
-                          Address = r.Address,
-                          TotalSlots = r.TotalSlots,
-                          AvailableSlots = r.AvailableSlots,
-                      };
+                        where r.CharityExamID == ceId && r.IsApproved == true
+                        select new
+                        {
+                            value = r.LodgeID,
+                            Address = r.Address,
+                            TotalSlots = r.TotalSlots,
+                            AvailableSlots = r.AvailableSlots,
+                        };
             return Json(lodge, JsonRequestBehavior.AllowGet);
         }
 
@@ -700,12 +737,12 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             var fund = from r in db.Funds
-                        where r.CharityExamID == ceId && r.IsApproved == true && r.Sponsor.AccountID == acc.AccountID
-                        select new
-                        {
-                            value = r.FundID,
-                            FundSponsored = r.FundSponsored,
-                        };
+                       where r.CharityExamID == ceId && r.IsApproved == true && r.Sponsor.AccountID == acc.AccountID
+                       select new
+                       {
+                           value = r.FundID,
+                           FundSponsored = r.FundSponsored,
+                       };
             return Json(fund, JsonRequestBehavior.AllowGet);
         }
         #endregion

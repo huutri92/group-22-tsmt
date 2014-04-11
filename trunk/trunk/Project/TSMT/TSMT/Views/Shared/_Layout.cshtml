@@ -121,7 +121,7 @@
     @Html.Partial("_HeaderPartial")
 
     @RenderSection("Breadcrumbs", required: false)
-
+    <i class="style-switcher-btn icon-backward" onclick="toggleSideBar()"></i>
     <div class="container">
         <div class="row">
 
@@ -142,6 +142,29 @@
             App.initBxSlider();
             Index.initRevolutionSlider();
         });
+</script>
+
+
+    
+<script type="text/javascript">
+    //$('.pull-left').append(' <button onclick="toggleSideBar()">#</button>')
+    function toggleSideBar() {
+        var sideBar = $('.col-md-3');
+        var mainBar = $('.col-md-9');
+
+        if ($(sideBar).is(':visible')) {
+            $(sideBar).hide('slow');
+            $(mainBar).animate({ width: '100%' }, 'slow');
+
+        } else {
+            $(mainBar).css('float', 'right');
+            $(mainBar).animate({ width: '75%' }, 'fast', function () {
+                $(sideBar).fadeIn('fast');
+                $(mainBar).css('float', 'left');
+
+            });
+        }
+    }
 </script>
 </body>
 </html>

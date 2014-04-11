@@ -49,13 +49,13 @@
                 
                      @if (Model.CharityExamID == null)
                      {
-                         <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
                      }
                      else
                      {
                          if (!Model.IsApproved)
                          {
-                         <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Chỉnh Sửa</a>
                          }
                      }
             </h3>
@@ -123,7 +123,7 @@
             <h3 class="panel-title"><i class="icon-list"></i>Quản lý phòng
                 @if (!Model.IsApproved)
                 {
-                    <a href="@Url.Action("AddRoom", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo Mới Phòng</a>
+                    <a href="@Url.Action("AddRoom", "Sponsor", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo Mới Phòng</a>
                 }
             </h3>
 
@@ -154,8 +154,8 @@
                             <td>@item.RoomName</td>
                             <td>@item.TotalSlots</td>
                             <td>
-                                @Html.ActionLink("Edit", "EditRoom", new { roomId = @item.RoomID })
-                                @Html.ActionLink("Delete", "DeleteRoom", new { roomId = @item.RoomID })
+                                <a href="@Url.Action("EditRoom", "Sponsor", new { roomId = @item.RoomID })" class="btn-u" title="Chỉnh Sửa Phòng"><i class="icon-edit"></i></a>
+                                <a href="@Url.Action("DeleteRoom", "Sponsor", new { roomId = @item.RoomID })" class="btn-u btn-u-orange" title="Xóa Phòng"><i class="icon-trash"></i></a>
                             </td>
                         </tr>
                                 ++counter;

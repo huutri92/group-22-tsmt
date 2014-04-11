@@ -5,13 +5,12 @@
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
-                <li class="@(ViewBag.Active == "SponsorHome" ? "active" : "")"><a href="@Url.Action("Index", "Sponsor")"><i class="icon-home"></i>Home</a></li>
-                <li class="@(ViewBag.Active == "AddResource" ? "active" : "")"><a href="@Url.Action("AddResource", "Sponsor")"><i class="icon-plus"></i>Thêm tài nguyên</a></li>
+                @*<li class="@(ViewBag.Active == "SponsorHome" ? "active" : "")"><a href="@Url.Action("Index", "Sponsor")"><i class="icon-home"></i>Home</a></li>*@
                 <li class="@(ViewBag.Active == "ManageCar" ? "active" : "")"><a href="@Url.Action("ManageCar", "Sponsor")"><i class="icon-user"></i>Quản lý xe</a></li>
-                <li class="@(ViewBag.Active == "ManageFund" ? "active" : "")"><a href="@Url.Action("ManageFund", "Sponsor")"><i class="icon-flag"></i>Quản lý tiền</a></li>
+                <li class="@(ViewBag.Active == "ManageFund" ? "active" : "")"><a href="@Url.Action("ManageFund", "Sponsor")"><i class="icon-flag"></i>Quản lý tiền tài trợ</a></li>
                 <li class="@(ViewBag.Active == "ManageLodge" ? "active" : "")"><a href="@Url.Action("ManageLodge", "Sponsor")"><i class="icon-lightbulb"></i>Quản lý chỗ trọ</a></li>
-                <li class="@(ViewBag.Active == "SponsorCarStatistic" ? "active" : "")"><a href="@Url.Action("SponsorCarStatistic", "Sponsor")"><i class="icon-rocket"></i>Thống kê cho xe</a></li>
-                <li class="@(ViewBag.Active == "SponsorLodgeStatistic" ? "active" : "")"><a href="@Url.Action("SponsorLodgeStatistic", "Sponsor")"><i class="icon-rocket"></i>Thống kê cho chỗ trọ</a></li>
+                <li class="@(ViewBag.Active == "AddResource" ? "active" : "")"><a href="@Url.Action("AddResource", "Sponsor")"><i class="icon-plus"></i>Ủng hộ tài nguyên</a></li>
+                <li class="@(ViewBag.Active == "ViewStatistic" ? "active" : "")"><a href="@Url.Action("ViewStatistic", "Sponsor")"><i class="icon-rocket"></i>Xem Thống Kê</a></li>
             </ul>
         </div>
     </div>

@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Active = "ChooseLodgeForCe ";
-    ViewBag.Title = "Chọn nhà trò cho kì thi";
+    ViewBag.Title = "Chọn nhà trọ cho kì thi";
        
 }
 
@@ -26,18 +26,18 @@
 @Html.Partial("_CharitySidebarPartial")
 
 <div class="col-md-9">
-    <div class="panel panel-red margin-bottom-20">
+    <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ
-               @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo mới</a>*@
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ của @Model.Name
+                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
 
         </div>
         <div class="panel-body">
             <div class="tab-v1">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#home" data-toggle="tab">Nhà trọ của Hội từ thiện</a></li>
-                </ul>
+                @*                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">Nhà trọ của Hội từ thiện @Model.Name</a></li>
+                </ul>*@
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <table class="table table-hover">
@@ -56,18 +56,19 @@
 
                                     foreach (var item in ViewData["Lodge"] as IEnumerable<Lodge>)
                                     {
-                                    <tr id="@item.LodgeID">
-                                        <td>@counter</td>
-                                        <td>@item.Address</td>                                       
-                                        <td>@item.TotalRooms</td>
-                                        <td>@item.TotalSlots</td>
-                                        <td>
-                                            <button onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)">Xem bản đồ</button>
-                                            @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
-                                            @Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})
-                                        </td>
+                                        <tr id="@item.LodgeID">
+                                            <td>@counter</td>
+                                            <td>@item.Address</td>                                       
+                                            <td>@item.TotalRooms</td>
+                                            <td>@item.TotalSlots</td>
+                                            <td>
+                                                <button class="btn-u btn-u-red" title="Xem trên bản đồ" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>
+                                                @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
+                                                @*@Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})*@
+                                                <a href="@Url.Action("ChooseRoomsForCe", "Charity", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})" class="btn-u btn-u-pink" title="Sử dụng"><i class="icon-heart"></i></a>
+                                            </td>
 
-                                    </tr>
+                                        </tr>
                                         ++counter;
                                     }
                                 }
@@ -80,6 +81,8 @@
 
         </div>
     </div>
+    <a href="@Url.Action("ManageLodge", "Charity", new { ceId = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    @*@Html.ActionLink("Quay lại ", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
 </div>
-@Html.ActionLink("Quay lại ", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+
 

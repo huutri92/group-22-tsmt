@@ -13,7 +13,7 @@
                @* <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
                     <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })"><i class="icon-info"></i>Thông tin tài khoản</a></li>
                *@ 
-                @if (Model.CharityExamID == null)
+              @*  @if (Model.CharityExamID == null)
                 {
                     <li class="@(ViewBag.Active == "JoinIn" ? "active" : "")">
                         <a href="@Url.Action("JoinIn", "Volunteer")"><i class="icon-chevron-sign-right"></i>Đăng ký</a></li>
@@ -26,7 +26,7 @@
                         <a href="@Url.Action("#", "Volunteer")"><i class="icon-sign-in"></i>Xem đường đi</a></li>
                 }
                 <li class="@(ViewBag.Active == "Statistics" ? "active" : "")">
-                    <a href="@Url.Action("Statistics", "Volunteer")"><i class="icon-rocket"></i>Thống kê</a></li>
+                    <a href="@Url.Action("Statistics", "Volunteer")"><i class="icon-rocket"></i>Thống kê</a></li>*@
             </ul>
         </div>
     </div>

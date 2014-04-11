@@ -41,15 +41,13 @@ namespace TSMT.Models
         public DbSet<GroupRequest> GroupRequests { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lodge> Lodges { get; set; }
+        public DbSet<ParticipantVolunteer> ParticipantVolunteers { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<ScheduleExam> ScheduleExams { get; set; }
-        public DbSet<SchedulesCar> SchedulesCars { get; set; }
-        public DbSet<SchedulesVolunteer> SchedulesVolunteers { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<University> Universities { get; set; }
         public DbSet<UniversitiesExamination> UniversitiesExaminations { get; set; }
         public DbSet<Venue> Venues { get; set; }
