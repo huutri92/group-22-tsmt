@@ -302,6 +302,7 @@
     <Content Include="Content\img\bg\5.jpg" />
     <Content Include="Content\img\bg\8.jpg" />
     <Content Include="Content\img\breadcrumbs.png" />
+    <Content Include="Content\img\bus.jpg" />
     <Content Include="Content\img\clients\aztec.png" />
     <Content Include="Content\img\clients\aztec_grey.png" />
     <Content Include="Content\img\clients\cisco.png" />
