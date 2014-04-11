@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Quản lý tin tức";
+    ViewBag.Active = "ManagePost";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using TSMT.Models
@@ -9,52 +10,83 @@
         $('.popup-confirm').addClass("popup-remove");
     });
 </script>
-<h2>Quản lý tin tức</h2>
-<div class="inner-page-content inner-careers">
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Tiêu đề</th>
-                <th>Người đăng</th>
-                <th>Ngày đăng</th>
-                <th>Trạng thái</th>
-                <th>Công cụ</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int i = 1;
-                foreach (var item in Model)
-                {
-                <tr id="@item.ArticleID">
-                    <th>@i</th>
-                    <td>@item.Title</td>
-                    <td>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</td>
-                    <td>@item.CreatedOn</td>
-                    <td>
-                        @if (@item.IsAprroved == false)
+
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Admin</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_AdminSidebarPartial")
+
+
+<div class="col-md-9">
+    <div class="panel panel-red margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-user"></i>Thông tin bài đăng
+                <a href="@Url.Action("AddNewPost","Post")" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</a> 
+            </h3>
+    @*@Html.ActionLink("Add new post", "AddNewPost", null, new { @class = "btn btn-info" })*@
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tiêu đề</th>
+                        <th>Người đăng</th>
+                        <th>Ngày đăng</th>
+                        <th>Trạng thái</th>
+                        <th>Công cụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                        foreach (var item in Model)
                         {
-                            <span class="label label-danger">Chưa duyệt</span>
+                        <tr id="@item.ArticleID" style="vertical-align:middle">
+                            <th style="vertical-align:middle">@i</th>
+                            <td style="vertical-align:middle">@item.Title</td>
+                            <td style="vertical-align:middle">@item.Account.Profile.Lastname @item.Account.Profile.Firstname</td>
+                            <td style="vertical-align:middle">@item.CreatedOn.ToString("dd/MM/yyyy")</td>
+                            <td style="vertical-align:middle">
+                                @if (@item.IsAprroved == false)
+                                {
+                                    <span class="label label-danger">Chưa duyệt</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-info">Đã duyệt</span>
+                                }
+                            </td>
+                            <td>
+@*                               @Html.ActionLink("Details", "EditPost", new { arId = @item.ArticleID }) *@
+                                <a href="@Url.Action("EditPost","Post", new { arId = @item.ArticleID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="icon-eye-open"></i></a>
+                                @*@Html.ActionLink("Delete", "DeletePost", new { id = @item.ArticleID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href," + @item.ArticleID + ", 'del' );" })*@
+                                <a href="@Url.Action("DeletePost","Post", new { id = @item.ArticleID })" class="btn-u btn-u-red" title="Xóa bài này" onclick = "return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href," + @item.ArticleID + ", 'del' );">
+                                    <i class="icon-remove-sign"></i></a>
+                            </td>
+                        </tr>
+                                i = i + 1;
                         }
-                        else
-                        {
-                            <span class="label label-info">Đã duyệt</span>
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "EditPost", new { arId = @item.ArticleID })
-                        @Html.ActionLink("Delete", "DeletePost", new { id = @item.ArticleID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href," + @item.ArticleID + ", 'del' );" })
-                    </td>
-                </tr>
-                        i = i + 1;
-                }
-            }
-        </tbody>
-    </table>
-    @Html.ActionLink("Add new post", "AddNewPost", null, new { @class = "btn btn-info" })
-    @Html.ActionLink("Display News", "News", null, new { @class = "btn btn-info" })
-    <button class="btn btn-info" onclick="window.history.back(-1);">Back</button>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @*@Html.ActionLink("Display News", "News", null, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("News","Post")" class="btn-u btn-u-blue" style="float:right"><i class="icon-eye-open"></i>&nbsp;Xem bài viết</a> 
+    @*<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>*@
+    <a href="@Url.Action("Index","Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a> 
 </div>
 <script>
     function callAjaxDelete(arId) {

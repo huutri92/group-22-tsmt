@@ -31,11 +31,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Full Name</th>
+                        <th>Họ tên</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Số điện thoại</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,8 @@
                             <td>@counter</td>
                             <td>@item.Account.Profile.Lastname @item.Account.Profile.Firstname </td>
                             <td>@item.Account.Email</td>
-                             <td>@item.PhoneNumber</td>
+                             <td>@item.PhoneNumber
+                             </td>
                             <td>@if (item.Account.IsActive.Equals(true))
                                 {
                                 <span class="label label-success"><b> Đã kích hoạt</b></span>

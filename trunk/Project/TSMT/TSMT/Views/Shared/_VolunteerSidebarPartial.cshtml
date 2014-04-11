@@ -1,19 +1,19 @@
 ﻿@using TSMT.Models
 
 @model TSMT.Models.Volunteer
+<link href="~/Content/css/leftmenu/styles.css" rel="stylesheet" />
+<script src="~/Content/js/leftmenu/menu_jquery.js"></script>
 
-
-<!--Begin Sidebar Menu-->
 <div class="col-md-3">
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
-                <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")">
-                    <a href="@Url.Action("Index", "")"><i class="icon-home"></i>Home</a></li>
-               @* <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
+               @* <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")">
+                    <a href="@Url.Action("Index", "")"><i class="icon-home"></i>Home</a></li>*@
+                @* <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
                     <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })"><i class="icon-info"></i>Thông tin tài khoản</a></li>
-               *@ 
-              @*  @if (Model.CharityExamID == null)
+               *@
+                @*  @if (Model.CharityExamID == null)
                 {
                     <li class="@(ViewBag.Active == "JoinIn" ? "active" : "")">
                         <a href="@Url.Action("JoinIn", "Volunteer")"><i class="icon-chevron-sign-right"></i>Đăng ký</a></li>
