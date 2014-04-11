@@ -2,7 +2,7 @@
 @model TSMT.Models.Car
 
 @{
-    ViewBag.Title = "Thông tin chi tiết xe của tổ chức";
+    ViewBag.Title = "Thông tin chi tiết xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,18 +21,20 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Thông tin chi tiết về xe</h2>
-<div class="inner-page-content inner-testimonial">
-    <div class="container">
-        <div class="row">
+<div class=""></div>
 
+<div class="col-md-9">
+    <div class="headline">
+       <h2>Thông tin chi tiết về xe</h2>
+    </div>
+     <div class="container">
+        <div class="row">
             <div class="col-md-4">
                 <!-- Testimonial item -->
                 <div class="testimonial-item">
                     <!-- User Image -->
-                    <img src="/Content/img/user-big.jpg" style="max-width: 60px" class="img-responsive img-thumbnail img-circle" alt="" />
+                    <img src="~/Content/img/bus.jpg" style="max-width: 60px" class="img-responsive img-thumbnail img-circle" alt="" />
                     <!-- User name and designation -->
-
 
                     <h4>Biển Số : @Model.NumberPlate</h4>
                     <!-- User comments -->
@@ -55,5 +57,6 @@
             </div>
         </div>
     </div>
-    @Html.ActionLink("Quay lại", "ManageCarCharity", "", new { @class = "btn btn-info" })
+    @*@Html.ActionLink("Quay lại", "ManageCarCharity", "", new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("ManageCarCharity","Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left">&nbsp;Quay lại</i></a>
 </div>

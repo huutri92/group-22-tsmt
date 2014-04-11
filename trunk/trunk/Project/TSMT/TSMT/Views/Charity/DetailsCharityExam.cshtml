@@ -1,4 +1,4 @@
-﻿@model TSMT.Models.ChairitiesExam
+﻿.@model TSMT.Models.ChairitiesExam
 
 @{
     ViewBag.Title = "Thông tin của tổ chức";
@@ -23,10 +23,10 @@
 @Html.Partial("_CharitySidebarPartial")
 
 <div class="col-md-9">
-    <div class="panel panel-orange margin-bottom-20">
+    <div class="panel panel-orange margin-bottom-20" style="width:70%">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về tổ chức @Model.Charity.Name , kì thi @Model.Examination.Name
-                <a href="@Url.Action("EditCharityExam", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-edit"></i>Chỉnh Sửa</a>
+                <a href="@Url.Action("EditCharityExam", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
             </h3>
 
         </div>
@@ -70,7 +70,7 @@
             </a>
             <a href="@Url.Action("ManageCandidate", "Charity", new { id = @Model.CharityExamID })">
                 <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-sea">
+                    <div class="servive-block-in servive-block-colored servive-block-blue">
                         <h4>Quản lý
                         <br />
                             Thí sinh</h4>
@@ -96,7 +96,7 @@
 
             <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })">
                 <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-blue">
+                    <div class="servive-block-in servive-block-colored servive-block-orange">
                         <h4>Quản lý
                         <br />
                             Xe</h4>
@@ -109,7 +109,7 @@
 
             <a href="@Url.Action("ManageFunds", "Charity", new { ceId = @Model.CharityExamID })">
                 <div class="col-md-4 col-sm-6">
-                    <div class="servive-block-in">
+                    <div class="servive-block-in servive-block-colored servive-block-yellow">
                         <h4>Quản lý
                         <br />
                             Tiền được tài trợ</h4>

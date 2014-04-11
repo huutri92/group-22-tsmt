@@ -170,6 +170,8 @@
 
         </div>
     </div>
+@*@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+<a href="@Url.Action("DetailsCharityExam","Charity",new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại trang thông tin tổ chức</a>
 </div>
 
 
@@ -178,7 +180,6 @@
 
 
 @*@Html.ActionLink("Create", "AddCar", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
-@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <script type="text/javascript">
 
