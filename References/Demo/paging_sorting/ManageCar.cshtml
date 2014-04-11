@@ -1,0 +1,92 @@
+﻿@using TSMT
+@model IEnumerable<TSMT.Models.Car>
+@{
+    ViewBag.Title = "ManageCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="title_of_page">Manage Cars of Charity Exam</h2>
+<link href="~/Content/css/paging_sorting.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/js/paging_sorting.js"></script>
+<script type="text/javascript">
+    /* INITIALIZATION */
+    function fetchData() {
+        @{ 
+            int i = 0;
+            foreach (var item in Model)
+            {
+        <text>
+        a.push({ id: @i, ceName: "@item.ChairitiesExam.CharityExamName", exam: "@item.ChairitiesExam.Examination.Name", avai: @item.TotalSlots});
+        </text>
+            }
+        }
+        recordPerPage = a.length;
+        loadNavigator();
+        goToPage(1);
+    }
+
+    function goToPage(pageIndex) {
+        var t = $("tbody");
+        $(t).empty();
+
+        if (pageIndex < 1) {
+            t.append("<tr><td colspan='5'>< Empty ></td></tr>");
+            return true;
+        }
+
+        var fromIndex = (pageIndex - 1) * recordPerPage;
+        var toIndex = pageIndex * recordPerPage;
+        if (toIndex > a.length) { toIndex = a.length }
+        var tmp;
+
+        for (var i = fromIndex; i < toIndex; ++i) {
+            tmp = "<tr id='tr" + a[i].id + "'><td>" + (i + 1);
+            tmp += "</td><td>" + a[i].ceName;
+            tmp += "</td><td>" + a[i].exam;
+            tmp += "</td><td>"; // bien so xe
+            tmp += "</td><td>"; // sdt
+            tmp += "</td><td>" + a[i].avai;
+            tmp += "</td><td><button onclick='deleteData(" + a[i].id + ")'>Delete</button>";
+            tmp += "</td></tr>";
+            t.append(tmp);
+        }
+
+        $("#page" + currentPageIndex).removeClass("pageActive");
+        currentPageIndex = pageIndex;
+        $("#page" + currentPageIndex).addClass("pageActive");
+
+        currentPageIndex == 1 ? $("#previousPage").hide() : $("#previousPage").show();
+        currentPageIndex == numberOfPage ? $("#nextPage").hide() : $("#nextPage").show();
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        fetchData();
+    });
+</script>
+<div class="inner-page-content inner-careers">
+    <table border="1px" align="center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th onclick="sortBy('ceName', this)" class="order orderDes orderHidden">Hội từ thiện</th>
+                <th onclick="sortBy('exam', this)" class="order orderDes orderHidden">Kỳ thi</th>
+                <th>Biển số xe</th>
+                <th>SĐT</th>
+                <th onclick="sortBy('avai', this)" class="order orderDes orderHidden">Tổng số chỗ</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td id="tfoot" colspan="7"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@Html.ActionLink("Create", "AddCar", null, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })
+
