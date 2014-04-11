@@ -41,7 +41,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th >#</th>
                         <th onclick="sortBy('name', this)" class="order orderDes orderHidden">Tên trường</th>
                         <th onclick="sortBy('code', this)" class="order orderDes orderHidden">Mã trường</th>
                         <th onclick="sortBy('address', this)" class="order orderDes orderHidden">Địa chỉ</th>
@@ -73,11 +73,11 @@
         });
     }
     function showData(index, record) {
-        var tmp = "<tr><td>" + index;
-        tmp += "</td><td>" + record.name;
-        tmp += "</td><td>" + record.code;
-        tmp += "</td><td>" + record.address;
-        tmp += "</td><td>" + record.actions;
+        var tmp = "<tr><td style='vertical-align:middle'>" + index;
+        tmp += "</td><td style='vertical-align:middle'>" + record.name;
+        tmp += "</td><td style='vertical-align:middle'>" + record.code;
+        tmp += "</td><td style='vertical-align:middle'>" + record.address;
+        tmp += "</td><td style='vertical-align:middle'>" + record.actions;
         tmp += "</td></tr>";
         return tmp;
     }

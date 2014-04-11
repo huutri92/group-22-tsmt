@@ -24,13 +24,13 @@
     @if (Model.ParticipantVolunteers.Count == 0)
     {
         <div id="showMessage" class="alert alert-danger fade in" style="height: auto">
-            <strong>Bạn chưa đăng ký tham gia đợt thi nào!</strong> Hãy nhấn vào nút "Đăng ký" để tham gia!
+            <strong>Bạn chưa đăng ký tham gia hỗ trợ đợt thi nào!</strong> Hãy nhấn vào nút "Đăng ký" để tham gia!
         </div>
         <div class="row servive-block margin-bottom-10">
             <a href="@Url.Action("JoinIn", "Volunteer")">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="servive-block-in servive-block-colored servive-block-orange">
-                        <h4>Đăng ký</h4>
+                        <h4>Đăng ký <br />tham gia hỗ trợ</h4>
                         <div><i class="icon-thumbs-up"></i></div>
                         <p>HDSD.</p>
                     </div>

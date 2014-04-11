@@ -253,6 +253,10 @@
     <Content Include="Content\css\headers\header1.css" />
     <Content Include="Content\css\headers\header2.css" />
     <Content Include="Content\css\img\bg-black.html" />
+    <Content Include="Content\css\leftmenu\component.css" />
+    <Content Include="Content\css\leftmenu\demo.css" />
+    <Content Include="Content\css\leftmenu\icons.css" />
+    <Content Include="Content\css\leftmenu\normalize.css" />
     <Content Include="Content\css\leftmenu\styles.css" />
     <Content Include="Content\css\less\style.html" />
     <Content Include="Content\css\pages\blog.css" />
@@ -281,8 +285,10 @@
     <Content Include="Content\css\themes\headers\default.html" />
     <Content Include="Content\css\themes\headers\header1-blue.css" />
     <Content Include="Content\css\themes\headers\header1-orange.css" />
+    <Content Include="Content\css\themes\headers\header1-pink.css" />
     <Content Include="Content\css\themes\headers\header1-red.css" />
     <Content Include="Content\css\themes\orange.css" />
+    <Content Include="Content\css\themes\pink.css" />
     <Content Include="Content\css\themes\red.css" />
     <Content Include="Content\css\TSMTJoinInCE.css" />
     <Content Include="Content\css\TSMTPaging.css" />
@@ -461,7 +467,10 @@
     <Content Include="Content\js\jquery.themepunch.revolution.min.js" />
     <Content Include="Content\js\jquery.ui.effect-fold.js" />
     <Content Include="Content\js\jquery.ui.effect.js" />
-    <Content Include="Content\js\menu_jquery.js" />
+    <Content Include="Content\js\leftmenu\classie.js" />
+    <Content Include="Content\js\leftmenu\menu_jquery.js" />
+    <Content Include="Content\js\leftmenu\mlpushmenu.js" />
+    <Content Include="Content\js\leftmenu\modernizr.custom.js" />
     <Content Include="Content\js\pages\contact.js" />
     <Content Include="Content\js\pages\index.js" />
     <Content Include="Content\js\pages\portfolio.js" />
