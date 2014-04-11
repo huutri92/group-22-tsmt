@@ -41,4 +41,4 @@
     </table>
 </div>
 @Html.ActionLink("Create", "AddRoom", new { lodgeId = Model.LodgeID }, new { @class = "btn btn-info" })
-@Html.ActionLink("Back to Manage Lodge", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Back to Manage Lodge", "ManageLodge", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })

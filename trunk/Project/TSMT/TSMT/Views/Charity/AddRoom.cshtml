@@ -22,26 +22,55 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Add Room</h2>
 @using (Html.BeginForm("AddRoom", "Charity", FormMethod.Post))
 {
-    <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
-    <table>
-        <tr>
-            <td>Tên phòng</td>
-            <td>
-                <input type="text" name="RoomName" /></td>
-        </tr>
-        <tr>
-            <td>Tổng số chỗ</td>
-            <td>
-                <input type="text" name="TotalSlots" /></td>
-        </tr>
-        <tr>
+    <div class="col-md-7">
+        <div class="panel panel-orange margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo mới phòng
+                </h3>
+            </div>
+            <div class="panel-body">
+                <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
+                <table>
+                    @*<tr>
+                        <td>Tên phòng</td>
+                        <td>
+                            <input type="text" name="RoomName" /></td>
+                    </tr>*@
+                    <tr>
+                        <td style="vertical-align: middle">Tên phòng *</td>
+                        <td>
+                            <input type="text" name="RoomName" id="RoomName" class="form-control" /></td>
+                        @*<td><span class="validationMsg" id="valMsgNumberPlate"></span></td>*@
+                    </tr>
+@*                    <tr>
+                        <td>Tổng số chỗ</td>
+                        <td>
+                            <input type="text" name="TotalSlots" /></td>
+                    </tr>*@
+                    <tr>
+                        <td style="vertical-align: middle">Tổng số chỗ *</td>
+                        <td>
+                            <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" /></td>
+                        @*<td><span class="validationMsg" id="valMsgNumberPlate"></span></td>*@
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+@*        <tr>
             <td colspan="2">
                 <input type="submit" value="Tạo" class="btn btn-info" />
                 <input type="reset" value="Làm lại" class="btn btn-info" />
             </td>
-        </tr>
-    </table>
+        </tr>*@
+         <div style="float: right">
+            @*<input type="reset" value="Làm lại" class="btn btn-info" />*@
+            <button type="submit" class="btn-u btn-u-default"><i class="icon-plus">&nbsp;Tạo</i></button>
+            <button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            @*<input type="submit" value="Tạo" class="btn btn-info" />*@
+        </div>
+        <button type="button" onclick="location.href ='/Charity/DetailsLodge?lodgeId=' + @Model.LodgeID" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
+    </div>
 }

@@ -41,14 +41,27 @@
 
 </script>
 
-
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
 
 
 @*<input type="hidden" id="lodgeId" value="@Model.LodgeID"/>*@
 
 
 <div class="col-md-9">
-    <div class="panel panel-red margin-bottom-20">
+    <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Chọn xe cho kì thi
             </h3>
@@ -59,7 +72,7 @@
                 <tr>
                     <td>Dùng Cho kì thi: @Model.Examination.Name</td>
                    
-                  @*  <td>Tổ Chức: </td>
+                    @*  <td>Tổ Chức: </td>
                     <td>
                         <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control" >
                             <option value="0" selected>---</option>
@@ -108,27 +121,39 @@
                     foreach (var item in ViewData["Cars"] as IEnumerable<Car>)
                     {
                            
-                    <tr>
-                        <td>
-                            <input class="carid"   type="checkbox" name ="charityexamid" value="@item.CarID" />
-                        </td>
-                        <td>@counter</td>
-                        <td>@item.NumberPlate</td>
-                        <td>@item.TotalSlots</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <input class="carid"   type="checkbox" name ="charityexamid" value="@item.CarID" />
+                            </td>
+                            <td>@counter</td>
+                            <td>@item.NumberPlate</td>
+                            <td>@item.TotalSlots</td>
+                        </tr>
                         ++counter;
                     }
                 }
-                  <tr>
-                    <td colspan="4">
-                        <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
-                        <input type="submit" value="Chọn" class="btn btn-info" id="saveall" />
-                        <input type="reset" value="Làm lại" class="btn btn-info" />
-                    </td>
+                <tr>
+                    @*                      <td colspan="4">
+                          <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                          <input type="submit" value="Chọn" class="btn btn-info" id="saveall" />
+                          <input type="reset" value="Làm lại" class="btn btn-info" />
+                      </td>*@
+                      
                 </tr>
             </table>
+            
         </div>
     </div>
+    <tr>
+    <td colspan="4">
+        <div style="float: right">
+            <button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="icon-pencil"></i>&nbsp;Chọn</button>
+            @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
+            @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
+        </div>
+        <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    </td>
+        </tr>
 </div>
 
 

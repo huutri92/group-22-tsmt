@@ -9,19 +9,22 @@
 }
 
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
-<script src="~/Content/js/TSMTPopup.js"></script>
-<script>
+<script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
+<script type="text/javascript">
+    var TotalCar = 0;
+    var SlotNo = 0;
+    var SlotNoAvai = 0;
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
     });
-
 </script>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
         <div class="container">
-            <h1 class="pull-left">@ViewBag.Title</h1>
+            <h1 class="pull-left">@ViewBag.Title của @Model.Charity.Name
+            </h1>
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
@@ -39,8 +42,8 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe
-                <a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-pink"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe của kì thi @Model.Examination.Name
+                <a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>
             </h3>
 
         </div>
@@ -55,48 +58,60 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th>#</th>
                                     <th>Biển số xe</th>
                                     <th>Tổng số chỗ</th>
                                     <th>Số chỗ còn trống</th>
-                                    <th>Tên tài xế</th>
-                                    <th>SĐT tài xế</th>
-                                    <th>Actions</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
                                     int counter = 1;
-
+                                    int SlotNo = 0;
+                                    int SlotNoAvai = 0;
                                     foreach (var car in ViewData["carsOfCharity"] as IEnumerable<Car>)
                                     {                   
-                                    <tr id ="@car.CarID">
-                                        <td>@counter</td>
-                                        <td>@car.NumberPlate</td>
-                                        <td>@car.TotalSlots</td>
-                                        <td>@car.AvailableSlots</td>
-                                        <td>@car.DriverName</td>
-                                        <td>@car.DriverPhone</td>
+                                        <tr id ="@car.CarID">
+                                            <td>@counter</td>
+                                            <td>@car.NumberPlate</td>
+                                            <td>@car.TotalSlots</td>
+                                            <td>@car.AvailableSlots</td>
 
-                                        <td>
-                                            @if (car.AvailableSlots < car.TotalSlots)
-                                            {
+                                            <td>
+                                                @if (car.ExaminationsPapers.Count > 0)
+                                                {
                                     
-                                                @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })
-                                            }
-                                            @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
-                                            @Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })
-                                        </td>
+                                                   @* @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })*@
+                                                    <a href="@Url.Action("DisplayRoute", "Charity", new { id = @car.CarID })" class="btn-u btn-u-green" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("RemoveCarOutOfCe", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @car.CarID , 'removeOutCe' );" ><i class="icon-remove-sign"></i></a>
+                                                    @*@Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })*@
+                                                }
+                                                @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
+                                                <a href="@Url.Action("DetailsCar", "Charity", new { carId = @car.CarID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                @*@Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })*@
+                                            </td>
 
 
-                                    </tr>
-                                            ++counter;
+                                        </tr>
+                                        
+                                           
+                                                SlotNo += @car.TotalSlots;
+                                                SlotNoAvai += @car.AvailableSlots;
+
+
+                                                ++counter;
                                     }
                                 }
+                                <tr>
+                                    <td>Tổng số xe: </td>
+                                    <td>@Model.Cars.Count(r => r.SponsorID == null)</td>
+                                    <td>Tổng số chỗ: </td>
+                                    <td>@SlotNoAvai/@SlotNo</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -104,64 +119,80 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th>#</th>
                                     <th>Sponsor</th>
                                     <th>Biển số xe</th>
                                     <th>Tổng số chỗ</th>
                                     <th>Số chỗ còn trống</th>
-                                    <th>Tên tài xế</th>
-                                    <th>SĐT tài xế</th>
                                     <th>Trạng thái</th>
-                                    <th>Actions</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
                                     int count = 1;
-
+                                    SlotNo = 0;
+                                    SlotNoAvai = 0;
                                     foreach (var item in ViewData["carsSponsor"] as IEnumerable<Car>)
-                                    {                   
-                                    <tr id ="@item.CarID">
-                                        <td>@count</td>
-                                        <td>
-                                            @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
-                                        </td>
-                                        <td>@item.NumberPlate</td>
-                                        <td>@item.TotalSlots</td>
-                                        <td>@item.AvailableSlots</td>
-                                        <td>@item.DriverName</td>
-                                        <td>@item.DriverPhone</td>
-                                        @if (item.IsApproved)
-                                        {
-                                            <td><span class="label label-success">Đã duyệt</span></td>
+                                    {               
+                                            
+                                        <tr id ="@item.CarID">
+                                            <td>@count</td>
                                             <td>
-                                                @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
-                                                @if (item.AvailableSlots == item.TotalSlots)
-                                                {
-                                                    @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
-                                                }
-                                                else {
-                                                    @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @item.CarID })
-                                                }
+                                                @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
+                                            </td>
+                                            <td>@item.NumberPlate</td>
+                                            <td>@item.TotalSlots</td>
+                                            <td>@item.AvailableSlots</td>
+                                            @if (item.IsApproved)
+                                            {
+                                                <td><span class="label label-success">Đã duyệt</span></td>
+                                                <td>
+                                                     <a href="@Url.Action("DetailsCar", "Charity", new { carId = @item.CarID })" class="btn-u btn-u-pink" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                    @if (item.AvailableSlots == item.TotalSlots)
+                                                    {
+                                                        <a href="@Url.Action("RemoveCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.CarID , 'removeOut' );" ><i class="icon-trash"></i></a>
+                                                       @* @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })*@
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("DisplayRoute", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                    }
 
 
-                                            </td>
-                                        }
-                                        else if (!item.IsApproved)
-                                        {
-                                            <td><span class="label label-danger">Chưa duyệt</span></td>
-                                            <td>
-                                                @Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
-                                                @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
-                                                @Html.ActionLink("Approve", "ApproveCar", new { id = @item.CarID }, new { onclick = "return callAjaxApprove(" + @item.CarID + ")" })
-                                                @Html.ActionLink("Denie", "DenieCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.CarID + ", 'remove' );" })
-                                                @* @Html.ActionLink("Edit", "EditCar", new { carId = @item.CarID })*@
-                                            </td>
-                                        }
-                                    </tr>
-                                        ++count;
+                                                </td>
+                                            }
+                                            else if (!item.IsApproved)
+                                            {
+                                                <td><span class="label label-danger">Chưa duyệt</span></td>
+                                                <td>
+                                                    <a href="@Url.Action("DetailsCar", "Charity", new { carId = @item.CarID })" class="btn-u btn-u-pink" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                    <a href="@Url.Action("RemoveCar", "Charity", new { id = @item.CarID })" style="display: none" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.CarID , 'removeOut' );" ><i class="icon-trash"></i></a>
+                                                    <a href="@Url.Action("ApproveCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-green" title="Nhận xe này"  onclick = "return callAjaxApprove(@item.CarID);" ><i class="icon-heart"></i></a>
+                                                    <a href="@Url.Action("DenieCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-red" title="Tư chối xe này"  onclick = "return showPopup('Bạn có chắc chắn mún từ chối ?', this.href, @item.CarID , 'remove' );" ><i class="icon-trash"></i></a>
+                                                  @*@Html.ActionLink("Details", "DetailsCar", new { carId = @item.CarID })
+                                                    @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
+                                                    @Html.ActionLink("Approve", "ApproveCar", new { id = @item.CarID }, new { onclick = "return callAjaxApprove(" + @item.CarID + ")" })
+                                                    @Html.ActionLink("Denie", "DenieCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.CarID + ", 'remove' );" })*@
+                                                   
+                                                </td>
+                                            }
+                                        </tr>
+                                            if (item.IsApproved)
+                                            {
+                                                SlotNo += item.TotalSlots;
+                                                SlotNoAvai += item.AvailableSlots;
+
+                                            }
+                                            ++count;
                                     }
                                 }
+                                <tr>
+                                    <td>Tổng số xe: </td>
+                                    <td>@Model.Cars.Count(c => c.SponsorID != null && c.IsApproved == true)</td>
+                                    <td>Tổng số chỗ: </td>
+                                    <td>@SlotNoAvai/@SlotNo</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -170,8 +201,8 @@
 
         </div>
     </div>
-@*@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
-<a href="@Url.Action("DetailsCharityExam","Charity",new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại trang thông tin tổ chức</a>
+    @*@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
 
@@ -180,6 +211,7 @@
 
 
 @*@Html.ActionLink("Create", "AddCar", new { ceId = Model.CharityExamID }, new { @class = "btn btn-info" })*@
+
 
 <script type="text/javascript">
 

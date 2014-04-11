@@ -18,9 +18,6 @@ namespace TSMT.Controllers
             Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
             return View(vo);
         }
-        
-
-        //[CheckAuth("/Account/Login", 4, "/")]
         public ActionResult JoinIn()
         {
             var exams = db.Examinations.ToList();
@@ -31,14 +28,17 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
-            int ceId = int.Parse(f["ceId"]);
-            vo.CharityExamID = ceId;
+
+            ParticipantVolunteer pe = new ParticipantVolunteer();
+            pe.VolunteerID = vo.VolunteerID;
+            pe.CharityExamID = int.Parse(f["ceId"]);;
+            pe.IsApproved = false;
+            db.ParticipantVolunteers.Add(pe);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
-        public JsonResult getCharityName(int id)//exId
+        [HttpPost]
+        public JsonResult getCharityName(int id) //exId
         {
             var CE = from r in db.ChairitiesExams
                      where r.ExamID == id
@@ -47,28 +47,19 @@ namespace TSMT.Controllers
                          value = r.CharityExamID,
                          name = r.Charity.Name
                      };
-            return Json(CE, JsonRequestBehavior.AllowGet);
+            return Json(CE);
         }
-        public ActionResult LeaveCE()
+        public ActionResult LeaveCE(int id) // peId
         {
-            Account acc = (Account)Session["acc"];
-            Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
-            vo.CharityExamID = null;
+            ParticipantVolunteer pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
+            db.ParticipantVolunteers.Remove(pe);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult ViewSchedule()
+        public ActionResult ViewDetails(int id) // peId
         {
-            Account acc = (Account)Session["acc"];
-            var vo = db.SchedulesVolunteers.Where(r=>r.Volunteer.AccountID == acc.AccountID).ToList();
-            return View(vo);
-        }
-        public ActionResult ViewLodge(int id)
-        {
-            //Account acc = (Account)Session["acc"];
-            //ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Chariy.AccountID == acc.AccountID);
-            Lodge lod = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
-            return View(lod);
+            ParticipantVolunteer pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
+            return View(pe);
         }
         public JsonResult ShowCeLodge(int ceId)
         {
@@ -85,29 +76,27 @@ namespace TSMT.Controllers
         {
             return View();
         }
-
         public ActionResult DisplayRoute(int scheduleId = 2)
         {
-            SchedulesVolunteer schedulesVolunteer = db.SchedulesVolunteers.FirstOrDefault(s => s.ScheduleVolunteerID == scheduleId);
-            if (schedulesVolunteer != null)
-            {
-                ViewData["StarEndPoint"] = schedulesVolunteer.StartEndPoint;
-                ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
-                ViewData["ScheduleId"] = scheduleId;
-                ViewData["WayPointEdit"] = "";
-            }
+            //SchedulesVolunteer schedulesVolunteer = db.SchedulesVolunteers.FirstOrDefault(s => s.ScheduleVolunteerID == scheduleId);
+            //if (schedulesVolunteer != null)
+            //{
+            //    ViewData["StarEndPoint"] = schedulesVolunteer.StartEndPoint;
+            //    ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
+            //    ViewData["ScheduleId"] = scheduleId;
+            //    ViewData["WayPointEdit"] = "";
+            //}
 
             return View();
         }
-
         [HttpPost]
         public JsonResult SaveRoute(int scheduleId, string waypoints)
         {
-            SchedulesVolunteer schedulesVolunteer = db.SchedulesVolunteers.FirstOrDefault(s => s.ScheduleVolunteerID == scheduleId);
+            //SchedulesVolunteer schedulesVolunteer = db.SchedulesVolunteers.FirstOrDefault(s => s.ScheduleVolunteerID == scheduleId);
 
-            schedulesVolunteer.WayPoint = waypoints;
-            db.SaveChanges();
-            ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
+            //schedulesVolunteer.WayPoint = waypoints;
+            //db.SaveChanges();
+            //ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
             return Json(new { success = true });
         }
     }

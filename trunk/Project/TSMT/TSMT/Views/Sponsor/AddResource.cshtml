@@ -24,6 +24,7 @@
                     type: 'GET',
                     success: function (results) {
                         $("#asd").html("");
+                        $("#asd").append("<option >-----</option>");
                         for (i in results) {
                             var r = results[i];
                             $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
@@ -108,6 +109,28 @@
                 });
             }
         }
+
+        function callAjaxLodgeCharityid(id) {
+            if (id == 0) {
+                $("#charityid").html("");
+            }
+            else {
+                $.ajax({
+                    url: 'ResultAjaxCharityid',
+                    data: { "id": id },
+                    type: 'GET',
+                    success: function (results) {
+                        $("#charityid").html("");
+
+                        for (i in results) {
+                            var r = results[i];
+                            $("#charityid").val(r["charityid"]);
+
+                        }
+                    }
+                });
+            }
+        }
     </script>
 </head>
 <body>
@@ -149,8 +172,9 @@
                             </td>
                             <td>Tổ Chức: </td>
                             <td>
-                                <select id="asd" name="asd" class="form-control"></select>
+                                <select id="asd" name="asd"  onchange="callAjaxLodgeCharityid(this.value)" class="form-control"></select>
                             </td>
+                            <input type="hidden"  name ="charityid" id ="charityid" />
                         </tr>
                         <tr>
                             <td>Hình Thức</td>

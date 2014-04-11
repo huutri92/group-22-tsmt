@@ -20,7 +20,7 @@ namespace TSMT.Models
             this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
             this.Funds = new HashSet<Fund>();
             this.Lodges = new HashSet<Lodge>();
-            this.Volunteers = new HashSet<Volunteer>();
+            this.ParticipantVolunteers = new HashSet<ParticipantVolunteer>();
         }
     
         public int CharityExamID { get; set; }
@@ -38,6 +38,6 @@ namespace TSMT.Models
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual ICollection<Fund> Funds { get; set; }
         public virtual ICollection<Lodge> Lodges { get; set; }
-        public virtual ICollection<Volunteer> Volunteers { get; set; }
+        public virtual ICollection<ParticipantVolunteer> ParticipantVolunteers { get; set; }
     }
 }

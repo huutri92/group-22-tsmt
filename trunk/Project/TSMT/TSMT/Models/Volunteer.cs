@@ -16,18 +16,13 @@ namespace TSMT.Models
     {
         public Volunteer()
         {
-            this.SchedulesVolunteers = new HashSet<SchedulesVolunteer>();
+            this.ParticipantVolunteers = new HashSet<ParticipantVolunteer>();
         }
     
         public int VolunteerID { get; set; }
         public int AccountID { get; set; }
-        public Nullable<int> CharityExamID { get; set; }
-        public string JobName { get; set; }
-        public string Description { get; set; }
-        public bool IsApproved { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual ChairitiesExam ChairitiesExam { get; set; }
-        public virtual ICollection<SchedulesVolunteer> SchedulesVolunteers { get; set; }
+        public virtual ICollection<ParticipantVolunteer> ParticipantVolunteers { get; set; }
     }
 }

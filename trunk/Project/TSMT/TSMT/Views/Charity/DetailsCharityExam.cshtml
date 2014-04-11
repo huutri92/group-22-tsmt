@@ -26,7 +26,7 @@
     <div class="panel panel-orange margin-bottom-20" style="width:70%">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về tổ chức @Model.Charity.Name , kì thi @Model.Examination.Name
-                <a href="@Url.Action("EditCharityExam", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
+                <a href="@Url.Action("EditCharityExam", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
             </h3>
 
         </div>
@@ -57,7 +57,7 @@
     </div>
     <div class="row">
         <div class="row servive-block margin-bottom-10">
-            <a href="@Url.Action("ManageVolunteer", "Charity", new { ceId = @Model.CharityExamID })">
+            <a href="@Url.Action("ManageVolunteer", "Charity", new { id = @Model.CharityExamID })">
                 <div class="col-md-4 col-sm-6">
                     <div class="servive-block-in servive-block-colored servive-block-green">
                         <h4>Quản lý
@@ -81,9 +81,20 @@
             </a>
         </div>
         <div class="row servive-block margin-bottom-10">
-            <a href="@Url.Action("ManageLodge", "Charity", new { ceId = @Model.CharityExamID })">
+             <a href="@Url.Action("ManageFunds", "Charity", new { id = @Model.CharityExamID })">
+                <div class="col-md-4 col-sm-6">
+                    <div class="servive-block-in servive-block-colored servive-block-yellow">
+                        <h4>Quản lý
+                        <br />
+                            Tiền được tài trợ</h4>
+                        <div><i class="icon-usd"></i></div>
+                        <p>HDSD</p>
+                    </div>
+                </div>
+            </a>
+            <a href="@Url.Action("ManageLodge", "Charity", new { id = @Model.CharityExamID })">
                 <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-grey">
+                    <div class="servive-block-in servive-block-colored servive-block-red">
                         <h4>Quản lý
                         <br />
                             Chỗ trọ</h4>
@@ -94,7 +105,7 @@
                 </div>
             </a>
 
-            <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })">
+            <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })">
                 <div class="col-md-3 col-sm-6">
                     <div class="servive-block-in servive-block-colored servive-block-orange">
                         <h4>Quản lý
@@ -107,17 +118,7 @@
                 </div>
             </a>
 
-            <a href="@Url.Action("ManageFunds", "Charity", new { ceId = @Model.CharityExamID })">
-                <div class="col-md-4 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-yellow">
-                        <h4>Quản lý
-                        <br />
-                            Tiền được tài trợ</h4>
-                        <div><i class="icon-usd"></i></div>
-                        <p>HDSD</p>
-                    </div>
-                </div>
-            </a>
+           
         </div>
         <button type="button" onclick="location.href ='/Charity/ManageCharityExam/'" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>

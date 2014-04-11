@@ -38,8 +38,8 @@
 
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe của hội từ thiện
-               <a href="@Url.Action("AddCar", "Charity", new { id = Model.CharityID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo mới</a>
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe của hội từ thiện @Model.Name
+                <a href="@Url.Action("AddCar", "Charity", new { id = Model.CharityID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -89,9 +89,7 @@
                                 @if (car.SchedulesCars.FirstOrDefault() == null)
                                 {
                                     <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-
-                                    <a href="@Url.Action("AssignCarCE", "Charity", new { id = @car.CarID })" class="btn-u btn-u-brown" title="Sử dụng chiếc xe này"><i class="icon-key"></i></a>
-
+                                    <a href="@Url.Action("AssignCarCE", "Charity", new { id = @car.CarID })" class="btn-u" title="Sử dụng"><i class="icon-heart"></i></a>
                                 }
                                 <a href="@Url.Action("DeleteCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Are you sure to delete it?', this.href, @car.CarID , 'del' );" ><i class="icon-remove-sign"></i></a>
                             </td>
@@ -103,14 +101,9 @@
             </table>
         </div>
     </div>
-
-    @*@Html.ActionLink("Quay lại", "Index", "", new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay về trang của Hội từ thiện</a>
-    <a href="@Url.Action("AssignCarsToCe", "Charity")" id="useCar" class="btn-u btn-u-brown" style="float:right">&nbsp;<i class="icon-key"></i>&nbsp;Sử dụng xe</a>
+    <a href="@Url.Action("AssignCarsToCe", "Charity")" id="useCar" class="btn btn-info btn-u-green"><i class="icon-pencil"></i>&nbsp;Sử dụng xe</a>
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
-
-
-@*@Html.ActionLink("Thêm xe", "AddCar", new { id = Model.CharityID }, new { @class = "btn btn-info" })*@
 
 @if (((IEnumerable<Car>)ViewData["carsOfCharity"]).Count() < 1)
 {

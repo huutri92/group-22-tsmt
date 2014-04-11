@@ -1,0 +1,162 @@
+﻿@using TSMT.Models
+@model TSMT.Models.Car
+@{
+    ViewBag.Title = "Tài Trợ Nhiều Xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Content/js/jquery.js"></script>
+<script type="text/javascript">
+    function callAjax(id) {
+        if (id == 0) {
+            $("#asd").html("");
+        }
+        else {
+            $.ajax({
+                url: 'ResultAjax',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#asd").html("");
+                    $("#asd").append("<option >-----</option>");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+
+                    }
+                }
+            });
+        }
+    }
+
+
+    function callAjaxLodgeCharityid(id) {
+        if (id == 0) {
+            $("#charityid").html("");
+        }
+        else {
+            $.ajax({
+                url: 'ResultAjaxCharityid',
+                data: { "id": id },
+                type: 'GET',
+                success: function (results) {
+                    $("#charityid").html("");
+
+                    for (i in results) {
+                        var r = results[i];
+                        $("#charityid").val(r["charityid"]);
+
+                    }
+                }
+            });
+        }
+    }
+
+
+
+    $(document).ready(function () {
+        $("#saveall").click(function () {
+            var ceId;
+            var carId = "";
+            var cId = document.getElementById("charityid").value;
+            $("[id*=tablecar] input:checked").each(function () {
+
+                carId += $(this).val() + "-";
+
+            });
+            if (carId != "") {
+                ceId = parseInt(document.getElementById("asd").value);
+                $.ajax({
+                    url: 'SponsoredAllCar',
+                    data: { "ceId": ceId, "carId": carId, "cId": cId },
+                    type: 'POST',
+                    success: function (results) {
+                        window.location.assign("@Url.Content("~/Sponsor/ManageCar")");
+
+                    }
+                });
+                } else {
+                    ceId = 0;
+                    alert("Không có xe nào được chọn.");
+                }
+
+        });
+    });
+
+
+
+</script>
+
+<div class="col-md-9">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>Tài Trợ Xe
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <tr>
+                    <td style="vertical-align:middle">Tài Trợ Cho: </td>
+                    <td>
+                        <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {
+                                
+                                <option value="@item.ExaminationID">@item.Name</option>
+                             
+                            }
+                        </select>
+                    </td>
+                    <td style="vertical-align:middle">Tổ Chức: </td>
+                    <td>
+                        <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control" >
+                           
+                        </select>
+                    </td>
+                    <input type="hidden"  name ="charityid" id ="charityid" />
+                </tr>
+                
+                <tr>
+                    <td colspan="4"><b>Vui lòng chọn xe bên dưới để tài trợ</b></td>
+                </tr>
+
+
+              
+            </table>
+            <table id="tablecar" class="table table-hover">
+                <tr>
+                    <td></td>
+                    <td>Biển Số Xe</td>
+                    <td>Tổng Số Chỗ</td>
+                    <td>Tên Tài Xế</td>
+                    <td>SĐT Tài Xế</td>
+                </tr>
+                @{
+
+                    foreach (var item in ViewData["Car"] as IEnumerable<Car>)
+                    {
+                           
+                    <tr>
+                        <td>
+                            <input class="carid"   type="checkbox" name ="charityexamid" value="@item.CarID" />
+                        </td>
+                        <td>@item.NumberPlate</td>
+                        <td>@item.TotalSlots</td>
+                        <td>@item.DriverName</td>
+                        <td>@item.DriverPhone</td>
+                    </tr>
+                    }
+                }
+                  <tr>
+                    <td colspan="4">
+                        <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
+                        <input type="submit" value="Submit" class="btn btn-info" id="saveall" />
+                        <input type="reset" value="Reset" class="btn btn-info" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

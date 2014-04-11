@@ -19,7 +19,7 @@ namespace TSMT.Models
             this.Actives = new HashSet<GroupRequest>();
             this.Receives = new HashSet<GroupRequest>();
             this.Groups = new HashSet<Group>();
-            this.SchedulesVolunteers = new HashSet<SchedulesVolunteer>();
+            this.ParticipantVolunteers = new HashSet<ParticipantVolunteer>();
         }
     
         public int ExamPaperID { get; set; }
@@ -32,19 +32,20 @@ namespace TSMT.Models
         public Nullable<int> RoomID { get; set; }
         public Nullable<int> CarID { get; set; }
         public bool IsApproved { get; set; }
-        public Nullable<int> VolunteerID { get; set; }
+        public Nullable<int> ParticipantVolunteerID { get; set; }
     
         public virtual Candidate Candidate { get; set; }
         public virtual Car Car { get; set; }
         public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual Group Group { get; set; }
         public virtual Lodge Lodge { get; set; }
+        public virtual ParticipantVolunteer ParticipantVolunteer { get; set; }
         public virtual Room Room { get; set; }
         public virtual Venue Venue { get; set; }
         public virtual UniversitiesExamination UniversitiesExamination { get; set; }
         public virtual ICollection<GroupRequest> Actives { get; set; }
         public virtual ICollection<GroupRequest> Receives { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual ICollection<SchedulesVolunteer> SchedulesVolunteers { get; set; }
+        public virtual ICollection<ParticipantVolunteer> ParticipantVolunteers { get; set; }
     }
 }

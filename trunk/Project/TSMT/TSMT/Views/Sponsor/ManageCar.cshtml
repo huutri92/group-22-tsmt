@@ -31,7 +31,7 @@
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Quản lý xe
-                <a href="@Url.Action("AddCar", "Sponsor")" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo Mới Xe</a>
+                <a href="@Url.Action("AddCar", "Sponsor")" class="btn-u btn-u-sea"><i class="icon-plus"></i>Tạo Mới Xe</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -58,19 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                @if ((Model.Count(r => r.CharityExamID == null) == 0 ))
-                                {
-                                    <tr>
-                                        <td>
-                                            <script type="text/javascript">
-                                                document.getElementById("showdata").style.display = "none";
-                                                document.getElementById("showMessage").style.display = "block";
-                                            </script>
-                                        </td>
-                                    </tr>
-                                }
-                                else
+                                @if ((Model.Count(r => r.CharityExamID == null) > 0))
                                 {
                                     int counter = 1;
 
@@ -84,7 +72,7 @@
                                         <td>@car.DriverPhone</td>
                                         <td>
                                             <a href="@Url.Action("EditCarNotCe", "Sponsor", new { carId = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                             <a href="@Url.Action("EditCar", "Sponsor", new { carId = @car.CarID })" class="btn-u btn-u-red" title="Tài Trợ"><i class="icon-heart"></i></a>
+                                            <a href="@Url.Action("EditCar", "Sponsor", new { carId = @car.CarID })" class="btn-u btn-u-red" title="Tài Trợ"><i class="icon-heart"></i></a>
                                             @Html.ActionLink("Xóa Xe", "DeleteCar", new { carId = @car.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" })
                                         </td>
 
@@ -99,9 +87,9 @@
                     <div class="tab-pane" id="sponsored">
                         <div id="showMessage1" class="alert alert-danger fade in" style="display: none">
                             @*<button type="button" class="close" data-dismiss="alert">×</button>*@
-                            <strong>Bạn chưa tài trợ xe nào!</strong> 
+                            <strong>Bạn chưa tài trợ xe nào!</strong>
                         </div>
-                        <table class="table table-hover" id ="showdata1">
+                        <table class="table table-hover" id="showdata1">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -114,18 +102,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 @if ((Model.Count(r => r.CharityExamID != null) == 0 ))
+                                @if ((Model.Count(r => r.CharityExamID != null) == 0))
                                 {
-                                    <tr>
-                                        <td>
+                                    <text>
                                             <script type="text/javascript">
                                                 document.getElementById("showdata1").style.display = "none";
                                                 document.getElementById("showMessage1").style.display = "block";
+                                                document.getElementById("showMessage1").style.display = "none";
                                             </script>
-                                        </td>
-                                    </tr>
+                                    </text>
                                 }
-                                else{
+                                else
+                                {
                                     int count = 1;
 
                                     foreach (var item in ViewData["CarSponsored"] as IEnumerable<Car>)
@@ -147,7 +135,8 @@
                                             <td><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td>
                                                 <a href="@Url.Action("EditCarNotCe", "Sponsor", new { carId = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                                @Html.ActionLink("Hủy tài Trợ", "DenieCar", new { carId = @item.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chiếc xe này?', this.href);" })
+                                                @*@Html.ActionLink("Hủy tài Trợ", "DenieCar", new { carId = @item.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chiếc xe này?', this.href);" })*@
+                                                <a href="@Url.Action("DenieCar","Sponsor")" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
                                             </td>
                                         }
                                     </tr>
@@ -161,8 +150,20 @@
             </div>
         </div>
     </div>
-            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-info" })
-
+    @*@Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("Index","Sponsor")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a>
+    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"   id="sponsoredcar" style="float: right"><i class="icon-heart"></i>&nbsp;Tài trợ nhiều xe</a>
+    
 </div>
 
 
+@if ((Model.Count(r => r.CharityExamID == null) == 0))
+{
+<text>
+    <script type="text/javascript">
+        document.getElementById("showdata").style.display = "none";
+        document.getElementById("showMessage").style.display = "block";
+        document.getElementById("sponsoredcar").style.display = "none";
+    </script>
+</text>
+}

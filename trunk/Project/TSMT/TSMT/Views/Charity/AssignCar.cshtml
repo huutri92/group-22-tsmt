@@ -12,10 +12,11 @@
             <tr>
                 <th>STT</th>
                 <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
-                <th onclick="sortBy('university', this)" class="order orderDes orderHidden">Trường đại học</th>
                 <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
                 <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
-                <th onclick="sortBy('car', this)" class="order orderDes orderHidden">Xe</th>
+                <th onclick="sortBy('status', this)" class="order orderDes orderHidden">Trạng thái</th>
+                <th onclick="sortBy('note', this)" class="order orderDes orderHidden">Ghi chú</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody id="TSMTPaging"></tbody>
@@ -25,6 +26,7 @@
 <span id="HasCar" style="display: none">
     @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @ViewData["ceId"] + "?ReAssign=false')" })
     @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @ViewData["ceId"] + "?ReAssign=true')" })
+    @Html.ActionLink("Sắp tay", "ManualAssignToCar", null, new { @class="btn btn-info"});
 </span>
 <span id="NoCar" style="display: none">
     @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
@@ -55,10 +57,10 @@
     function showData(index, record){
         var tmp = "<tr><td>" + index;
         tmp += "</td><td>" + record.lname + " " + record.fname;
-        tmp += "</td><td>" + record.university;
         tmp += "</td><td>" + record.lodge;
         tmp += "</td><td>" + record.venue;
-        tmp += "</td><td>" + record.car;
+        tmp += "</td><td>" + record.status;
+        tmp += "</td><td>" + record.note;
         tmp += "</td><td>" + record.actions;
         tmp += "</td></tr>";
         return tmp;
@@ -67,10 +69,10 @@
         var r = false;
         r = r || (TSMTPagingData[i].lname.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].fname.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].university.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].lodge.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].venue.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].car.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].status.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].note.toUpperCase().indexOf(text) > -1);
         return r;
     }
 </script>

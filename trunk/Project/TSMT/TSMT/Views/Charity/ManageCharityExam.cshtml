@@ -53,15 +53,15 @@
                         foreach (var item in Model)
                         {
                             <tr id="@item.CharityExamID">
-                                <td>@Html.ActionLink(i.ToString(), "ManageCE", new { ceId = item.CharityExamID })</td>
-                                <td>@Html.ActionLink(item.Examination.Name, "ManageCE", new { ceId = item.CharityExamID })</td>
+                                <td>@Html.ActionLink(i.ToString(), "ManageCE", new { id = item.CharityExamID })</td>
+                                <td>@Html.ActionLink(item.Examination.Name, "ManageCE", new { id = item.CharityExamID })</td>
                                 <td>@item.TotalSlotsLodges</td>
                                 <td>@item.AvailableSlotsLodges</td>
                                 <td>@item.TotalSlotsVehicles</td>
                                 <td>@item.AvailableSlotsVehicles</td>
                                 <td>
                                     <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-brown" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
-                                    <a href="@Url.Action("EditCharityExam", "Charity", new { ceId = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>
+                                    <a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>
                                     <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Are you sure to delete it?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
                                 </td>
                             </tr>
@@ -75,15 +75,15 @@
     <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 <script type="text/javascript">
-    function callAjaxDelete(ceId) {
+    function callAjaxDelete(id) {
 
 
         $.ajax({
-            url: 'DeleteCharityExam/' + ceId,
+            url: 'DeleteCharityExam/' + id,
             type: 'GET',
             success: function (results) {
-                $("#" + ceId).hide(800, function () {
-                    $("#" + ceId).remove();
+                $("#" + id).hide(800, function () {
+                    $("#" + id).remove();
                 });
 
             }

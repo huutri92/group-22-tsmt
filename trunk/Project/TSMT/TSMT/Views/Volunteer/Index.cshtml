@@ -1,11 +1,11 @@
-﻿@model TSMT.Models.Volunteer
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
     ViewBag.Title = "Tình nguyện viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Active = "VolunteerHome";
 }
 
+@using TSMT.Models;
+@model TSMT.Models.Volunteer
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -21,16 +21,12 @@
 }
 @Html.Partial("_VolunteerSidebarPartial")
 <div class="col-md-9">
-    @if (Model.CharityExamID == null && Model.IsApproved==false)
+    @if (Model.ParticipantVolunteers.Count == 0)
     {
-   
         <div id="showMessage" class="alert alert-danger fade in" style="height: auto">
-            @*<button type="button" class="close" data-dismiss="alert">×</button>*@
-            <strong>Bạn chưa đăng ký vào Hội từ thiện!</strong> Hãy click nút "Đăng ký" để tham gia vào Hội từ thiện.
+            <strong>Bạn chưa đăng ký tham gia đợt thi nào!</strong> Hãy nhấn vào nút "Đăng ký" để tham gia!
         </div>
-
         <div class="row servive-block margin-bottom-10">
-
             <a href="@Url.Action("JoinIn", "Volunteer")">
                 <div class="col-md-3 col-sm-6">
                     <div class="servive-block-in servive-block-colored servive-block-orange">
@@ -40,48 +36,34 @@
                     </div>
                 </div>
             </a>
-        </div>       
-    
+        </div>
     }
     else
     {
-        <div class="panel panel-orange margin-bottom-20">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list"></i>
-                    Bạn đã đăng ký vào Hội từ thiện
-                    <b><span style="color: yellow">@Model.ChairitiesExam.Charity.Name!</span></b>
-                    @if (Model.CharityExamID != null && Model.IsApproved == false)
-                    {
-                        <a href="@Url.Action("LeaveCE", "Volunteer")" onclick=" return showPopup('Please confirm to delete it.', this.href) " class="btn-u btn-u-blue">Hủy đăng ký</a>
-                    }
-                    
-                </h3>
-            </div>
-        </div>
+        <h2>Bạn đang tham gia vào @Model.ParticipantVolunteers.Count đợt thi! 
+            <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-blue">Tham gia thêm!</a>
+        </h2>
 
-
-        <div class="row servive-block margin-bottom-10">
-            <a href="@Url.Action("ViewSchedule", "Volunteer")">
-                <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-sea">
-                        <h4>Xem lịch</h4>
-                        <div><i class="icon-thumbs-up"></i></div>
-                        <p>HDSD.</p>
+        foreach (ParticipantVolunteer item in Model.ParticipantVolunteers.OrderBy(r => r.ChairitiesExam.ExamID))
+        {
+        <div>
+            <h3>@item.ChairitiesExam.Examination.Name</h3>
+            @if (item.IsApproved)
+            {
+                <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-blue">Xem chi tiết</a>
+            }
+            else
+            {
+                <div class="panel panel-orange margin-bottom-20">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="icon-list"></i>
+                            Đang chờ được xác nhận tham gia vào hội từ thiện <strong><span style="color: yellow">@item.ChairitiesExam.Charity.Name!</span></strong>
+                            <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn huỷ', this.href) " class="btn-u btn-u-blue">Hủy đăng ký</a>
+                        </h3>
                     </div>
                 </div>
-            </a>
-
-            <a href="@Url.Action("ViewRoute", "Volunteer")">
-                <div class="col-md-3 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-grey">
-                        <h4>Xem đường đi</h4>
-                        <div><i class="icon-thumbs-up"></i></div>
-                        <p>HDSD.</p>
-                    </div>
-                </div>
-            </a>
+            }
         </div>
-
+        }
     }
-    
 </div>

@@ -7,6 +7,9 @@ var numberOfPage = null;
 var currentPageIndex;
 var colspan = 5;
 
+var bgCriteria = null;
+var bgColor = "aliceblue";
+
 /* INITIALIZATION */
 function init(s, c, data) {
     if (step != undefined) step = s;
@@ -112,6 +115,8 @@ function goToPage(pageIndex){
 	    tmp = '<tr><td colspan="' + colspan + '" style="text-align: center;">Không tìm thấy kết quả nào</td></tr>';
 		t.append(tmp);
 	} else {
+	    bgCriteria = null;
+	    bgColor = "aliceblue";
 		var fromIndex = (pageIndex-1)*recordPerPage;
 		var toIndex = pageIndex*recordPerPage;
 		if (toIndex > TSMTPagingDataUsing.length){toIndex = TSMTPagingDataUsing.length}

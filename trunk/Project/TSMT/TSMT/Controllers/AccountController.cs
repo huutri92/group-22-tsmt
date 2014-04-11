@@ -137,8 +137,8 @@ namespace TSMT.Controllers
                             break;
                         case 4: Volunteer vo = new Volunteer();
                             vo.AccountID = acc.AccountID;
-                            vo.JobName = f["job"];
-                            vo.Description = f["des"];
+                            //vo.JobName = f["job"];
+                            //vo.Description = f["des"];
                             db.Volunteers.Add(vo);
                             break;
                     }
