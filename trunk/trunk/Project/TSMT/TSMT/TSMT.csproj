@@ -401,6 +401,7 @@
     <Content Include="Content\img\posts\1.jpg" />
     <Content Include="Content\img\posts\2.jpg" />
     <Content Include="Content\img\posts\3.jpg" />
+    <Content Include="Content\img\sliders\background1.jpg" />
     <Content Include="Content\img\sliders\elastislide\1.jpg" />
     <Content Include="Content\img\sliders\elastislide\10.jpg" />
     <Content Include="Content\img\sliders\elastislide\11.jpg" />
@@ -439,7 +440,19 @@
     <Content Include="Content\img\sliders\revolution\thumbs\thumb2.jpg" />
     <Content Include="Content\img\sliders\revolution\thumbs\thumb3.jpg" />
     <Content Include="Content\img\sliders\revolution\thumbs\thumb4.jpg" />
+    <Content Include="Content\img\sliders\s1.jpg" />
+    <Content Include="Content\img\sliders\s2.jpg" />
+    <Content Include="Content\img\sliders\s3.jpg" />
+    <Content Include="Content\img\sliders\s4.jpg" />
+    <Content Include="Content\img\sliders\s5.jpeg" />
+    <Content Include="Content\img\sliders\s6.jpg" />
+    <Content Include="Content\img\sliders\s7.jpg" />
+    <Content Include="Content\img\sliders\s8.jpg" />
     <Content Include="Content\img\sliders\slider1.jpg" />
+    <Content Include="Content\img\sliders\slider2.jpg" />
+    <Content Include="Content\img\sliders\slider3.jpg" />
+    <Content Include="Content\img\sliders\slider4.jpg" />
+    <Content Include="Content\img\sliders\TSMT_background.jpg" />
     <Content Include="Content\img\team\1.jpg" />
     <Content Include="Content\img\team\2.jpg" />
     <Content Include="Content\img\team\3.jpg" />
