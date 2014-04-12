@@ -54,10 +54,10 @@
 
         @foreach (var item in Model)
         { 
-            @if(Model.Where(r=>r.CharityID).Count<1)
+           @* @if(Model.Where(r=>r.CharityID).Count<1)
             {
                 
-            }
+            }*@
             <li class="col-md-3 col-sm-6 col-xs-12 mix @item.ExamID" data-cat="@item.ExamID">
                 <a href="@Url.Action("ViewDetailCharity", "Home", new { id = @item.CharityExamID })">
 

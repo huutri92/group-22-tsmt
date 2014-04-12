@@ -132,9 +132,9 @@ function goToPage(pageIndex){
 		for (var i = fromIndex; i < toIndex; ++i) t.append(showData(i+1, TSMTPagingDataUsing[i]));
 	}
 	
-	$("#page" + currentPageIndex).removeClass("pageActive");
+	$("#page" + currentPageIndex).removeClass("active");
 	currentPageIndex = pageIndex;
-	$("#page" + currentPageIndex).addClass("pageActive");
+	$("#page" + currentPageIndex).addClass("active");
 	
 	currentPageIndex < 3 ? $("#previousPage").hide() : $("#previousPage").show();
 	currentPageIndex == 1 ? $("#firstPage").hide() : $("#firstPage").show();
