@@ -110,9 +110,11 @@
 
                 <tr>
                     <td colspan="2">
-                        <input type="button" value="Thay đổi" class="btn btn-info" onclick="showForm2();" />
+                        <button type="button" class="btn-u btn-u-blue" onclick="showForm2();"><i class="icon-edit"></i>&nbsp;Thay đổi</button>
+
+                        @*<input type="button" value="Thay đổi" class="btn btn-info"  />
                         <input type="reset" value="Reset" class="btn btn-info" />
-                        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />
+                        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
                     </td>
                 </tr>
             </table>
@@ -147,7 +149,7 @@
                     <tr>
                         <td><b>Giới tính: </b></td>
                         <td>
-                            <select id="gender" name="gender" class="btn">
+                            <select id="gender" name="gender" class="form-control" style="width:auto">
                                 @if (Model.Gender == true)
                                 {
                                     <option value="True" selected>Nữ</option>
@@ -175,7 +177,7 @@
                     <tr>
                         <td><b>Tỉnh/Thành phố:</b></td>
                         <td>
-                            <select id="province" name="province" class="btn" onchange="getInfo(this.value)">
+                            <select id="province" name="province" class="form-control" onchange="getInfo(this.value)" style="width:auto">
                                 <option value="0" selected>Tỉnh/Thành phố</option>
                                 @*     @foreach (var item in ViewData["provinces"] as IEnumerable<Province>)
                                 {
@@ -204,7 +206,7 @@
                     <tr>
                         <td><b>Quận: </b></td>
                         <td>
-                            <select id="district" name="district" class="btn">
+                            <select id="district" name="district" class="form-control" style="width:auto">
                                 <option value="0" selected>Quận/Huyện</option>
                                 @foreach (var item in ViewData["districts"] as IEnumerable<District>)
                                 {
@@ -228,7 +230,10 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" id="btnSubmit" value="Lưu thay đổi" class="btn btn-info" />
+                            @*<input type="submit" id="btnSubmit" value="Lưu thay đổi" class="btn btn-info" />*@
+                            <button type="submit" id="btnSubmit" class="btn-u btn-u-sea"><i class="icon-save"></i>&nbsp;Lưu thay đổi</button>
+                            @*<button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>*@
+                            <button type="button" class="btn-u btn-u-orange" onclick="showForm1();"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
                             @*<input type="reset" value="Reset" class="btn btn-info" />*@
                             @*<input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/Admin/ManageUniversity'; return false;" />*@
                         </td>

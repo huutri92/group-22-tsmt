@@ -1309,6 +1309,17 @@ ul.blog-tags a:hover i {
    background: #95a5a6;
 }
 
+
+/*Panel Purple*/
+.panel-purple {
+   border-color: rgb(154, 72, 210);
+}
+
+.panel-purple > .panel-heading {
+   color: #fff;
+   background: rgb(154, 72, 210);
+}
+
 /*Promo Page
 ------------------------------------*/
 /*Slider Part*/
