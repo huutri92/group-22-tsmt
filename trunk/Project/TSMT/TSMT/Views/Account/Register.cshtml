@@ -106,7 +106,7 @@
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon" style="display: none"><i class="icon-female"></i></span>
                                     <span class="input-group-addon" style="display: none"><i class="icon-male"></i></span>
-                                    <select id="gender" name="gender" class="form-contrl">
+                                    <select id="gender" name="gender" class="form-contrl" style="width:auto">
                                         <option value="True">Nữ</option>
                                         <option value="False">Nam</option>
                                     </select>
@@ -145,7 +145,7 @@
                                     <label>Tỉnh/Thành phố</label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <select id="province" name="province" class="form-control" onchange="callAjax(this.value)">
+                                    <select id="province" name="province" class="form-control" onchange="callAjax(this.value)" style="width:auto">
                                         <option value="0" selected>Tỉnh/Thành phố</option>
                                         @foreach (var item in (List<Province>)ViewData["provinces"])
                                         {
@@ -159,7 +159,7 @@
                                     <label>Quận/Huyện</label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <select id="district" name="district" class="form-control">
+                                    <select id="district" name="district" class="form-control" style="width:auto">
                                         <option value="0" selected>Quận/Huyện</option>
                                     </select>
                                 </div>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="input-group margin-bottom-5">
                             <span class="input-group-addon"><i class="icon-user"></i></span>
-                            <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);">
+                            <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width:auto">
                                 <option value="null">----</option>
                                 @foreach (var item in (List<Role>)ViewData["roles"])
                                 {

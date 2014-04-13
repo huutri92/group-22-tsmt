@@ -64,12 +64,11 @@
             </h3>
         </div>
         <div class="panel-body">
-
             @using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
             {
                 <table class="table table-hover" style="vertical-align: central">
                     <tr>
-                        <td style="width: 100px;vertical-align:middle">Kỳ thi</td>
+                        <td style="width: 100px; vertical-align: middle">Kỳ thi</td>
                         <td>
                             <select name="UniExamID" class="form-control" onchange="getUniversity(this.value)">
                                 <option value="null">Kỳ thi</option>
@@ -82,7 +81,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 100px;vertical-align:middle">Trường</td>
+                        <td style="width: 100px; vertical-align: middle">Trường</td>
                         <td>
                             <select id="uniName" name="uniName" class="form-control" onchange="getVenue(this.value)">
                                 <option value="null">Trường ĐH / CĐ</option>
@@ -90,7 +89,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 100px;vertical-align:middle">Địa điểm thi</td>
+                        <td style="width: 100px; vertical-align: middle">Địa điểm thi</td>
                         <td>
                             <select id="venueID" name="venueID" class="form-control">
                                 @* @foreach (var item in ViewData["venues"] as IEnumerable<Venue>)
@@ -105,13 +104,19 @@
                         <td colspan="2"></td>
                     </tr>
                 </table>
-                <input type="button" value="Trở về" class="btn-u btn-u-yellow" onclick="history.go(-1);" />
-                <div style="float:right">
-                      <input type="submit" value="Tạo mới" class="btn-u"/>
-                <input type="reset" value="Làm lại" class="btn-u btn-u-default"/>
-                </div>
+                
               
             }
         </div>
+    </div>
+    @*<input type="button" value="Trở về" class="btn-u btn-u-default" onclick="history.go(-1);" />*@
+    @*<a href="@Url.Action("ManageExamPaper","Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp; Quay lại</a>*@
+    <div style="float: right">
+        @*<input type="submit" value="Tạo mới" class="btn-u btn-u-sea" />*@
+        <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+        <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</button>
+        <button type="button" class="btn-u btn-u-orange" onclick="location.href = '/Candidate/ManageExamPaper'; return false;"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
+        @*<input type="reset" value="Làm lại" class="btn-u btn-u-default" />*@
+
     </div>
 </div>
