@@ -1,15 +1,28 @@
 ﻿@{
-    ViewBag.Title = "Địa điểm trọ: " + @Model.Address;
+    ViewBag.Title = @Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using TSMT.Models
-@model Lodge
+@model University
 
-<h3>Địa điểm trọ: @Model.Address</h3>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách thí sinh đã đăng kí vào địa điểm trọ này</i></h3>
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin trường ĐH-CĐ</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Trường</th>
+                <td>@Model.Name</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách thí sinh đã đăng kí vào hội từ thiện thi vào trường này</i></h3>
     </div>
     <div class="panel-body">
         <table class="table table-hover">
@@ -17,12 +30,12 @@
                 <th>#</th>
                 <th>Thí sinh</th>
                 <th>Giới tính</th>
-                <th>Nhóm</th>
+                <th>Địa chỉ trọ</th>
                 <th>Địa chỉ thi</th>
             </tr>
             @{
                 int counter = 1;
-                foreach (ExaminationsPaper item in Model.ExaminationsPapers)
+                foreach (ExaminationsPaper item in ViewData["eps"] as IEnumerable<ExaminationsPaper>)
                 {
                 <tr>
                     <td>@counter</td>
@@ -37,16 +50,7 @@
                             <text>Nữ</text>
                         }
                     </td>
-                     <td>
-                        @if (item.GroupID == null)
-                        {
-                            <text>Cá nhân</text>
-                        }
-                        else
-                        {
-                            <text>Nhóm @item.GroupID</text>
-                        }
-                    </td>
+                    <td>@item.Lodge.Address</td>
                     <td>@item.Venue.Address</td>
                 </tr>
                         ++counter;

@@ -138,12 +138,6 @@ namespace TSMT.Controllerss
         }
         #endregion
         #region JoinIn-Group
-        public ActionResult ViewGroup(int id)
-        {
-            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
-            ViewData["members"] = ep.Group.ExaminationsPapers;
-            return View(ep);
-        }
         public ActionResult FindFriend(int id)
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
@@ -341,6 +335,23 @@ namespace TSMT.Controllerss
             db.SaveChanges();
 
             return RedirectToAction("DetailsExamPaper", new { id = id });
+        }
+        #endregion
+        #region Additional
+        public ActionResult ViewCar(int id) // carId
+        {
+            Car c = db.Cars.SingleOrDefault(r => r.CarID == id);
+            return View(c);
+        }
+        public ActionResult ViewGroup(int id) // gId
+        {
+            Group g = db.Groups.SingleOrDefault(r => r.GroupID == id);
+            return View(g);
+        }
+        public ActionResult ViewRoom(int id) // rId
+        {
+            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
+            return View(room);
         }
         #endregion
     }

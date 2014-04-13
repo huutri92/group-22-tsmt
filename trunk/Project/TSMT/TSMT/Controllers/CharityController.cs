@@ -25,16 +25,39 @@ namespace TSMT.Controllers
         public ActionResult ManageCharityExam()
         {
             Account acc = (Account)Session["acc"];
-            var ces = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            return View(ces);
+
+            Charity charity = db.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            return View(charity);
         }
         public ActionResult AddCharityExam()
         {
             ViewData["exams"] = db.Examinations.ToList();
             Account acc = (Account)Session["acc"];
             ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            return View();
+
+            Charity charity = db.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            var exams = db.Examinations.ToList();
+            List<Examination> es = new List<Examination>();
+            bool alreadyIn = false;
+            foreach (Examination e in exams)
+            {
+                alreadyIn = false;
+                foreach (ChairitiesExam ce in charity.ChairitiesExams)
+                {
+                    if (ce.ExamID == e.ExaminationID) // already operated this exam
+                    {
+                        alreadyIn = true;
+                        break;
+                    }
+                }
+                if (!alreadyIn)
+                {
+                    es.Add(e);
+                }
+            }
+
+            return View(es);
         }
         [HttpPost]
         public ActionResult AddCharityExam(FormCollection f)
@@ -513,13 +536,6 @@ namespace TSMT.Controllers
             ViewData["lodgesSponsor"] = db.Lodges.Where(r => r.CharityExamID == id && r.SponsorID != null).ToList();
             ViewData["ceId"] = id;
             return View(ce);
-        }
-        public ActionResult ViewLodge(int id)
-        {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lod = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
-            return View(lod);
         }
         public ActionResult AddLodge(int id)
         {
@@ -1011,11 +1027,18 @@ namespace TSMT.Controllers
             foreach (var item in eps)
             {
                 record = new DataManageCandidate();
-                record.lname = item.Candidate.Account.Profile.Lastname;
-                //+" " + item.Candidate.Account.Profile.Middlename;
                 record.fname = item.Candidate.Account.Profile.Firstname;
+                record.name = item.Candidate.Account.Profile.Lastname + " " + record.fname;
+                record.nameLink = "<a href='/Charity/ViewExamPaper/" + item.CandidateID + "'>" + record.name + "</a>";
+                record.gender = item.Candidate.Account.Profile.Gender == true ? "Nam" : "Nữ";
                 record.lodge = item.Lodge.Address;
-                record.venue = item.Venue.Address;
+                record.lodgeLink = "<a href='/Charity/ViewLodge/" + item.LodgeRegisteredID + "'>" + record.lodge + "</a>";
+                if (item.GroupID == null) record.group = "Cá nhân";
+                else
+                {
+                    record.group = "Nhóm " + item.GroupID;
+                    record.groupLink = "<a href='/Charity/ViewGroup/" + item.GroupID + "'>" + record.group + "</a>";
+                }
                 results.Add(record);
             }
 
@@ -1093,8 +1116,8 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            ViewData["ceId"] = id;
-            return View();
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            return View(ce);
         }
         [HttpPost]
         public JsonResult GetDataAssignRoom(int id) // ceID
@@ -1102,15 +1125,32 @@ namespace TSMT.Controllers
             bool IsAssigned = false;
             DataAssignRoom record = new DataAssignRoom();
             List<DataAssignRoom> results = new List<DataAssignRoom>();
-            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id))
+            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id).OrderBy(r=>r.LodgeRegisteredID))
             {
                 record = new DataAssignRoom();
-                record.lname = ep.Candidate.Account.Profile.Lastname;
-                //+" " + ep.Candidate.Account.Profile.Middlename;
                 record.fname = ep.Candidate.Account.Profile.Firstname;
+                record.name = ep.Candidate.Account.Profile.Lastname + " " + record.fname;
+                record.nameLink = "<a href='/Charity/ViewExamPaper/" + ep.ExamPaperID + "'>" + record.name + "</a>";
+
                 record.lodge = ep.Lodge.Address;
-                record.group = ep.GroupID == null ? "Chưa có nhóm" : ep.GroupID.ToString();
-                record.room = ep.RoomID == null ? "Chưa sắp phòng" : ep.Room.RoomName;
+                record.lodgeLink = "<a href='/Charity/ViewLodge/" + ep.LodgeRegisteredID + "'>" + record.lodge + "</a>";
+
+                record.gender = ep.Candidate.Account.Profile.Gender == true ? "Nam" : "Nữ";
+
+                if (ep.GroupID == null) record.group = "Cá nhân";
+                else
+                {
+                    record.group = "Nhóm " + ep.GroupID;
+                    record.groupLink = "<a href='/Charity/ViewGroup/" + ep.GroupID + "'>" + record.group + "</a>";
+                }
+
+                if (ep.RoomID == null) record.room = "Chưa sắp phòng";
+                else
+                {
+                    record.room = "Phòng " + ep.Room.RoomName;
+                    record.roomLink = "<a href='/Charity/ViewRoom/" + ep.RoomID + "'>" + record.room + "</a>";
+                }
+                
                 results.Add(record);
 
                 if (!IsAssigned) IsAssigned = ep.RoomID != null;
@@ -1292,8 +1332,8 @@ namespace TSMT.Controllers
         #region ASSIGN-CARS
         public ActionResult AssignCar(int id) // ceID
         {
-            ViewData["ceId"] = id;
-            return View();
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            return View(ce);
         }
         [HttpPost]
         public JsonResult GetDataAssignCar(int id) // ceID
@@ -1304,27 +1344,33 @@ namespace TSMT.Controllers
             foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id))
             {
                 record = new DataAssignCar();
-                record.lname = ep.Candidate.Account.Profile.Lastname;
                 record.fname = ep.Candidate.Account.Profile.Firstname;
+                record.name = ep.Candidate.Account.Profile.Lastname + " " + record.fname;
+                record.nameLink = "<a href='/Charity/ViewExamPaper/" + ep.ExamPaperID + "'>" + record.name + "</a>";
+
                 record.lodge = ep.Lodge.Address;
+                record.lodgeLink = "<a href='/Charity/ViewLodge/" + ep.LodgeRegisteredID + "'>" + record.lodge + "</a>";
+
                 record.venue = ep.Venue.Address;
+                record.venueLink = "<a href='/Charity/ViewVenue/" + id + "?veId=" + ep.VenueID + "'>" + record.venue + "</a>";
+
                 if (ep.CarID == null && ep.ParticipantVolunteerID == null)
                 {
-                    record.status = "Chưa được sắp xếp";
+                    record.transport = "# Chưa được sắp xếp #";
                 }
                 else
                 {
-                    record.status = "Đã được sắp xếp";
                     if (ep.CarID != null)
                     {
-                        record.note = "Xe: " + ep.Car.NumberPlate;
+                        record.transport = "Xe: " + ep.Car.NumberPlate;
+                        record.transportLink = "<a href='/Charity/ViewCar/" + ep.CarID + "'>" + record.transport + "</a>";
                     }
                     else
                     {
-                        record.note = "TNV: " + ep.ParticipantVolunteer.Volunteer.Account.Profile.Firstname;
+                        record.transport = "TNV: " + ep.ParticipantVolunteer.Volunteer.Account.Profile.Lastname + " " + ep.ParticipantVolunteer.Volunteer.Account.Profile.Firstname;
+                        record.transportLink = "<a href='/Charity/ViewVolunteer/" + ep.ParticipantVolunteerID + "'>" + record.transport + "</a>";
                     }
                 }
-                record.actions = ep.CarID == null ? "" : "<a href='/Charity/DisplayRoute/" + ep.CarID + "'>Xem đường đi</a>";
                 results.Add(record);
 
                 if (!IsAssigned) IsAssigned = ep.CarID != null;
@@ -1522,7 +1568,7 @@ namespace TSMT.Controllers
             return false;
         }
         #endregion
-        #region Manual-Assign
+        #region MANUAL-ASSIGN
         //public ActionResult ModelManualAssignToRoom()
         //{
         //    ViewData["listRoom"] = db.Rooms.ToList();
@@ -1642,6 +1688,7 @@ namespace TSMT.Controllers
             return Json("");
         }
         #endregion
+        #region ROUTING
         public ActionResult DisplayRoute(int id) // carId
         {
             Account acc = (Account)Session["acc"];
@@ -1719,5 +1766,50 @@ namespace TSMT.Controllers
             //ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
             return Json(new { success = true });
         }
+        #endregion
+        #region ADDITIONAL
+        public ActionResult ViewCar(int id) // carId
+        {
+            Car c = db.Cars.SingleOrDefault(r => r.CarID == id);
+            return View(c);
+        }
+        public ActionResult ViewGroup(int id) // gId
+        {
+            Group g = db.Groups.SingleOrDefault(r => r.GroupID == id);
+            return View(g);
+        }
+        public ActionResult ViewRoom(int id) // rId
+        {
+            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
+            return View(room);
+        }
+        public ActionResult ViewExamPaper(int id) // epId
+        {
+            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            return View(ep);
+        }
+        public ActionResult ViewLodge(int id) // lodgeId
+        {
+            Lodge lod = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            return View(lod);
+        }
+        public ActionResult ViewUniversity(int id, int uniId) // ceId
+        {
+            University uni = db.Universities.SingleOrDefault(r => r.UniversityID == uniId);
+            ViewData["eps"] = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.UniversitiesExamination.UniversityID == uniId);
+            return View(uni);
+        }
+        public ActionResult ViewVenue(int id, int veId) // ceId
+        {
+            Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == veId);
+            ViewData["eps"] = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.VenueID == veId);
+            return View(ve);
+        }
+        public ActionResult ViewVolunteer(int id) // pvId
+        {
+            ParticipantVolunteer pv = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
+            return View(pv);
+        }
+        #endregion
     }
 }

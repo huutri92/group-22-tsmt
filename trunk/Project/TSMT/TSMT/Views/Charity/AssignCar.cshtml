@@ -3,37 +3,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using TSMT.Models
+@model ChairitiesExam
+
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
-<div style="float: right" id="TSMTSearching"></div>
+<style type="text/css">
+    .assigned, .notAssigned
+    {
+        display: none;
+    }
+</style>
+
 <div class="inner-page-content inner-careers">
+    <div class="assigned">
+        <h2>Kết quả sắp xếp xe cho thí sinh</h2>
+        <h3>Đã sắp chỗ tự động cho: @Model.ExaminationsPapers.Count(r => r.CarID != null || r.ParticipantVolunteerID != null)/@Model.ExaminationsPapers.Count() thí sinh.</h3>
+    </div>
+    <div style="float: right" id="TSMTSearching"></div>
     <table class="table table-hover table-bordered ">
         <thead>
             <tr>
-                <th>STT</th>
+                <th>#</th>
                 <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
                 <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
                 <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
-                <th onclick="sortBy('status', this)" class="order orderDes orderHidden">Trạng thái</th>
-                <th onclick="sortBy('note', this)" class="order orderDes orderHidden">Ghi chú</th>
-                <th>Thao tác</th>
+                <th onclick="sortBy('transport', this)" class="order orderDes orderHidden">Đưa đón</th>
             </tr>
         </thead>
         <tbody id="TSMTPaging"></tbody>
     </table>
 </div>
 
-<span id="HasCar" style="display: none">
-    @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @ViewData["ceId"] + "?ReAssign=false')" })
-    @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @ViewData["ceId"] + "?ReAssign=true')" })
-    @Html.ActionLink("Sắp tay", "ManualAssignToCar", null, new { @class="btn btn-info"});
+<span class="assigned" style="float: right;">
+    @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
+    @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
 </span>
-<span id="NoCar" style="display: none">
-    @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+<span class="notAssigned" style="float: right;">
+    @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
 </span>
 
-@Html.ActionLink("Về trang quản lý thí sinh", "ManageCandidate", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Về trang quản lý chung", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+<a href="@Url.Action("AssignRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Đến trang sắp xếp phòng</a>
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
 <script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
@@ -44,35 +55,40 @@
     function fetchData() {
         $.ajax({
             url: '/Charity/GetDataAssignCar',
-            data: { id: @ViewData["ceId"] },
+            data: { id: @Model.CharityExamID },
             type: 'POST',
             success: function (results) {
                 if (results.success == true) {
-                    if (results.IsAssigned) $("#HasCar").css("display", ""); else $("#NoCar").css("display", "");
-                    init(10, 7, results.data);
+                    if (results.IsAssigned) {
+                        $(".assigned").removeClass("assigned");
+                    } else {
+                        $(".notAssigned").removeClass("notAssigned");
+                    }
+                    init(10, 5, results.data);
                 }
             }
         });
     }
     function showData(index, record){
-        var tmp = "<tr><td>" + index;
-        tmp += "</td><td>" + record.lname + " " + record.fname;
-        tmp += "</td><td>" + record.lodge;
-        tmp += "</td><td>" + record.venue;
-        tmp += "</td><td>" + record.status;
-        tmp += "</td><td>" + record.note;
-        tmp += "</td><td>" + record.actions;
+        if (bgCriteria != record.transport){
+            bgColor = (bgColor == "" ? "aliceblue" : "");
+            bgCriteria = record.transport;
+        }
+
+        var tmp = "<tr style='background:" + bgColor + "'><td>" + index;
+        tmp += "</td><td>" + record.nameLink;
+        tmp += "</td><td>" + record.lodgeLink;
+        tmp += "</td><td>" + record.venueLink;
+        tmp += "</td><td>" + (record.transportLink == "" ? record.transport : record.transportLink);
         tmp += "</td></tr>";
         return tmp;
     }
     function matchSearch(i, text){
         var r = false;
-        r = r || (TSMTPagingData[i].lname.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].fname.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].name.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].lodge.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].venue.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].status.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].note.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].transport.toUpperCase().indexOf(text) > -1);
         return r;
     }
 </script>

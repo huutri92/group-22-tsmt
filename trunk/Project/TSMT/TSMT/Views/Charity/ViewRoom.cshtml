@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Danh sách phòng " + @Model.RoomName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model Room
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin phòng @Model.RoomName</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Địa chỉ trọ</th>
+                <td>@Model.Lodge.Address</td>
+            </tr>
+            <tr>
+                <th>Tên phòng</th>
+                <td>@Model.RoomName</td>
+            </tr>
+            <tr>
+                <th>Tổng số chỗ</th>
+                <td>@Model.TotalSlots</td>
+            </tr>
+            <tr>
+                <th>Số chỗ còn trống</th>
+                <td>@(@Model.TotalSlots - @Model.AvailableSlots)</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách các thí sinh được sắp xếp vào phòng @Model.RoomName</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Thí sinh</th>
+                <th>SĐT</th>
+                <th>Nhóm</th>
+            </tr>
+            @{
+                int counter = 1;
+                foreach (ExaminationsPaper item in Model.ExaminationsPapers)
+                {                          
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</td>
+                    <td>@item.Candidate.Account.Profile.PhoneNumber</td>
+                    <td>
+                        @if (item.GroupID == null)
+                        {
+                            <text>Cá nhân</text>
+                        }
+                        else
+                        {
+                            <text><a href="/Charity/ViewGroup/@item.GroupID">Nhóm @item.GroupID</a></text>
+                        }
+                    </td>
+                </tr>
+                        ++counter;
+                }
+            }
+        </table>
+    </div>
+</div>

@@ -27,7 +27,7 @@
     <script src="~/Content/js/jquery-1.10.2.js"></script>
     <script src="~/Content/js/jquery.ui.effect.js"></script>
     <script src="~/Content/js/jquery.ui.effect-fold.js"></script>
-   
+
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     <script src="~/Content/js/jquery.ui.effect-fold.js"></script>
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
@@ -77,7 +77,7 @@
 
     <!-- JS Global Compulsory -->
 
-   <script type="text/javascript" src="~/Content/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/hover-dropdown.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/back-to-top.js"></script>
@@ -86,7 +86,7 @@
     <script type="text/javascript" src="~/Content/plugins/bxslider/jquery.bxslider.js"></script>
     <script type="text/javascript" src="~/Content/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
     <script type="text/javascript" src="~/Content/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-   <script type="text/javascript" src="~/Content/plugins/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/jquery.mixitup.min.js"></script>
     <script type="text/javascript" src="~/Content/js/app.js"></script>
     <script type="text/javascript" src="~/Content/js/pages/portfolio.js"></script>
     <script type="text/javascript" src="~/Content/js/pages/index.js"></script>
@@ -121,17 +121,13 @@
     @Html.Partial("_HeaderPartial")
 
     @RenderSection("Breadcrumbs", required: false)
-    <i class="style-switcher-btn icon-backward" onclick="toggleSideBar()"></i>
     <div class="container">
         <div class="row">
-
             @RenderBody()
-
         </div>
     </div>
     @Html.Partial("_FooterPartial")
     @Html.Partial("_CopyrightPartial")
-
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -142,29 +138,63 @@
             App.initBxSlider();
             Index.initRevolutionSlider();
         });
-</script>
+    </script>
 
-
-    
-<script type="text/javascript">
-    //$('.pull-left').append(' <button onclick="toggleSideBar()">#</button>')
-    function toggleSideBar() {
-        var sideBar = $('.col-md-3');
-        var mainBar = $('.col-md-9');
-
-        if ($(sideBar).is(':visible')) {
-            $(sideBar).hide('slow');
-            $(mainBar).animate({ width: '100%' }, 'slow');
-
-        } else {
-            $(mainBar).css('float', 'right');
-            $(mainBar).animate({ width: '75%' }, 'fast', function () {
-                $(sideBar).fadeIn('fast');
-                $(mainBar).css('float', 'left');
-
-            });
+    <style type="text/css">
+        #switcherSideBar
+        {
+            position: absolute;
+            z-index: 2000;
+            cursor: pointer;
+            opacity: 0.7;
         }
-    }
-</script>
+
+        #switcherSideBar:hover
+        {
+            opacity: 1;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#sideBar').length > 0) {
+                var swicherSideBar = document.createElement("img");
+                swicherSideBar.id = "switcherSideBar";
+                swicherSideBar.src = "/Content/img/TSMTzip.png";
+                swicherSideBar.title = "Ẩn menu truy cập nhanh";
+                swicherSideBar.style.width = "31px";
+                swicherSideBar.style.height = "85px";
+                swicherSideBar.style.top = $('#sideBar').offset().top + "px";
+                swicherSideBar.style.left = $('#sideBar').offset().left - $(swicherSideBar).width() + "px";
+                $('#sideBar')[0].parentNode.appendChild(swicherSideBar);
+            }
+
+            $(".panel-heading").click(function () {
+                $(this.parentNode).find(".panel-body").slideToggle();
+            });
+
+            $("#switcherSideBar").click(function () {
+                var img = this;
+                var sideBar = $('#sideBar');
+                var mainContent = $('.col-md-9')[0];
+
+                if ($(sideBar).is(':visible')) {
+                    $(sideBar).hide('slow', function () {
+                        img.src = "/Content/img/TSMTunzip.png";
+                        img.title = "Hiện menu truy cập nhanh";
+                    });
+                    $(mainContent).animate({ width: '100%' }, 'slow');
+                } else {
+                    $(mainContent).css('float', 'right');
+                    $(mainContent).animate({ width: '75%' }, 'fast', function () {
+                        $(sideBar).fadeIn('fast', function () {
+                            img.src = "/Content/img/TSMTzip.png";
+                            img.title = "Ẩn menu truy cập nhanh";
+                        });
+                        $(mainContent).css('float', 'left');
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Địa điểm trọ: " + @Model.Address;
+    ViewBag.Title = "Địa chỉ thi: " + @Model.Address;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using TSMT.Models
-@model Lodge
+@model Venue
 
-<h3>Địa điểm trọ: @Model.Address</h3>
+<h3>Địa điểm thi: @Model.Address</h3>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách thí sinh đã đăng kí vào địa điểm trọ này</i></h3>
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách thí sinh đã đăng kí vào hội từ thiện dự thi ở địa điểm thi này</i></h3>
     </div>
     <div class="panel-body">
         <table class="table table-hover">
@@ -17,12 +17,11 @@
                 <th>#</th>
                 <th>Thí sinh</th>
                 <th>Giới tính</th>
-                <th>Nhóm</th>
-                <th>Địa chỉ thi</th>
+                <th>Địa chỉ trọ</th>
             </tr>
             @{
                 int counter = 1;
-                foreach (ExaminationsPaper item in Model.ExaminationsPapers)
+                foreach (ExaminationsPaper item in ViewData["eps"] as IEnumerable<ExaminationsPaper>)
                 {
                 <tr>
                     <td>@counter</td>
@@ -37,17 +36,7 @@
                             <text>Nữ</text>
                         }
                     </td>
-                     <td>
-                        @if (item.GroupID == null)
-                        {
-                            <text>Cá nhân</text>
-                        }
-                        else
-                        {
-                            <text>Nhóm @item.GroupID</text>
-                        }
-                    </td>
-                    <td>@item.Venue.Address</td>
+                    <td>@item.Lodge.Address</td>
                 </tr>
                         ++counter;
                 }

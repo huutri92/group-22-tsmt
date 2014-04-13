@@ -20,8 +20,28 @@ namespace TSMT.Controllers
         }
         public ActionResult JoinIn()
         {
+            Account acc = (Account)Session["acc"];
+            Volunteer vo = db.Volunteers.SingleOrDefault(r=>r.AccountID==acc.AccountID);
             var exams = db.Examinations.ToList();
-            return View(exams);
+            List<Examination> es = new List<Examination>();
+            bool alreadyIn = false;
+            foreach (Examination e in exams)
+            {
+                alreadyIn = false;
+                foreach (ParticipantVolunteer pv in vo.ParticipantVolunteers)
+                {
+                    if (pv.ChairitiesExam.ExamID == e.ExaminationID) // already join this exam
+                    {
+                        alreadyIn = true;
+                        break;
+                    }
+                }
+                if (!alreadyIn)
+                {
+                    es.Add(e);
+                }
+            }
+            return View(es);
         }
         [HttpPost]
         public ActionResult JoinIn(FormCollection f)
@@ -61,6 +81,7 @@ namespace TSMT.Controllers
             ParticipantVolunteer pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
             return View(pe);
         }
+        [HttpPost]
         public JsonResult ShowCeLodge(int ceId)
         {
             var lod = from r in db.Lodges
@@ -70,7 +91,7 @@ namespace TSMT.Controllers
                           value = r.LodgeID,
                           address = r.Address,
                       };
-            return Json(lod, JsonRequestBehavior.AllowGet);
+            return Json(lod);
         }
         public ActionResult ViewRoutes()
         {

@@ -64,16 +64,6 @@
             <!--<div id="routeIndexInfo"></div>-->
             <div id="map_canvas" style="float: left; width: 70%; height: 890px; margin: 0px; padding: 0px">
             </div>
-            <div id="directionsPanel2" style="float: right; width: 30%">
-                <div>
-                    Tổng quãng đường : <span id="TotalDistance"></span>
-                    @*<div id="TotalDistance"></div>*@
-                </div>
-
-                <div>
-                    Thời gian dự kiến: <span id="TotalTime"></span>
-                </div>
-            </div>
             <div id="directionsPanel" style="float: right; width: 30%; height: 890px;">
             </div>
 
@@ -265,7 +255,7 @@
             minD = total;
             var DistanceCount = document.getElementById('TotalDistance');
             var TimeCount = document.getElementById('TotalTime');
-            DistanceCount.innerHTML = "~" + Math.round(minD) + "km";
+            DistanceCount.innerHTML = minD;
             TimeCount.innerHTML = "~ " + Math.round(time / 60) + " phút";
             shortestRoute = [];
             var s = '';

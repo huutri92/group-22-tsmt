@@ -2,11 +2,26 @@
     ViewBag.Title = "Trang sắp xếp phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @using TSMT.Models
+@model ChairitiesExam
+
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
-<div style="float: right" id="TSMTSearching"></div>
+<style type="text/css">
+    .assigned, .notAssigned
+    {
+        display: none;
+    }
+</style>
+
 <div class="inner-page-content inner-careers">
+    <div class="assigned">
+        <h2>Kết quả sắp xếp phòng cho thí sinh</h2>
+        <h3>Đã sắp chỗ tự động cho: @Model.ExaminationsPapers.Count(r => r.RoomID != null)/@Model.ExaminationsPapers.Count() thí sinh.</h3>
+    </div>
+
+    <div style="float: right" id="TSMTSearching"></div>
     <table class="table table-hover table-bordered ">
         <thead>
             <tr>
@@ -22,33 +37,36 @@
     </table>
 </div>
 
-<span id="HasRoom" style="display: none">
-    @Html.ActionLink("Xoá kết quả sắp phòng hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @ViewData["ceId"] + "?ReAssign=false')" })
-    @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại phòng sẽ xoá kết quả sắp phòng hiện tại.</br>Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @ViewData["ceId"] + "?ReAssign=true')" })
-    @Html.ActionLink("Sắp tay", "ManualAssignToRoom", new { @class="btn btn-info"});
+<span class="assigned" style="float: right">
+    @Html.ActionLink("Xoá kết quả sắp phòng hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @Model.CharityExamID + "?ReAssign=false')" })
+    @Html.ActionLink("Xoá và sắp xếp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại phòng sẽ xoá kết quả sắp phòng hiện tại.</br>Xác nhận xoá kết quả sắp phòng hiện tại:', '/Charity/ResetRooms/" + @Model.CharityExamID + "?ReAssign=true')" })
 </span>
-<span id="NoRoom" style="display: none">
-    @Html.ActionLink("Sắp phòng", "AssignToRoom", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+<span class="notAssigned" style="float: right">
+    @Html.ActionLink("Sắp phòng", "AssignToRoom", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
 </span>
 
-@Html.ActionLink("Về trang quản lý thí sinh", "ManageCandidate", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
-@Html.ActionLink("Về trang quản lý chung", "DetailsCharityExam", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+<a href="@Url.Action("AssignCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-brown"><i class="icon-key"></i>&nbsp;Đến trang sắp xếp xe</a>
+
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
 <script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         fetchData();
     });
     function fetchData() {
         $.ajax({
             url: '/Charity/GetDataAssignRoom',
-            data: { id: @ViewData["ceId"] },
+            data: { id: @Model.CharityExamID },
             type: 'POST',
             success: function (results) {
                 if (results.success == true) {
-                    if (results.IsAssigned) $("#HasRoom").css("display", ""); else $("#NoRoom").css("display", "");
+                    if (results.IsAssigned) {
+                        $(".assigned").removeClass("assigned");
+                    } else {
+                        $(".notAssigned").removeClass("notAssigned");
+                    }
                     init(10, 6, results.data);
                 }
             }
@@ -61,18 +79,17 @@
         }
 
         var tmp = "<tr style='background:" + bgColor + "'><td>" + index;
-        tmp += "</td><td>" + record.lname + " " + record.fname;
-        tmp += "</td><td>" + record.lodge;
+        tmp += "</td><td>" + record.nameLink;
+        tmp += "</td><td>" + record.lodgeLink;
         tmp += "</td><td>" + record.gender;
-        tmp += "</td><td>" + record.group;
-        tmp += "</td><td>" + record.room;
+        tmp += "</td><td>" + (record.groupLink == "" ? record.group : record.groupLink);
+        tmp += "</td><td>" + (record.roomLink == "" ? record.room : record.roomLink);;
         tmp += "</td></tr>";
         return tmp;
     }
     function matchSearch(i, text){
         var r = false;
-        r = r || (TSMTPagingData[i].lname.toUpperCase().indexOf(text) > -1);
-        r = r || (TSMTPagingData[i].fname.toUpperCase().indexOf(text) > -1);
+        r = r || (TSMTPagingData[i].name.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].gender.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].group.toUpperCase().indexOf(text) > -1);
         r = r || (TSMTPagingData[i].lodge.toUpperCase().indexOf(text) > -1);

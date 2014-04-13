@@ -6,7 +6,7 @@
 @using TSMT.Models
 @model IEnumerable<ChairitiesExam>
 
-<link href="/Content/css/TSMTJoinInCE.css" rel="stylesheet />
+<link href="/Content/css/TSMTJoinInCE.css" rel="stylesheet"/>
 <script src="/Content/js/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
 <script src="/Content/js/TSMTJoinInCE.js"></script>
@@ -36,19 +36,18 @@
     <div class="col-md-12 margin-bottom-5">
         <div class="panel panel-blue">
             <div class="panel-heading"  id="scrollToMe">
-                <h3 class="panel-title"><i class="icon-user"></i>Thông tin đã đăng ký</h3>
+                <h3 class="panel-title"><i class="icon-user"></i>Thông tin phiếu báo thi</h3>
             </div>
             <input type="hidden" name="epId" value="@ep.ExamPaperID" />
             <input type="hidden" id="lodgeId" name="lodgeId" />
             <table class="table table-hover">
                 <tr style="text-align: center">
                     <td style="vertical-align: middle">
-                        <b>Kỳ thi: </b>@ep.UniversitiesExamination.Examination.Name</td>
+                        <b>Kỳ thi: </b>@ep.UniversitiesExamination.Examination.Name (@ep.UniversitiesExamination.Examination.BeginDate.Year)</td>
                     <td style="vertical-align: middle"><b>Trường dự thi: </b>@ep.UniversitiesExamination.University.Name</td>
                     <td style="vertical-align: middle"><b>Địa điểm dự thi: </b>@ve.Address</td>
                     <td style="vertical-align: middle">
                         <button onclick="clickOnMarker('-1', true); return false;" class="btn-u btn-u-sea margin-bottom-5">Đi đến địa điểm thi</button>
-
                     </td>
                 </tr>
             </table>
@@ -59,12 +58,11 @@
             <div class="input-group margin-bottom-5">
                 <table class="table">
                     <tr>
-                        <td style="vertical-align:middle"><b>Tổ chức </b>
-
+                        <td style="vertical-align: middle"><b>Tổ chức:</b>
                         </td>
                         <td>
-                            <select name="ceId" onchange="changeCE(this.value)" class="form-control">
-                                <option value="null">Tất cả tổ chức</option>
+                            <select id="ceId" name="ceId" onchange="changeCE(this.value)" class="form-control">
+                                <option value="null">Tất cả</option>
                                 @foreach (var item in Model)
                                 {
                                     <option value="@item.CharityExamID">@item.Charity.Name</option>
@@ -72,69 +70,30 @@
                             </select></td>
                     </tr>
                      <tr>
-                        <td  style="vertical-align:middle"><b>Bán kính</b>
-
-                        </td>
-                        <td>
-                           <div id="radius"></div></td>
+                        <td><b>Bán kính: </b></td>
+                        <td><div id="radius"></div></td>
                     </tr>
                      <tr>
-                        <td colspan="2" style="vertical-align:middle"><b>Danh sách địa chỉ chỗ trọ</b>
-
+                        <td colspan="2">
+                            <p><strong>Danh sách chỗ trọ:</strong></p>
                         </td>
-                       
                     </tr>
-                    <tr> <td colspan="2"><div id="examVenues"></div></td> </tr>
                 </table>
-
-
-            </div>
-            <div style="margin-top: 20px;">               
-                
+                <div id="examVenues"></div>
             </div>
         </div>
         <div class="col-md-9" id="map_canvas" style="height: 500px">
         </div>
     </div>
-
-       
-    
-@*
-    </div>
-    <div id="map_container">*@
-@*  <div id="panel">
-           <input type="hidden" name="epId" value="@ep.ExamPaperID" />
-            <input type="hidden" id="lodgeId" name="lodgeId" />
-            <div>
-                Kỳ thi
-                <input type="text" value="@ep.UniversitiesExamination.Examination.Name" disabled/>
-                Trường thi
-                <input type="text" value="@ep.UniversitiesExamination.University.Name" disabled/>
-                Địa chỉ thi
-                <input type="text" value="@ve.Address" disabled/>
-                <button onclick="clickOnMarker('-1', true); return false;">Đến địa điểm thi</button>
-            </div>
-            <div>
-                Tổ chức
-                <select name="ceId" onchange="changeCE(this.value)">
-                    <option value="null">Tất cả tổ chức</option>
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.CharityExamID">@item.CharityExamName</option>
-                    }
-                </select>
-            </div>*@
-       
-    
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('html').animate({scrollTop: $("#scrollToMe").offset().top - 20},'slow')
+        $('html').animate({scrollTop: $("#scrollToMe").offset().top - 20},'slow');
         createData();
         initialize(new google.maps.LatLng("@ve.Latitude", "@ve.Longitude"));
         createTheCircle();
-        
+        $("#ceId")[0].onchange();
     });
 
     function createData() {
@@ -143,8 +102,7 @@
             lodgeId: -1,
             name: "@ve.Address",
             data: new google.maps.LatLng("@ve.Latitude", "@ve.Longitude"),
-            d: 0,
-            description: "Địa điểm thi: @ve.Address"
+            description: "<strong>Địa điểm thi:</strong> @ve.Address"
         }
 
         /* INIT LODGES  */
@@ -153,12 +111,17 @@
 		<text>
         var position = new google.maps.LatLng("@l.Latitude", "@l.Longitude");
         var distance = google.maps.geometry.spherical.computeDistanceBetween(lodges[-1].data, position);
-        var des = "<table class='table table-hover'><tr><td>Địa chỉ nhà trọ:</td><td>@l.Address</td></tr>";
-        des += "<tr><td>Khoảng cách đến nơi thi:</td><td align='center'>" + Math.round(distance) + " mét</td></tr>";
-        des += "<tr><td>Tổng số chỗ:</td><td align='center'>@l.TotalSlots</td></tr>";
-        des += "<tr><td>Số chỗ còn trống:</td><td align='center'>@l.AvailableSlots</td></tr>";
-        des += "<tr><td>Tổ chức từ thiện:</td><td align='center'>@l.ChairitiesExam.Charity.Name</td></tr>";
-        des += "<tr><td align='center' colspan='2'><button onclick='return prepareToSubmit(@l.LodgeID)' class='btn-u btn-u-blue'>Đăng kí vào nhà trọ này!</button></td></tr></table>";
+        var des = "<table class='table table-hover'>";
+        des += "<tr><th>Tổ chức từ thiện:</th><td align='center'><a href='123'>@l.ChairitiesExam.Charity.Name</a></td></tr>";
+        des += "<tr><th>Địa chỉ nhà trọ:</th><td>@l.Address</td></tr>";
+        des += "<tr><th>Khoảng cách đến nơi thi:</th><td align='center'>" + Math.round(distance) + " mét</td></tr>";
+        des += "<tr><th>Tổng số chỗ:</th><td align='center'>@l.TotalSlots</td></tr>";
+        des += "<tr><th>Số chỗ còn trống:</th><td align='center'>@l.AvailableSlots</td></tr>";
+        des += "<tr><td align='center' colspan='2'>";
+        @if (l.AvailableSlots > 0) {
+            <text>des += "<button onclick='return prepareToSubmit(@l.LodgeID)' class='btn-u btn-u-blue'>Đăng kí vào nhà trọ này!</button>&nbsp;";</text>
+        }
+        des += "<button onclick='currentInfoWindow.close()' class='btn-u btn-u-blue'>Đóng</button></td></tr></table>";
 
         lodges[@l.LodgeID] = {
             lodgeId: @l.LodgeID,
@@ -172,32 +135,5 @@
         }
         </text>
         }
-    }
-
-    function changeCE(ceId) {
-        var divLodges = $(".lodge");
-        for (var i = 0; i < divLodges.length; ++i) {
-            var lodge = divLodges[i];
-            if (ceId == "null" || lodge.name == ceId) {
-                lodge.style.display = "block";
-            } else {
-                lodge.style.display = "none";
-            }
-        }
-
-        for (var i = 0; i < lodges.length; ++i) {
-            var lodge = lodges[i];
-            if (typeof (lodge) == "undefined") continue;
-            if (ceId == "null" || lodge.ceId == ceId) {
-                lodge.marker.setVisible(true);
-            } else {
-                lodge.marker.setVisible(false);
-            }
-        }
-    }
-
-    function prepareToSubmit(lodgeId){
-        $("#lodgeId").val(lodgeId);
-        $("#formJoinInCE" ).submit();
     }
 </script>

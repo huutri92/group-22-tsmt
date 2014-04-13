@@ -1,12 +1,12 @@
-﻿@using TSMT.Models
-@model Charity
-
+﻿
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Active = "ManageCarCharity";
     ViewBag.Title = "Quản lý xe";
-       
+    ViewBag.Active = "ManageCarCharity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using TSMT.Models
+@model Charity
 
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script src="~/Content/js/TSMTPopup.js"></script>
@@ -86,7 +86,7 @@
                                     <a href="@Url.Action("DisplayRoute", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
                                 }
                                 <a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-pink" title="Xem chi tiết"><i class="icon-info"></i></a>
-                                @if (car.SchedulesCars.FirstOrDefault() == null)
+                                @if (car.ExaminationsPapers.Count == 0)
                                 {
                                     <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa"><i class="icon-edit"></i></a>
                                     <a href="@Url.Action("AssignCarCE", "Charity", new { id = @car.CarID })" class="btn-u" title="Sử dụng"><i class="icon-heart"></i></a>

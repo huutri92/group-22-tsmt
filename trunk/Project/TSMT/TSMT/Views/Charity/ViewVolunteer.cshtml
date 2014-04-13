@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Tình nguyện viên: " + @Model.Volunteer.Account.Profile.Lastname + " " + @Model.Volunteer.Account.Profile.Firstname;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model ParticipantVolunteer
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin tình nguyện viên</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Họ tên</th>
+                <td>@Model.Volunteer.Account.Profile.Lastname @Model.Volunteer.Account.Profile.Firstname</td>
+            </tr>
+            <tr>
+                <th>SĐT</th>
+                <td>@Model.Volunteer.Account.Profile.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th>Đưa đón thí sinh</th>
+                <td>
+                    @if (Model.ExamPaperID == null)
+                    {
+                        <text># Chưa sắp xếp #</text>
+                    } else {
+                        <text>@Model.ExaminationsPaper.Candidate.Account.Profile.Lastname @Model.ExaminationsPaper.Candidate.Account.Profile.Firstname</text>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Bản đồ đường đi</i></h3>
+    </div>
+    <div class="panel-body">
+        @if (Model.ExamPaperID == null)
+        {
+            <p># Chưa được sắp xếp #</p>
+        }
+        else
+        {
+            <div id="map_canvas" style="width: 100%; height: 500px;"></div>
+        }
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script type="text/javascript">
+    var BenThanh = { lat: 10.771992, lng: 106.698264 };
+    function initialize() {
+        var map_options = {
+            center: new google.maps.LatLng(BenThanh.lat, BenThanh.lng),
+            zoom: 16,
+            panControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
