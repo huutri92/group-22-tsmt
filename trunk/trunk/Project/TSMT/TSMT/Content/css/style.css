@@ -1320,6 +1320,17 @@ ul.blog-tags a:hover i {
    background: rgb(154, 72, 210);
 }
 
+
+/*Panel Pink*/
+.panel-pink {
+   border-color: #ff1493;
+}
+
+.panel-pink > .panel-heading {
+   color: #fff;
+   background: #ff1493;
+
+
 /*Promo Page
 ------------------------------------*/
 /*Slider Part*/

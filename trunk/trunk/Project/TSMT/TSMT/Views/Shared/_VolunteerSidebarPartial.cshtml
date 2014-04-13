@@ -8,11 +8,9 @@
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
-               @* <li class="@(ViewBag.Active == "VolunteerHome" ? "active" : "")">
-                    <a href="@Url.Action("Index", "")"><i class="icon-home"></i>Home</a></li>*@
-                @* <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
+                <li class="@(ViewBag.Active == "EditAccount" ? "active" : "")">
                     <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })"><i class="icon-info"></i>Thông tin tài khoản</a></li>
-               *@
+
                 @*  @if (Model.CharityExamID == null)
                 {
                     <li class="@(ViewBag.Active == "JoinIn" ? "active" : "")">

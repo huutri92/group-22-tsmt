@@ -229,6 +229,20 @@ a.btn-u-lg {
 }
 
 
+.btn-u-purple1 {
+   background: #9370db !important;
+}
+.btn-u-purple1:hover {
+   background: #af9adb !important;
+}
+
+
+.btn-u-lightskyblue {
+   background: #87CEFA !important;
+}
+.btn-u-lightskyblue:hover {
+   background: #73a9cb !important;
+}
 
 .btn-u-violet {
    background: #8F00FF !important;

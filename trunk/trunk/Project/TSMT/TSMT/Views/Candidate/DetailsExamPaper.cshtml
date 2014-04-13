@@ -21,7 +21,7 @@
         </div>
     </div>
 }
-@Html.Partial("_AccountSidebarPartial")
+@Html.Partial("_CandidateSidebarPartial")
 
 <div class="col-md-9">
     <div class="headline">
@@ -43,7 +43,7 @@
             }
             else
             {
-            <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name!</a>
+            <h3>Phiếu báo thi của bạn đã được đăng ký vào Hội từ thiện  <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick=""><span style="color: orange"><b>@Model.ChairitiesExam.Charity.Name!</b></span></a>
             </h3>
             }
         }
@@ -80,7 +80,7 @@
     </div>
     @if (Model.LodgeRegisteredID != null)
     {
-        <div class="panel panel-blue margin-bottom-20">
+        <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
             </div>
@@ -121,36 +121,43 @@
                 </table>
             </div>
         </div>
-        <div class="panel panel-blue margin-bottom-20">
+        <div class="panel panel-purple margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin riêng</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td>Nhóm bạn</td>
+                        <td style="vertical-align: middle">Nhóm của bạn</td>
                         @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                         {
-                            <td>Nhóm @Model.GroupID</td>
+                            <td style="vertical-align: middle">Nhóm @Model.GroupID</td>
                         }
                         else
                         {
-                            <td>#Chưa có nhóm#</td>
+                            <td style="vertical-align: middle">#Chưa có nhóm#</td>
                         }
                         <td>
                             @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
-                                @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.GroupID }, new { @class = "btn btn-info" })
+                                <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })" class="btn-u btn-u-violet">
+                                    <i class="icon-eye-open"></i>&nbsp;Xem danh sách nhóm</a> 
+
+@*   @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.GroupID }, new { @class = "btn btn-info" })*@
+
                                 if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
                                 {
-                                @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+@* @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
+                                <a href="@Url.Action("DeleteGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Xóa nhóm</a>
                                 }
                                 else // is member
                                 { 
-                                @Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+@*@Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
+                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class=""></i>&nbsp;</a>
                                 }
                             }
-                            @Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+@*@Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
+                            <a href="@Url.Action("FindFriend", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-blue"><i class="icon-search"></i>&nbsp;Tìm kiếm bạn bè</a>
                         </td>
                     </tr>
                 </table>
@@ -162,30 +169,34 @@
                         <tr>
                             @if (Model.GroupID != null) // in a group
                             {
-                                <td>
+                                <td style="vertical-align: middle">
                                     @if (gr.ActiveID == Model.ExamPaperID) // who invited?
                                     {
-                                        <text>Bạn đã mời @gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Firstname vào nhóm</text>
+                                        <text>Bạn đã mời <span style="color:blue"><b>@gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Firstname</b></span> vào nhóm</text>
                                     }
                                     else
                                     {
                                         <text>
-                                        @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Firstname
-                                        đã mời @gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Firstname vào nhóm
+                                        <span style="color:red"><b>@gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Firstname</b></span>
+                                        đã mời <span style="color:blue"><b>@gr.Receive.Candidate.Account.Profile.Lastname @gr.Receive.Candidate.Account.Profile.Firstname</b></span> vào nhóm
                                         </text>
                                     }
                                 </td>
                                 <td>
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
-                                        @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
+@*           @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })*@
+                                        <a href="@Url.Action("DeleteRequest", "Candidate", new { id = gr.ID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy lời mời</a>
                                     }
                                 </td>
                             }
                             else // has no group
                             {
-                                <td>Bạn đã gửi lời đề nghị được tham gia vào nhóm @gr.GroupID</td>
-                                <td>@Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })</td>
+                                <td>Bạn đã gửi lời đề nghị được tham gia vào nhóm <b>@gr.GroupID</b></td>
+                                <td>
+                                    @*        @Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })*@
+                                    <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy yêu cầu</a>
+                                </td>
                             }
                         </tr>
                             }
@@ -225,6 +236,6 @@
             </div>
         </div>
     }
-    @Html.ActionLink("Quay về trang trước", "Index", null, new { @class = "btn btn-info" })
-
+@*@Html.ActionLink("Quay về trang trước", "Index", null, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("ManageExamPaper", "Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>

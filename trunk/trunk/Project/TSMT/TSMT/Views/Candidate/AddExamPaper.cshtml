@@ -20,7 +20,7 @@
         </div>
     </div>
 }
-@Html.Partial("_AccountSidebarPartial")
+@Html.Partial("_CandidateSidebarPartial")
 
 <script type="text/javascript">
     function getUniversity(id) {
@@ -56,16 +56,16 @@
     }
 </script>
 
+@using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
+{
+    <div class="col-md-7">
+        <div class="panel panel-blue margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Tạo mới phiếu báo thi
+                </h3>
+            </div>
+            <div class="panel-body">
 
-<div class="col-md-7">
-    <div class="panel panel-blue margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tạo mới phiếu báo thi
-            </h3>
-        </div>
-        <div class="panel-body">
-            @using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
-            {
                 <table class="table table-hover" style="vertical-align: central">
                     <tr>
                         <td style="width: 100px; vertical-align: middle">Kỳ thi</td>
@@ -104,19 +104,19 @@
                         <td colspan="2"></td>
                     </tr>
                 </table>
-                
-              
-            }
+
+
+            </div>
+        </div>
+        @*<input type="button" value="Trở về" class="btn-u btn-u-default" onclick="history.go(-1);" />*@
+        @*<a href="@Url.Action("ManageExamPaper","Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp; Quay lại</a>*@
+        <div style="float: right">
+            @*<input type="submit" value="Tạo mới" class="btn-u btn-u-sea" />*@
+            <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</button>
+            <button type="button" class="btn-u btn-u-orange" onclick="location.href = '/Candidate/ManageExamPaper'; return false;"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
+            @*<input type="reset" value="Làm lại" class="btn-u btn-u-default" />*@
+
         </div>
     </div>
-    @*<input type="button" value="Trở về" class="btn-u btn-u-default" onclick="history.go(-1);" />*@
-    @*<a href="@Url.Action("ManageExamPaper","Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp; Quay lại</a>*@
-    <div style="float: right">
-        @*<input type="submit" value="Tạo mới" class="btn-u btn-u-sea" />*@
-        <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
-        <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</button>
-        <button type="button" class="btn-u btn-u-orange" onclick="location.href = '/Candidate/ManageExamPaper'; return false;"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
-        @*<input type="reset" value="Làm lại" class="btn-u btn-u-default" />*@
-
-    </div>
-</div>
+}
