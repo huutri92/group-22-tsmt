@@ -63,7 +63,7 @@
                                 <td>
                                     <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-purple1" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
                                     <a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>
-                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Are you sure to delete it?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
+                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Bạn có muốn xóa cái này phải không?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
                                 </td>
                             </tr>
                             i++;
@@ -76,7 +76,7 @@
     <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
     @if(Model.ChairitiesExams.Count < 3)
     {
-        <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green" style="float:right"><i class="icon-plus"></i>Tạo mới</a>
+        <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-sea" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
     }
 </div>
 <script type="text/javascript">

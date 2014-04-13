@@ -382,7 +382,7 @@
             <PropertyRef Name="LodgeID" />
           </Key>
           <Property Name="LodgeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Longitude" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="Latitude" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="SponsorID" Type="int" />
@@ -1484,7 +1484,7 @@
             <PropertyRef Name="LodgeID" />
           </Key>
           <Property Name="LodgeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Longitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="Latitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="SponsorID" Type="Int32" />

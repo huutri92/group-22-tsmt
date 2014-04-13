@@ -1,4 +1,4 @@
-﻿.@model TSMT.Models.ChairitiesExam
+﻿@model TSMT.Models.ChairitiesExam
 
 @{
     ViewBag.Title = "Thông tin của tổ chức";
@@ -10,11 +10,12 @@
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-10">
         <div class="container">
-            <h1 class="pull-left">@ViewBag.Title</h1>
+            <h1 class="pull-left">Thông tin hỗ trợ @Model.Examination.Name (@DateTime.Now.Year) của @Model.Charity.Name </h1>
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
-                <li class="active">@ViewBag.Title</li>
+                @*<li class="active">@Model.Examination.Name</li>*@
+                <li class="active">Đợt thi</li>
             </ul>
         </div>
     </div>

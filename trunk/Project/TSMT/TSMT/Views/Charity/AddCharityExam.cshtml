@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "AddCharityExam";
+    ViewBag.Title = "Thêm đợt thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
@@ -22,30 +22,42 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<h2 class="title_of_page">Thêm tổ chức cho đợt thi</h2>
-    @using (Html.BeginForm("AddCharityExam", "Charity", FormMethod.Post))
-    {
-        <table>
-            <tr>
-                <td>Kỳ thi</td>
-                <td>
-                    <select name="ExamId">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.ExaminationID">@item.Name</option>
-                        }
-                    </select></td>
-            </tr>
-            @*<tr>
+@using (Html.BeginForm("AddCharityExam", "Charity", FormMethod.Post))
+{
+    <div class="col-md-4">
+        <div class="panel panel-orange margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Thêm đợt thi</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td style="vertical-align:middle">Kỳ thi</td>
+                        <td>
+                            <select name="ExamId" class="form-control" style="width: auto">
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.ExaminationID">@item.Name</option>
+                                }
+                            </select></td>
+                    </tr>
+                    @*<tr>
                 <td>Charity-Exam's Name</td>
                 <td><input type="text" name="CharityExamName" /></td>
             </tr>*@
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Tạo mới" class="btn btn-info" />
-                    <input type="reset" value="Làm lại" class="btn btn-info" />
-                    <button class="btn btn-info" onclick="window.history.back(-1);">Quay lại</button>
-                </td>
-            </tr>
-        </table>
-    }
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="float: right">
+            <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Thêm</button>
+            <button type="button" class="btn-u btn-u-red" onclick="location.href='/Charity/ManageCharityExam'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
+          @*  <input type="submit" value="Tạo mới" class="btn btn-info" />
+            <input type="reset" value="Làm lại" class="btn btn-info" />
+            <button class="btn btn-info" onclick="window.history.back(-1);">Quay lại</button>*@
+        </div>
+    </div>
+}

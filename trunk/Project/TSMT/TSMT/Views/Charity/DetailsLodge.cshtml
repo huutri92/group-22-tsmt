@@ -1,7 +1,7 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Lodge
 @{
-    //ViewBag.Title = "DetailsLodge";
+    ViewBag.Title = "Thông tin chi tiết nhà trọ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,6 +13,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                 <li><a href="@Url.Action("ManageLodgeCharity", "Charity")">Quản lý nhà trọ</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -29,7 +30,7 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Chi tiết nhà trọ và quản lý phòng
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết nhà trọ và quản lý phòng
                 <a href="@Url.Action("AddRoom", "Charity", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo phòng</a>
             </h3>
         </div>
@@ -39,10 +40,10 @@
                     <td>Địa chỉ:</td>
                     <td>@Model.Address</td>
                 </tr>
-                <tr>
+              @*  <tr>
                     <td>Sponsor:</td>
                     <td>@Model.SponsorID</td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td>Tổng số phòng:</td>
                     <td>@Model.TotalRooms</td>
@@ -56,7 +57,6 @@
                     <td>@Model.AvailableSlots</td>
                 </tr>
             </table>
-            <div class="inner-page-content inner-careers">
                 <table class="table table-hover table-bordered ">
                     <thead>
                         <tr>
@@ -77,11 +77,11 @@
                                 <td>@item.AvailableSlots</td>
                                 <td>
                                     @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
-                                    <a href="@Url.Action("EditRoom", "Charity", new { roomId = @item.RoomID })" class="btn-u">
+                                    <a href="@Url.Action("EditRoom", "Charity", new { roomId = @item.RoomID })" class="btn-u btn-u-blue" title="Chỉnh sửa phòng">
                                         <i class="icon-edit"></i>
                                     </a>
-                                    <a href="@Url.Action("DeleteRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-red">
-                                        <i class="icon-remove"></i>
+                                    <a href="@Url.Action("DeleteRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-red" title="Xóa phóng này">
+                                        <i class="icon-remove-sign"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -89,8 +89,10 @@
                         }
                     </tbody>
                 </table>
-            </div>
         </div>
+    </div>
+    <div style="float:right">
+        <a href="@Url.Action("AssignLodgetoCe","Charity", new { lodgeId = @Model.LodgeID})" class="btn-u btn-u-brown"><i class="icon-building"></i>&nbsp;Sử dụng phòng</a> 
     </div>
     <a href="@Url.Action("ManageLodgeCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>

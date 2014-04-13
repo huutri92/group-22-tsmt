@@ -38,21 +38,20 @@
     <div class="breadcrumbs margin-bottom-10">
         <div class="container">
             <h1 class="pull-left">@ViewBag.Title</h1>
-            <ul class="pull-right breadcrumb">
+            @*<ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
                 <li><a href="@Url.Action("AssignCar", "Charity")">Sắp xếp xe</a></li>
                 <li class="active">@ViewBag.Title</li>
-            </ul>
+            </ul>*@
         </div>
     </div>
 }
 
 <div class="col-md-12">
     <div id="route" style="display: none">@ViewData["RouteString"]</div>
-
-    @*<div id="place" style="display: none">@ViewData["Address"]</div>*@
-    <div>
+        @*<div id="place" style="display: none">@ViewData["Address"]</div>*@
+    <div class="row margin-bottom-10">
         <form onreset="resetFunction()">
             @* <input type="reset" value="Reset" />*@
 
@@ -71,6 +70,7 @@
 		<h3>Best way</h3><span id="result"></span>*@
         </form>
     </div>
+    <button type="button" class="btn-u btn-u-default" onclick="location.href='/Charity/ManageCarCharity'"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>

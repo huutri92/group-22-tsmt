@@ -2517,27 +2517,6 @@
     <Content Include="Views\Charity\DisplayRouteVolunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\TSMT.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\TSMT.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TSMT.edmx</DependentUpon>
-      <LastGenOutput>TSMT.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TSMT.edmx.diagram">
-      <DependentUpon>TSMT.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\TSMT.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TSMT.edmx</DependentUpon>
-      <LastGenOutput>TSMT.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Charity\ViewGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2569,6 +2548,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\ViewPlaces.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\TSMT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\TSMT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TSMT.edmx</DependentUpon>
+      <LastGenOutput>TSMT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TSMT.edmx.diagram">
+      <DependentUpon>TSMT.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\TSMT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TSMT.edmx</DependentUpon>
+      <LastGenOutput>TSMT.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

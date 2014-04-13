@@ -1,0 +1,18 @@
+
+	- Khi Volunteer bị Charity từ chối có nên để message thông báo cho Volunteer biết không?
+	- Không thể delete Đợt thi (Khi chưa được assign) trong trang Volunteer/Index
+	- Chưa validate 'Xem đường đi' (Charity/DisplayRoute/)
+	- Nút 'Reset' trang Charity/AssignCarsToCe  & Charity/AssignLodgetoCe không work
+	- Charity/AssignLodgetoCe chưa chuyển thành Charity/AssignLodgetoCe/id
+	- Validate view /Charity/AssignCarsToCe khi không có xe trong hệ thống
+	- Tại view Charity/DetailsLodge:
+		+ LỖI xóa phòng
+		+ Hiển thị sai, tổng 'Số chỗ còn trống' ở trong bảng phòng ở dưới khác tổng 'Số chỗ còn trống' trên khu vực hiển thị chi tiết
+	- Chưa validate delete trên View  Charity/ManageLodgeCharity 
+	- View Charity/AssignLodgetoCe, không load đc giá trị đã chọn, không check vào combobox khi đã chọn rồi
+	- Lấy tên Hội từ thiện và đợt thi trong view 
+	
+	ManageVolunteer chuyến sang href không chạy( Charity/ManageVolunteer/) ManageCandidate/AssignRoom/ ManageCandidate/AssignCar/
+	
+	Charity/ManageFunds Approve/Dennie funds ko chạy
+	Unfinish: ManageLodge, ManageCar, Manage

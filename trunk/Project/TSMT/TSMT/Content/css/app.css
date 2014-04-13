@@ -252,6 +252,13 @@ a.btn-u-lg {
 }
 
 
+.btn-u-tomato {
+   background: #ff6347 !important;
+}
+.btn-u-tomato:hover {
+   background: #df583f !important;
+}
+
 .btn-u-indigo {
    background: #4B0082 !important;
 }
@@ -267,6 +274,12 @@ a.btn-u-lg {
    background: #ba0c0c !important;
 }
 
+.btn-u-violetRed {
+   background: #c71585 !important;
+}
+.btn-u-violetRed:hover {
+   background: #770c4f !important;
+}
 
 
 /*Icons

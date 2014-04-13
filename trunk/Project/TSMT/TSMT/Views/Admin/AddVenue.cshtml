@@ -15,7 +15,7 @@
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
-    <div class="breadcrumbs margin-bottom-40">
+    <div class="breadcrumbs margin-bottom-10">
         <div class="container">
             <h1 class="pull-left">@ViewBag.Title</h1>
             <ul class="pull-right breadcrumb">
@@ -70,12 +70,13 @@
                             </td>
                         </tr>
                     </table>
+                    <button type="submit" class=""><i class=""></i>&nbsp;Lưu</button>
                     <input type="submit" value="Thêm" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
                     <input type="reset" value="Làm lại" class="btn btn-info" />
                     @*@Html.ActionLink("Hủy", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
                 </div>
             </div>
-            <div class="col-md-9" id="map_canvas" style="height: 500px; vertical-align: middle">
+            <div class="col-md-9" id="map_canvas" style="width:700px;height: 500px">
             </div>
         </div>
     </div>   
