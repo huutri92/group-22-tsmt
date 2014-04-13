@@ -1,10 +1,13 @@
-﻿@model IEnumerable<TSMT.Models.ChairitiesExam>
-
+﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Quản lý thông tin kỳ thi cho Hội từ thiện";
     ViewBag.Active = "ManageCharityExam";
 }
+
+@using TSMT.Models
+@model Charity
+
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script src="~/Content/js/TSMTPopup.js"></script>
 <script>
@@ -30,9 +33,7 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin kỳ thi cho Hội từ thiện
-                <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo mới</a>
-            </h3>
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin kỳ thi cho Hội từ thiện</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -50,7 +51,7 @@
                 <tbody>
                     @{
                         int i = 1;
-                        foreach (var item in Model)
+                        foreach (var item in Model.ChairitiesExams.OrderBy(r=>r.ExamID))
                         {
                             <tr id="@item.CharityExamID">
                                 <td>@Html.ActionLink(i.ToString(), "ManageCE", new { id = item.CharityExamID })</td>
@@ -73,6 +74,10 @@
         </div>
     </div>
     <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    @if(Model.ChairitiesExams.Count < 3)
+    {
+        <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-green" style="float:right"><i class="icon-plus"></i>Tạo mới</a>
+    }
 </div>
 <script type="text/javascript">
     function callAjaxDelete(id) {

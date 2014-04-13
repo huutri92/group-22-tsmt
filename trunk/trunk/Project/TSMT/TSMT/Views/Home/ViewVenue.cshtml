@@ -6,7 +6,7 @@
 
 <title>Địa chỉ thi: @Model.Address</title>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <style type="text/css">
     html, body
     {
@@ -36,6 +36,13 @@
             map: map,
             position: venueLatLng,
             animation: google.maps.Animation.DROP
+        });
+
+        infoWindow = new google.maps.InfoWindow({ content: '<strong>Địa điểm thi: </strong> @Model.Address' })
+        infoWindow.open(map, marker);
+
+        google.maps.event.addListener(marker, 'mouseover', function () {
+            infoWindow.open(map, marker);
         });
     }
 

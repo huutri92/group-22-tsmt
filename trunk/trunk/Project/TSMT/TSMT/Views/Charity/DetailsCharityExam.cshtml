@@ -23,38 +23,7 @@
 @Html.Partial("_CharitySidebarPartial")
 
 <div class="col-md-9">
-    <div class="panel panel-orange margin-bottom-20" style="width:70%">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về tổ chức @Model.Charity.Name , kì thi @Model.Examination.Name
-                <a href="@Url.Action("EditCharityExam", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
-            </h3>
-
-        </div>
-        <div class="panel-body">
-            <table class="table table-hover">
-                <tr>
-                    <td>Đợt thi</td>
-                    <td>@Model.Examination.Name</td>
-                </tr>
-                <tr>
-                    <td>Tổng số chỗ trọ</td>
-                    <td>@Model.TotalSlotsLodges</td>
-                </tr>
-                <tr>
-                    <td>Số chỗ trọ còn trống</td>
-                    <td>@Model.AvailableSlotsLodges</td>
-                </tr>
-                <tr>
-                    <td>Tổng số chỗ ngồi trên xe</td>
-                    <td>@Model.TotalSlotsVehicles</td>
-                </tr>
-                <tr>
-                    <td>Số chỗ ngồi còn trống</td>
-                    <td>@Model.AvailableSlotsVehicles</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+    <h3>Trang quản lý tổ chức từ thiện @Model.Charity.Name - @Model.Examination.Name (@DateTime.Now.Year)</h3>
     <div class="row">
         <div class="row servive-block margin-bottom-10">
             <a href="@Url.Action("ManageVolunteer", "Charity", new { id = @Model.CharityExamID })">

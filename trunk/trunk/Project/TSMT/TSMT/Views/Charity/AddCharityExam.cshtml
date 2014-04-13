@@ -3,7 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
+
 @using TSMT.Models;
+@model IEnumerable<Examination>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -28,7 +30,7 @@
                 <td>Kỳ thi</td>
                 <td>
                     <select name="ExamId">
-                        @foreach (var item in ViewData["exams"] as IEnumerable<Examination>)
+                        @foreach (var item in Model)
                         {
                             <option value="@item.ExaminationID">@item.Name</option>
                         }

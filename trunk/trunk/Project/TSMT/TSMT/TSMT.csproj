@@ -462,6 +462,8 @@
     <Content Include="Content\img\testimonials\user.jpg" />
     <Content Include="Content\img\TSMTasc.png" />
     <Content Include="Content\img\TSMTdes.png" />
+    <Content Include="Content\img\TSMTunzip.PNG" />
+    <Content Include="Content\img\TSMTzip.png" />
     <Content Include="Content\img\up.png" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\bootstrap.min.js" />
@@ -2475,7 +2477,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Candidate\FindFriend.cshtml" />
-    <Content Include="Views\Candidate\ViewGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Charity\DetailsCarCharity.cshtml" />
@@ -2513,7 +2514,7 @@
     <Content Include="Views\Volunteer\ViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Charity\AfterAssignRoom.cshtml" />
+    <Content Include="Views\Charity\DisplayRouteVolunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
@@ -2537,7 +2538,37 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Charity\DisplayRouteVolunteer.cshtml" />
+    <Content Include="Views\Charity\ViewGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\ViewCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\ViewGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Candidate\ViewRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewExamPaper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewUniversity.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewVenue.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Charity\ViewVolunteer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ViewPlaces.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

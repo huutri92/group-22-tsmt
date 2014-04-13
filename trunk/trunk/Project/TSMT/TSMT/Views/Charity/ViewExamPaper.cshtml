@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Thí sinh " + @Model.Candidate.Account.Profile.Lastname + " " + @Model.Candidate.Account.Profile.Firstname;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using TSMT.Models
+@model ExaminationsPaper
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin phiếu báo thi</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Thí sinh</th>
+                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</td>
+            </tr>
+            <tr>
+                <th>Kỳ thi</th>
+                <td>@Model.UniversitiesExamination.Examination.Name</td>
+            </tr>
+            <tr>
+                <th>Trường</th>
+                <td>@Model.UniversitiesExamination.University.Name</td>
+            </tr>
+            <tr>
+                <th>Địa điểm thi</th>
+                <td>@Model.Venue.Address</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Hỗ trợ của hội từ thiện</i></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Địa chỉ trọ</th>
+                <td>@Model.Lodge.Address</td>
+            </tr>
+            <tr>
+                <th>Phòng trọ</th>
+                <td>
+                    @if (Model.RoomID == null)
+                    {
+                        <text># Chưa được sắp xếp #</text>
+                    }
+                    else
+                    {
+                        <text><a href="/Charity/ViewRoom/@Model.RoomID">Phòng @Model.RoomID</a></text>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>Đưa đón</th>
+                <td>
+                    @if (Model.CarID == null && Model.ParticipantVolunteerID == null)
+                    {
+                        <text># Chưa được sắp xếp #</text>
+                    }
+                    else
+                    {
+                        if (Model.CarID != null)
+                        {
+                            <text><a href="/Charity/ViewCar/@Model.CarID">Xe @Model.Car.TotalSlots chỗ ngồi - Biển số xe: @Model.Car.NumberPlate</a></text>
+                        }
+                        else{
+                            <text><a href="/Charity/ViewVolunteer/@Model.ParticipantVolunteerID">Tình nguyện viên - @Model.ParticipantVolunteer.Volunteer.Account.Profile.Lastname @Model.ParticipantVolunteer.Volunteer.Account.Profile.Firstname</a></text>
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>Nhóm bạn</th>
+                <td>
+                     @if (Model.GroupID == null)
+                    {
+                        <text>Cá nhân</text>
+                    }
+                    else
+                    {
+                        <text><a href="/Charity/ViewGroup/@Model.GroupID">Nhóm @Model.GroupID</a></text>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

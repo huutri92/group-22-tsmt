@@ -20,6 +20,10 @@
     </div>
 }
 @Html.Partial("_VolunteerSidebarPartial")
+
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
+
 <div class="col-md-9">
     @if (Model.ParticipantVolunteers.Count == 0)
     {
@@ -40,30 +44,61 @@
     }
     else
     {
-        <h2>Bạn đang tham gia vào @Model.ParticipantVolunteers.Count đợt thi! 
-            <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-blue">Tham gia thêm!</a>
-        </h2>
+        <div class="inner-page-content inner-careers">
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Đợt thi</th>
+                        <th>Tổ chức từ thiện</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+        int counter = 1;
 
         foreach (ParticipantVolunteer item in Model.ParticipantVolunteers.OrderBy(r => r.ChairitiesExam.ExamID))
         {
-        <div>
-            <h3>@item.ChairitiesExam.Examination.Name</h3>
-            @if (item.IsApproved)
-            {
-                <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-blue">Xem chi tiết</a>
-            }
-            else
-            {
-                <div class="panel panel-orange margin-bottom-20">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="icon-list"></i>
-                            Đang chờ được xác nhận tham gia vào hội từ thiện <strong><span style="color: yellow">@item.ChairitiesExam.Charity.Name!</span></strong>
-                            <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn huỷ', this.href) " class="btn-u btn-u-blue">Hủy đăng ký</a>
-                        </h3>
-                    </div>
-                </div>
-            }
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.ChairitiesExam.Examination.Name</td>
+                            <td>@item.ChairitiesExam.Charity.Name</td>
+                            <td>
+                                @if (item.IsApproved)
+                                {
+                                    <text>Đã xác nhận</text>
+                                }
+                                else
+                                {
+                                    <text>Chưa xác nhận</text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsApproved)
+                                {
+                                    <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })">Chi tiết</a>
+                                    if (item.ExamPaperID == null)
+                                    {
+                                    <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)">Rời hội từ thiện</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn huỷ đăng kí không?', this.href)">Hủy đăng ký</a>
+                                }
+                            </td>
+                        </tr>
+                                ++counter;
+        }
+                    }
+                </tbody>
+            </table>
         </div>
+        if (Model.ParticipantVolunteers.Count < 3)
+        {
+        <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-blue">Tham gia thêm!</a>
         }
     }
 </div>

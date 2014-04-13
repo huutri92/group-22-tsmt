@@ -29,7 +29,7 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
-                <a href="@Url.Action("JoinInCE","Candidate",new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
@@ -38,7 +38,7 @@
             {
             <h3>Phiếu báo thi đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name!</a>
                 @*@Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn-u btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
-                <a href="@Url.Action("LeaveCE","Candidate",new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="icon-signout"></i>Rời Hội từ thiện</a>
+                <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="icon-signout"></i>Rời Hội từ thiện</a>
             </h3>
             }
             else
@@ -64,7 +64,16 @@
                 </tr>
                 <tr>
                     <td>Địa điểm thi</td>
-                    <td><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewVenue/', @Model.VenueID); return false;">@Model.Venue.Address</a></td>
+                    <td>
+                        @if (Model.LodgeRegisteredID == null)
+                        {
+                            <a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewVenue/', @Model.VenueID); return false;">@Model.Venue.Address</a>
+                        }
+                        else
+                        {
+                            <a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewPlaces/', @Model.ExamPaperID); return false;">@Model.Venue.Address</a>
+                        }
+                    </td>
                 </tr>
             </table>
         </div>
@@ -83,13 +92,15 @@
                     </tr>
                     <tr>
                         <td>Địa chỉ trọ</td>
-                        <td><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @Model.LodgeRegisteredID); return false;">@Model.Lodge.Address</a></td>
+                        <td>
+                            <a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewPlaces/', @Model.ExamPaperID); return false;">@Model.Lodge.Address</a>
+                        </td>
                     </tr>
                     <tr>
                         <td>Phòng trọ</td>
                         @if (Model.RoomID != null)
                         {
-                            <td>@Model.Room.RoomName</td>
+                            <td><a href="/Candidate/ViewRoom/@Model.RoomID">@Model.Room.RoomName</a></td>
                         }
                         else
                         {
@@ -100,7 +111,7 @@
                         <td>Xe đưa đón</td>
                         @if (Model.CarID != null)
                         {
-                            <td>@Model.Car.NumberPlate</td>
+                            <td><a href="/Candidate/ViewCar/@Model.CarID">@Model.Car.NumberPlate</a></td>
                         }
                         else
                         {
@@ -129,7 +140,7 @@
                         <td>
                             @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
-                                @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.GroupID }, new { @class = "btn btn-info" })
                                 if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
                                 {
                                 @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })

@@ -1,30 +1,30 @@
-var map;
+﻿var map;
 var lodges = [];
 var markers = [];
 var circle;
 var ces = [];
+var a = []; // indexes of lodges use to sort lodges by distance to venue
+var currentInfoWindow;
 
-//var orangeIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-var orangeIcon = '/Content/img/markers/yellow-dot.png';
+var yellowIcon = '/Content/img/markers/yellow-dot.png';
+var redIcon = '/Content/img/markers/red-dot.png';
 
 var icons = [
-    /*'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',*/
-    /*'http://maps.google.com/mapfiles/ms/icons/green-dot.png',*/
-    /*'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'*/
-
     '/Content/img/markers/blue-dot.png',
     '/Content/img/markers/green-dot.png',
     '/Content/img/markers/purple-dot.png',
     '/Content/img/markers/ltblue-dot.png',
-    '/Content/img/markers/orange-dot.png',
     '/Content/img/markers/pink-dot.png',
-    '/Content/img/markers/red-dot.png'
+    '/Content/img/markers/orange-dot.png',
 ];
 
-function getIcon(ceId) {
-    for (var i = 0; i < ces.length; ++i) { if (ces[i] == ceId) return i }
-    ces.push(ceId);
-    return ces.length - 1;
+function getIcon(lodge) {
+    if (lodge.availSlots == 0) return redIcon;
+
+    for (var i = 0; i < ces.length; ++i) { if (ces[i] == lodge.ceId) return icons[i] }
+    ces.push(lodge.ceId);
+
+    return icons[ces.length - 1];
 }
 
 function initialize(venuePos) {
@@ -38,19 +38,20 @@ function initialize(venuePos) {
     }
     map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
 
-
     /* Add marker for each Lodge */
     for (lodgeId in lodges) {
         lodge = lodges[lodgeId];
         if (lodgeId == -1) { // exam venue
             addMarker(lodgeId, lodge.data, lodge.name + '!', lodge.description, "");
         } else {
-            addMarker(lodgeId, lodge.data, lodge.name + '!', lodge.description, icons[getIcon(lodge.ceId)]);
+            addMarker(lodgeId, lodge.data, lodge.name + '!', lodge.description, getIcon(lodge));
         }
     }
 
+    currentInfoWindow = lodges[-1].marker.infoWindow;
+    currentInfoWindow.open(map, lodges[-1].marker);
+
     /* sort lodges by distance to exam-venue */
-    var a = [];
     for (lodgeId in lodges) { a.push(lodgeId) }
     for (var i = 0; i < a.length - 1; ++i) {
         for (var j = i + 1; j < a.length; ++j) {
@@ -59,17 +60,6 @@ function initialize(venuePos) {
             }
         }
     }
-
-    /* show lodges on panel */
-    var s = '';
-    for (var i = 0; i < a.length; ++i) {
-        if (a[i] == -1) continue;
-        var lodge = lodges[a[i]];
-        s += '<a class="lodge" name="' + lodge.ceId + '" href="#" style="display:block" ';
-        s += 'onclick="clickOnMarker(' + lodge.lodgeId + ', true)">' + lodge.name;
-        s += ' (' + lodge.availSlots + '/' + lodge.totalSlots + ')</a>';
-    }
-    document.getElementById('examVenues').innerHTML = s;
 }
 
 function createInfoWindow(marker, content) {
@@ -100,7 +90,10 @@ function addMarker(lodgeId, pos, tit, des, png) {
 function clickOnMarker(lodgeId, goCenter) {
     marker = lodges[lodgeId].marker;
     if (goCenter) { map.setCenter(lodges[lodgeId].data); }
-    marker.infoWindow.open(map, marker);
+
+    currentInfoWindow.close();
+    currentInfoWindow = marker.infoWindow;
+    currentInfoWindow.open(map, marker);
 }
 
 function createTheCircle() {
@@ -134,11 +127,35 @@ function changeColorMarkers() {
     for (x in lodges) {
         var lodge = lodges[x];
         if (lodge.marker.getVisible() == true && x != -1) {
-            if (circle.getRadius() >= lodge.d) { // distance to exam venue.
-                lodge.marker.setIcon(orangeIcon);
+            if (circle.getRadius() >= lodge.d && lodge.availSlots > 0) { // distance to exam venue.
+                lodge.marker.setIcon(yellowIcon);
             } else {
-                lodge.marker.setIcon(icons[getIcon(lodge.ceId)]);
+                lodge.marker.setIcon(getIcon(lodge));
             }
         }
     }
+}
+
+function changeCE(ceId) {
+    var s = '';
+    var counter = 0;
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] == -1) continue;
+        var lodge = lodges[a[i]];
+        if (ceId == "null" || lodge.ceId == ceId) {
+            s += '<a class="lodge" name="' + lodge.ceId + '" href="#" ';
+            s += 'title="Đi đến địa điểm trọ ' + lodge.name + '" ';
+            s += 'onclick="clickOnMarker(' + lodge.lodgeId + ', true)">' + (++counter) + ". " + lodge.name.split(",")[0];
+            s += ' - <strong>(' + lodge.availSlots + '/' + lodge.totalSlots + ')</strong></a>';
+            lodge.marker.setVisible(true);
+        } else {
+            lodge.marker.setVisible(false);
+        }
+    }
+    document.getElementById('examVenues').innerHTML = s;
+}
+
+function prepareToSubmit(lodgeId) {
+    $("#lodgeId").val(lodgeId);
+    $("#formJoinInCE").submit();
 }

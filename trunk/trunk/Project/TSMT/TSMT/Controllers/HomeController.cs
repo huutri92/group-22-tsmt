@@ -64,6 +64,11 @@ namespace TSMT.Controllers
             Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);
             return View(ve);
         }
+        public ActionResult ViewPlaces(int id) // epId
+        {
+            ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+            return View(ep);
+        }
         #endregion
         # region Charity
         public ActionResult ViewCharity()
@@ -103,106 +108,5 @@ namespace TSMT.Controllers
             return View();
         }
         #endregion
-        # region Admin
-
-        #endregion
-        #region Functions
-
-        #endregion
-        #region Filter Charity
-        #endregion
-        #region OLD
-        public ActionResult Entrance()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Entrance(FormCollection f)
-        {
-            string email = f["email"];
-            string password = f["password"];
-            Account acc = db.Accounts.SingleOrDefault(r => r.Email == email && r.Password == password);
-            if (acc == null) return View();
-
-            Session["acc"] = acc;
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Registration()
-        {
-            ViewData["provinces"] = db.Provinces.ToList();
-            ViewData["districts"] = db.Districts.ToList();
-            ViewData["roles"] = db.Roles.ToList();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Registration(FormCollection f)
-        {
-            Account acc = new Account();
-            acc.Email = f["email"];
-            acc.Password = f["password"];
-            acc.IsActive = true;
-            acc.RoleID = int.Parse(f["role"]);
-            db.Accounts.Add(acc);
-            db.SaveChanges();
-
-            switch (acc.RoleID)
-            {
-                case 1: Candidate can = new Candidate();
-                    can.AccountID = acc.AccountID;
-                    can.HighSchoolName = f["highschool"];
-                    db.Candidates.Add(can);
-                    break;
-                case 2: Charity cha = new Charity();
-                    cha.AccountID = acc.AccountID;
-                    db.Charities.Add(cha);
-                    break;
-                case 3: Sponsor sp = new Sponsor();
-                    sp.AccountID = acc.AccountID;
-                    db.Sponsors.Add(sp);
-                    break;
-                case 4: Volunteer vo = new Volunteer();
-                    vo.AccountID = acc.AccountID;
-                    //vo.JobName = f["job"];
-                    //vo.Description = f["des"];
-                    db.Volunteers.Add(vo);
-                    break;
-            }
-            db.SaveChanges();
-
-            Profile pro = new Profile();
-            pro.AccountID = acc.AccountID;
-            pro.Firstname = f["fname"];
-            pro.Lastname = f["lname"];
-            pro.Gender = bool.Parse(f["gender"]);
-            db.Profiles.Add(pro);
-            db.SaveChanges();
-
-            acc.ProfileID = pro.ProfileID;
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult LoginAs(string identity, string id)
-        {
-            string email = identity + id + "@gmail.com";
-            Account acc = db.Accounts.SingleOrDefault(r => r.Email == email && r.Password == "123");
-            Session["acc"] = acc;
-
-            if (Session["fromUrl"] != null)
-            {
-                return Redirect(Session["fromUrl"].ToString());
-            }
-            return RedirectToAction("Index", identity);
-        }
-        #endregion
-
-        public void autoGenerateStudent()
-        {
-            
-        }
     }
 }
