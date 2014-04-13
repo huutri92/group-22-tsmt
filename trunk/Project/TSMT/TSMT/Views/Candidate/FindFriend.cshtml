@@ -13,66 +13,68 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Candidate")">Thí sinh</a></li>
-
+                <li><a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = Model.ExamPaperID })">Chi tiết phiếu báo thi</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
     </div>
 }
-@Html.Partial("_AccountSidebarPartial")
+@Html.Partial("_CandidateSidebarPartial")
 <div class="col-md-9">
-    
-<div class="panel panel-blue margin-bottom-20">
-    <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Tìm kiếm bạn bè</i></h3>
+    <div class="panel panel-blue margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list">&nbsp;Tìm kiếm bạn bè</i></h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <tr>
+                    <td>Bạn là</td>
+                    <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</td>
+                </tr>
+                <tr>
+                    <td>Đã đăng ký vào Hội từ thiện</td>
+                    <td>@Model.ChairitiesExam.Charity.Name</td>
+                </tr>
+                <tr>
+                    <td>Đã đăng ký trọ ở</td>
+                    <td>@Model.Lodge.Address</td>
+                </tr>
+                <tr>
+                    <td>Bạn thuộc nhóm</td>
+                    <td>
+                        @if (Model.GroupID == null)
+                        {
+                            <text>#Chưa có nhóm#</text>
+                            
+                        }
+                        else
+                        {
+                            <text><a href="#" title="Xem danh sách nhóm @Model.GroupID" onclick="">Nhóm @Model.GroupID</a></text>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="panel-body">
-        <table class="table table-hover">
+    <div style="float: right" id="TSMTSearching"></div>
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>Thí sinh</td>
-                <td>@Model.Candidate.Account.Profile.Lastname @Model.Candidate.Account.Profile.Firstname</td>
+                <th style="vertical-align:middle">STT</th>
+                <th onclick="sortBy('name', this)" class="order orderDes orderHidden">Tên</th>
+                <th onclick="sortBy('gender', this)" class="order orderDes orderHidden">Giới tính</th>
+                <th onclick="sortBy('group', this)" class="order orderDes orderHidden">Nhóm</th>
+                <th>Thao tác</th>
+                <th>Ghi chú</th>
             </tr>
-            <tr>
-                <td>Hội từ thiện</td>
-                <td>@Model.ChairitiesExam.Charity.Name</td>
-            </tr>
-            <tr>
-                <td>Địa chỉ trọ</td>
-                <td>@Model.Lodge.Address</td>
-            </tr>
-            <tr>
-                <td>Nhóm</td>
-                <td>
-                    @if (Model.GroupID == null)
-                    {
-                        <text>#Chưa có nhóm#</text>
-                    }
-                    else
-                    {
-                        <text><a href="#" title="Xem danh sách nhóm @Model.GroupID" onclick="">Nhóm @Model.GroupID</a></text>
-                    }
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div style="float: right" id="TSMTSearching"></div>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th onclick="sortBy('name', this)" class="order orderDes orderHidden">Tên</th>
-            <th onclick="sortBy('gender', this)" class="order orderDes orderHidden">Giới tính</th>
-            <th onclick="sortBy('group', this)" class="order orderDes orderHidden">Nhóm</th>
-            <th>Thao tác</th>
-            <th>Ghi chú</th>
-        </tr>
-    </thead>
-    <tbody id="TSMTPaging"></tbody>
-</table>
+        </thead>
+        <tbody id="TSMTPaging"></tbody>
+    </table>
+    @*@Html.ActionLink("Quay về trang trước", "DetailsExamPaper", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
-@Html.ActionLink("Quay về trang trước", "DetailsExamPaper", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })
+
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
 <script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>
@@ -93,13 +95,13 @@
         });
     }
     function showData(index, record) {
-        var tmp = "<tr><td>" + index;
-        tmp += "</td><td>" + record.name;
-        tmp += "</td><td>" + record.gender;
-        tmp += "</td><td>" + record.group;
-        tmp += "</td><td>" + record.actions;
-        tmp += "</td><td>" + record.note;
-        tmp += "</td></tr>";
+        var tmp = "<tr style='vertical-align:middle'><td>" + index;
+        tmp += "</td><td style='vertical-align:middle'>" + record.name;
+        tmp += "</td><td style='vertical-align:middle'>" + record.gender;
+        tmp += "</td><td style='vertical-align:middle'>" + record.group;
+        tmp += "</td><td style='vertical-align:middle'>" + record.actions;
+        tmp += "</td><td style='vertical-align:middle'>" + record.note;
+        tmp += "</td></tr style='vertical-align:middle'>";
         return tmp;
     }
     function matchSearch(i, text) {

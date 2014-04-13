@@ -20,9 +20,8 @@
         </div>
     </div>
 }
+@Html.Partial("_CandidateSidebarPartial")
 
-@*@Html.Partial("_CandidateSidebarPartial")*@
-@Html.Partial("_AccountSidebarPartial")
 
 <div class="col-md-9">
     <div class="panel panel-blue margin-bottom-5">
@@ -38,9 +37,10 @@
                 @*<button type="button" class="close" data-dismiss="alert">×</button>*@
                 <strong>Bạn chưa có phiếu báo thi!</strong> Bạn hãy click vào nút "Tạo mới" để tạo một phiếu báo thi cho riêng mình.
             </div>
-            <span style="float:right"><b>Ghi chú:</b>&nbsp;Những phiếu dự thi đã vào nhóm sẽ không được xóa</span>
+
             <table class="table table-hover table-bordered" id="showdata">
                 <thead>
+                    @*<tr>  <span style="float:right"><b>Ghi chú:</b>&nbsp;Những phiếu dự thi đã vào nhóm sẽ không được xóa</span></tr>*@
                     <tr>
                         <th>STT</th>
                         <th>Trường</th>
@@ -74,6 +74,7 @@
                             <td>@item.Venue.Address</td>
                             <td>
                                 <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-violet" title="Xem chi tiết"><i class="icon-eye-open"></i></a>
+
                                 @if (item.GroupID == null)
                                 {
                                     <a href="@Url.Action("DeleteExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-red" onclick="return showPopup('Please confirm to delete it.', this.href);" title="Xóa"><i class="icon-remove-sign"></i></a>

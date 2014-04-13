@@ -8,7 +8,7 @@
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
-    <div class="breadcrumbs margin-bottom-40">
+    <div class="breadcrumbs margin-bottom-10">
         <div class="container">
             <h1 class="pull-left">@ViewBag.Title</h1>
             <ul class="pull-right breadcrumb">
@@ -23,7 +23,10 @@
 @Html.Partial("_CharitySidebarPartial")
 
 <div class="col-md-9">
-    <h3>Trang quản lý tổ chức từ thiện @Model.Charity.Name - @Model.Examination.Name (@DateTime.Now.Year)</h3>
+    <div class="headline">
+        <h3>Trang quản lý tổ chức từ thiện @Model.Charity.Name - @Model.Examination.Name (@DateTime.Now.Year)</h3>
+    </div>
+    
     <div class="row">
         <div class="row servive-block margin-bottom-10">
             <a href="@Url.Action("ManageVolunteer", "Charity", new { id = @Model.CharityExamID })">

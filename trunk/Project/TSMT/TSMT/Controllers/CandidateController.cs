@@ -165,7 +165,7 @@ namespace TSMT.Controllerss
                     {
                         if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
                         {
-                            record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
+                            record.actions = String.Format("<a class='btn-u btn-u-pink' href='/Candidate/{0}/{1}?{2}={3}'><i class='icon-thumbs-up'></i>&nbsp;{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
                             record.note = "";
                         }
                     }
@@ -174,8 +174,8 @@ namespace TSMT.Controllerss
                         gr = ep.Receives.SingleOrDefault(r => r.GroupID == item.GroupID); // B's group invited A?
                         if (gr != null) // invited
                         {
-                            record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AcceptRequest", ep.ExamPaperID, "gID", gr.GroupID, "Đồng ý");
-                            record.actions += String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
+                            record.actions = String.Format("<a class='btn-u btn-u-blue' href='/Candidate/{0}/{1}?{2}={3}'><i class='icon-ok'></i>&nbsp;{4}</a>", "AcceptRequest", ep.ExamPaperID, "gID", gr.GroupID, "Đồng ý");
+                            record.actions += String.Format("<a class='btn-u btn-u-red' href='/Candidate/{0}/{1}'><i class='icon-remove'></i>&nbsp;{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
                             record.note = gr.Active.Candidate.Account.Profile.Firstname + " đã mời bạn vào nhóm " + gr.GroupID;
                         }
                         else // not yet invited
@@ -183,14 +183,14 @@ namespace TSMT.Controllerss
                             gr = ep.Actives.SingleOrDefault(r => r.GroupID == item.GroupID); // A asked to join in B's group?
                             if (gr != null) // asked
                             {
-                                record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Huỷ");
+                                record.actions = String.Format("<a class='btn-u btn-u-red' href='/Candidate/{0}/{1}'><i class='icon-remove'></i>&nbsp;{2}</a>", "DeleteRequest", gr.ID, "Huỷ");
                                 record.note = "Bạn đã gửi lời đề nghị được vào nhóm " + item.GroupID;
                             }
                             else // not invited, not asked --> not linked: can ask to join in b's group if same gender
                             {
                                 if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
                                 {
-                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AskToJoinGroup", ep.ExamPaperID, "gID", item.GroupID, "Gửi yêu cầu vào nhóm");
+                                    record.actions = String.Format("<a class='btn-u btn-u-purple' href='/Candidate/{0}/{1}?{2}={3}'><i class='icon-group'></i>&nbsp;{4}</a>", "AskToJoinGroup", ep.ExamPaperID, "gID", item.GroupID, "Gửi yêu cầu vào nhóm");
                                     record.note = "";
                                 }
                             }
@@ -205,7 +205,7 @@ namespace TSMT.Controllerss
                         if (gr != null) // invited
                         {
                             if (ep.Group.OwnerID == ep.ExamPaperID) // is owner of the group
-                                record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Huỷ lời mời");
+                                record.actions = String.Format("<a class='btn-u btn-u-red' href='/Candidate/{0}/{1}'><i class='icon-remove'></i>&nbsp;{2}</a>", "DeleteRequest", gr.ID, "Hủy lời mời");
                             record.note = (gr.ActiveID == ep.ExamPaperID ? "Bạn đã mời vào nhóm" : gr.Active.Candidate.Account.Profile.Firstname + " đã mời vào nhóm");
                         }
                         else // not yet invited
@@ -215,8 +215,8 @@ namespace TSMT.Controllerss
                             {
                                 if (ep.Group.OwnerID == ep.ExamPaperID) // is owner of the group
                                 {
-                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "AcceptRequest", item.ExamPaperID, "gID", ep.GroupID, "Đồng ý");
-                                    record.actions += String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}'>{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
+                                    record.actions = String.Format("<a class='btn-u btn-u-blue' href='/Candidate/{0}/{1}?{2}={3}'><i class='icon-ok'></i>&nbsp;{4}</a>", "AcceptRequest", item.ExamPaperID, "gID", ep.GroupID, "Đồng ý");
+                                    record.actions += String.Format("<a class='btn-u btn-u-red' href='/Candidate/{0}/{1}'><i class='icon-remove'></i>&nbsp;{2}</a>", "DeleteRequest", gr.ID, "Từ chối");
                                 }
                                 record.note = "Đang yêu cầu được vào nhóm";
                             }
@@ -224,7 +224,7 @@ namespace TSMT.Controllerss
                             {
                                 if (item.Candidate.Account.Profile.Gender == ep.Candidate.Account.Profile.Gender) // same gender
                                 {
-                                    record.actions = String.Format("<a class='btn-u btn-u-default' href='/Candidate/{0}/{1}?{2}={3}'>{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
+                                    record.actions = String.Format("<a class='btn-u btn-u-pink' href='/Candidate/{0}/{1}?{2}={3}'><i class='icon-thumbs-up'></i>&nbsp;{4}</a>", "InviteToGroup", ep.ExamPaperID, "oID", item.ExamPaperID, "Mời vào nhóm");
                                     record.note = "";
                                 }
                             }

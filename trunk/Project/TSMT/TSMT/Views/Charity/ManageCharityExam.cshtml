@@ -61,7 +61,7 @@
                                 <td>@item.TotalSlotsVehicles</td>
                                 <td>@item.AvailableSlotsVehicles</td>
                                 <td>
-                                    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-brown" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
+                                    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-purple1" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
                                     <a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>
                                     <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Are you sure to delete it?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
                                 </td>
