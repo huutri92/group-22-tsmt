@@ -1,7 +1,7 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Charity
 @{
-    ViewBag.Title = "Chọn xe cho hội từ thiện";
+    ViewBag.Title = "Chọn xe hỗ trợ cho đợt thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -41,6 +41,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("ManageCarCharity", "Charity")">Quản lý xe</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -49,7 +50,7 @@
 @Html.Partial("_CharitySidebarPartial")
 
 @*<input type="hidden" id="lodgeId" value="@Model.LodgeID"/>*@
-<div class="col-md-9">
+<div class="col-md-7">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Chọn xe</h3>
@@ -57,9 +58,9 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td>Dùng Cho: </td>
+                    <td style="vertical-align: middle">Dùng Cho: </td>
                     <td>
-                        <select id="qwe" class="form-control">
+                        <select id="qwe" class="form-control" style="width:auto">
                             <option value="0" selected>---</option>
                             @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                             {                                
@@ -94,13 +95,13 @@
                     <input type="hidden"  value="@Model.CharityID" id ="charityid" />
                 </tr>
                 <tr>
-                    <td colspan="4">Vui lòng chọn xe bên dưới để sử dụng cho kì thi</td>
+                    <td colspan="4"><em><b>Vui lòng chọn xe bên dưới để hỗ trợ cho đợt thi</b></em></td>
                 </tr>
             </table>
             <table id="tableroom" class="table table-hover">
                 <tr>
                     <td></td>
-                    <td>STT</td>
+                    <td>#</td>
                     <td>Biển Số Xe</td>
                     <td>Tổng Số Chỗ</td>
                 </tr>
@@ -130,9 +131,14 @@
         </div>
     </div>
     <div style="float: right">
-        <button type="submit" value="Chọn" class="btn" id="saveall"><i class="icon-pencil"></i>&nbsp;Chọn</button>
-        @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
-        <input type="reset" value="Làm lại" class="btn-u btn-u-purple" />
+        @*<button type="submit" value="Chọn" class="btn" ><i class="icon-pencil"></i>&nbsp;Chọn</button>
+        <input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />
+        <input type="reset" value="Làm lại" class="btn-u btn-u-purple" />*@
+
+           <button type="reset" class="btn-u btn-u-purple" ><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="submit" class="btn-u btn-u-sea" id="saveall"><i class="icon-save">&nbsp;Lưu</i></button>
+            <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Charity/ManageCarCharity/'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
+
     </div>
-    <a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    @*<a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>*@
 </div>

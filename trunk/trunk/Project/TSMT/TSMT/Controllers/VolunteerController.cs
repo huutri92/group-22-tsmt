@@ -74,7 +74,7 @@ namespace TSMT.Controllers
             ParticipantVolunteer pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
             db.ParticipantVolunteers.Remove(pe);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Volunteer");
         }
         public ActionResult ViewDetails(int id) // peId
         {

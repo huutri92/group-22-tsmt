@@ -1,8 +1,8 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Quản lý tình nguyện viên";
 }
-@Html.Partial("_CharitySidebarPartial")
+
 
 @using TSMT.Models
 @model IEnumerable<ParticipantVolunteer>
@@ -15,10 +15,90 @@
         $('.popup-confirm').addClass("popup-remove");
     });
 </script>
-<h2 class="title_of_page">Danh sách các tình nguyện viên</h2>
-<div class="inner-page-content inner-careers">
 
-   @* <script type="text/javascript">
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-10">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })">Đợt thi</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
+<div class="col-md-9">
+    <div class="panel panel-orange margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Danh sách tình nguyện viên đăng ký tham gia hỗ trợ 
+                @*<a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>*@
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tình nguyện viên</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+
+                        foreach (var item in Model)
+                        {
+                        <tr id="@item.ParticipantVolunteerID">
+                            <td>@counter</td>
+                            <td>@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</td>
+
+                            @if (@item.IsApproved)
+                            {
+                                <td><span class="label label-success">Đã duyệt</span></td>
+                                <td>
+                                    @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
+                                    @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
+                                    <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="icon-eye-open"></i></a>
+                                    <a href="@Url.Action("RemoveVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );"  title="Loại tình nguyện viên này" class="btn-u btn-u-red"><i class="icon-remove-sign"></i></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td><span class="label label-danger">Chưa duyệt</span></td>
+                                <td>
+                                     @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
+                                @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, 
+                                new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
+                                @Html.ActionLink("Approve", "ApproveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return callAjaxApprove(" + @item.ParticipantVolunteerID + ")" })
+                                @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'remove' );" })
+                                    <a href="@Url.Action("DetailsVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  class="btn-u"><i class=""></i></a> 
+                                    <a href="@Url.Action("RemoveVolunteer","Charity", new { id = @item.ParticipantVolunteerID })" style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href,'+ @item.ParticipantVolunteerID +', 'del' );" } class="btn-u"><i class=""></i></a> 
+                                    <a href="@Url.Action("ApproveVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  onclick = "return callAjaxApprove(" + @item.ParticipantVolunteerID + ")"  class="btn-u"><i class=""></i></a> 
+                                    <a href="@Url.Action("DenieVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'remove' );"  class="btn-u"><i class=""></i></a> 
+
+                                </td>
+                            }
+
+                        </tr>
+                            ++counter;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @*@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("DetailsCharityExam","Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a> 
+</div>
+
+
+@* <script type="text/javascript">
         /* INITIALIZATION */
         function fetchData() {
         @{ 
@@ -94,53 +174,6 @@
         </table>
     </div>*@
 
-
-     <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Tình nguyện viên</th>
-                <th>Trạng thái</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
-
-                foreach (var item in Model)
-                {
-                <tr id="@item.ParticipantVolunteerID">
-                    <td>@counter</td>
-                    <td>@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</td>
-                    
-                    @if (@item.IsApproved)
-                    {
-                        <td><span class="label label-success">Đã duyệt</span></td>
-                        <td>
-                        @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
-                        @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick="return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
-                    </td>
-                    }
-                    else
-                    {
-                        <td><span class="label label-danger">Chưa duyệt</span></td>
-                        <td>
-                            @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
-                            @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new {style="display: none", onclick="return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
-                            @Html.ActionLink("Approve", "ApproveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return callAjaxApprove(" + @item.ParticipantVolunteerID +")"})
-                            @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick="return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'remove' );" })
-                        </td>
-                    }
-                   
-                </tr>
-                    ++counter;
-                }
-            }
-        </tbody>
-    </table>
-</div>
-@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })
 
 <script type="text/javascript">
     //function DeleteConfirm(type="text/javascript) {

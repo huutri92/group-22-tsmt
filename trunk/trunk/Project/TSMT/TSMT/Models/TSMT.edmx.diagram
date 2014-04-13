@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9b8b734a8684467098ed8d5c43b1fe63" Name="Diagram1">
+      <Diagram DiagramId="a425016d2eb246deb9a9ec1796d36e06" Name="Diagram1">
         <EntityTypeShape EntityType="TSMTModel.Account" Width="1.5" PointX="1.5" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Article" Width="1.5" PointX="3.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ArticlesTag" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="TSMTModel.Examination" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ExaminationsPaper" Width="1.5" PointX="12.75" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Fund" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSMTModel.GroupRequest" Width="1.5" PointX="17.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSMTModel.GroupRequest" Width="1.5" PointX="18" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Group" Width="1.5" PointX="15" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.Lodge" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TSMTModel.ParticipantVolunteer" Width="1.5" PointX="15" PointY="15.5" IsExpanded="true" />

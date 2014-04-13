@@ -28,13 +28,15 @@
     @if (Model.ParticipantVolunteers.Count == 0)
     {
         <div id="showMessage" class="alert alert-danger fade in" style="height: auto">
-            <strong>Bạn chưa đăng ký tham gia hỗ trợ đợt thi nào!</strong> Hãy nhấn vào nút "Đăng ký" để tham gia!
+            <strong>Bạn chưa đăng ký tham gia hỗ trợ đợt thi nào!</strong> Hãy nhấn vào "Đăng ký" để tham gia!
         </div>
         <div class="row servive-block margin-bottom-10">
             <a href="@Url.Action("JoinIn", "Volunteer")">
                 <div class="col-md-4 col-sm-6">
-                    <div class="servive-block-in servive-block-colored servive-block-orange">
-                        <h4>Đăng ký <br />tham gia hỗ trợ</h4>
+                    <div class="servive-block-in servive-block-colored servive-block-sea">
+                        <h4>Đăng ký
+                            <br />
+                            tham gia hỗ trợ</h4>
                         <div><i class="icon-thumbs-up"></i></div>
                         <p>HDSD.</p>
                     </div>
@@ -44,61 +46,70 @@
     }
     else
     {
-        <div class="inner-page-content inner-careers">
-            <table class="table table-hover table-bordered ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Đợt thi</th>
-                        <th>Tổ chức từ thiện</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-        int counter = 1;
-
-        foreach (ParticipantVolunteer item in Model.ParticipantVolunteers.OrderBy(r => r.ChairitiesExam.ExamID))
-        {
+        <div class="panel panel-pink margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Thông tin tham gia hỗ trợ
+                     @if (Model.ParticipantVolunteers.Count < 3)
+                     {
+                         <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tham gia thêm</a>
+                     }
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-bordered ">
+                    <thead>
                         <tr>
-                            <td>@counter</td>
-                            <td>@item.ChairitiesExam.Examination.Name</td>
-                            <td>@item.ChairitiesExam.Charity.Name</td>
-                            <td>
-                                @if (item.IsApproved)
-                                {
-                                    <text>Đã xác nhận</text>
-                                }
-                                else
-                                {
-                                    <text>Chưa xác nhận</text>
-                                }
-                            </td>
-                            <td>
-                                @if (item.IsApproved)
-                                {
-                                    <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })">Chi tiết</a>
-                                    if (item.ExamPaperID == null)
-                                    {
-                                    <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)">Rời hội từ thiện</a>
-                                    }
-                                }
-                                else
-                                {
-                                    <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" onclick=" return showPopup('Bạn có chắc chắn muốn huỷ đăng kí không?', this.href)">Hủy đăng ký</a>
-                                }
-                            </td>
+                            <th>#</th>
+                            <th>Đợt thi</th>
+                            <th>Hội từ thiện</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
                         </tr>
-                                ++counter;
-        }
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @{
+                     int counter = 1;
+
+                     foreach (ParticipantVolunteer item in Model.ParticipantVolunteers.OrderBy(r => r.ChairitiesExam.ExamID))
+                     {
+                            <tr>
+                                <td style="vertical-align: middle">@counter</td>
+                                <td style="vertical-align: middle">@item.ChairitiesExam.Examination.Name</td>
+                                <td style="vertical-align: middle">@item.ChairitiesExam.Charity.Name</td>
+                                <td style="vertical-align: middle">
+                                    @if (item.IsApproved)
+                                    {
+                                        <span class="label label-success">Đã xác nhận</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-danger">Chưa xác nhận</span>
+                                    }
+                                </td>
+                                <td style="vertical-align: middle">
+                                    @if (item.IsApproved)
+                                    {
+                                        <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
+                                        if (item.ExamPaperID == null)
+                                        {
+                                        <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-red" title="Rời hội từ thiện" onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" style="width:40px;height:30px"><i class="icon-remove"></i></a>
+@*  @Html.ActionLink("Xóa", "LeaveCE", new { id = item.ParticipantVolunteerID }, new { onclick = " return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" });*@
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-red" title="Huỷ đăng ký" onclick=" return showPopup('Bạn có chắc chắn muốn huỷ đăng kí không?', this.href)" style="width:40px;height:30px"><i class="icon-remove-circle"></i></a>
+                                    }
+                                </td>
+                            </tr>
+                                    ++counter;
+                     }
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-        if (Model.ParticipantVolunteers.Count < 3)
-        {
-        <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-blue">Tham gia thêm!</a>
-        }
     }
+
 </div>
+

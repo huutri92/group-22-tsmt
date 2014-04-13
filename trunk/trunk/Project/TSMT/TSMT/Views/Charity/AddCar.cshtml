@@ -14,7 +14,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
-                <li><a href="@Url.Action("ManageCarCharity", "Charity")">Quản lý thông tin xe</a></li>
+                <li><a href="@Url.Action("ManageCarCharity", "Charity")">Quản lý xe</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -92,10 +92,10 @@
 </script>
 @using (Html.BeginForm("AddCar", "Charity", FormMethod.Post))
 {
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo mới thông tin về xe
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo mới thông tin xe
                 </h3>
             </div>
             <div class="panel-body">
@@ -104,31 +104,31 @@
                     <tr>
                         <td style="vertical-align: middle">Biển số xe *</td>
                         <td>
-                            <input type="text" name="NumberPlate" id="NumberPlate" class="form-control" /></td>
+                            <input type="text" name="NumberPlate" id="NumberPlate" class="form-control" style="width:60%" /></td>
                         <td><span class="validationMsg" id="valMsgNumberPlate"></span></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Tổng số chỗ ngồi *</td>
                         <td>
-                            <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" /></td>
+                            <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" style="width:25%"/></td>
                         <td><span class="validationMsg" id="valMsgTotalSlots"></span></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Tên tài xế</td>
                         <td>
-                            <input type="text" name="DriverName" id="DriverName" class="form-control" /></td>
+                            <input type="text" name="DriverName" id="DriverName" class="form-control" style="width:85%"/></td>
                         <td><span class="validationMsg" id="valMsgDriverName"></span></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Số điện thoại tài xế</td>
                         <td>
-                            <input type="text" name="DriverPhone" id="DriverPhone" class="form-control" /></td>
+                            <input type="text" name="DriverPhone" id="DriverPhone" class="form-control" style="width:60%"/></td>
                         <td><span class="validationMsg" id="valMsgDriverPhone"></span></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Kì thi</td>
                         <td>
-                            <select name="CharityExamID" class="form-control">
+                            <select name="CharityExamID" class="form-control" style="width:auto">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
                                 {
@@ -144,11 +144,12 @@
         </div>
         <div style="float: right">
             @*<input type="reset" value="Làm lại" class="btn btn-info" />*@
-            <button type="submit" class="btn-u btn-u-default"><i class="icon-plus">&nbsp;Tạo</i></button>
-            <button type="reset" class="btn-u btn-u-purpose"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tạo</i></button>
+            <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Charity/ManageCarCharity/'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
             @*<input type="submit" value="Tạo" class="btn btn-info" />*@
         </div>
-        <button type="button" onclick="location.href ='/Charity/ManageCarCharity/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
+        @*<button type="button" onclick="location.href ='/Charity/ManageCarCharity/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>*@
     </div>
    
 }

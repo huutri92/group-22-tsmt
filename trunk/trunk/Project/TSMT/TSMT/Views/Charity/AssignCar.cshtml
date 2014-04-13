@@ -9,42 +9,68 @@
 <link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
 <script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
 <style type="text/css">
-    .assigned, .notAssigned
-    {
+    .assigned, .notAssigned {
         display: none;
     }
 </style>
 
-<div class="inner-page-content inner-careers">
-    <div class="assigned">
-        <h2>Kết quả sắp xếp xe cho thí sinh</h2>
-        <h3>Đã sắp chỗ tự động cho: @Model.ExaminationsPapers.Count(r => r.CarID != null || r.ParticipantVolunteerID != null)/@Model.ExaminationsPapers.Count() thí sinh.</h3>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-10">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })">Đợt thi</a></li>
+                <li><a href="@Url.Action("ManageCandidate", "Charity")">Quản lý thí sinh</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
     </div>
-    <div style="float: right" id="TSMTSearching"></div>
-    <table class="table table-hover table-bordered ">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
-                <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
-                <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
-                <th onclick="sortBy('transport', this)" class="order orderDes orderHidden">Đưa đón</th>
-            </tr>
-        </thead>
-        <tbody id="TSMTPaging"></tbody>
-    </table>
+}
+@Html.Partial("_CharitySidebarPartial")
+
+<div class="col-md-9">
+    <div class="panel panel-orange margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Danh sách thí sinh đã đăng ký vào (Đợt thi) - Hội từ thiện (ABC)
+                @*<a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>*@
+            </h3>
+        </div>
+        <div class="assigned">
+            <h2>Kết quả sắp xếp xe cho thí sinh</h2>
+            <h3>Đã sắp chỗ tự động cho: @Model.ExaminationsPapers.Count(r => r.CarID != null || r.ParticipantVolunteerID != null)/@Model.ExaminationsPapers.Count() thí sinh.</h3>
+        </div>
+        <div class="panel-body">
+            <div style="float: right" id="TSMTSearching"></div>
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th onclick="sortBy('fname', this)" class="order orderDes orderHidden">Thí sinh</th>
+                        <th onclick="sortBy('lodge', this)" class="order orderDes orderHidden">Địa chỉ trọ</th>
+                        <th onclick="sortBy('venue', this)" class="order orderDes orderHidden">Địa chỉ thi</th>
+                        <th onclick="sortBy('transport', this)" class="order orderDes orderHidden">Đưa đón</th>
+                    </tr>
+                </thead>
+                <tbody id="TSMTPaging"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <span class="assigned" style="float: right;">
+        @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
+        @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
+    </span>
+    <span class="notAssigned" style="float: right;">
+        @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+    </span>
+
+    @Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+    <a href="@Url.Action("AssignRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Đến trang sắp xếp phòng</a>
+
 </div>
-
-<span class="assigned" style="float: right;">
-    @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
-    @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
-</span>
-<span class="notAssigned" style="float: right;">
-    @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
-</span>
-
-@Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
-<a href="@Url.Action("AssignRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Đến trang sắp xếp phòng</a>
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
 <script type="text/javascript" src="~/Content/js/TSMTPaging.js"></script>

@@ -24,21 +24,21 @@
     </div>
 }
 
-@*@Html.Partial("_VolunteerSidebarPartial")*@
+@Html.Partial("_VolunteerSidebarPartial")
 
 @using (Html.BeginForm("JoinIn", "Volunteer", FormMethod.Post))
 {
-    <div class="col-md-9">
-        <div class="panel panel-pink margin-bottom-20">
+    <div class="col-md-5">
+        <div class="panel panel-pink margin-bottom-20" style="width: 75%">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list"></i>Đăng ký vào Hội từ thiện </h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td>Kỳ thi</td>
+                        <td style="vertical-align: middle">Kỳ thi</td>
                         <td>
-                            <select name="exId" onchange="getCharityName(this.value)" class="form-control">
+                            <select name="exId" onchange="getCharityName(this.value)" class="form-control" style="width: auto">
                                 <option value="null">Đợt thi</option>
                                 @foreach (var item in Model)
                                 {
@@ -48,9 +48,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Hội từ thiện</td>
+                        <td style="vertical-align: middle">Hội từ thiện</td>
                         <td>
-                            <select name="ceId" id="getCharity" class="form-control" onchange="ShowCeLodge(this.value)">
+                            <select name="ceId" id="getCharity" class="form-control" onchange="ShowCeLodge(this.value)" style="width: auto">
                                 <option value="null">Hội từ thiện</option>
                             </select>
                         </td>
@@ -60,15 +60,33 @@
         </div>
         <div class="panel panel-pink margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list"></i>Danh sách các địa điểm trọ của hội từ thiện</h3>
+                <h3 class="panel-title"><i class="icon-map-marker"></i>Danh sách các địa điểm trọ của hội từ thiện</h3>
             </div>
-            <div class="panel-body" id="divShowLodge" style="display:none">
+
+            <div class="panel-body" id="divShowLodge" style="display: none">
                 <div id="showLodge"></div>
             </div>
         </div>
-        <input type="button" value="Trở về" class="btn btn-info" onclick="history.go(-1);" />
-        <input type="submit" value="Đăng ký" class="btn btn-info" />
-        <input type="reset" value="Xóa hết" class="btn btn-info" />
+        <div class="panel panel-pink margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-star"></i>Điều kiện ràng buộc</h3>
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <td>abc</td>
+
+                </tr>
+                <tr>
+                    <td><input type="checkbox" />&nbsp;Tôi đồng ý với các điều kiện trên</td>
+                </tr>
+            </table>
+               
+        </div>
+        <div style="float: right; width: 60%">
+            <button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-save"></i>&nbsp;Đăng ký</button>
+            <button type="button" class="btn-u btn-u-red" onclick="location.href='/Volunteer/'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
+        </div>
     </div>
 }
 
