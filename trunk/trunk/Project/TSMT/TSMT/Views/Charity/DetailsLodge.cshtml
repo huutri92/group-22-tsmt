@@ -31,7 +31,7 @@
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết nhà trọ và quản lý phòng
-                <a href="@Url.Action("AddRoom", "Charity", new { lodgeId = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo phòng</a>
+                <a href="@Url.Action("AddRoom", "Charity", new { id = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo phòng</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -77,7 +77,7 @@
                                 <td>@item.AvailableSlots</td>
                                 <td>
                                     @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
-                                    <a href="@Url.Action("EditRoom", "Charity", new { roomId = @item.RoomID })" class="btn-u btn-u-blue" title="Chỉnh sửa phòng">
+                                    <a href="@Url.Action("EditRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-blue" title="Chỉnh sửa phòng">
                                         <i class="icon-edit"></i>
                                     </a>
                                     <a href="@Url.Action("DeleteRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-red" title="Xóa phóng này">
@@ -92,7 +92,7 @@
         </div>
     </div>
     <div style="float:right">
-        <a href="@Url.Action("AssignLodgetoCe","Charity", new { lodgeId = @Model.LodgeID})" class="btn-u btn-u-brown"><i class="icon-building"></i>&nbsp;Sử dụng phòng</a> 
+        <a href="@Url.Action("AssignLodgetoCe","Charity", new { id = @Model.LodgeID})" class="btn-u btn-u-brown"><i class="icon-building"></i>&nbsp;Sử dụng phòng</a> 
     </div>
     <a href="@Url.Action("ManageLodgeCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
@@ -181,7 +181,7 @@
 
     function callAjaxDelete(roomId) {
         $.ajax({
-            url: 'DeleteRoom/' + roomId,
+            url: '/Charity/DeleteRoom/' + roomId,
             type: 'GET',
             success: function (results) {
                 $("#" + roomId).hide(800, function () {
