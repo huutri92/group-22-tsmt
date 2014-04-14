@@ -29,7 +29,10 @@
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-list"></i>Thông tin về các đợt thi năm @DateTime.Now.Year
+                @if(Model.Count() < 3)
+                {
                 <a href="@Url.Action("AddExam", "Admin")" class="btn-u btn-u-default" id="createNew"><i class="icon-plus"></i>Tạo mới</a>
+                }
             </h3>
             <div class="devider"></div>
 
@@ -47,7 +50,7 @@
                 </thead>                
                 @{
                     int counter = 1;
-                    foreach (var item in Model)
+                    foreach (var item in Model.OrderBy(r=>r.BeginDate))
                     {
                     <tr>
                         <td>@counter</td>

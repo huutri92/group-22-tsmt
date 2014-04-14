@@ -325,9 +325,9 @@ namespace TSMT.Controllers
         public ActionResult AddExam(FormCollection f)
         {
             Examination exam = new Examination();
-            exam.Name = f["Name"];
-            exam.BeginDate = DateTime.Parse(f["BeginDate"]);
-            exam.EndDate = DateTime.Parse(f["EndDate"]);
+            exam.Name = f["Name"] + " (" + DateTime.Now.Year + ")";
+            exam.EndDate = DateTime.Parse(f["EndDay"]);
+            exam.BeginDate = exam.EndDate.AddDays(-2);
             exam.IsRemovable = true;
             db.Examinations.Add(exam);
 
@@ -336,13 +336,13 @@ namespace TSMT.Controllers
                 ScheduleExam scheduleExam = new ScheduleExam();
                 scheduleExam.Day = date;
                 scheduleExam.BeginHour = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);
-                scheduleExam.EndHour = new DateTime(date.Year, date.Month, date.Day, 16, 0, 0);
+                scheduleExam.EndHour = new DateTime(date.Year, date.Month, date.Day, 17, 0, 0);
                 db.ScheduleExams.Add(scheduleExam);
             }
 
             db.SaveChanges();
 
-            return RedirectToAction("ManageExam");
+            return RedirectToAction("ManageScheduleExam", new { id = exam.ExaminationID });
         }
         public ActionResult DeleteExam(int id)
         {

@@ -16,9 +16,6 @@ namespace TSMT.Controllers
 
         public ActionResult Index()
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-
             return View();
         }
 
@@ -26,8 +23,6 @@ namespace TSMT.Controllers
         public ActionResult ManageCharityExam()
         {
             Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-
             Charity charity = db.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
             return View(charity);
         }
@@ -35,8 +30,6 @@ namespace TSMT.Controllers
         {
             ViewData["exams"] = db.Examinations.ToList();
             Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-
             Charity charity = db.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
             var exams = db.Examinations.ToList();
             List<Examination> es = new List<Examination>();
@@ -113,16 +106,12 @@ namespace TSMT.Controllers
         }
         public ActionResult ManageCE(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["exams"] = db.Examinations.ToList();
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             return View(ce);
         }
         public ActionResult EditCharityExam(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["exams"] = db.Examinations.ToList();
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             return View(ce);
@@ -130,7 +119,7 @@ namespace TSMT.Controllers
         [HttpPost]
         public ActionResult EditCharityExam(FormCollection f)
         {
-            int id = int.Parse(f["ceId"]);
+            int id = int.Parse(f["id"]);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             ce.ExamID = int.Parse(f["ExamId"]);
             //ce.CharityExamName = f["CharityExamName"];
@@ -140,8 +129,6 @@ namespace TSMT.Controllers
         }
         public ActionResult DetailsCharityExam(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             return View(ce);
         }
@@ -151,7 +138,6 @@ namespace TSMT.Controllers
             //var ces = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID);
             Charity charity = db.Charities.FirstOrDefault(r => r.AccountID == acc.AccountID);
             ViewData["carsOfCharity"] = db.Cars.Where(c => c.CharityID == charity.CharityID && c.SponsorID == null).ToList();
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             //ViewData["carsSponsor"] = db.Cars.Where(c => c.CharityID == charity.CharityID && c.SponsorID != null).ToList();
             return View(charity);
         }
@@ -162,15 +148,12 @@ namespace TSMT.Controllers
             Charity charity = db.Charities.FirstOrDefault(r => r.AccountID == acc.AccountID);
             ViewData["lodgesOfCharity"] = db.Lodges.Where(c => c.CharityID == charity.CharityID && c.SponsorID == null).ToList();
             ViewData["lodgesSponsor"] = db.Lodges.Where(c => c.CharityID == charity.CharityID && c.SponsorID != null).ToList();
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             return View(charity);
         }
         #endregion
         #region CARS
         public ActionResult ManageCar(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             @ViewData["id"] = ce.CharityExamID;
             //ViewData["cars"] = db.Cars.Where(r => r.CharityExamID == ceId).ToList();
@@ -185,8 +168,6 @@ namespace TSMT.Controllers
         //}
         public ActionResult AddCar(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Charity charity = db.Charities.SingleOrDefault(r => r.CharityID == id);
             ViewData["CharityExam"] = db.ChairitiesExams.Where(c => c.CharityID == id).OrderBy(r => r.Examination.Name).ToList();
             return View(charity);
@@ -262,11 +243,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult EditCar(int carId)
+        public ActionResult EditCar(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
             return View(car);
         }
         [HttpPost]
@@ -390,11 +369,9 @@ namespace TSMT.Controllers
         }
 
 
-        public ActionResult DetailsCar(int carId)
+        public ActionResult DetailsCar(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Car car = db.Cars.SingleOrDefault(c => c.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(c => c.CarID == id);
             if (car.Sponsor != null) ViewData["sponsor"] = car.Sponsor.Account.Profile.Lastname + " " + car.Sponsor.Account.Profile.Firstname;
 
             ViewData["ceId"] = car.CharityExamID;
@@ -404,8 +381,6 @@ namespace TSMT.Controllers
 
         public ActionResult DetailsCarCharity(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Car car = db.Cars.SingleOrDefault(c => c.CarID == id);
             //if (car.Sponsor != null) ViewData["sponsor"] = car.Sponsor.Account.Profile.Lastname + " " + car.Sponsor.Account.Profile.Firstname;
 
@@ -415,8 +390,6 @@ namespace TSMT.Controllers
 
         public ActionResult AssignCarCE(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Car car = db.Cars.FirstOrDefault(c => c.CarID == id);
             Charity charity = db.Charities.FirstOrDefault(c => c.CharityID == car.CharityID);
             ViewData["CharityExam"] = charity.ChairitiesExams.ToList();
@@ -447,7 +420,6 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["Cars"] = db.Cars.Where(o => o.CharityID == charity.CharityID && o.CharityExamID == null).ToList();
             ViewData["CE"] = charity.ChairitiesExams.ToList();
             List<Examination> exam = new List<Examination>();
@@ -493,7 +465,6 @@ namespace TSMT.Controllers
             ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             Account acc = (Account)Session["acc"];
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["Cars"] = db.Cars.Where(o => o.CharityID == charity.CharityID && o.CharityExamID == null).ToList();
 
             return View(cExam);
@@ -530,8 +501,6 @@ namespace TSMT.Controllers
         #region LODGES
         public ActionResult ManageLodge(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             ViewData["lodgesOfCharity"] = db.Lodges.Where(r => r.CharityExamID == id && r.SponsorID == null).ToList();
             ViewData["lodgesSponsor"] = db.Lodges.Where(r => r.CharityExamID == id && r.SponsorID != null).ToList();
@@ -540,8 +509,6 @@ namespace TSMT.Controllers
         }
         public ActionResult AddLodge(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Charity charity = db.Charities.SingleOrDefault(r => r.CharityID == id);
             ViewData["CharityExam"] = db.ChairitiesExams.Where(c => c.CharityID == id).ToList();
             return View(charity);
@@ -574,7 +541,7 @@ namespace TSMT.Controllers
             db.Lodges.Add(lodge);
             db.SaveChanges();
 
-            return RedirectToAction("ManageLodgeCharity");
+            return RedirectToAction("DetailsLodge", new { id = lodge.LodgeID });
         }
         public JsonResult DeleteLodge(int id)
         {
@@ -583,8 +550,7 @@ namespace TSMT.Controllers
             int? ceId = lodge.CharityExamID;
 
             var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
-            if (rooms != null)
-            {
+            if (rooms != null) {
                 foreach (var room in rooms)
                 {
                     //lodge.TotalRooms -= 1;
@@ -621,11 +587,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult EditLodge(int lodgeId)
+        public ActionResult EditLodge(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             //ViewData["CharityExam"] = lodge.ChairitiesExam;
             return View(lodge);
         }
@@ -645,21 +609,17 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageLodgeCharity");
         }
-        public ActionResult DetailsLodge(int lodgeId)
+        public ActionResult DetailsLodge(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
             return View(lodge);
         }
 
-        public ActionResult DetailLodgeCE(int lodgeId)
+        public ActionResult DetailLodgeCE(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId && r.CharityExamID == lodge.CharityExamID).ToList();
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id && r.CharityExamID == lodge.CharityExamID).ToList();
             ViewData["ceId"] = lodge.CharityExamID;
             return View(lodge);
         }
@@ -730,13 +690,11 @@ namespace TSMT.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AssignLodgetoCe(int lodgeId)
+        public ActionResult AssignLodgetoCe(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             Charity charity = db.Charities.FirstOrDefault(c => c.CharityID == lodge.CharityID);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
             ViewData["CE"] = charity.ChairitiesExams.ToList();
             List<Examination> exam = new List<Examination>();
             foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
@@ -797,7 +755,6 @@ namespace TSMT.Controllers
         public ActionResult ChooseLodgeForCe(int id)
         {
             Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
             ViewData["Lodge"] = db.Lodges.Where(l => l.CharityID == charity.CharityID && l.CharityExamID == null).ToList();
             ViewData["ceId"] = id;
@@ -806,8 +763,6 @@ namespace TSMT.Controllers
 
         public ActionResult ChooseRoomsForCe(int lodgeId, int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ViewData["ceId"] = id;
             ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             ViewData["ExamName"] = cExam.Examination.Name;
@@ -850,20 +805,16 @@ namespace TSMT.Controllers
         }
         #endregion
         #region ROOMS
-        public ActionResult ManageRoom(int lodgeId)
+        public ActionResult ManageRoom(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
             ViewData["ceId"] = lodge.CharityExamID;
             return View(lodge);
         }
-        public ActionResult AddRoom(int lodgeId)
+        public ActionResult AddRoom(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             return View(lodge);
         }
         [HttpPost]
@@ -888,7 +839,7 @@ namespace TSMT.Controllers
             db.Rooms.Add(room);
             db.SaveChanges();
 
-            return RedirectToAction("DetailsLodge", new { lodgeId = room.LodgeID });
+            return RedirectToAction("DetailsLodge", new { id = room.LodgeID });
         }
         public JsonResult DeleteRoom(int id)
         {
@@ -916,11 +867,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult EditRoom(int roomId)
+        public ActionResult EditRoom(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
+            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
             return View(room);
         }
         [HttpPost]
@@ -956,8 +905,6 @@ namespace TSMT.Controllers
         #region SPONSORS
         public ActionResult ManageSponsor(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             var cars = db.Cars.Where(r => r.CharityExamID == id && r.SponsorID != null);
             var lodges = db.Lodges.Where(r => r.CharityExamID == id && r.SponsorID != null);
             var funds = db.Funds.Where(r => r.CharityExamID == id);
@@ -971,9 +918,8 @@ namespace TSMT.Controllers
         #region VOLUNTEERS
         public ActionResult ManageVolunteer(int id) // ceID
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-          
+           
+
             var pes = db.ParticipantVolunteers.Where(r => r.CharityExamID == id);
             ViewData["ceId"] = id;
             return View(pes);
@@ -1002,11 +948,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return Json(new { success = true });
         }
-        public ActionResult DetailsVolunteer(int id)//voId
+        public ActionResult DetailsVolunteer(int voId)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
-            Volunteer volunteer = db.Volunteers.SingleOrDefault(c => c.VolunteerID == id);
+            Volunteer volunteer = db.Volunteers.SingleOrDefault(c => c.VolunteerID == voId);
             //ViewData["ceId"] = volunteer.CharityExamID;
             return View(volunteer);
 
@@ -1015,9 +959,7 @@ namespace TSMT.Controllers
         #region CANDIDATES
         public ActionResult ManageCandidate(int id) // ceId
         {
-            Account acc = (Account)Session["acc"];
             ViewData["ceId"] = id;
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             return View();
         }
         [HttpPost]
@@ -1076,8 +1018,6 @@ namespace TSMT.Controllers
 
         public ActionResult ManageFunds(int id)
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             ViewData["funds"] = db.Funds.Where(r => r.CharityExamID == id).ToList();
             double totalFunds = 0;
@@ -1116,8 +1056,6 @@ namespace TSMT.Controllers
         #region ASSIGN-ROOMS
         public ActionResult AssignRoom(int id) // ceID
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             return View(ce);
         }
@@ -1127,7 +1065,7 @@ namespace TSMT.Controllers
             bool IsAssigned = false;
             DataAssignRoom record = new DataAssignRoom();
             List<DataAssignRoom> results = new List<DataAssignRoom>();
-            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id).OrderBy(r => r.LodgeRegisteredID))
+            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id).OrderBy(r=>r.LodgeRegisteredID))
             {
                 record = new DataAssignRoom();
                 record.fname = ep.Candidate.Account.Profile.Firstname;
@@ -1152,7 +1090,7 @@ namespace TSMT.Controllers
                     record.room = "Phòng " + ep.Room.RoomName;
                     record.roomLink = "<a href='/Charity/ViewRoom/" + ep.RoomID + "'>" + record.room + "</a>";
                 }
-
+                
                 results.Add(record);
 
                 if (!IsAssigned) IsAssigned = ep.RoomID != null;
@@ -1335,8 +1273,6 @@ namespace TSMT.Controllers
         public ActionResult AssignCar(int id) // ceID
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             return View(ce);
         }
         [HttpPost]
@@ -1597,7 +1533,7 @@ namespace TSMT.Controllers
             return View();
         }
 
-        public JsonResult ResultAjaxLodgeRoom(int id = 4)
+        public JsonResult ResultAjaxLodgeRoom(int id=4)
         {
             var exPaper = from r in db.Rooms
                           where r.LodgeID == id
@@ -1695,8 +1631,6 @@ namespace TSMT.Controllers
         #region ROUTING
         public ActionResult DisplayRoute(int id) // carId
         {
-            Account acc = (Account)Session["acc"];
-            ViewData["CharityExamSide"] = db.ChairitiesExams.Where(r => r.Charity.AccountID == acc.AccountID).OrderBy(c => c.Examination.Name);
             Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
 
             Lodge lodge = new Lodge();
@@ -1774,8 +1708,26 @@ namespace TSMT.Controllers
         #region ADDITIONAL
         public ActionResult ViewCar(int id) // carId
         {
-            Car c = db.Cars.SingleOrDefault(r => r.CarID == id);
-            return View(c);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
+
+            if (car.ExaminationsPapers.Count > 0)
+            {
+                Lodge lodge = new Lodge();
+                ExaminationsPaper examinationsPaper = new ExaminationsPaper();
+                examinationsPaper = car.ExaminationsPapers.FirstOrDefault();
+                lodge = db.Lodges.FirstOrDefault(l => l.LodgeID == examinationsPaper.LodgeRegisteredID);
+
+                List<string> address = new List<string>();
+                address.Add(lodge.Address);
+
+                var venues = new List<Venue>();
+                List<int> venueIDs = new List<int>();
+                venueIDs = car.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
+                foreach (int venueID in venueIDs) address.Add(db.Venues.SingleOrDefault(r => r.VenueID == venueID).Address);
+                ViewData["Place"] = address;
+            }
+
+            return View(car);
         }
         public ActionResult ViewGroup(int id) // gId
         {

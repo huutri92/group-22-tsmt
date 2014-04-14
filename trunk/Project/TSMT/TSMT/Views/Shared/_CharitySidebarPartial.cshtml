@@ -37,18 +37,24 @@
                     <ul>
                         <li class="has-sub"><a href="#" style="width: 212px"><span><i class="icon-list"></i>Các đợt thi</span></a>
                             <ul>
-                                @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
+                                @{
+                                    Account acc = (Account)Session["acc"];
+                                    var charity = acc.Charities.FirstOrDefault();
+                                    var ces = charity.ChairitiesExams;
+                                }
+
+                                @foreach (var item in ces as IEnumerable<ChairitiesExam>)
                                 {
                                     <li class="has-sub"><a href="#" style="width: 212px"><i class="icon-circle-arrow-right"></i><span>@item.Examination.Name</span></a>
                                         <ul>
                                             @*                                             <li><a href="#" style="width: 212px"><span>DEF</span></a></li>
                                              <li><a href="#" style="width: 212px"><span>ABC</span></a></li>*@
                                             <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })" style="width:212px"><i class="icon-caret-right"></i><span>Thông tin chi tiết</span></a></li>
-                                             <li ><a href="@Url.Action("ManageVolunteer", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Quản lý Tình nguyện viên</span></a></li>
-                                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Quản lý Thí sinh</span></a></li>
-                                            <li><a href="@Url.Action("ManageFunds", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Quản lý Tiền được tài trợ</span></a></li>
-                                             <li><a href="@Url.Action("ManageLodge", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Quản lý Chỗ trọ</span></a></li>
-                                            <li class='last'><a href="@Url.Action("ManageCar", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Quản lý Xe</span></a></li>
+                                             <li ><a href="@Url.Action("ManageVolunteer", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Tình nguyện viên</span></a></li>
+                                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Thí sinh</span></a></li>
+                                            <li><a href="@Url.Action("ManageFunds", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Tiền được tài trợ</span></a></li>
+                                             <li><a href="@Url.Action("ManageLodge", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Chỗ trọ</span></a></li>
+                                            <li class='last'><a href="@Url.Action("ManageCar", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Xe</span></a></li>
                                         </ul>
                                     </li>@*
                                      <li class="has-sub"><a href="#" style="width: 212px"><span>Đợt 2</span></a>

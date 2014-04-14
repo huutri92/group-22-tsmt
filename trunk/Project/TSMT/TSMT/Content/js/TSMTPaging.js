@@ -72,25 +72,24 @@ function createLeftNavigator(){
 	
 	var tmp = "";
 	if (numberOfPage > 1){
-		//tmp += "<a href='#' id='firstPage' class='pageIndex' onclick='goTo(\"FirstPage\")'>«</a>";
-		//tmp += "<a href='#' id='previousPage' class='pageIndex' onclick='goTo(\"PreviousPage\")'>‹</a>";
-		//for (var i = 1; i <= numberOfPage; ++i)
-		//	tmp += "<a href='#' id='page" + i + "' class='pageIndex' onclick=\"$('#cbbGoToPage').val('" + i + "').change()\">" + i + "</a>";
-		//tmp += "<a href='#' id='nextPage' class='pageIndex' onclick='goTo(\"NextPage\")'>›</a>";
-	    //tmp += "<a href='#' id='lastPage' class='pageIndex' onclick='goTo(\"LastPage\")'>»</a>";
-	    //tmp += "<a href='#' id='firstPage' class='pageIndex' onclick='goTo(\"FirstPage\")'>«</a>";
-	    tmp += "<ul class='pagination'>";
-	    tmp+="<li><a href='#' id='firstPage' onclick='goTo(\"FirstPage\")'>«</a></li>"
-	    tmp += "<li><a href='#' id='previousPage' onclick='goTo(\"PreviousPage\")'>‹</a></li>";
-	    for (var i = 1; i <= numberOfPage; ++i)
-	    	tmp += "<li><a href='#' id='page" + i + "' onclick=\"$('#cbbGoToPage').val('" + i + "').change()\">" + i + "</a></li>";
-	    tmp += "<li><a href='#' id='nextPage' onclick='goTo(\"NextPage\")'>›</a></li>";
-	    tmp += "<li><a href='#' id='lastPage' onclick='goTo(\"LastPage\")'>»</a></li>";
-        tmp += "</ul>";
+		tmp += "<a href='#' id='firstPage' class='pageIndex' onclick='goTo(\"FirstPage\")'>«</a>";
+		tmp += "<a href='#' id='previousPage' class='pageIndex' onclick='goTo(\"PreviousPage\")'>‹</a>";
+		for (var i = 1; i <= numberOfPage; ++i)
+			tmp += "<a href='#' id='page" + i + "' class='pageIndex' onclick=\"$('#cbbGoToPage').val('" + i + "').change()\">" + i + "</a>";
+		tmp += "<a href='#' id='nextPage' class='pageIndex' onclick='goTo(\"NextPage\")'>›</a>";
+	    tmp += "<a href='#' id='lastPage' class='pageIndex' onclick='goTo(\"LastPage\")'>»</a>";
+	    //tmp += "<ul class='pagination'>";
+	    //tmp+="<li><a href='#' id='firstPage' onclick='goTo(\"FirstPage\")'>«</a></li>"
+	    //tmp += "<li><a href='#' id='previousPage' onclick='goTo(\"PreviousPage\")'>‹</a></li>";
+	    //for (var i = 1; i <= numberOfPage; ++i)
+	    //	tmp += "<li><a href='#' id='page" + i + "' onclick=\"$('#cbbGoToPage').val('" + i + "').change()\">" + i + "</a></li>";
+	    //tmp += "<li><a href='#' id='nextPage' onclick='goTo(\"NextPage\")'>›</a></li>";
+	    //tmp += "<li><a href='#' id='lastPage' onclick='goTo(\"LastPage\")'>»</a></li>";
+        //tmp += "</ul>";
 	}
 	
-	if (numberOfPage > 1) tmp += "<span style='margin-left: 20px'>Đến trang <select id='cbbGoToPage' onchange='goToPage(this.value)' class='form-control' style='width:35%'>";
-	else tmp += "<span style='margin-left: 20px;display: none;'>Đến trang <select id='cbbGoToPage' onchange='goToPage(this.value)' class='form-control' style='width:35%'>";
+	if (numberOfPage > 1) tmp += "<span style='margin-left: 20px'>Đến trang <select id='cbbGoToPage' onchange='goToPage(this.value)'>";
+	else tmp += "<span style='margin-left: 20px;display: none;'>Đến trang <select id='cbbGoToPage' onchange='goToPage(this.value)'>";
 	for (var i = 1; i <= numberOfPage; ++i) tmp += "<option value=" + i + ">" + i + "</option>";
 	tmp += "</select><span>";
 	
@@ -98,7 +97,7 @@ function createLeftNavigator(){
 }
 
 function createRightNavigator(){
-	var tmp = "Số bản ghi mỗi trang <select id='cbbRecordPerPage' onchange='changeRecordPerPage(this.value)' class='form-control' style='width:auto'>";
+	var tmp = "Số bản ghi mỗi trang <select id='cbbRecordPerPage' onchange='changeRecordPerPage(this.value)'>";
 	tmp += "<option value='" + step + "'>" + step + "</option>"
 	for (var i = step*2; i <= TSMTPagingDataUsing.length + step; i+=step) tmp += "<option value=" + i + ">" + i + "</option>";
 	tmp += "</select>";
@@ -132,9 +131,9 @@ function goToPage(pageIndex){
 		for (var i = fromIndex; i < toIndex; ++i) t.append(showData(i+1, TSMTPagingDataUsing[i]));
 	}
 	
-	$("#page" + currentPageIndex).removeClass("active");
+	$("#page" + currentPageIndex).removeClass("pageActive");
 	currentPageIndex = pageIndex;
-	$("#page" + currentPageIndex).addClass("active");
+	$("#page" + currentPageIndex).addClass("pageActive");
 	
 	currentPageIndex < 3 ? $("#previousPage").hide() : $("#previousPage").show();
 	currentPageIndex == 1 ? $("#firstPage").hide() : $("#firstPage").show();

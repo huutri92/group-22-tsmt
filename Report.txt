@@ -12,7 +12,9 @@
 	- View Charity/AssignLodgetoCe, không load đc giá trị đã chọn, không check vào combobox khi đã chọn rồi
 	- Lấy tên Hội từ thiện và đợt thi trong view 
 	
-	ManageVolunteer chuyến sang href không chạy( Charity/ManageVolunteer/) ManageCandidate/AssignRoom/ ManageCandidate/AssignCar/
-	
-	Charity/ManageFunds Approve/Dennie funds ko chạy
+	---Volunteer---
+		+ ManageVolunteer chuyến sang href không chạy( Charity/ManageVolunteer/) ManageCandidate/AssignRoom/ ManageCandidate/AssignCar/
+		+ ManageLodge ApproveLodge, DenieLodge
+		+ Charity/ManageFunds Approve/Dennie funds ko chạy
+		
 	Unfinish: ManageLodge, ManageCar, Manage
