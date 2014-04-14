@@ -67,7 +67,7 @@
             if (roomId != "") {
                 eId = parseInt(document.getElementById("qwe").value);
                 $.ajax({
-                    url: 'AssignLodgetoCeC',
+                    url: '/Charity/AssignLodgetoCeC',
                     data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
                     type: 'POST',
                     success: function (results) {
