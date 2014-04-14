@@ -29,7 +29,7 @@
         }
         else {
             $.ajax({
-                url: 'ResultAjax',
+                url: '/Sponsor/ResultAjax',
                 data: { "id": id },
                 type: 'GET',
                 success: function (results) {
@@ -45,14 +45,13 @@
         }
     }
 
-
     function callAjaxCharityid(id) {
         if (id == 0) {
             $("#charityid").html("");
         }
         else {
             $.ajax({
-                url: 'ResultAjaxCharityid',
+                url: '/Sponsor/ResultAjaxCharityid',
                 data: { "id": id },
                 type: 'GET',
                 success: function (results) {

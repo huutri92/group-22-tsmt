@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <link href="/Content/css/TSMTPopup.css" rel="stylesheet">
 <script src="/Content/js/TSMTPopup.js"></script>
 
@@ -25,8 +24,6 @@
 }
 @Html.Partial("_SponsorSidebarPartial")
 
-
-
 <div class="col-md-9">
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
@@ -42,11 +39,15 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="notsponsored">
-                        <div id="showMessage" class="alert alert-danger fade in" style="display: none">
-                            @*<button type="button" class="close" data-dismiss="alert">×</button>*@
-                            <strong>Bạn không có xe để tài trợ!</strong> Bạn hãy nhấn vào nút "Tạo mới" để tạo mới xe cho mình.
+                        @if (Model.Count(r=>r.CharityExamID==null) == 0) // has no car.
+                        {
+                        <div id="showMessage" class="alert alert-danger fade in">
+                            <strong>Bạn không có xe để tài trợ!</strong> Hãy nhấn vào nút "Tạo mới" để tạo mới xe.
                         </div>
-                        <table class="table table-hover" id="showdata">
+                        }
+                        else // has cars.
+                        {
+                            <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -58,8 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ((Model.Count(r => r.CharityExamID == null) > 0))
-                                {
+                                @{
                                     int counter = 1;
 
                                     foreach (var car in ViewData["CarNotSponsored"] as IEnumerable<Car>)
@@ -71,9 +71,9 @@
                                         <td>@car.DriverName</td>
                                         <td>@car.DriverPhone</td>
                                         <td>
-                                            <a href="@Url.Action("EditCarNotCe", "Sponsor", new { carId = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                            <a href="@Url.Action("EditCar", "Sponsor", new { carId = @car.CarID })" class="btn-u btn-u-red" title="Tài Trợ"><i class="icon-heart"></i></a>
-                                            @Html.ActionLink("Xóa Xe", "DeleteCar", new { carId = @car.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" })
+                                            <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
+                                            <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-red" title="Tài Trợ"><i class="icon-heart"></i></a>
+                                            @Html.ActionLink("Xóa Xe", "DeleteCar", new { id = @car.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" })
                                         </td>
 
 
@@ -83,13 +83,18 @@
                                 }
                             </tbody>
                         </table>
+                        }
                     </div>
                     <div class="tab-pane" id="sponsored">
-                        <div id="showMessage1" class="alert alert-danger fade in" style="display: none">
-                            @*<button type="button" class="close" data-dismiss="alert">×</button>*@
+                        @if ((Model.Count(r => r.CharityExamID != null) == 0)) // no car sponsored.
+                        {
+                        <div id="showMessage1" class="alert alert-danger fade in">
                             <strong>Bạn chưa tài trợ xe nào!</strong>
                         </div>
-                        <table class="table table-hover" id="showdata1">
+                        }
+                        else
+                        {
+                            <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -102,18 +107,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ((Model.Count(r => r.CharityExamID != null) == 0))
-                                {
-                                    <text>
-                                            <script type="text/javascript">
-                                                document.getElementById("showdata1").style.display = "none";
-                                                document.getElementById("showMessage1").style.display = "block";
-                                                document.getElementById("showMessage1").style.display = "none";
-                                            </script>
-                                    </text>
-                                }
-                                else
-                                {
+                                @{
                                     int count = 1;
 
                                     foreach (var item in ViewData["CarSponsored"] as IEnumerable<Car>)
@@ -134,9 +128,8 @@
                                         {
                                             <td><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td>
-                                                <a href="@Url.Action("EditCarNotCe", "Sponsor", new { carId = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                                @*@Html.ActionLink("Hủy tài Trợ", "DenieCar", new { carId = @item.CarID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chiếc xe này?', this.href);" })*@
-                                                <a href="@Url.Action("DenieCar","Sponsor")" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
+                                                <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
+                                                <a href="@Url.Action("DenieCar", "Sponsor", new { id = @item.CarID })" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
                                             </td>
                                         }
                                     </tr>
@@ -145,25 +138,16 @@
                                 }
                             </tbody>
                         </table>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @*@Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("Index","Sponsor")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a>
-    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"   id="sponsoredcar" style="float: right"><i class="icon-heart"></i>&nbsp;Tài trợ nhiều xe</a>
-    
+    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a>
+    @if ((Model.Count(r => r.CharityExamID == null) > 1)) // has some cars free.
+    {
+    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"  id="sponsoredcar" style="float: right"><i class="icon-heart"></i>&nbsp;Tài trợ nhiều xe</a>
+    }
 </div>
-
-
-@if ((Model.Count(r => r.CharityExamID == null) == 0))
-{
-<text>
-    <script type="text/javascript">
-        document.getElementById("showdata").style.display = "none";
-        document.getElementById("showMessage").style.display = "block";
-        document.getElementById("sponsoredcar").style.display = "none";
-    </script>
-</text>
-}

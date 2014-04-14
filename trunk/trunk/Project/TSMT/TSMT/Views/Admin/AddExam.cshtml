@@ -19,18 +19,15 @@
 }
 @Html.Partial("_AdminSidebarPartial")
 
-
-<div class="col-md-9">
-    <div class="panel panel-red margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo đợt thi
-            </h3>
-        </div>
-        <div class="panel-body">
-
-            @using (Html.BeginForm("AddExam", "Admin", FormMethod.Post))
+@using (Html.BeginForm("AddExam", "Admin", FormMethod.Post))
             {
-    
+    <div class="col-md-9">
+        <div class="panel panel-red margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Tạo đợt thi
+                </h3>
+            </div>
+            <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
                         <td>Tên đợt thi</td>
@@ -39,20 +36,61 @@
                     </tr>
                     <tr>
                         <td>Ngày bắt đầu</td>
-                        <td>
-                            <input type="date" name="BeginDate" class="form-control" /></td>
+                        <td>Ngày
+                            <select id="beginDay" onchange="changeDay(this.value)"></select>
+                            Tháng
+                            <select id="beginMonth" onchange="changeMonth('beginDay', this.value)">
+                                @for (int i = 1; i <= 12; ++i)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                            Năm @DateTime.Now.Year
+                        </td>
                     </tr>
                     <tr>
                         <td>Ngày kết thúc</td>
                         <td>
-                            <input type="date" name="EndDate" class="form-control" /></td>
+                            <span id="displayEndDay"></span>
+                            <input type="hidden" id="EndDay" name="EndDay"/>
+                        </td>
                     </tr>
                 </table>
-            }
-
+            </div>
         </div>
-    </div>
-    <input type="submit" value="Tạo" class="btn btn-info" />
-    <input type="reset" value="Làm lại" class="btn btn-info" />
+        <input type="submit" value="Tạo" class="btn btn-info" />
+        <input type="reset" value="Làm lại" class="btn btn-info" />
     <a href="@Url.Action("ManageExam", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
-</div>
+    </div>
+}
+<script type="text/javascript">
+    function changeMonth(id, month) {
+        var n = new Date(@DateTime.Now.Year, month, 0).getDate();
+        var days = $("#" + id)[0];
+        var currentDay = days.selectedIndex;
+        $(days).empty();
+        for (var i = 1; i <= n; ++i){
+            $(days).append('<option value="' + i + '">' + i + '</option>');
+        }
+        if (days.options[currentDay] == null){
+            days.selectedIndex = 0;
+        } else {
+            days.selectedIndex = currentDay;
+        }
+        days.onchange();
+    }
+
+    function changeDay(day){
+        var endDay = addDays(new Date(@DateTime.Now.Year, $("#beginMonth")[0].value-1, day), 2);
+        $("#displayEndDay").text("Ngày " + endDay.getDate() + " Tháng " + (endDay.getMonth()+1) + " Năm " + endDay.getFullYear());
+        $("#EndDay").val((endDay.getMonth()+1) + "/" + endDay.getDate() + "/" + endDay.getFullYear());
+    }
+
+    function addDays(dayFrom, days) {
+        return new Date(dayFrom.getTime() + days*24*60*60*1000);
+    }
+
+    $(document).ready(function(){
+        $("#beginMonth")[0].onchange();
+    });
+</script>

@@ -32,20 +32,18 @@ function putMarker(lat, lng) {
     map.setCenter(thePosition);
     if (!marker) { createMarker(thePosition) }
     else { marker.setPosition(thePosition) }
-
-    // show guide move marker.
-    document.getElementById("guideMove").style.visibility = "visible";
 }
 
 function useSuggestion(address, lat, lng) { // only go to the address and do nothing else.
     document.getElementById("Address").value = address;
-    if (marker) { marker.setVisible(true) }
+    marker.setVisible(true);
 
     // record the position of the current input.
     addressLat = lat;
     addressLng = lng;
 
     putMarker(lat, lng);
+    $("#suggest").slideUp();
 }
 
 function getAddressSuggested(address_components) {
@@ -77,32 +75,36 @@ function getAddressSuggested(address_components) {
     return address;
 }
 
-function showSuggestions(formattedAddress, lat, lng) {
-    var tmp = "<a href='#' onclick='useSuggestion(\"" + formattedAddress
-                              + "\", \"" + lat + "\", \"" + lng + "\")'>" + formattedAddress + "</a></br>";
-    document.getElementById("suggest").innerHTML += tmp;
+function showSuggestions(content) {
+    var suggest = $("#suggest");
+    $(suggest).empty();
+    $(suggest).hide();
+    suggest.append(content);
+    $(suggest).slideDown();
 }
 
 function getSuggestions(results, hasOnlyOneSuggestion, goThereAnyway) {
-    if (hasOnlyOneSuggestion) {
-        var formattedAddress = getAddressSuggested(results[0].address_components);
-        var lat = results[0].geometry.location.k;
-        var lng = results[0].geometry.location.A;
+    //if (hasOnlyOneSuggestion) {
+    //    var formattedAddress = getAddressSuggested(results[0].address_components);
+    //    var lat = results[0].geometry.location.k;
+    //    var lng = results[0].geometry.location.A;
 
-        if (goThereAnyway) { useSuggestion(formattedAddress, lat, lng) }
-        else { showSuggestions(formattedAddress, lat, lng) }
-    } else {
-        if (marker) { marker.setVisible(false) } // hide marker.
-
+    //    if (goThereAnyway) { useSuggestion(formattedAddress, lat, lng) }
+    //    else {
+    //        showSuggestions("<a href='#' onclick='useSuggestion(\"" + formattedAddress + "\", \"" + lat + "\", \"" + lng + "\")'>" + formattedAddress + "</a></br>");
+    //    }
+    //} else {
+        marker.setVisible(false); // hide marker.
+        var tmp = "";
         // create content of new suggestions.
         for (var i = 0; i < results.length; ++i) {
             var formattedAddress = getAddressSuggested(results[i].address_components);
             var lat = results[i].geometry.location.k;
             var lng = results[i].geometry.location.A;
-
-            showSuggestions(formattedAddress, lat, lng);
+            tmp += "<a href='#' onclick='useSuggestion(\"" + formattedAddress + "\", \"" + lat + "\", \"" + lng + "\")'>" + formattedAddress + "</a></br>";
         }
-    }
+        showSuggestions(tmp);
+    //}
 }
 
 function goThere() {
@@ -111,17 +113,9 @@ function goThere() {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             var hasOnlyOneSuggestion = results.length == 1;
-            if (results.length == 1) {
-                document.getElementById("guideSuggest").style.visibility = "hidden";
-                document.getElementById("suggest").innerHTML = "";
-            } else {
-                document.getElementById("guideMove").style.visibility = "hidden";
-                document.getElementById("guideSuggest").style.visibility = "visible";
-                document.getElementById("suggest").innerHTML = "";
-            }
             getSuggestions(results, hasOnlyOneSuggestion, hasOnlyOneSuggestion);
         } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            console.log("Geocode was not successful for the following reason: " + status);
         }
     });
 }
@@ -138,12 +132,9 @@ function createMarker(pos) {
     google.maps.event.addDomListener(marker, 'dragend', function () {
         geocoder.geocode({ 'latLng': this.getPosition() }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                document.getElementById("guideMove").style.visibility = "visible";
-                document.getElementById("guideSuggest").style.visibility = "visible";
-                document.getElementById("suggest").innerHTML = "";
                 getSuggestions(results, true, false);
             } else {
-                alert("Geocoder failed due to: " + status);
+                console.log("Geocoder failed due to: " + status);
             }
         })
     });
@@ -152,8 +143,13 @@ function createMarker(pos) {
 function PrepareDataToSubmit() {
     var address = document.getElementById("Address").value;
 
+    if (marker.getVisible() == false || address == "") {
+        showPopup("Bạn chưa chọn địa điểm. Hãy sử dụng những gợi ý phía dưới ô nhập địa chỉ, hoặc di chuyển ghim đánh dấu.");
+        return false;
+    }
+
     if (addressLat != marker.getPosition().lat() || addressLng != marker.getPosition().lng()) {
-        showPopup("Are you sure the map is correct?");
+        showPopup("Toạ độ đánh dấu không trùng khớp với địa chỉ đã nhập, bạn có muốn lưu bản đồ này?");
         return false;
     }
 

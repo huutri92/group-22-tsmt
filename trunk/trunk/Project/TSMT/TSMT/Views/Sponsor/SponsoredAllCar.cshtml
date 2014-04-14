@@ -6,6 +6,8 @@
 }
 
 <script type="text/javascript" src="~/Content/js/jquery.js"></script>
+<link href="/Content/css/TSMTPopup.css" rel="stylesheet">
+<script src="/Content/js/TSMTPopup.js"></script>
 <script type="text/javascript">
     function callAjax(id) {
         if (id == 0) {
@@ -52,8 +54,6 @@
         }
     }
 
-
-
     $(document).ready(function () {
         $("#saveall").click(function () {
             var ceId;
@@ -72,14 +72,18 @@
                     type: 'POST',
                     success: function (results) {
                         window.location.assign("@Url.Content("~/Sponsor/ManageCar")");
-
                     }
                 });
                 } else {
                     ceId = 0;
-                    alert("Không có xe nào được chọn.");
+                    return showPopup('Bạn hãy chọn xe để tài trợ.');
                 }
+        });
 
+        $('.popup-confirm').click(function (e) {
+            e.stopPropagation();
+            $('#dialog-overlay, #dialog-box').fadeOut("fast");
+            return false;
         });
     });
 

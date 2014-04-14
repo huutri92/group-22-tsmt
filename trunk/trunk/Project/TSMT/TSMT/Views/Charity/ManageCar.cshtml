@@ -28,6 +28,7 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })">Đợt thi</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -55,12 +56,12 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
-                        <table class="table table-hover">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Biển số xe</th>
-                                    <th>Tổng số chỗ</th>
+                                    <th>Số chỗ</th>
                                     <th>Số chỗ còn trống</th>
                                     <th>Thao tác</th>
                                 </tr>
@@ -73,12 +74,12 @@
                                     foreach (var car in ViewData["carsOfCharity"] as IEnumerable<Car>)
                                     {                   
                                         <tr id ="@car.CarID">
-                                            <td>@counter</td>
-                                            <td>@car.NumberPlate</td>
-                                            <td>@car.TotalSlots</td>
-                                            <td>@car.AvailableSlots</td>
+                                            <td style="vertical-align:middle">@counter</td>
+                                            <td style="vertical-align:middle">@car.NumberPlate</td>
+                                            <td style="vertical-align:middle">@car.TotalSlots</td>
+                                            <td style="vertical-align:middle">@car.AvailableSlots</td>
 
-                                            <td>
+                                            <td style="vertical-align:middle">
                                                 @if (car.ExaminationsPapers.Count > 0)
                                                 {
                                     
@@ -106,23 +107,27 @@
                                                 ++counter;
                                     }
                                 }
-                                <tr>
-                                    <td>Tổng số xe: </td>
-                                    <td>@Model.Cars.Count(r => r.SponsorID == null)</td>
-                                    <td>Tổng số chỗ: </td>
-                                    <td>@SlotNoAvai/@SlotNo</td>
+                                
+                                <tr style="background-color:black;color:white;">
+                                    <td colspan="5">Danh sách này hiện có @Model.Cars.Count(r => r.SponsorID == null) xe với tổng số chỗ còn trống <span>@SlotNoAvai/@SlotNo</span> </td>
+                                    @*<td style="vertical-align:middle;color:yellow"><b>Thống kê</b></td>
+                                    <td style="vertical-align:middle"><u>Tổng số xe:</u></td>
+                                    <td style="vertical-align:middle">@Model.Cars.Count(r => r.SponsorID == null)</td>
+                                    <td style="vertical-align:middle"><u>Tổng số chỗ:</u></td>
+                                    <td style="vertical-align:middle">@SlotNoAvai/@SlotNo</td>
+                                    *@
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="sponsored">
-                        <table class="table table-hover">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Sponsor</th>
                                     <th>Biển số xe</th>
-                                    <th>Tổng số chỗ</th>
+                                    <th>Số chỗ</th>
                                     <th>Số chỗ còn trống</th>
                                     <th>Trạng thái</th>
                                     <th>Thao tác</th>
@@ -174,7 +179,6 @@
                                                     @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })
                                                     @Html.ActionLink("Approve", "ApproveCar", new { id = @item.CarID }, new { onclick = "return callAjaxApprove(" + @item.CarID + ")" })
                                                     @Html.ActionLink("Denie", "DenieCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.CarID + ", 'remove' );" })*@
-                                                   
                                                 </td>
                                             }
                                         </tr>
@@ -187,7 +191,7 @@
                                             ++count;
                                     }
                                 }
-                                <tr>
+                                <tr style="background-color:black;color:white;">
                                     <td>Tổng số xe: </td>
                                     <td>@Model.Cars.Count(c => c.SponsorID != null && c.IsApproved == true)</td>
                                     <td>Tổng số chỗ: </td>
@@ -219,7 +223,7 @@
 
     function callAjaxApprove(carId) {
         $.ajax({
-            url: 'ApproveCar/' + carId,
+            url: '/Charity/ApproveCar/' + carId,
             type: 'GET',
             success: function (results) {
                 var tr = document.getElementById(carId);
@@ -243,7 +247,7 @@
 
 
         $.ajax({
-            url: 'DeleteCar/' + carId,
+            url: '/Charity/DeleteCar/' + carId,
             type: 'GET',
             success: function (results) {
                 $("#" + carId).hide(800, function () {
@@ -259,7 +263,7 @@
 
 
         $.ajax({
-            url: 'DenieCar/' + carId,
+            url: '/Charity/DenieCar/' + carId,
             type: 'GET',
             success: function (results) {
                 $("#" + carId).hide(800, function () {
@@ -274,7 +278,7 @@
 
 
         $.ajax({
-            url: 'RemoveCar/' + carId,
+            url: '/Charity/RemoveCar/' + carId,
             type: 'GET',
             success: function (results) {
                 $("#" + carId).hide(800, function () {
@@ -287,7 +291,7 @@
 
     function callAjaxRemoveOutCe(carId) {
         $.ajax({
-            url: 'RemoveCarOutOfCe/' + carId,
+            url: '/Charity/RemoveCarOutOfCe/' + carId,
             type: 'GET',
             success: function (results) {
                 $("#" + carId).hide(800, function () {

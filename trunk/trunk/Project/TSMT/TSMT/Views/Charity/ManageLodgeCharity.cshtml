@@ -94,7 +94,7 @@
                                         <a href="@Url.Action("AssignLodgetoCe", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>
                                         @if (item.TotalSlotsInUsed == item.AvailableSlots)
                                         { 
-                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Are you sure to delete it?', this.href, @item.LodgeID , 'del' );"><i class="icon-remove-sign"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="icon-remove-sign"></i></a>
                                         }
                                     </td>
                                 </tr>

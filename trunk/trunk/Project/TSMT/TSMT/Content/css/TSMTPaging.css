@@ -9,21 +9,25 @@
 	background: none;
 }
 .pageIndex{
-	padding:0 3px;
+	padding:5px 10px;
 	border:1px solid gray;
 	color:black;
-	text-decoration:none
+	text-decoration:none;
 }
 .pageIndex:hover{
-	color:red;
-	background: yellow;
+	color:white;
+	background: green;
+    text-decoration:none;
 }
 .pageActive{
-	background: cyan;
+    background: cyan;
 }
 #leftNavigator{
 	float:left
 }
 #rightNavigator{
 	float:right
+}
+#cbbGoToPage, #cbbRecordPerPage{
+    padding:5px 10px;
 }

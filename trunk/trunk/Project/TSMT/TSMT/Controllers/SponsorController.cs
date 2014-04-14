@@ -399,9 +399,9 @@ namespace TSMT.Controllers
                 db.SaveChanges();
             }
         }
-        public ActionResult DeleteCar(int carId)
+        public ActionResult DeleteCar(int id)
         {
-            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
 
             //ChairitiesExam ce = car.ChairitiesExam;
             //ce.TotalSlotsVehicles -= car.TotalSlots;
@@ -411,18 +411,18 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageCar");
         }
-        public ActionResult DenieCar(int carId)
+        public ActionResult DenieCar(int id)
         {
-            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
             car.CharityExamID = null;
             car.CharityID = null;
             db.SaveChanges();
             return RedirectToAction("ManageCar");
         }
 
-        public ActionResult EditCarNotCe(int carId)
+        public ActionResult EditCarNotCe(int id)
         {
-            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
             return View(car);
         }
         [HttpPost]
@@ -440,9 +440,9 @@ namespace TSMT.Controllers
             return RedirectToAction("ManageCar");
         }
 
-        public ActionResult EditCar(int carId)
+        public ActionResult EditCar(int id)
         {
-            Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
+            Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
             ViewData["CE"] = db.ChairitiesExams.ToList();
             ViewData["Exam"] = db.Examinations.ToList();
             return View(car);
