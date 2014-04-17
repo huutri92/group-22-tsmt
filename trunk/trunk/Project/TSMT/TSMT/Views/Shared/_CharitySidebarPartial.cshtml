@@ -30,6 +30,8 @@
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
+                 <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="icon-key"></i>Quản lý xe</a></li>
+                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="icon-building"></i>Quản lý chỗ trọ</a></li>
                 @*<li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Khu vực Hội từ thiện</a></li>*@
                 <li id="cssmenu" class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")">
                     <a href="@Url.Action("ManageCharityExam", "Charity")" style="width:212px"><i class="icon-calendar"></i>Quản lý thông tin kỳ thi</a>
@@ -76,8 +78,7 @@
                     </ul>
                 </li>
                 @*<li class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="icon-calendar"></i>Các đợt thi</a>*@
-                <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="icon-key"></i>Quản lý xe</a></li>
-                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="icon-building"></i>Quản lý chỗ trọ</a></li>
+               
             </ul>
         </div>
     </div>
