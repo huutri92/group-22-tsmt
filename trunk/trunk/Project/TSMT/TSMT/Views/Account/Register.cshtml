@@ -45,7 +45,7 @@
                     <div class="bg-light">
                         <h4>1. <i class="icon-user"></i>Thông tin tài khoản</h4>
                         <div class="margin-bottom-1">
-                            <label>Email</label>
+                            <label>Email<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
                             <span class="input-group-addon"><i class="icon-envelope"></i></span>
@@ -61,14 +61,14 @@
 
                         </div>
                         <div class="margin-bottom-1">
-                            <label>Mật khẩu</label>
+                            <label>Mật khẩu<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
                             <span class="input-group-addon"><i class="icon-lock"></i></span>
                             <input id="password" name="password" type="password" class="form-control" placeholder="Mật khẩu">
                         </div>
                         <div class="margin-bottom-1">
-                            <label>Xác thực mật khẩu</label>
+                            <label>Xác thực mật khẩu<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
                             <span class="input-group-addon"><i class="icon-key"></i></span>
@@ -83,7 +83,7 @@
                         <div class="row margin-bottom-5">
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Họ</label>
+                                    <label>Họ<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="icon-envelope"></i></span>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Tên</label>
+                                    <label>Tên<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
@@ -101,12 +101,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Giới tính</label>
+                                    <label>Giới tính<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon" style="display: none"><i class="icon-female"></i></span>
                                     <span class="input-group-addon" style="display: none"><i class="icon-male"></i></span>
-                                    <select id="gender" name="gender" class="form-contrl" style="width:auto">
+                                    <select id="gender" name="gender" class="form-contrl" style="width: auto">
                                         <option value="True">Nữ</option>
                                         <option value="False">Nam</option>
                                     </select>
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Ngày sinh</label>
+                                    <label>Ngày sinh<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     @*use jquery date picker*@
@@ -124,7 +124,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Số điện thoại</label>
+                                    <label>Số điện thoại<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="margin-bottom-1">
-                                    <label>Địa chỉ</label>
+                                    <label>Địa chỉ<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="icon-key"></i></span>
@@ -142,10 +142,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Tỉnh/Thành phố</label>
+                                    <label>Tỉnh/Thành phố<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <select id="province" name="province" class="form-control" onchange="callAjax(this.value)" style="width:auto">
+                                    <select id="province" name="province" class="form-control" onchange="callAjax(this.value)" style="width: auto">
                                         <option value="0" selected>Tỉnh/Thành phố</option>
                                         @foreach (var item in (List<Province>)ViewData["provinces"])
                                         {
@@ -154,16 +154,19 @@
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Quận/Huyện</label>
+                                    <label>Quận/Huyện <span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <select id="district" name="district" class="form-control" style="width:auto">
+                                    <select id="district" name="district" class="form-control" style="width: auto">
                                         <option value="0" selected>Quận/Huyện</option>
                                     </select>
                                 </div>
                             </div>
+                            
+
                         </div>
                     </div>
                 </div>
@@ -173,11 +176,11 @@
                     <div class="bg-light">
                         <h4>3. <i class="icon-info"></i>Thông tin riêng </h4>
                         <div class="margin-bottom-1">
-                            <label>Bạn là:</label>
+                            <label>Bạn là: <span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
                             <span class="input-group-addon"><i class="icon-user"></i></span>
-                            <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width:auto">
+                            <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width: auto">
                                 <option value="null">----</option>
                                 @foreach (var item in (List<Role>)ViewData["roles"])
                                 {
@@ -215,7 +218,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="bg-light">
-                        <h4>4. <i class="icon-picture"></i>Captcha </h4>
+                        <h4>4. <i class="icon-picture"></i>Captcha <span style="color: red">&nbsp;*</span> </h4>
                         <div class="margin-bottom-1">
                             <label>Kết quả của phép toán trong hình là</label>
                         </div>
@@ -229,18 +232,21 @@
                 </div>
             </div>
             <hr>
-            <label class="checkbox">
+            @*    <label class="checkbox">
                 <input type="checkbox">
                 <p>I read <a target="_blank" href="page_terms.html">Terms and Conditions</a></p>
-            </label>
-
+            </label>*@
+            <div class="col-md-12">
+                <span style="color:red">*</span> bắt buộc phải điền
+            </div>
             <div class="row margin-bottom-1">
                 <div class="col-md-3"></div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn-u btn-u-blue btn-block" name="submit" value="Submit">&nbsp;Đăng ký</button>
-                </div>
+                
                 <div class="col-md-2">
                     <button type="button" class="btn-u btn-u-red btn-block" value="Reset">&nbsp;Đặt lại</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn-u btn-u-blue btn-block" name="submit" value="Submit">&nbsp;Đăng ký</button>
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn-u btn-u-default btn-block">&nbsp;Hủy đăng ký</button>
