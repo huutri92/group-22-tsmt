@@ -2,7 +2,24 @@
 @model TSMT.Models.Car
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thay đổi thông tin xe";
 }
+
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("ManageCar", "Sponsor")">Quản Lý Xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
 @Html.Partial("_CharitySidebarPartial")
 <h2 class="title_of_page">Chỉnh sửa xe</h2>
 @using (Html.BeginForm("EditCar", "Charity", FormMethod.Post))

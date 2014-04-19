@@ -78,7 +78,7 @@
                     </ul>
                 </li>
                 @*<li class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="icon-calendar"></i>Các đợt thi</a>*@
-               
+                <li class="@(ViewBag.Active == "ViewCharityStatistics" ? "active" : "")"><a href="@Url.Action("ViewStatistics", "Charity")"><i class="icon-calendar"></i>Xem thống kê</a>
             </ul>
         </div>
     </div>
