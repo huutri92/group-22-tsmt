@@ -21,11 +21,10 @@ namespace TSMT.Models
     
         public int UniversityID { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
         public string UniversityCode { get; set; }
+        public string Address { get; set; }
         public string Website { get; set; }
-        public Nullable<double> Phone { get; set; }
-        public bool IsRemovable { get; set; }
+        public string Phone { get; set; }
     
         public virtual ICollection<UniversitiesExamination> UniversitiesExaminations { get; set; }
     }

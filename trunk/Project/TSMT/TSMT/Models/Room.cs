@@ -27,6 +27,7 @@ namespace TSMT.Models
         public Nullable<bool> Gender { get; set; }
         public Nullable<int> CharityExamID { get; set; }
     
+        public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual Lodge Lodge { get; set; }
     }

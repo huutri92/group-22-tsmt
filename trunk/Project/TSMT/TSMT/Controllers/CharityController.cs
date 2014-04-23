@@ -81,7 +81,6 @@ namespace TSMT.Controllers
                 var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
                 foreach (Room room in rooms)
                 {
-                    lodge.TotalRooms -= 1;
                     lodge.TotalSlots -= room.TotalSlots;
                     lodge.AvailableSlots -= room.AvailableSlots;
 
@@ -525,7 +524,6 @@ namespace TSMT.Controllers
             lodge.Latitude = f["Latitude"];
             lodge.Address = f["Address"];
             lodge.CharityID = int.Parse(f["ceId"]);
-            lodge.TotalRooms = 0;
             lodge.TotalSlots = 0;
             lodge.AvailableSlots = 0;
             lodge.TotalSlotsInUsed = 0;
@@ -827,7 +825,6 @@ namespace TSMT.Controllers
             room.AvailableSlots = room.TotalSlots;
 
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
-            lodge.TotalRooms += 1;
             lodge.TotalSlots += room.TotalSlots;
             lodge.AvailableSlots += room.TotalSlots;
             lodge.TotalSlotsInUsed += room.TotalSlots;
@@ -847,7 +844,6 @@ namespace TSMT.Controllers
             int lodgeId = room.LodgeID;
 
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
-            lodge.TotalRooms -= 1;
             lodge.TotalSlots -= room.TotalSlots;
             lodge.AvailableSlots -= room.AvailableSlots;
             lodge.TotalSlotsInUsed -= room.TotalSlots;
@@ -1046,7 +1042,6 @@ namespace TSMT.Controllers
             Fund fund = db.Funds.SingleOrDefault(r => r.FundID == id);
 
             //int ceId = lodge.CharityExamID;
-            fund.CharityExamID = null;
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
         }
@@ -1367,7 +1362,7 @@ namespace TSMT.Controllers
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             var cars = ce.Cars;
-            foreach (Car c in cars) { c.AvailableSlots = c.TotalSlots; c.LodgeID = null; }
+            foreach (Car c in cars) { c.AvailableSlots = c.TotalSlots;  }
 
             ParticipantVolunteer pe = new ParticipantVolunteer();
             var eps = ce.ExaminationsPapers;
@@ -1429,10 +1424,10 @@ namespace TSMT.Controllers
                 {
                     tmp = cs[j];
                     c2 = db.Cars.SingleOrDefault(r => r.CarID == tmp);
-                    if (c1.LodgeID != null && c2.LodgeID != null)
+                    if (c1.ExaminationsPapers.FirstOrDefault() != null && c2.ExaminationsPapers.FirstOrDefault() != null)
                     { if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cs, i, j); }
-                    else if (c1.LodgeID != null || c2.LodgeID != null)
-                    { if (c1.LodgeID == null) swapCar(cs, i, j); }
+                    else if (c1.ExaminationsPapers.FirstOrDefault() != null || c2.ExaminationsPapers.FirstOrDefault() != null)
+                    { if (c1.ExaminationsPapers.FirstOrDefault() == null) swapCar(cs, i, j); }
                     else if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cs, i, j);
                 }
             }
@@ -1441,7 +1436,7 @@ namespace TSMT.Controllers
         }
         protected List<int> getCars(int lodgeID, int ceID)
         {
-            List<int> cs = db.Cars.Where(r => r.CharityExamID == ceID && (r.LodgeID == null || r.LodgeID == lodgeID)).Select(r => r.CarID).ToList();
+            List<int> cs = db.Cars.Where(r => r.CharityExamID == ceID && (r.ExaminationsPapers.FirstOrDefault() == null || r.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID == lodgeID)).Select(r => r.CarID).ToList();
             return sortCars(cs, lodgeID);
         }
         protected bool v2c(List<ExaminationsPaper> eps, int lodgeID, int ceID)
@@ -1454,7 +1449,6 @@ namespace TSMT.Controllers
                 if (c.AvailableSlots >= eps.Count)
                 {
                     foreach (ExaminationsPaper ep in eps) ep.CarID = carID;
-                    c.LodgeID = lodgeID;
                     c.AvailableSlots -= eps.Count;
                     return true;
                 }
@@ -1686,8 +1680,7 @@ namespace TSMT.Controllers
             ParticipantVolunteer pe = db.ParticipantVolunteers.FirstOrDefault(s => s.ParticipantVolunteerID == pvId);
             if (pe != null)
             {
-                ViewData["StarEndPoint"] = pe.StartEndPoint;
-                ViewData["WayPoint"] = pe.WayPoint;
+                ViewData["WayPoint"] = pe.WayPoints;
                 ViewData["ScheduleId"] = pvId;
                 ViewData["WayPointEdit"] = "";
             }

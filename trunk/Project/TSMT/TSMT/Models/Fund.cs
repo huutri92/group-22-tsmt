@@ -16,9 +16,8 @@ namespace TSMT.Models
     {
         public int FundID { get; set; }
         public int SponsorID { get; set; }
-        public Nullable<int> CharityExamID { get; set; }
+        public int CharityExamID { get; set; }
         public double FundSponsored { get; set; }
-        public bool IsOnlineFunding { get; set; }
         public bool IsApproved { get; set; }
     
         public virtual ChairitiesExam ChairitiesExam { get; set; }

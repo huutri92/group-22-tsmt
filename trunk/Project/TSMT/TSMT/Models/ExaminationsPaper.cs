@@ -31,7 +31,6 @@ namespace TSMT.Models
         public Nullable<int> GroupID { get; set; }
         public Nullable<int> RoomID { get; set; }
         public Nullable<int> CarID { get; set; }
-        public bool IsApproved { get; set; }
         public Nullable<int> ParticipantVolunteerID { get; set; }
     
         public virtual Candidate Candidate { get; set; }

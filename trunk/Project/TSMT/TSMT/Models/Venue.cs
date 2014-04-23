@@ -16,18 +16,15 @@ namespace TSMT.Models
     {
         public Venue()
         {
-            this.Cars = new HashSet<Car>();
             this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
         }
     
         public int VenueID { get; set; }
         public int UniExamID { get; set; }
+        public string Address { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-        public string Address { get; set; }
-        public bool IsRemovable { get; set; }
     
-        public virtual ICollection<Car> Cars { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
         public virtual UniversitiesExamination UniversitiesExamination { get; set; }
     }

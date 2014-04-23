@@ -25,7 +25,6 @@ namespace TSMT.Models
         public string Name { get; set; }
         public System.DateTime BeginDate { get; set; }
         public System.DateTime EndDate { get; set; }
-        public bool IsRemovable { get; set; }
     
         public virtual ICollection<ChairitiesExam> ChairitiesExams { get; set; }
         public virtual ICollection<ScheduleExam> ScheduleExams { get; set; }

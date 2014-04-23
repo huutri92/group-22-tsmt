@@ -30,7 +30,6 @@ namespace TSMT.Models
         public bool IsActive { get; set; }
         public Nullable<int> ProfileID { get; set; }
         public int RoleID { get; set; }
-        public string Code { get; set; }
     
         public virtual Profile Profile { get; set; }
         public virtual Role Role { get; set; }

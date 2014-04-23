@@ -104,7 +104,6 @@ namespace TSMT.Controllers
             lodge.Latitude = f["Latitude"];
             lodge.Address = f["Address"];
             lodge.TotalSlotsInUsed = 0;
-            lodge.TotalRooms = 0;
             lodge.TotalSlots = 0;
             lodge.AvailableSlots = 0;
             db.Lodges.Add(lodge);
@@ -120,7 +119,6 @@ namespace TSMT.Controllers
             var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
             foreach (var room in rooms)
             {
-                lodge.TotalRooms -= 1;
                 lodge.TotalSlots -= room.TotalSlots;
                 lodge.AvailableSlots -= room.AvailableSlots;
                 lodge.TotalSlotsInUsed -= room.TotalSlots;
@@ -260,7 +258,6 @@ namespace TSMT.Controllers
             room.AvailableSlots = room.TotalSlots;
 
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
-            lodge.TotalRooms += 1;
             lodge.TotalSlots += room.TotalSlots;
             lodge.AvailableSlots += room.AvailableSlots;
             lodge.TotalSlotsInUsed += room.AvailableSlots;
@@ -278,7 +275,6 @@ namespace TSMT.Controllers
             Room room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
 
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
-            lodge.TotalRooms -= 1;
             lodge.TotalSlots -= room.TotalSlots;
             lodge.AvailableSlots -= room.AvailableSlots;
             lodge.TotalSlotsInUsed -= room.AvailableSlots;
@@ -496,7 +492,6 @@ namespace TSMT.Controllers
             //string s = f["FundSponsored"];
             //s.Replace(",", string.Empty);
             fund.FundSponsored = float.Parse(f["FundSponsored"]);
-            fund.IsOnlineFunding = bool.Parse(f["IsOnline"]);
             db.Funds.Add(fund);
             db.SaveChanges();
 
@@ -557,7 +552,6 @@ namespace TSMT.Controllers
                     fund.SponsorID = sp.SponsorID;
                     fund.CharityExamID = int.Parse(f["asd"]);
                     fund.FundSponsored = float.Parse(f["FundSponsored"]);
-                    fund.IsOnlineFunding = bool.Parse(f["IsOnline"]);
                     db.Funds.Add(fund);
                     break;
                 case 2:
@@ -581,7 +575,6 @@ namespace TSMT.Controllers
                     lodge.Address = f["Address"];
                     lodge.CharityExamID = int.Parse(f["asd"]);
                     lodge.CharityID = int.Parse(f["charityid"]);
-                    lodge.TotalRooms = int.Parse(f["TotalRooms"]);
                     lodge.TotalSlots = int.Parse(f["TotalSlotsL"]);
                     lodge.AvailableSlots = lodge.TotalSlots;
 
@@ -669,7 +662,6 @@ namespace TSMT.Controllers
                             value = r.LodgeID,
 
                             Address = r.Address,
-                            TotalRooms = r.TotalRooms,
                             TotalSlotsL = r.TotalSlots,
                         };
             return Json(lodge, JsonRequestBehavior.AllowGet);

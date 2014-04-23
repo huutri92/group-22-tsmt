@@ -23,7 +23,6 @@ namespace TSMT.Models
         public int UniExamID { get; set; }
         public int UniversityID { get; set; }
         public int ExaminationID { get; set; }
-        public bool IsRemovable { get; set; }
     
         public virtual Examination Examination { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
