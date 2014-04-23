@@ -17,8 +17,8 @@ namespace TSMT.Models
         public int ScheduleExamID { get; set; }
         public int ExamID { get; set; }
         public System.DateTime Day { get; set; }
-        public System.DateTime BeginHour { get; set; }
-        public System.DateTime EndHour { get; set; }
+        public System.DateTime BeginTime { get; set; }
+        public System.DateTime EndTime { get; set; }
     
         public virtual Examination Examination { get; set; }
     }

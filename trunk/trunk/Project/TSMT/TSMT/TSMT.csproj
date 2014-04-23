@@ -146,9 +146,6 @@
     <Compile Include="Models\Article.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ArticlesTag.cs">
-      <DependentUpon>TSMT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Candidate.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
@@ -2550,6 +2547,9 @@
     <Content Include="Views\Home\ViewPlaces.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Sponsor\SponsoredAllCar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
@@ -2569,9 +2569,6 @@
       <DependentUpon>TSMT.edmx</DependentUpon>
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Sponsor\SponsoredAllCar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

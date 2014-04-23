@@ -21,7 +21,6 @@ namespace TSMT.Models
     
         public int CandidateID { get; set; }
         public int AccountID { get; set; }
-        public string HighSchoolName { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }

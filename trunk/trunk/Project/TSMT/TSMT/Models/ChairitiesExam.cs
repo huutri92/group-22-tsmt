@@ -21,6 +21,7 @@ namespace TSMT.Models
             this.Funds = new HashSet<Fund>();
             this.Lodges = new HashSet<Lodge>();
             this.ParticipantVolunteers = new HashSet<ParticipantVolunteer>();
+            this.Rooms = new HashSet<Room>();
         }
     
         public int CharityExamID { get; set; }
@@ -30,7 +31,6 @@ namespace TSMT.Models
         public int AvailableSlotsLodges { get; set; }
         public int TotalSlotsVehicles { get; set; }
         public int AvailableSlotsVehicles { get; set; }
-        public string Description { get; set; }
     
         public virtual ICollection<Car> Cars { get; set; }
         public virtual Charity Charity { get; set; }
@@ -39,5 +39,6 @@ namespace TSMT.Models
         public virtual ICollection<Fund> Funds { get; set; }
         public virtual ICollection<Lodge> Lodges { get; set; }
         public virtual ICollection<ParticipantVolunteer> ParticipantVolunteers { get; set; }
+        public virtual ICollection<Room> Rooms { get; set; }
     }
 }

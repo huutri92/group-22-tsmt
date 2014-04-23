@@ -8,7 +8,6 @@
         <EntityContainer Name="TSMTModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="TSMTModel.Store.Accounts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Articles" EntityType="TSMTModel.Store.Articles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ArticlesTags" EntityType="TSMTModel.Store.ArticlesTags" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Candidates" EntityType="TSMTModel.Store.Candidates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cars" EntityType="TSMTModel.Store.Cars" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Categories" EntityType="TSMTModel.Store.Categories" store:Type="Tables" Schema="dbo" />
@@ -49,10 +48,6 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Articles" EntitySet="Articles" />
           </AssociationSet>
-          <AssociationSet Name="FK_ArticlesTags_Articles" Association="TSMTModel.Store.FK_ArticlesTags_Articles">
-            <End Role="Articles" EntitySet="Articles" />
-            <End Role="ArticlesTags" EntitySet="ArticlesTags" />
-          </AssociationSet>
           <AssociationSet Name="FK_Candidates_Accounts" Association="TSMTModel.Store.FK_Candidates_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Candidates" EntitySet="Candidates" />
@@ -61,16 +56,8 @@
             <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cars_Lodges" Association="TSMTModel.Store.FK_Cars_Lodges">
-            <End Role="Lodges" EntitySet="Lodges" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
           <AssociationSet Name="FK_Cars_Sponsors" Association="TSMTModel.Store.FK_Cars_Sponsors">
             <End Role="Sponsors" EntitySet="Sponsors" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cars_Venues" Association="TSMTModel.Store.FK_Cars_Venues">
-            <End Role="Venues" EntitySet="Venues" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
           <AssociationSet Name="FK_ChairitiesExams_Charities" Association="TSMTModel.Store.FK_ChairitiesExams_Charities">
@@ -185,6 +172,10 @@
             <End Role="Districts" EntitySet="Districts" />
             <End Role="Profiles" EntitySet="Profiles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Rooms_ChairitiesExams" Association="TSMTModel.Store.FK_Rooms_ChairitiesExams">
+            <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rooms_Lodges" Association="TSMTModel.Store.FK_Rooms_Lodges">
             <End Role="Lodges" EntitySet="Lodges" />
             <End Role="Rooms" EntitySet="Rooms" />
@@ -220,11 +211,10 @@
           </Key>
           <Property Name="AccountID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ProfileID" Type="int" />
           <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Articles">
           <Key>
@@ -241,21 +231,12 @@
           <Property Name="IsAprroved" Type="bit" Nullable="false" />
           <Property Name="Summary" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="ArticlesTags">
-          <Key>
-            <PropertyRef Name="ArticleTagID" />
-          </Key>
-          <Property Name="ArticleTagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleID" Type="int" Nullable="false" />
-          <Property Name="TagID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Candidates">
           <Key>
             <PropertyRef Name="CandidateID" />
           </Key>
           <Property Name="CandidateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AccountID" Type="int" Nullable="false" />
-          <Property Name="HighSchoolName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Cars">
           <Key>
@@ -271,8 +252,6 @@
           <Property Name="DriverPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="CharityID" Type="int" />
-          <Property Name="LodgeID" Type="int" />
-          <Property Name="VenueID" Type="int" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -292,7 +271,6 @@
           <Property Name="AvailableSlotsLodges" Type="int" Nullable="false" />
           <Property Name="TotalSlotsVehicles" Type="int" Nullable="false" />
           <Property Name="AvailableSlotsVehicles" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Charities">
           <Key>
@@ -300,9 +278,8 @@
           </Key>
           <Property Name="CharityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AccountID" Type="int" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" />
-          <Property Name="FullDescription" Type="nvarchar(max)" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -328,10 +305,9 @@
             <PropertyRef Name="ExaminationID" />
           </Key>
           <Property Name="ExaminationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="BeginDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
-          <Property Name="IsRemovable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ExaminationsPapers">
           <Key>
@@ -346,7 +322,6 @@
           <Property Name="GroupID" Type="int" />
           <Property Name="RoomID" Type="int" />
           <Property Name="CarID" Type="int" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="ParticipantVolunteerID" Type="int" />
         </EntityType>
         <EntityType Name="Funds">
@@ -355,9 +330,8 @@
           </Key>
           <Property Name="FundID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SponsorID" Type="int" Nullable="false" />
-          <Property Name="CharityExamID" Type="int" />
+          <Property Name="CharityExamID" Type="int" Nullable="false" />
           <Property Name="FundSponsored" Type="float" Nullable="false" />
-          <Property Name="IsOnlineFunding" Type="bit" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupRequest">
@@ -382,17 +356,16 @@
             <PropertyRef Name="LodgeID" />
           </Key>
           <Property Name="LodgeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="200" />
-          <Property Name="Longitude" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="Latitude" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="Longitude" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="SponsorID" Type="int" />
           <Property Name="CharityExamID" Type="int" />
-          <Property Name="TotalRooms" Type="int" Nullable="false" />
           <Property Name="TotalSlots" Type="int" Nullable="false" />
-          <Property Name="AvailableSlots" Type="int" Nullable="false" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="CharityID" Type="int" />
           <Property Name="TotalSlotsInUsed" Type="int" Nullable="false" />
+          <Property Name="AvailableSlots" Type="int" Nullable="false" />
+          <Property Name="CharityID" Type="int" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ParticipantVolunteer">
           <Key>
@@ -401,10 +374,9 @@
           <Property Name="ParticipantVolunteerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="VolunteerID" Type="int" Nullable="false" />
           <Property Name="CharityExamID" Type="int" Nullable="false" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="ExamPaperID" Type="int" />
-          <Property Name="StartEndPoint" Type="nvarchar(max)" />
-          <Property Name="WayPoint" Type="nvarchar(max)" />
+          <Property Name="WayPoints" Type="nvarchar(max)" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Profiles">
           <Key>
@@ -417,7 +389,7 @@
           <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="13" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="400" />
           <Property Name="DistrictID" Type="int" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="200" />
         </EntityType>
@@ -453,9 +425,9 @@
           </Key>
           <Property Name="ScheduleExamID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ExamID" Type="int" Nullable="false" />
-          <Property Name="Day" Type="datetime" Nullable="false" />
-          <Property Name="BeginHour" Type="datetime" Nullable="false" />
-          <Property Name="EndHour" Type="datetime" Nullable="false" />
+          <Property Name="Day" Type="date" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Sponsors">
           <Key>
@@ -470,11 +442,10 @@
           </Key>
           <Property Name="UniversityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Address" Type="nvarchar" MaxLength="150" />
-          <Property Name="UniversityCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="UniversityCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="400" />
           <Property Name="Website" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="float" />
-          <Property Name="IsRemovable" Type="bit" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="13" />
         </EntityType>
         <EntityType Name="UniversitiesExaminations">
           <Key>
@@ -483,7 +454,6 @@
           <Property Name="UniExamID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UniversityID" Type="int" Nullable="false" />
           <Property Name="ExaminationID" Type="int" Nullable="false" />
-          <Property Name="IsRemovable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Venues">
           <Key>
@@ -491,10 +461,9 @@
           </Key>
           <Property Name="VenueID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UniExamID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="400" />
           <Property Name="Longitude" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="Latitude" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="IsRemovable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Volunteers">
           <Key>
@@ -551,18 +520,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ArticlesTags_Articles">
-          <End Role="Articles" Type="TSMTModel.Store.Articles" Multiplicity="1" />
-          <End Role="ArticlesTags" Type="TSMTModel.Store.ArticlesTags" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Articles">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="ArticlesTags">
-              <PropertyRef Name="ArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Candidates_Accounts">
           <End Role="Accounts" Type="TSMTModel.Store.Accounts" Multiplicity="1" />
           <End Role="Candidates" Type="TSMTModel.Store.Candidates" Multiplicity="*" />
@@ -587,18 +544,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cars_Lodges">
-          <End Role="Lodges" Type="TSMTModel.Store.Lodges" Multiplicity="0..1" />
-          <End Role="Cars" Type="TSMTModel.Store.Cars" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lodges">
-              <PropertyRef Name="LodgeID" />
-            </Principal>
-            <Dependent Role="Cars">
-              <PropertyRef Name="LodgeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cars_Sponsors">
           <End Role="Sponsors" Type="TSMTModel.Store.Sponsors" Multiplicity="0..1" />
           <End Role="Cars" Type="TSMTModel.Store.Cars" Multiplicity="*" />
@@ -608,18 +553,6 @@
             </Principal>
             <Dependent Role="Cars">
               <PropertyRef Name="SponsorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cars_Venues">
-          <End Role="Venues" Type="TSMTModel.Store.Venues" Multiplicity="0..1" />
-          <End Role="Cars" Type="TSMTModel.Store.Cars" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Venues">
-              <PropertyRef Name="VenueID" />
-            </Principal>
-            <Dependent Role="Cars">
-              <PropertyRef Name="VenueID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -804,7 +737,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Funds_ChairitiesExams">
-          <End Role="ChairitiesExams" Type="TSMTModel.Store.ChairitiesExams" Multiplicity="0..1" />
+          <End Role="ChairitiesExams" Type="TSMTModel.Store.ChairitiesExams" Multiplicity="1" />
           <End Role="Funds" Type="TSMTModel.Store.Funds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ChairitiesExams">
@@ -959,6 +892,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Rooms_ChairitiesExams">
+          <End Role="ChairitiesExams" Type="TSMTModel.Store.ChairitiesExams" Multiplicity="0..1" />
+          <End Role="Rooms" Type="TSMTModel.Store.Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChairitiesExams">
+              <PropertyRef Name="CharityExamID" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="CharityExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rooms_Lodges">
           <End Role="Lodges" Type="TSMTModel.Store.Lodges" Multiplicity="1" />
           <End Role="Rooms" Type="TSMTModel.Store.Rooms" Multiplicity="*" />
@@ -1051,7 +996,6 @@
         <EntityContainer Name="TSMTEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="TSMTModel.Account" />
           <EntitySet Name="Articles" EntityType="TSMTModel.Article" />
-          <EntitySet Name="ArticlesTags" EntityType="TSMTModel.ArticlesTag" />
           <EntitySet Name="Candidates" EntityType="TSMTModel.Candidate" />
           <EntitySet Name="Cars" EntityType="TSMTModel.Car" />
           <EntitySet Name="Categories" EntityType="TSMTModel.Category" />
@@ -1112,10 +1056,6 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Articles" EntitySet="Articles" />
           </AssociationSet>
-          <AssociationSet Name="FK_ArticlesTags_Articles" Association="TSMTModel.FK_ArticlesTags_Articles">
-            <End Role="Articles" EntitySet="Articles" />
-            <End Role="ArticlesTags" EntitySet="ArticlesTags" />
-          </AssociationSet>
           <AssociationSet Name="FK_Comments_Articles" Association="TSMTModel.FK_Comments_Articles">
             <End Role="Articles" EntitySet="Articles" />
             <End Role="Comments" EntitySet="Comments" />
@@ -1128,16 +1068,8 @@
             <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cars_Lodges" Association="TSMTModel.FK_Cars_Lodges">
-            <End Role="Lodges" EntitySet="Lodges" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
           <AssociationSet Name="FK_Cars_Sponsors" Association="TSMTModel.FK_Cars_Sponsors">
             <End Role="Sponsors" EntitySet="Sponsors" />
-            <End Role="Cars" EntitySet="Cars" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cars_Venues" Association="TSMTModel.FK_Cars_Venues">
-            <End Role="Venues" EntitySet="Venues" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Cars" Association="TSMTModel.FK_ExaminationsPapers_Cars">
@@ -1167,6 +1099,10 @@
           <AssociationSet Name="FK_ParticipantVolunteer_ChairitiesExams" Association="TSMTModel.FK_ParticipantVolunteer_ChairitiesExams">
             <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
             <End Role="ParticipantVolunteer" EntitySet="ParticipantVolunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rooms_ChairitiesExams" Association="TSMTModel.FK_Rooms_ChairitiesExams">
+            <End Role="ChairitiesExams" EntitySet="ChairitiesExams" />
+            <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
           <AssociationSet Name="FK_Comments_Comments" Association="TSMTModel.FK_Comments_Comments">
             <End Role="Comments" EntitySet="Comments" />
@@ -1263,11 +1199,10 @@
           </Key>
           <Property Name="AccountID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ProfileID" Type="Int32" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Profile" Relationship="TSMTModel.FK_Accounts_Profiles" FromRole="Accounts" ToRole="Profiles" />
           <NavigationProperty Name="Role" Relationship="TSMTModel.FK_Accounts_Roles" FromRole="Accounts" ToRole="Roles" />
           <NavigationProperty Name="Articles" Relationship="TSMTModel.FK_Articles_Accounts" FromRole="Accounts" ToRole="Articles" />
@@ -1293,17 +1228,7 @@
           <Property Name="Summary" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Articles_Accounts" FromRole="Articles" ToRole="Accounts" />
           <NavigationProperty Name="Category" Relationship="TSMTModel.FK_Article_Category" FromRole="Articles" ToRole="Categories" />
-          <NavigationProperty Name="ArticlesTags" Relationship="TSMTModel.FK_ArticlesTags_Articles" FromRole="Articles" ToRole="ArticlesTags" />
           <NavigationProperty Name="Comments" Relationship="TSMTModel.FK_Comments_Articles" FromRole="Articles" ToRole="Comments" />
-        </EntityType>
-        <EntityType Name="ArticlesTag">
-          <Key>
-            <PropertyRef Name="ArticleTagID" />
-          </Key>
-          <Property Name="ArticleTagID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleID" Type="Int32" Nullable="false" />
-          <Property Name="TagID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Article" Relationship="TSMTModel.FK_ArticlesTags_Articles" FromRole="ArticlesTags" ToRole="Articles" />
         </EntityType>
         <EntityType Name="Candidate">
           <Key>
@@ -1311,7 +1236,6 @@
           </Key>
           <Property Name="CandidateID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="AccountID" Type="Int32" Nullable="false" />
-          <Property Name="HighSchoolName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Candidates_Accounts" FromRole="Candidates" ToRole="Accounts" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="Candidates" ToRole="ExaminationsPapers" />
         </EntityType>
@@ -1329,12 +1253,8 @@
           <Property Name="DriverPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="CharityID" Type="Int32" />
-          <Property Name="LodgeID" Type="Int32" />
-          <Property Name="VenueID" Type="Int32" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Cars_ChairitiesExams" FromRole="Cars" ToRole="ChairitiesExams" />
-          <NavigationProperty Name="Lodge" Relationship="TSMTModel.FK_Cars_Lodges" FromRole="Cars" ToRole="Lodges" />
           <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Cars_Sponsors" FromRole="Cars" ToRole="Sponsors" />
-          <NavigationProperty Name="Venue" Relationship="TSMTModel.FK_Cars_Venues" FromRole="Cars" ToRole="Venues" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="Cars" ToRole="ExaminationsPapers" />
         </EntityType>
         <EntityType Name="Category">
@@ -1356,7 +1276,6 @@
           <Property Name="AvailableSlotsLodges" Type="Int32" Nullable="false" />
           <Property Name="TotalSlotsVehicles" Type="Int32" Nullable="false" />
           <Property Name="AvailableSlotsVehicles" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Cars" Relationship="TSMTModel.FK_Cars_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Cars" />
           <NavigationProperty Name="Charity" Relationship="TSMTModel.FK_ChairitiesExams_Charities" FromRole="ChairitiesExams" ToRole="Charities" />
           <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_ChairitiesExams_Examinations" FromRole="ChairitiesExams" ToRole="Examinations" />
@@ -1364,6 +1283,7 @@
           <NavigationProperty Name="Funds" Relationship="TSMTModel.FK_Funds_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Funds" />
           <NavigationProperty Name="Lodges" Relationship="TSMTModel.FK_Lodges_ChairitiesExams1" FromRole="ChairitiesExams" ToRole="Lodges" />
           <NavigationProperty Name="ParticipantVolunteers" Relationship="TSMTModel.FK_ParticipantVolunteer_ChairitiesExams" FromRole="ChairitiesExams" ToRole="ParticipantVolunteer" />
+          <NavigationProperty Name="Rooms" Relationship="TSMTModel.FK_Rooms_ChairitiesExams" FromRole="ChairitiesExams" ToRole="Rooms" />
         </EntityType>
         <EntityType Name="Charity">
           <Key>
@@ -1371,9 +1291,8 @@
           </Key>
           <Property Name="CharityID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="AccountID" Type="Int32" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
-          <Property Name="FullDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="TSMTModel.FK_Charities_Accounts" FromRole="Charities" ToRole="Accounts" />
           <NavigationProperty Name="ChairitiesExams" Relationship="TSMTModel.FK_ChairitiesExams_Charities" FromRole="Charities" ToRole="ChairitiesExams" />
         </EntityType>
@@ -1406,10 +1325,9 @@
             <PropertyRef Name="ExaminationID" />
           </Key>
           <Property Name="ExaminationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ChairitiesExams" Relationship="TSMTModel.FK_ChairitiesExams_Examinations" FromRole="Examinations" ToRole="ChairitiesExams" />
           <NavigationProperty Name="ScheduleExams" Relationship="TSMTModel.FK_ScheduleExams_Examinations" FromRole="Examinations" ToRole="ScheduleExams" />
           <NavigationProperty Name="UniversitiesExaminations" Relationship="TSMTModel.FK_UniversityExamination_Examinations" FromRole="Examinations" ToRole="UniversitiesExaminations" />
@@ -1427,7 +1345,6 @@
           <Property Name="GroupID" Type="Int32" />
           <Property Name="RoomID" Type="Int32" />
           <Property Name="CarID" Type="Int32" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="ParticipantVolunteerID" Type="Int32" />
           <NavigationProperty Name="Candidate" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="ExaminationsPapers" ToRole="Candidates" />
           <NavigationProperty Name="Car" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="ExaminationsPapers" ToRole="Cars" />
@@ -1449,9 +1366,8 @@
           </Key>
           <Property Name="FundID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="SponsorID" Type="Int32" Nullable="false" />
-          <Property Name="CharityExamID" Type="Int32" />
+          <Property Name="CharityExamID" Type="Int32" Nullable="false" />
           <Property Name="FundSponsored" Type="Double" Nullable="false" />
-          <Property Name="IsOnlineFunding" Type="Boolean" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Funds_ChairitiesExams" FromRole="Funds" ToRole="ChairitiesExams" />
           <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Funds_Sponsores" FromRole="Funds" ToRole="Sponsors" />
@@ -1484,18 +1400,16 @@
             <PropertyRef Name="LodgeID" />
           </Key>
           <Property Name="LodgeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="400" Unicode="true" FixedLength="false" />
+          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="SponsorID" Type="Int32" />
           <Property Name="CharityExamID" Type="Int32" />
-          <Property Name="TotalRooms" Type="Int32" Nullable="false" />
           <Property Name="TotalSlots" Type="Int32" Nullable="false" />
-          <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <Property Name="CharityID" Type="Int32" />
           <Property Name="TotalSlotsInUsed" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cars" Relationship="TSMTModel.FK_Cars_Lodges" FromRole="Lodges" ToRole="Cars" />
+          <Property Name="AvailableSlots" Type="Int32" Nullable="false" />
+          <Property Name="CharityID" Type="Int32" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Lodges_ChairitiesExams1" FromRole="Lodges" ToRole="ChairitiesExams" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Lodges" FromRole="Lodges" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Lodges_Sponsors" FromRole="Lodges" ToRole="Sponsors" />
@@ -1508,10 +1422,9 @@
           <Property Name="ParticipantVolunteerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="VolunteerID" Type="Int32" Nullable="false" />
           <Property Name="CharityExamID" Type="Int32" Nullable="false" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="ExamPaperID" Type="Int32" />
-          <Property Name="StartEndPoint" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="WayPoint" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="WayPoints" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_ParticipantVolunteer_ChairitiesExams" FromRole="ParticipantVolunteer" ToRole="ChairitiesExams" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_ParticipantVolunteer" FromRole="ParticipantVolunteer" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="ExaminationsPaper" Relationship="TSMTModel.FK_ParticipantVolunteer_ExaminationsPapers" FromRole="ParticipantVolunteer" ToRole="ExaminationsPapers" />
@@ -1528,7 +1441,7 @@
           <Property Name="Gender" Type="Boolean" Nullable="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="PhoneNumber" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
-          <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="400" Unicode="true" FixedLength="false" />
           <Property Name="DistrictID" Type="Int32" />
           <Property Name="ImagePath" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Accounts" Relationship="TSMTModel.FK_Accounts_Profiles" FromRole="Profiles" ToRole="Accounts" />
@@ -1562,6 +1475,7 @@
           <Property Name="RoomName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="Gender" Type="Boolean" />
           <Property Name="CharityExamID" Type="Int32" />
+          <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Rooms_ChairitiesExams" FromRole="Rooms" ToRole="ChairitiesExams" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="Rooms" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="Lodge" Relationship="TSMTModel.FK_Rooms_Lodges" FromRole="Rooms" ToRole="Lodges" />
         </EntityType>
@@ -1571,9 +1485,9 @@
           </Key>
           <Property Name="ScheduleExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ExamID" Type="Int32" Nullable="false" />
-          <Property Name="Day" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BeginHour" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndHour" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Day" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_ScheduleExams_Examinations" FromRole="ScheduleExams" ToRole="Examinations" />
         </EntityType>
         <EntityType Name="Sponsor">
@@ -1593,11 +1507,10 @@
           </Key>
           <Property Name="UniversityID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="Address" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
-          <Property Name="UniversityCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UniversityCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="400" Unicode="true" FixedLength="false" />
           <Property Name="Website" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Phone" Type="Double" />
-          <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="UniversitiesExaminations" Relationship="TSMTModel.FK_UniversityExamination_University" FromRole="Universities" ToRole="UniversitiesExaminations" />
         </EntityType>
         <EntityType Name="UniversitiesExamination">
@@ -1607,7 +1520,6 @@
           <Property Name="UniExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UniversityID" Type="Int32" Nullable="false" />
           <Property Name="ExaminationID" Type="Int32" Nullable="false" />
-          <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Examination" Relationship="TSMTModel.FK_UniversityExamination_Examinations" FromRole="UniversitiesExaminations" ToRole="Examinations" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExamsPaper_UniversityExamination" FromRole="UniversitiesExaminations" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="University" Relationship="TSMTModel.FK_UniversityExamination_University" FromRole="UniversitiesExaminations" ToRole="Universities" />
@@ -1619,11 +1531,9 @@
           </Key>
           <Property Name="VenueID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UniExamID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="400" Unicode="true" FixedLength="false" />
           <Property Name="Longitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="Latitude" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="IsRemovable" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cars" Relationship="TSMTModel.FK_Cars_Venues" FromRole="Venues" ToRole="Cars" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Venues" FromRole="Venues" ToRole="ExaminationsPapers" />
           <NavigationProperty Name="UniversitiesExamination" Relationship="TSMTModel.FK_Venues_UniversitiesExaminations" FromRole="Venues" ToRole="UniversitiesExaminations" />
         </EntityType>
@@ -1744,18 +1654,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ArticlesTags_Articles">
-          <End Role="Articles" Type="TSMTModel.Article" Multiplicity="1" />
-          <End Role="ArticlesTags" Type="TSMTModel.ArticlesTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Articles">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="ArticlesTags">
-              <PropertyRef Name="ArticleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Comments_Articles">
           <End Role="Articles" Type="TSMTModel.Article" Multiplicity="1" />
           <End Role="Comments" Type="TSMTModel.Comment" Multiplicity="*" />
@@ -1792,18 +1690,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cars_Lodges">
-          <End Role="Lodges" Type="TSMTModel.Lodge" Multiplicity="0..1" />
-          <End Role="Cars" Type="TSMTModel.Car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lodges">
-              <PropertyRef Name="LodgeID" />
-            </Principal>
-            <Dependent Role="Cars">
-              <PropertyRef Name="LodgeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cars_Sponsors">
           <End Role="Sponsors" Type="TSMTModel.Sponsor" Multiplicity="0..1" />
           <End Role="Cars" Type="TSMTModel.Car" Multiplicity="*" />
@@ -1813,18 +1699,6 @@
             </Principal>
             <Dependent Role="Cars">
               <PropertyRef Name="SponsorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cars_Venues">
-          <End Role="Venues" Type="TSMTModel.Venue" Multiplicity="0..1" />
-          <End Role="Cars" Type="TSMTModel.Car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Venues">
-              <PropertyRef Name="VenueID" />
-            </Principal>
-            <Dependent Role="Cars">
-              <PropertyRef Name="VenueID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1877,7 +1751,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Funds_ChairitiesExams">
-          <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+          <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="1" />
           <End Role="Funds" Type="TSMTModel.Fund" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ChairitiesExams">
@@ -1908,6 +1782,18 @@
               <PropertyRef Name="CharityExamID" />
             </Principal>
             <Dependent Role="ParticipantVolunteer">
+              <PropertyRef Name="CharityExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rooms_ChairitiesExams">
+          <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="0..1" />
+          <End Role="Rooms" Type="TSMTModel.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChairitiesExams">
+              <PropertyRef Name="CharityExamID" />
+            </Principal>
+            <Dependent Role="Rooms">
               <PropertyRef Name="CharityExamID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2191,7 +2077,6 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2211,21 +2096,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ArticlesTags">
-            <EntityTypeMapping TypeName="TSMTModel.ArticlesTag">
-              <MappingFragment StoreEntitySet="ArticlesTags">
-                <ScalarProperty Name="ArticleTagID" ColumnName="ArticleTagID" />
-                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-                <ScalarProperty Name="TagID" ColumnName="TagID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Candidates">
             <EntityTypeMapping TypeName="TSMTModel.Candidate">
               <MappingFragment StoreEntitySet="Candidates">
                 <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="HighSchoolName" ColumnName="HighSchoolName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2242,8 +2117,6 @@
                 <ScalarProperty Name="DriverPhone" ColumnName="DriverPhone" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="CharityID" ColumnName="CharityID" />
-                <ScalarProperty Name="LodgeID" ColumnName="LodgeID" />
-                <ScalarProperty Name="VenueID" ColumnName="VenueID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2265,7 +2138,6 @@
                 <ScalarProperty Name="AvailableSlotsLodges" ColumnName="AvailableSlotsLodges" />
                 <ScalarProperty Name="TotalSlotsVehicles" ColumnName="TotalSlotsVehicles" />
                 <ScalarProperty Name="AvailableSlotsVehicles" ColumnName="AvailableSlotsVehicles" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2274,9 +2146,8 @@
               <MappingFragment StoreEntitySet="Charities">
                 <ScalarProperty Name="CharityID" ColumnName="CharityID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="FullDescription" ColumnName="FullDescription" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2308,7 +2179,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="IsRemovable" ColumnName="IsRemovable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2324,7 +2194,6 @@
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="CarID" ColumnName="CarID" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="ParticipantVolunteerID" ColumnName="ParticipantVolunteerID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2336,7 +2205,6 @@
                 <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
                 <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
                 <ScalarProperty Name="FundSponsored" ColumnName="FundSponsored" />
-                <ScalarProperty Name="IsOnlineFunding" ColumnName="IsOnlineFunding" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2369,12 +2237,11 @@
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="SponsorID" ColumnName="SponsorID" />
                 <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
-                <ScalarProperty Name="TotalRooms" ColumnName="TotalRooms" />
                 <ScalarProperty Name="TotalSlots" ColumnName="TotalSlots" />
-                <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="CharityID" ColumnName="CharityID" />
                 <ScalarProperty Name="TotalSlotsInUsed" ColumnName="TotalSlotsInUsed" />
+                <ScalarProperty Name="AvailableSlots" ColumnName="AvailableSlots" />
+                <ScalarProperty Name="CharityID" ColumnName="CharityID" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2384,10 +2251,9 @@
                 <ScalarProperty Name="ParticipantVolunteerID" ColumnName="ParticipantVolunteerID" />
                 <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
                 <ScalarProperty Name="CharityExamID" ColumnName="CharityExamID" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="ExamPaperID" ColumnName="ExamPaperID" />
-                <ScalarProperty Name="StartEndPoint" ColumnName="StartEndPoint" />
-                <ScalarProperty Name="WayPoint" ColumnName="WayPoint" />
+                <ScalarProperty Name="WayPoints" ColumnName="WayPoints" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2442,8 +2308,8 @@
                 <ScalarProperty Name="ScheduleExamID" ColumnName="ScheduleExamID" />
                 <ScalarProperty Name="ExamID" ColumnName="ExamID" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="BeginHour" ColumnName="BeginHour" />
-                <ScalarProperty Name="EndHour" ColumnName="EndHour" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2460,11 +2326,10 @@
               <MappingFragment StoreEntitySet="Universities">
                 <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="UniversityCode" ColumnName="UniversityCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="IsRemovable" ColumnName="IsRemovable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2474,7 +2339,6 @@
                 <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
                 <ScalarProperty Name="UniversityID" ColumnName="UniversityID" />
                 <ScalarProperty Name="ExaminationID" ColumnName="ExaminationID" />
-                <ScalarProperty Name="IsRemovable" ColumnName="IsRemovable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2483,10 +2347,9 @@
               <MappingFragment StoreEntitySet="Venues">
                 <ScalarProperty Name="VenueID" ColumnName="VenueID" />
                 <ScalarProperty Name="UniExamID" ColumnName="UniExamID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="IsRemovable" ColumnName="IsRemovable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

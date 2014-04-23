@@ -85,7 +85,6 @@ namespace TSMT.Controllers
                           {
                               value = e.CharityExamID,
                               name = e.Charity.Name,
-                              desp = e.Description
                           };
             return Json(charity, JsonRequestBehavior.AllowGet);
         }

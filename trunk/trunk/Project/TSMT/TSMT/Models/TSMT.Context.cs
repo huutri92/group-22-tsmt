@@ -27,7 +27,6 @@ namespace TSMT.Models
     
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Article> Articles { get; set; }
-        public DbSet<ArticlesTag> ArticlesTags { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Category> Categories { get; set; }

@@ -22,10 +22,9 @@ namespace TSMT.Models
         public int ParticipantVolunteerID { get; set; }
         public int VolunteerID { get; set; }
         public int CharityExamID { get; set; }
-        public bool IsApproved { get; set; }
         public Nullable<int> ExamPaperID { get; set; }
-        public string StartEndPoint { get; set; }
-        public string WayPoint { get; set; }
+        public string WayPoints { get; set; }
+        public bool IsApproved { get; set; }
     
         public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }

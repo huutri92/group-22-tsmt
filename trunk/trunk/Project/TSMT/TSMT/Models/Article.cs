@@ -16,7 +16,6 @@ namespace TSMT.Models
     {
         public Article()
         {
-            this.ArticlesTags = new HashSet<ArticlesTag>();
             this.Comments = new HashSet<Comment>();
         }
     
@@ -33,7 +32,6 @@ namespace TSMT.Models
     
         public virtual Account Account { get; set; }
         public virtual Category Category { get; set; }
-        public virtual ICollection<ArticlesTag> ArticlesTags { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

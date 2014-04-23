@@ -124,7 +124,6 @@ namespace TSMT.Controllers
                     {
                         case 1: Candidate can = new Candidate();
                             can.AccountID = acc.AccountID;
-                            can.HighSchoolName = f["highschool"];
                             db.Candidates.Add(can);
                             break;
                         case 2: Charity cha = new Charity();
@@ -327,7 +326,7 @@ namespace TSMT.Controllers
         {
             string email = f["Email"];
             string code = f["Code"];
-            Account acc = db.Accounts.FirstOrDefault(r => r.Email == email && r.Code == code);
+            Account acc = db.Accounts.FirstOrDefault(r => r.Email == email );
 
             acc.IsActive = true;
 

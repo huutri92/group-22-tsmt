@@ -109,7 +109,6 @@ namespace TSMT.Controllers
                         uni.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "" ? ds.Tables[0].Rows[i]["UniversityCode"].ToString() : null;
                         uni.Website = ds.Tables[0].Rows[i]["Website"].ToString() != "" ? ds.Tables[0].Rows[i]["Website"].ToString() : null;
                         uni.Phone = null;
-                        uni.IsRemovable = true;
                         db.Universities.Add(uni);
                         db.SaveChanges();
                     }
@@ -272,8 +271,7 @@ namespace TSMT.Controllers
             uni.Address = f["Address"];
             uni.UniversityCode = f["UniversityCode"];
             uni.Website = f["Website"];
-            uni.Phone = int.Parse(f["Phone"]);
-            uni.IsRemovable = true;
+            uni.Phone = f["Phone"];
 
             db.Universities.Add(uni);
             db.SaveChanges();
@@ -294,18 +292,14 @@ namespace TSMT.Controllers
             uni.Address = f["Address"];
             uni.UniversityCode = f["UniversityCode"];
             uni.Website = f["Website"];
-            uni.Phone = int.Parse(f["Phone"]);
+            uni.Phone = (f["Phone"]);
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
         }
         public ActionResult DeleteUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
-            if (!uni.IsRemovable)
-            {
-                // redirect toi trang bao loi ko cho delete!
-                return RedirectToAction("ManageUniversity");
-            }
+            
             db.Universities.Remove(uni);
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
@@ -328,15 +322,14 @@ namespace TSMT.Controllers
             exam.Name = f["Name"] + " (" + DateTime.Now.Year + ")";
             exam.EndDate = DateTime.Parse(f["EndDay"]);
             exam.BeginDate = exam.EndDate.AddDays(-2);
-            exam.IsRemovable = true;
             db.Examinations.Add(exam);
 
             for (DateTime date = exam.BeginDate; date <= exam.EndDate; date = date.AddDays(1))
             {
                 ScheduleExam scheduleExam = new ScheduleExam();
                 scheduleExam.Day = date;
-                scheduleExam.BeginHour = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);
-                scheduleExam.EndHour = new DateTime(date.Year, date.Month, date.Day, 17, 0, 0);
+                scheduleExam.BeginTime = new DateTime(date.Year, date.Month, date.Day, 7, 0, 0);
+                scheduleExam.EndTime = new DateTime(date.Year, date.Month, date.Day, 17, 0, 0);
                 db.ScheduleExams.Add(scheduleExam);
             }
 
@@ -376,8 +369,8 @@ namespace TSMT.Controllers
         {
             int scheduleExamId = int.Parse(f["id"]);
             ScheduleExam scheduleExam = db.ScheduleExams.SingleOrDefault(r => r.ScheduleExamID == scheduleExamId);
-            scheduleExam.BeginHour = DateTime.Parse(f["BeginHour"]);
-            scheduleExam.EndHour = DateTime.Parse(f["EndHour"]);
+            scheduleExam.BeginTime = DateTime.Parse(f["BeginHour"]);
+            scheduleExam.EndTime = DateTime.Parse(f["EndHour"]);
             db.SaveChanges();
             return RedirectToAction("ManageScheduleExam", new { examId = scheduleExam.ExamID });
         }
@@ -402,7 +395,6 @@ namespace TSMT.Controllers
             UniversitiesExamination ue = new UniversitiesExamination();
             ue.UniversityID = int.Parse(f["UniversityID"]);
             ue.ExaminationID = int.Parse(f["ExaminationID"]);
-            ue.IsRemovable = true;
             db.UniversitiesExaminations.Add(ue);
             db.SaveChanges();
 
@@ -413,13 +405,7 @@ namespace TSMT.Controllers
         {
             UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == id);
 
-            if (!ue.IsRemovable)
-            {
-                //redirect toi trang bao loi ko cho delete!
-                db.UniversitiesExaminations.Remove(ue);
-                return RedirectToAction("ManageUniversityExam");
-            }
-
+            
             var ves = db.Venues.Where(r => r.UniExamID == id);
             foreach (Venue ve in ves)
             {
@@ -454,11 +440,9 @@ namespace TSMT.Controllers
             ve.Longitude = f["Longitude"];
             ve.Latitude = f["Latitude"];
             ve.Address = f["Address"];
-            ve.IsRemovable = true;
             db.Venues.Add(ve);
 
             UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == ve.UniExamID);
-            ue.IsRemovable = false;
 
             db.SaveChanges();
 
@@ -487,14 +471,6 @@ namespace TSMT.Controllers
         {
             Venue ve = db.Venues.SingleOrDefault(r => r.VenueID == id);
             int ueId = ve.UniExamID;
-
-            if (!ve.IsRemovable)
-            {
-                //redirect toi trang bao loi ko cho delete!
-                return RedirectToAction("ManageVenue", new { id = ve.UniExamID });
-            }
-
-            if (db.Venues.Count(r => r.UniExamID == ueId) < 2) { ve.UniversitiesExamination.IsRemovable = true; }
             db.Venues.Remove(ve);
             db.SaveChanges();
             return RedirectToAction("ManageVenue", new { id = ve.UniExamID });

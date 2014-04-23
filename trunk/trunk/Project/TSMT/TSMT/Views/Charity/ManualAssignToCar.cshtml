@@ -448,7 +448,7 @@
         <div class="view view-tenth">
             <label>Thí sinh chưa xếp xe</label>
             <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 300px; height: 180px">
-                @foreach (var item in ViewData["listCandidate"] as IEnumerable<ExaminationsPaper>)
+                @foreach (var item in ViewData["listCandidate"] as IEnumerable<Active>)
                 {
                     <option value="@item.CandidateID">@item.Candidate.Account.Profile.Lastname</option>
                 }
