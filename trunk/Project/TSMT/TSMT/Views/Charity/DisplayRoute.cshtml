@@ -1,4 +1,5 @@
-﻿@using System.Collections
+﻿
+@using System.Collections
 @using Microsoft.Ajax.Utilities
 @using TSMT.Models
 
@@ -61,10 +62,20 @@
                     <button id ="Load" onclick="loadRoute()">Load</button>-->
 
             <!--<div id="routeIndexInfo"></div>-->
+            <div id="directionsPanel2" style="float: right; width: 30%; height: 1000px;">
+                <div><div>Tổng quãng đường :</div>
+                    <div  id="TotalDistance"></div>
+                </div>
+                
+                <div><div>Thời gian dự kiến:</div>
+                    <div  id="TotalTime"></div>
+                </div>
+            </div>
             <div id="map_canvas" style="float: left; width: 70%; height: 890px; margin: 0px; padding: 0px">
             </div>
-            <div id="directionsPanel" style="float: right; width: 30%; height: 890px;">
-            </div>
+            @*<div id="directionsPanel" style="float: right; width: 30%; height: 890px;">
+            </div>*@
+
 
             @*<h3>Distances by permutations</h3><span id="total"></span>
 		<h3>Best way</h3><span id="result"></span>*@
@@ -255,7 +266,9 @@
             minD = total;
             var DistanceCount = document.getElementById('TotalDistance');
             var TimeCount = document.getElementById('TotalTime');
-            DistanceCount.innerHTML = minD;
+            
+            DistanceCount.innerHTML = "~ " + minD + " Km";
+            
             TimeCount.innerHTML = "~ " + Math.round(time / 60) + " phút";
             shortestRoute = [];
             var s = '';
@@ -343,4 +356,4 @@
         });
 
 </script>
-</html>
+
