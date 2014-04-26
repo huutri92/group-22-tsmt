@@ -2570,6 +2570,11 @@
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\font\9k-RPmcnxYEPm8CNFsH2gg.woff" />
+    <Content Include="Content\css\font\KT3KS9Aol4WfR6Vas8kNcg.woff" />
+    <Content Include="Content\css\font\wkfQbvfT_02e2IWO3yYueQ.woff" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
