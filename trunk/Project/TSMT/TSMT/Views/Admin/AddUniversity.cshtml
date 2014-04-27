@@ -3,6 +3,8 @@
     ViewBag.Title = "Tạo mới thông tin cho trường ĐHCĐ";
 }
 
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -20,7 +22,7 @@
 }
 @Html.Partial("_AdminSidebarPartial")
 
-@using (Html.BeginForm("AddUniversity", "Admin", FormMethod.Post))
+@using (Html.BeginForm("AddUniversity", "Admin", FormMethod.Post, new { id = "FormAddUniversity" }))
 {
     <div class="col-md-9">
         <div class="panel panel-red margin-bottom-20">
@@ -31,29 +33,29 @@
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <td style="vertical-align: middle;max-width:100px" >Tên trường</td>
+                        <td style="vertical-align: middle;max-width:100px" >Tên trường<span class="required">*</span></td>
                         <td>
-                            <input type="text" name="Name" class="form-control" /></td>
+                            <input type="text" id="Name" name="Name" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Địa chỉ</td>
+                        <td style="vertical-align: middle">Địa chỉ<span class="required">*</span></td>
                         <td>
-                            <input type="text" name="Address" class="form-control" /></td>
+                            <input type="text" id="Address" name="Address" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Mã trường</td>
+                        <td style="vertical-align: middle">Mã trường<span class="required">*</span></td>
                         <td>
-                            <input type="text" name="UniversityCode" class="form-control" style="width:65px" /></td>
+                            <input type="text" id="UniversityCode" name="UniversityCode" class="form-control" style="width:100px" /></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Website</td>
                         <td>
-                            <input type="text" name="Website" class="form-control" style="width:250px"/></td>
+                            <input type="text" id="Website" name="Website" class="form-control" style="width:250px"/></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Số điện thoại</td>
                         <td>
-                            <input type="text" name="Phone" class="form-control" style="width:250px"/></td>
+                            <input type="text" id="Phone" name="Phone" class="form-control" style="width:250px"/></td>
                     </tr>
 
                 </table>
@@ -72,3 +74,40 @@
            @*<a href="@Url.Action("ManageUniversity", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left" onclick="location.href = '/admin/ManageUniversity'"></i>&nbsp;Quay lại </a>*@
     </div>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Name").blur(function () {checkEmpty("Name")});
+	    $("#Address").blur(function(){checkEmpty("Address")});
+	    $("#UniversityCode").blur(function () { CheckUniversityCode("UniversityCode", "Mã trường đã tồn tại trong hệ thống! Vui lòng kiểm tra lại.", true) });
+	    $("#FormAddUniversity").submit(function (e) {
+	        var isValidated = true;
+	        isValidated = checkEmpty("Name") && isValidated;
+	        isValidated = checkEmpty("Address") && isValidated;
+	        isValidated = CheckUniversityCode("UniversityCode", "Mã trường đã tồn tại trong hệ thống! Vui lòng kiểm tra lại.", true) && isValidated;
+	        if (isValidated) return true;
+	        e.preventDefault();
+	    });
+    });
+
+    function CheckUniversityCode(id, msg, required) {
+        var e = document.getElementById(id);
+        if (checkEmpty(id)) {
+            var isNotExisted = false;
+            $.ajax({
+                url: '/admin/CheckUniversityCode/',
+                data: { code: e.value},
+                type: 'POST',
+                async: false,
+                success: function (results) {
+                    if (results.success == true) {
+                        isNotExisted = results.isNotExisted;
+                    }
+                }
+            });
+            if (!isNotExisted) {
+                createValMsg(e, msg);
+                return false;
+            } else return true;
+        } else return !required;
+    }
+</script>

@@ -79,7 +79,6 @@
                                     else
                                     {
                                         <td>@item.ChairitiesExam.Examination.Name</td>
-                                        
                                     }
                                     @*<td>@item.TotalRooms</td>*@
                                     <td>@item.Rooms.Count(r => r.CharityExamID != null) / @item.Rooms.Count</td>
@@ -89,8 +88,7 @@
                                     <td>@item.AvailableSlots / @item.TotalSlotsInUsed</td>
                                     <td>
                                         @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                        <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
+                                        <a href="#"  onclick="openWindowPopup('/home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
                                         <a href="@Url.Action("DetailsLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
                                         <a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="icon-edit" style="width:40px;height:30px"></i></a>
                                         <a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>

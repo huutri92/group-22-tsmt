@@ -98,11 +98,11 @@
                                         <td class="add">
                                          @lodge.Address
                                         </td>
-                                        <td>@lodge.TotalRooms</td>
+                                        <td>@lodge.Rooms.Count</td>
                                         <td>@lodge.TotalSlots</td>
                                         <td>
                                             @*<button type="button" onclick="openWindowPopup('/sponsor/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-marker"></i></button>*@
-                                            <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                            <a href="#" onclick="openWindowPopup('/Home/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
                                             <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                             <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
                                             <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
@@ -159,7 +159,7 @@
                                         {
                                             <td><span class="label label-success">Đã tài trợ</span></td>
                                             <td>
-                                                <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                <a href="#" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
                                                 <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"  title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                             </td>
                                         }
