@@ -1,5 +1,5 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.Lodge
+@model Lodge
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Thay đổi địa chỉ nhà trọ";
@@ -27,104 +27,25 @@
     </div>
 }
 
-
-
 @using (Html.BeginForm("EditLodge", "Charity", FormMethod.Post, new { id = "FormEditLodge" }))
 {
     <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
     <input type="hidden" id="Longitude" name="Longitude" value="@Model.Longitude"/>
     <input type="hidden" id="Latitude" name="Latitude" value="@Model.Latitude"/>
-    
-    
-    <div class="col-md-12 margin-bottom-5">
-        <div class="panel panel-orange" >
-            <div class="panel-heading">
-                <h3 class="panel-title" id="scrollToMe"><i class="icon-list"></i>&nbsp;Thêm địa điểm cho trường ĐHCĐ
-                </h3>
-            </div>
-            <table class="table table-hover">
-                <tr style="text-align: center">
-                    <td style="vertical-align: middle">Địa chỉ</td>
-                    <td>
-                        <input type="text" id="Address" name="Address" value="@Model.Address" class="form-control" /></td>
-                    <td>
-                        <input type="button" value="Hiển thị trên bản đồ" class="btn-u btn-u-sea margin-bottom-5" onclick="goThere(true)" /></td>
-                </tr>
-            </table>
+    <div id="map_container" style="width: 100%; height: 500px;">
+        <div id="searchBox" style="margin: 10px 10px">
+            <input type="text" id="Address" name="Address" />
+            <input type="button" id="btnGoThere" value="Đi đến" />
         </div>
+        <div id="map_canvas" style="width: 100%; height: 100%;"></div>
     </div>
-    <div class="col-md-12" id="showMap">
-        <div class="row">
-            <div class="col-md-3" style="width: 268px; height: auto">
-                <div class="input-group margin-bottom-5">
-                    <table class="table">
-                        <tr>
-                            <td id="guideMove" colspan="2" style="visibility: hidden; color: red">* Di chuyển marker để thay đổi vị trí</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span id="guideSuggest" style="color: blue; visibility: hidden"># Danh sách địa chỉ gợi ý:</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="suggest"></div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div style="float: right">
-                        @*<button type="reset" class="btn-u btn-u-purple"><i class="icon-eraser"></i>&nbsp;Làm lại</button>*@
-                        <button type="submit" class="btn-u btn-u-sea" onclick="return PrepareDataToSubmit()"><i class="icon-save">&nbsp;Lưu thay đổi</i></button>
-                        <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Charity/ManageLodgeCharity/'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
-
-                    </div>
-
-                    @* <input type="submit" value="Thêm" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
-                    <input type="reset" value="Làm lại" class="btn btn-info" />*@
-                    @*@Html.ActionLink("Hủy", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
-                </div>
-            </div>
-            <div class="col-md-9" id="map_canvas" style="width:700px;height: 500px">
-            </div>
-        </div>
-    </div>@*   
-    
-    
-    <div id="map_container">
-        <div id="panel">
-            <table>
-                <tr>
-                    <td>Address</td>
-                    <td>
-                        <input type="text" id="Address" name="Address" value="@Model.Address"/></td>
-                </tr>
-                <tr style="text-align: center">
-                    <td colspan="2">
-                        <input type="button" valu7e="Go there" class="btn btn-info" onclick="goThere(true)" />
-                    </td>
-                </tr>
-                <tr>
-                    <td id="guideMove" colspan="2" style="visibility: hidden; color: red">* Move marker to change position
-                    </td>
-                </tr>
-            </table>
-            <span id="guideSuggest" style="color: blue; visibility: hidden"># Suggested places:</span>
-            <div id="suggest"></div>
-            <div id="controls">
-                <input type="submit" value="Submit" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
-                @Html.ActionLink("Cancel", "ManageLodgeCharity","", new { @class = "btn btn-info" })
-            </div>
-        </div>
-        <div id="map_canvas"></div>
-    </div>*@
+    <button type="submit" class="btn-u btn-u-sea" onclick="return PrepareDataToSubmit()"><i class="icon-save">&nbsp;Lưu thay đổi</i></button>
+    <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Charity/ManageLodgeCharity/'"><i class="icon-remove-circle"></i>&nbsp;Hủy</button>
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
-    });
-    $(document).ready(function () {
-        initialize();
-        putMarker("@Model.Latitude", "@Model.Longitude");
+        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Model.Address"});
 
         // submit
         $('.popup-confirm').click(function () {
@@ -132,5 +53,7 @@
             $("#Latitude").val(marker.getPosition().lat());
             $("#FormEditLodge").submit();
         });
+
+        //$('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
     });
 </script>

@@ -1,5 +1,5 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.Lodge
+@model Lodge
 @{
     ViewBag.Title = "Thay đổi thông tin chỗ trọ";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,78 +26,33 @@
     </div>
 }
 
-
 @using (Html.BeginForm("EditLodgeNotCe", "Sponsor", FormMethod.Post, new { id = "FormEditLodgeNotCe" }))
 {
     <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
     <input type="hidden" id="Longitude" name="Longitude" value="@Model.Longitude"/>
     <input type="hidden" id="Latitude" name="Latitude" value="@Model.Latitude"/>
-    <div class="col-md-12 margin-bottom-5">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <h3 class="panel-title" id="scrollToMe"><i class="icon-list"></i>&nbsp;Thay đổi thông tin chỗ ở
-                </h3>
-            </div>
-
-            <table class="table table-hover">
-                <tr style="text-align: center">
-                    <td style="vertical-align: middle">Địa chỉ</td>
-                    <td>
-                        <input type="text" name="Address" id="Address" class="form-control" value="@Model.Address"/></td>
-                    <td>
-                        @*<input type="button" value="Đi đến địa điểm thi" class="btn-u btn-u-sea margin-bottom-5" onclick="goThere(true)" />*@
-                    <a href="#" onclick="goThere(true)" class="btn-u btn-u-sea margin-bottom-5"><i class="icon-hand-right"></i>&nbsp;Đi đến địa điểm này</a>
-
-                    </td>
-                </tr>
-            </table>
-            @* <input type="submit" value="Submit" class="btn btn-info" />
-        <input type="reset" value="Reset" class="btn btn-info" />
-        <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageVenue/' @Model.UniversitiesExamination.UniExamID"/>*@
+    <div id="map_container" style="width: 100%; height: 500px;">
+        <div id="searchBox" style="margin: 10px 10px">
+            <input type="text" id="Address" name="Address" />
+            <input type="button" id="btnGoThere" value="Đi đến" />
         </div>
+        <div id="map_canvas" style="width: 100%; height: 100%;"></div>
     </div>
-    <div class="col-md-12" id="showMap">
-        <div class="row">
-            <div class="col-md-3" style="width: 268px; height: auto">
-                <div class="input-group margin-bottom-5">
-                    <table class="table">
-                        <tr>
-                            <td id="guideMove" colspan="2" style="visibility: hidden; color: red">* Di chuyển marker để thay đổi vị trí</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span id="guideSuggest" style="color: blue; visibility: hidden"># Danh sách địa chỉ gợi ý:</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="suggest"></div>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="submit" value="Lưu" class="btn-u btn-u-green" onclick="return PrepareDataToSubmit()" />
-                    <input type="reset" value="Làm lại" class="btn btn-info" />
-                    <input type="button" value="Hủy" class="btn btn-info" onclick="location.href = '/Sponsor/ManageLodge/' "/>
-                    @*@Html.ActionLink("Hủy", "ManageVenue", new { id = @ViewData["ueId"] }, new { @class = "btn btn-info" })*@
-                </div>
-            </div>
-            <div class="col-md-9" id="map_canvas" style="height: 500px; vertical-align: middle">
-            </div>
-        </div>
-    </div>   
+    <input type="submit" value="Lưu" class="btn-u btn-u-green" onclick="return PrepareDataToSubmit()" />
+    <input type="button" value="Hủy" class="btn btn-info" onclick="location.href = '/Sponsor/ManageLodge/' " />
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow')
-    });
-    $(document).ready(function () {
-        initialize();
+        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Model.Address"});
 
         // submit
         $('.popup-confirm').click(function () {
             $("#Longitude").val(marker.getPosition().lng());
             $("#Latitude").val(marker.getPosition().lat());
-            $("#FormAddVenue").submit();
+            $("#FormEditLodgeNotCe").submit();
         });
+
+        $('html').animate({ scrollTop: $("#scrollToMe").offset().top - 20 }, 'slow');
     });
 </script>

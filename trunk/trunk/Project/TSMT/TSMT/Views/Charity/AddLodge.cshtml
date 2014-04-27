@@ -36,13 +36,12 @@
     <input type="hidden" id="Latitude" name="Latitude" />
     <div id="map_container" style="width: 100%; height: 500px;">
         <div id="searchBox" style="margin: 10px 10px">
-            <input type="text" id="Address" name="Address" onfocus="activeFuck()" onblur="deactiveFuck()" />
-            <input type="button" value="Đi đến" onclick="goThere()" />
+            <input type="text" id="Address" name="Address"/>
+            <input type="button" id="btnGoThere" value="Đi đến"/>
         </div>
         <div id="map_canvas" style="width: 100%; height: 100%;"></div>
     </div>
     <input type="submit" value="Tạo" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
-    <input type="reset" value="Làm lại" class="btn btn-info" />
     @Html.ActionLink("Hủy", "ManageLodgeCharity", new { id = @Model.CharityID }, new { @class = "btn btn-info" })
 }
 
@@ -50,46 +49,11 @@
     $(document).ready(function () {
         initialize();
 
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('searchBox'));
-
         // submit
         $('.popup-confirm').click(function () {
             $("#Longitude").val(marker.getPosition().lng());
             $("#Latitude").val(marker.getPosition().lat());
             $("#FormAddLodge").submit();
         });
-
-        var a = $("#Address");
-        var suggest = document.createElement("div");
-        suggest.id = "suggest";
-        suggest.style.width = "399px";
-        suggest.style.top = $(a).offset().top + a.height() + 2 + "px";
-        suggest.style.left = $(a).offset().left + "px";
-        a[0].parentNode.appendChild(suggest);
     });
-
-    var currentText = null;
-
-    function hehe() {
-        if (currentText != $("#Address")[0].value) {
-            currentText = $("#Address")[0].value;
-            if (currentText.length > 6) {
-                goThere();
-            } else {
-                $(suggest).empty();
-                $(suggest).hide();
-            }
-        }
-    }
-
-    var timer;
-
-    function activeFuck() {
-        timer = setInterval(function () { hehe() }, 500);
-    }
-
-    function deactiveFuck() {
-        clearInterval(timer);
-    }
-
 </script>

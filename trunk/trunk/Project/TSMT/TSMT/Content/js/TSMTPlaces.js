@@ -1,30 +1,65 @@
 
 var geocoder = new google.maps.Geocoder();
 
-var BenThanh = { lat: 10.771992, lng: 106.698264 };
+var BenThanh = { lat: 10.7719285, lng: 106.6983282, text: "1028 Chợ Bến Thành, Phường Bến Thành, Quận 1" };
 var map;
 var marker;
 var addressLat;
 var addressLng;
+var timer;
+var currentText = null;
 
-function initialize(lat, lng) {
-    var useDefault = lat == undefined || lng == undefined;
-    if (useDefault) center = new google.maps.LatLng(BenThanh.lat, BenThanh.lng);
-    else center = new google.maps.LatLng(lat, lng);
+function initialize(place) {
+    if (place == undefined) {
+        place = BenThanh;
+    }
+    else {
+        // record the position of the current input.
+        addressLat = place.lat;
+        addressLng = place.lng;
+    }
 
     var map_options = {
-        center: center,
+        center: new google.maps.LatLng(place.lat, place.lng),
         zoom: 16,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
     }
     map = new google.maps.Map(document.getElementById('map_canvas'), map_options);
+    document.getElementById("Address").value = place.text;
+    putMarker(place.lat, place.lng);
 
-    if (useDefault) putMarker(BenThanh.lat, BenThanh.lng)
-    else putMarker(lat, lng);
+    
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('searchBox'));
+
+    var inputAddress = $("#Address");
+    var suggest = document.createElement("div");
+    suggest.id = "suggest";
+    suggest.style.width = "399px";
+    suggest.style.top = $(inputAddress).offset().top + inputAddress.height() + 2 + "px";
+    suggest.style.left = $(inputAddress).offset().left + "px";
+    inputAddress[0].parentNode.appendChild(suggest);
+
+    $(inputAddress).focus(function () {
+        timer = setInterval(function () {
+            if (currentText != $("#Address")[0].value) {
+                currentText = $("#Address")[0].value;
+                if (currentText.length > 6) {
+                    goThere();
+                } else {
+                    $(suggest).empty();
+                    $(suggest).hide();
+                }
+            }
+        }, 500);
+    });
+    $(inputAddress).blur(function () {
+        clearInterval(timer);
+    });
+    $("#btnGoThere").click(function () { goThere()});
 }
-
 function putMarker(lat, lng) {
     var thePosition = new google.maps.LatLng(lat, lng);
 
@@ -33,7 +68,6 @@ function putMarker(lat, lng) {
     if (!marker) { createMarker(thePosition) }
     else { marker.setPosition(thePosition) }
 }
-
 function useSuggestion(address, lat, lng) { // only go to the address and do nothing else.
     document.getElementById("Address").value = address;
     marker.setVisible(true);
@@ -45,14 +79,15 @@ function useSuggestion(address, lat, lng) { // only go to the address and do not
     putMarker(lat, lng);
     $("#suggest").slideUp();
 }
-
 function getAddressSuggested(address_components) {
     // extract address's components.
+    isAddress = false;
     var address = homeNumber = streetName = ward = district = "";
     for (var i = 0; i < address_components.length; ++i) {
         var tmp = address_components[i].long_name; // variable keep component's content.
         switch (address_components[i].types[0]) { // type of the component's.
             case "street_number":
+                isAddress = true;
                 homeNumber = tmp;
                 break;
             case "route":
@@ -67,6 +102,8 @@ function getAddressSuggested(address_components) {
         }
     }
 
+    if (!isAddress) return "";
+
     // format the address.
     address = homeNumber + " " + streetName;
     if (ward) { address += ", Phường " + ward }
@@ -74,7 +111,6 @@ function getAddressSuggested(address_components) {
 
     return address;
 }
-
 function showSuggestions(content) {
     var suggest = $("#suggest");
     $(suggest).empty();
@@ -82,31 +118,22 @@ function showSuggestions(content) {
     suggest.append(content);
     $(suggest).slideDown();
 }
-
-function getSuggestions(results, hasOnlyOneSuggestion, goThereAnyway) {
-    //if (hasOnlyOneSuggestion) {
-    //    var formattedAddress = getAddressSuggested(results[0].address_components);
-    //    var lat = results[0].geometry.location.k;
-    //    var lng = results[0].geometry.location.A;
-
-    //    if (goThereAnyway) { useSuggestion(formattedAddress, lat, lng) }
-    //    else {
-    //        showSuggestions("<a href='#' onclick='useSuggestion(\"" + formattedAddress + "\", \"" + lat + "\", \"" + lng + "\")'>" + formattedAddress + "</a></br>");
-    //    }
-    //} else {
-        marker.setVisible(false); // hide marker.
-        var tmp = "";
-        // create content of new suggestions.
-        for (var i = 0; i < results.length; ++i) {
-            var formattedAddress = getAddressSuggested(results[i].address_components);
+function getSuggestions(results) {
+    var counter = 0;
+    var tmp = ""; // create content of new suggestions.
+    for (var i = 0; i < results.length; ++i) {
+        var formattedAddress = getAddressSuggested(results[i].address_components);
+        if (formattedAddress != "") {
             var lat = results[i].geometry.location.k;
             var lng = results[i].geometry.location.A;
             tmp += "<a href='#' onclick='useSuggestion(\"" + formattedAddress + "\", \"" + lat + "\", \"" + lng + "\")'>" + formattedAddress + "</a></br>";
+            ++counter;
         }
-        showSuggestions(tmp);
-    //}
-}
+    }
 
+    if (counter == 0) tmp = "<a href='#'>Không tìm thấy địa chỉ nào phù hợp</a><br/>";
+    showSuggestions(tmp);
+}
 function goThere() {
     var address = document.getElementById("Address").value + " Ho Chi Minh city";
 
@@ -119,7 +146,6 @@ function goThere() {
         }
     });
 }
-
 function createMarker(pos) {
     marker = new google.maps.Marker({
         map: map,
@@ -128,7 +154,6 @@ function createMarker(pos) {
         animation: google.maps.Animation.DROP
     });
 
-    // user drag the marker
     google.maps.event.addDomListener(marker, 'dragend', function () {
         geocoder.geocode({ 'latLng': this.getPosition() }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -139,17 +164,16 @@ function createMarker(pos) {
         })
     });
 }
-
 function PrepareDataToSubmit() {
     var address = document.getElementById("Address").value;
 
     if (marker.getVisible() == false || address == "") {
-        showPopup("Bạn chưa chọn địa điểm. Hãy sử dụng những gợi ý phía dưới ô nhập địa chỉ, hoặc di chuyển ghim đánh dấu.");
+        showPopup("Bạn chưa chọn địa điểm. Hãy sử dụng những gợi ý ở ô nhập địa chỉ, hoặc di chuyển ghim đánh dấu.");
         return false;
     }
 
     if (addressLat != marker.getPosition().lat() || addressLng != marker.getPosition().lng()) {
-        showPopup("Toạ độ đánh dấu không trùng khớp với địa chỉ đã nhập, bạn có muốn lưu bản đồ này?");
+        showPopup("Ghim đánh dấu không trùng khớp với địa chỉ đã nhập, bạn có muốn lưu lại?");
         return false;
     }
 

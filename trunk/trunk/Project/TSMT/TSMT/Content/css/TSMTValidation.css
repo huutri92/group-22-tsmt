@@ -1,0 +1,15 @@
+.required{
+	color: red;
+}
+.divVal {
+	background-color: #EFD8D7;
+	padding: 5px;
+}
+.divVal > input{
+	background: #fff url('../img/TSMTValidation.png') no-repeat right center;
+    background-size: 30px;
+	border: 1px solid #BBBBBB;
+}
+.valMsg {
+	font: 0.8em Helvetica, Arial, sans-serif;
+}

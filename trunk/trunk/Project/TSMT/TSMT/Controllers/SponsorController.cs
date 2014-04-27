@@ -89,8 +89,7 @@ namespace TSMT.Controllers
         }
         public ActionResult AddLodge()
         {
-            var ces = db.ChairitiesExams.ToList();
-            return View(ces);
+            return View();
         }
         [HttpPost]
         public ActionResult AddLodge(FormCollection f)

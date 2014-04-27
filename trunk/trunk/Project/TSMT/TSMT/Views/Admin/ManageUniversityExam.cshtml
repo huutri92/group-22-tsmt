@@ -57,7 +57,7 @@
                             <td>@item.Examination.EndDate.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <a href="@Url.Action("ManageVenue", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-yellow"><i class="icon-hand-right"></i>&nbsp;Địa điểm thi</a>
-                                @if (item.IsRemovable)
+                                @if (item.ExaminationsPapers.Count == 0)
                                 {
                                     <a href="@Url.Action("DeleteUniversityExam", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i>&nbsp;Xóa </a>
                                 }

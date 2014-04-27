@@ -484,5 +484,13 @@ namespace TSMT.Controllers
 
 
         #endregion
+        #region AJAX
+        [HttpPost]
+        public JsonResult CheckUniversityCode(string code)
+        {
+            bool isNotExisted = db.Universities.Count(r => r.UniversityCode == code) == 0;
+            return Json(new { success = true, isNotExisted = isNotExisted });
+        }
+        #endregion
     }
 }
