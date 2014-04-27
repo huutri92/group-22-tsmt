@@ -1,0 +1,18 @@
+
+#suggest{
+    position: absolute;
+    padding: 15px 10px 0 10px;
+    display: none;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+#suggest a{
+    color: gray;
+    text-decoration: none;
+    display: list-item;
+    margin: -4px 5px;
+    list-style-type: none;
+}
+#suggest a:hover{
+    background: #d8d8d8;
+}
