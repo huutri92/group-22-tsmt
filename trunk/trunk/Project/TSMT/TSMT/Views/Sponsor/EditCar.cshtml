@@ -4,7 +4,8 @@
     ViewBag.Title = "Tài trợ xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -66,15 +67,16 @@
         }
     }
 </script>
-<div class="col-md-9">
-    <div class="panel panel-gre en margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa thông tin xe
-            </h3>
-        </div>
-        @using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post))
-        {
-             <input type="hidden" name="charityid" id="charityid" />
+
+@using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+{
+    <div class="col-md-5">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Tài trợ xe
+                </h3>
+            </div>
+            <input type="hidden" name="charityid" id="charityid" />
             <div class="panel-body">
                 <input type="hidden" name="carId" value="@Model.CarID"/>
                 <table class="table table-hover">
@@ -104,26 +106,28 @@
                                 }
                             </select>
                         </td>
-                        </tr>
+                        
+                    </tr>
                     <tr>
                         <td style="vertical-align: middle">Tổ Chức: </td>
                         <td>
                             <select id="asd" name="asd" onchange="callAjaxCharityid(this.value)" class="form-control">
                             </select>
                         </td>
+                        
                     </tr>
-                   
+
                     <tr>
                         <td>Biển số xe</td>
                         <td>
-                            @Model.NumberPlate
+                        @Model.NumberPlate
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Tổng số chỗ ngồi</td>
                         <td>
-                            @Model.TotalSlots
+                        @Model.TotalSlots
 
                         <td></td>
                         <td></td>
@@ -131,27 +135,40 @@
                     <tr>
                         <td>Tên tài xế</td>
                         <td>
-                            @Model.DriverName
+                        @Model.DriverName
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Số điện thoại tài xế</td>
                         <td>
-                            @Model.DriverPhone
+                        @Model.DriverPhone
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
-                            <input type="submit" value="Tài Trợ" class="btn btn-info" />
-                            <input type="reset" value="Làm Mới" class="btn btn-info" />
-                        </td>
-                        <td></td>
-                    </tr>
+
                 </table>
             </div>
-        }
+        </div>
+        <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageCar/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>
-</div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ex = /^[^\-]$/;
+        
+        $("#qwe").blur(function () { checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) });
+        $("#asd").blur(function () { checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) && isValidated;
+            isValidated = checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
+</script>

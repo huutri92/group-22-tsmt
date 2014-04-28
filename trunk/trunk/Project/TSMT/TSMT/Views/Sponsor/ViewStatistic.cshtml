@@ -179,42 +179,46 @@
             TotalAvaCar += countavaslots;
         }
         TotalUsedCar = TotalCar - TotalAvaCar;
+        if (TotalCar == 0) {
+            alert("Bạn chưa có dữ liệu để xem bản đồ")
+        }
+        else {
+            $('#chart').highcharts({
 
-        $('#chart').highcharts({
-
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Thống Kê Số Chỗ Ngồi Trên Xe'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Thống Kê Số Chỗ Ngồi Trên Xe'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
                     }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Phần trăm',
-                data: [
-                    ['Tổng Số Chỗ Đã Đăng Ký ' + '(' + TotalUsedCar + '/' + TotalCar + ')', TotalUsedCar],
-                    ['Tổng Số Chỗ Còn Trống ' + '(' + TotalAvaCar + '/' + TotalCar + ')', TotalAvaCar]
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Phần trăm',
+                    data: [
+                        ['Tổng Số Chỗ Đã Đăng Ký ' + '(' + TotalUsedCar + '/' + TotalCar + ')', TotalUsedCar],
+                        ['Tổng Số Chỗ Còn Trống ' + '(' + TotalAvaCar + '/' + TotalCar + ')', TotalAvaCar]
 
-                ]
-            }]
-        });
+                    ]
+                }]
+            });
+        }
     }
 
 
@@ -231,42 +235,46 @@
             TotalAvaLodge += countavaslotsLodge;
         }
         TotalUsedLodge = TotalLodge - TotalAvaLodge;
+        if (TotalLodge == 0) {
+            
+        }
+        else {
+            $('#chartlodge').highcharts({
 
-        $('#chartlodge').highcharts({
-
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Thống Kê Số Chỗ Trọ'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Thống Kê Số Chỗ Trọ'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
                     }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Phần trăm',
-                data: [
-                    ['Tổng Số Chỗ Đã Đăng Ký ' + '(' + TotalUsedLodge + '/' + TotalLodge + ')', TotalUsedLodge],
-                    ['Tổng Số Chỗ Còn Trống ' + '(' + TotalAvaLodge + '/' + TotalLodge + ')', TotalAvaLodge]
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Phần trăm',
+                    data: [
+                        ['Tổng Số Chỗ Đã Đăng Ký ' + '(' + TotalUsedLodge + '/' + TotalLodge + ')', TotalUsedLodge],
+                        ['Tổng Số Chỗ Còn Trống ' + '(' + TotalAvaLodge + '/' + TotalLodge + ')', TotalAvaLodge]
 
-                ]
-            }]
-        });
+                    ]
+                }]
+            });
+        }
     }
 
     $("#fund1").priceFormat({ prefix: '', centsLimit: 0 });

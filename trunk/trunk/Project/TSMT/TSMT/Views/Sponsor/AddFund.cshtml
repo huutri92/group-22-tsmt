@@ -4,7 +4,8 @@
     ViewBag.Title = "Tài Trợ Tiền";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -34,7 +35,7 @@
                 type: 'GET',
                 success: function (results) {
                     $("#asd").html("");
-                    $("#asd").append("<option >-----</option>");
+                    $("#asd").append("<option>---</option>");
                     for (i in results) {
                         var r = results[i];
                         $("#asd").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
@@ -45,18 +46,18 @@
         }
     }
 </script>
-<div class="col-md-9">
-    <div class="panel panel-green margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tài Trợ Tiền
-            </h3>
-        </div>
-        @using (Html.BeginForm("AddFund", "Sponsor", FormMethod.Post))
-        {
+@using (Html.BeginForm("AddFund", "Sponsor", FormMethod.Post, new {id="FormValidate" }))
+{
+    <div class="col-md-7">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Tài Trợ Tiền
+                </h3>
+            </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td style="vertical-align:middle">Tài Trợ Cho: </td>
+                        <td style="vertical-align: middle">Tài Trợ Cho: </td>
                         <td>
                             <select id="qwe" onchange="callAjax(this.value)">
                                 <option value="0" selected>---</option>
@@ -66,7 +67,7 @@
                                 }
                             </select>
                         </td>
-                        <td style="vertical-align:middle">Tổ Chức: </td>
+                        <td style="vertical-align: middle">Tổ Chức: </td>
                         <td>
                             <select id="asd" name="asd"></select>
                         </td>
@@ -78,34 +79,33 @@
                             <script>
                                 $("#input").priceFormat({ prefix: '', centsLimit: 0 });
                             </script>
+
                         </td>
                         <td>VNĐ</td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>Hình thức</td>
-                        <td>
-                            <select name="IsOnline">
-                                <option value="True">Tận Tay</option>
-                                <option value="False">Chuyển Khoản</option>
-                            </select>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ActionLink("Quay lại", "ManageFund", null, new { @class = "btn btn-info" })
-                            <input type="submit" value="Tài Trợ" class="btn btn-info" />
-                            <input type="reset" value="Làm mới" class="btn btn-info" />
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </table>
             </div>
-        }
-
+        </div>
+        <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài trợ</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageFund/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>
-</div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ex = /^[^\-]$/;
+        $("#qwe").blur(function () { checkRegex("qwe", ex, "Vui lòng chọn kỳ thi", true) });
+        $("#asd").blur(function () { checkRegex("asd", ex, "Vui lòng chọn tổ chức", true) });
+        $("#input").blur(function () { checkEmpty("input") });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("qwe", ex, "Vui lòng chọn kỳ thi", true) && isValidated;
+            isValidated = checkRegex("asd", ex, "Vui lòng chọn tổ chức", true) && isValidated;
+            isValidated = checkEmpty("input") && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
+    </script>

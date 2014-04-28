@@ -38,13 +38,15 @@
         </div>
         <div id="map_canvas" style="width: 100%; height: 100%;"></div>
     </div>
-    <input type="submit" value="Lưu" class="btn-u btn-u-green" onclick="return PrepareDataToSubmit()" />
-    <input type="button" value="Hủy" class="btn btn-info" onclick="location.href = '/Sponsor/ManageLodge/' " />
+    <div style="float: right">
+    <input type="submit" value="Lưu" class="btn-u btn-u-sea" onclick="return PrepareDataToSubmit()" />
+        </div>
+    <input type="button" value="Quay Lại" class="btn-u btn-u-default" onclick="location.href = '/Sponsor/ManageLodge/' " />
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Model.Address"});
+        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Html.Raw(@Model.Address)"});
 
         // submit
         $('.popup-confirm').click(function () {

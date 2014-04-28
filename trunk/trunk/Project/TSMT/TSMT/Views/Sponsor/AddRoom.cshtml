@@ -6,7 +6,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -22,9 +23,9 @@
     </div>
 }
 @Html.Partial("_SponsorSidebarPartial")
-@using (Html.BeginForm("AddRoom", "Sponsor", FormMethod.Post))
+@using (Html.BeginForm("AddRoom", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
 {
-    <div class="col-md-7">
+    <div class="col-md-5">
         <div class="panel panel-green margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="icon-list"></i>Tạo mới phòng
@@ -36,22 +37,35 @@
                 <tr>
                     <td>Tên phòng</td>
                     <td>
-                        <input type="text" name="RoomName" /></td>
+                        <input type="text" name="RoomName" id="RoomName"/></td>
                 </tr>
                 <tr>
                     <td>Tổng số chỗ</td>
                     <td>
-                        <input type="text" name="TotalSlots" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <a href="@Url.Action("ManageRoom", "Sponsor")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
-                        <input type="submit" value="Tạo Mới" class="btn btn-info" />
-                        <input type="reset" value="Làm Mới" class="btn btn-info" />
-                    </td>
+                        <input type="text" name="TotalSlots" id="TotalSlots" /></td>
                 </tr>
             </table>
                  </div>
         </div>
+         <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tạo</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageRoom/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        var reTotalSlots = /^\d{1,2}$/;
+      
+        $("#TotalSlots").blur(function () { checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý", true) });
+        $("#RoomName").blur(function () { checkEmpty("RoomName") });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý", true) && isValidated;
+            isValidated = checkEmpty("RoomName") && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
+</script>

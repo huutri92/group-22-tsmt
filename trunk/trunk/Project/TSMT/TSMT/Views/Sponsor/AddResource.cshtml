@@ -201,15 +201,6 @@
                                 </td>
                                 <td>VNĐ</td>
                             </tr>
-                            <tr>
-                                <td>Hình thức</td>
-                                <td>
-                                    <select name="IsOnline" class="form-control">
-                                        <option value="True">Tận Tay</option>
-                                        <option value="False">Chuyển Khoản</option>
-                                    </select>
-                                </td>
-                            </tr>
                         </table>
                     </div>
 
@@ -303,9 +294,10 @@
                     </div>                    
                 </div>
             </div>
-            @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
-            <input type="submit" value="Tài Trợ" class="btn btn-info" />
-            <input type="reset" value="Làm lại" class="btn btn-info" />
+               <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
         </form>
     </div>
 

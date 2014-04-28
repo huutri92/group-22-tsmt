@@ -4,6 +4,23 @@
     ViewBag.Title = "Tài Trợ Nhiều Xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                <li><a href="@Url.Action("ManageCar", "Sponsor")">Quản Lý Xe</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_SponsorSidebarPartial")
 
 <script type="text/javascript" src="~/Content/js/jquery.js"></script>
 <link href="/Content/css/TSMTPopup.css" rel="stylesheet">
@@ -153,14 +170,33 @@
                     </tr>
                     }
                 }
-                  <tr>
+                  @*<tr>
                     <td colspan="4">
                         <input type="button" class="btn btn-info" onclick="history.go(-1);" value="Quay lại" />
                         <input type="submit" value="Submit" class="btn btn-info" id="saveall" />
                         <input type="reset" value="Reset" class="btn btn-info" />
                     </td>
-                </tr>
+                </tr>*@
             </table>
         </div>
     </div>
+    <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus" id="saveall">&nbsp;Tài Trợ</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageCar/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ex = /^[^\-]$/;
+
+        $("#qwe").blur(function () { checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) });
+        $("#asd").blur(function () { checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) });
+        //$("#saveall").submit(function (e) {
+        //    var isValidated = true;
+        //    isValidated = checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) && isValidated;
+        //    isValidated = checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) && isValidated;
+        //    if (isValidated) return true;
+        //    e.preventDefault();
+        //});
+    });
+</script>
