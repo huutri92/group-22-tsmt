@@ -74,7 +74,7 @@
                                               <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
                                         <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
                                             @*@Html.ActionLink("Details", "DetailLodgeCE", new { lodgeId = @item.LodgeID })*@
-                                            <a href="@Url.Action("DetailLodgeCE", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
+                                            <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
                                             @* @Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
                                             @*@Html.ActionLink("Xóa", "RemoveLodgeOutCe", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOutCe' );" })*@
                                             @if (item.AvailableSlots == item.TotalSlotsInUsed)
@@ -110,44 +110,44 @@
                                 @{
                                     int count = 1;
 
-                                    foreach (var item in ViewData["lodgesSponsor"] as IEnumerable<Lodge>)
+                                    foreach (var lodge in ViewData["lodgesSponsor"] as IEnumerable<Lodge>)
                                     {
-                                    <tr id="@item.LodgeID">
+                                    <tr id="@lodge.LodgeID">
                                         <td>@count</td>
-                                        <td>@item.Address</td>
-                                        <td>@if (@item.SponsorID != null)
+                                        <td>@lodge.Address</td>
+                                        <td>@if (@lodge.SponsorID != null)
                                             {
-                                            @item.Sponsor.Account.Profile.Lastname @item.Sponsor.Account.Profile.Firstname
+                                            @lodge.Sponsor.Account.Profile.Lastname @lodge.Sponsor.Account.Profile.Firstname
                                             }
                                         </td>
-                                        <td>@item.Rooms.Count(r => r.CharityExamID == Model.CharityExamID)</td>
-                                        <td>@item.TotalSlotsInUsed</td>
-                                        <td>@item.AvailableSlots</td>
-                                        @if (item.IsApproved && item.SponsorID != null)
+                                        <td>@lodge.Rooms.Count(r => r.CharityExamID == Model.CharityExamID)</td>
+                                        <td>@lodge.TotalSlotsInUsed</td>
+                                        <td>@lodge.AvailableSlots</td>
+                                        @if (lodge.IsApproved && lodge.SponsorID != null)
                                         {
                                             <td><span class="label label-success">Đã duyệt</span></td>
                                             <td>
                                                 @*@Html.ActionLink("Edit", "EditLodge", new { lodgeId = @item.LodgeID })*@
                                                 @*<button class="btn-u btn-u-red" title="Xem trên bản đồ" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                                  <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
-                                                <a href="@Url.Action("DetailLodgeCE", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
-                                                <a href="@Url.Action("RemoveLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.LodgeID , 'removeOut' );" ><i class="icon-remove-sign"></i></a>
+                                                  <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
+                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
+                                                <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @lodge.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
+                                                <a href="@Url.Action("RemoveLodge", "Charity", new { id = @lodge.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @lodge.LodgeID , 'removeOut' );" ><i class="icon-remove-sign"></i></a>
 
                                             </td>
                                         }
-                                        else if (!item.IsApproved && item.SponsorID != null)
+                                        else if (!lodge.IsApproved && lodge.SponsorID != null)
                                         {
                                             <td><span class="label label-danger">Chưa duyệt</span></td>
                                             <td>
                                                 @*<button class="btn-u btn-u-red" title="Xem trên bản đồ" onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                                  <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
+                                                  <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
+                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
 
-                                                <a href="@Url.Action("DetailLodgeCE", "Charity", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
-                                                <a href="@Url.Action("RemoveLodge", "Charity", new { id = @item.LodgeID })" style="display: none" class="btn-u btn-u-red" title="Xóa nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.LodgeID , 'removeOut' );" ><i class="icon-remove-sign"></i></a>
-                                                <a href="@Url.Action("ApproveLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-green" title="Nhận nhà này"  onclick = "return callAjaxApprove(@item.LodgeID);" ><i class="icon-ok-sign"></i></a>
-                                                <a href="@Url.Action("DenieLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Tư chối nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn từ chối nhà này không?', this.href, @item.LodgeID , 'remove' );" ><i class="icon-remove"></i></a>
+                                                <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @lodge.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
+                                                <a href="@Url.Action("RemoveLodge", "Charity", new { id = @lodge.LodgeID })" style="display: none" class="btn-u btn-u-red" title="Xóa nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @lodge.LodgeID , 'removeOut' );" ><i class="icon-remove-sign"></i></a>
+                                                <a href="@Url.Action("ApproveLodge", "Charity", new { id = @lodge.LodgeID })" class="btn-u btn-u-green" title="Nhận nhà này"  onclick = "return callAjaxApprove(@lodge.LodgeID);" ><i class="icon-ok-sign"></i></a>
+                                                <a href="@Url.Action("DenieLodge", "Charity", new { id = @lodge.LodgeID })" class="btn-u btn-u-red" title="Tư chối nhà này"  onclick = "return showPopup('Bạn có chắc chắn muốn từ chối nhà này không?', this.href, @lodge.LodgeID , 'remove' );" ><i class="icon-remove"></i></a>
                                                 @*  @Html.ActionLink("Remove", "DenieLodge", new { id = @item.LodgeID }, new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.LodgeID + ", 'removeOut' );" })
                                                 @Html.ActionLink("Approve", "ApproveLodge", new { id = @item.LodgeID }, new { onclick = "return callAjaxApprove(" + @item.LodgeID + ")" })
                                                 @Html.ActionLink("Denie", "DenieLodge", new { id = @item.LodgeID }, new { onclick = "return showPopup('Are you sure to denie it?', this.href," + @item.LodgeID + ", 'remove' );" })*@
@@ -176,7 +176,7 @@
 
     function callAjaxApprove(lodgeId) {
         $.ajax({
-            url: 'ApproveLodge/' + lodgeId,
+            url: '/Charity/ApproveLodge/' + lodgeId,
             type: 'GET',
             success: function (results) {
                 var tr = document.getElementById(lodgeId);
@@ -198,7 +198,7 @@
 
     function callAjaxDelete(lodgeId) {
         $.ajax({
-            url: 'DeleteLodge/' + lodgeId,
+            url: '/Charity/DeleteLodge/' + lodgeId,
             type: 'GET',
             success: function (results) {
                 $("#" + lodgeId).hide(800, function () {
@@ -211,7 +211,7 @@
 
     function callAjaxDenie(lodgeId) {
         $.ajax({
-            url: 'DenieLodge/' + lodgeId,
+            url: '/Charity/DenieLodge/' + lodgeId,
             type: 'GET',
             success: function (results) {
                 $("#" + lodgeId).hide(800, function () {
@@ -226,7 +226,7 @@
 
 
         $.ajax({
-            url: 'RemoveLodge/' + lodgeId,
+            url: '/Charity/RemoveLodge/' + lodgeId,
             type: 'GET',
             success: function (results) {
                 $("#" + lodgeId).hide(800, function () {
@@ -241,7 +241,7 @@
 
 
         $.ajax({
-            url: 'RemoveLodgeOutCe/' + lodgeId,
+            url: '/Charity/RemoveLodgeOutCe/' + lodgeId,
             type: 'GET',
             success: function (results) {
                 $("#" + lodgeId).hide(800, function () {

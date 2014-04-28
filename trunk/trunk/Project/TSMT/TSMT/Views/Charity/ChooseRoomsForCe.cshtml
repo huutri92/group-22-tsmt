@@ -72,7 +72,7 @@
                     data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
                     type: 'POST',
                     success: function (results) {
-                        window.location.assign("@Url.Content("~/Charity/ManageLodge?ceId=" + @ViewData["ceId"])");
+                        window.location.assign("@Url.Content("~/Charity/ManageLodge/" + @ViewData["ceId"])");
 
                     }
                 });
