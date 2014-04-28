@@ -1,11 +1,13 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Charity
 @{
-    ViewBag.Title = "Tạo mới thông tin xe";
+    ViewBag.Title = "Tạo mới xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
 
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -22,75 +24,24 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-<style type="text/css">
+@*<style type="text/css">
     .validationMsg {
         color: red;
     }
-</style>
-<script type="text/javascript">
+    .divValMsg {
+        width: 200px;
+        background-color: yellow;
+        color: red;
+        /*z-index: 2000;*/
+        position: absolute;
+        padding: 2px 10px;
+        border-radius: 10px;
+        border: 1px solid gray;
+        box-shadow: 0px 0px 10px yellow;
+    }
+</style>*@
 
-
-    //function checkEmpty(id){
-    //	var e = document.getElementById(id);
-    //	var err = document.getElementById("valMsg" + id);
-    //	var msg = "Please fill in this field.";
-    //	if (e.value == ""){err.innerHTML = msg; return false;} else {err.innerHTML = "";}
-    //	return true;
-    //}
-
-    //function checkRegex(id, re, instruction, showValue){
-    //	if (!checkEmpty(id)) return false;
-    //	var e = document.getElementById(id);
-    //	var err = document.getElementById("valMsg" + id);
-    //	var msg = ' is not a valid ' + instruction + '.';
-    //	if (showValue){msg = '"' + e.value + '"' + msg} else {msg = 'It' + msg}
-    //	if (re.test(e.value)){err.innerHTML = ""} else {err.innerHTML = msg; return false;}
-    //	return true;
-    //}
-    //function checkValidations() {
-    //    var goSubmit = true;
-    //    goSubmit = checkEmpty("NumberPlate") && goSubmit;
-    //    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
-    //    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
-
-    //    var reDriverName = /^\w$/;
-    //    goSubmit = checkRegex("DriverName") && goSubmit;
-
-    //    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
-    //    var rePhone = /^(09|01)\d{8,9}$/;
-    //    goSubmit = checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
-    //    return goSubmit;
-    //}
-
-    //function checkRegexCar(id, id2 , id3,re, instruction, showValue) {
-    //    if (!checkEmpty(id2)) return false;
-    //    if (!checkEmpty(id3)) return false;
-    //    var e = document.getElementById(id);
-    //    var err = document.getElementById("valMsg" + id);
-    //    var msg = ' is not a valid ' + instruction + '.';
-    //    if (showValue) { msg = '"' + e.value + '"' + msg } else { msg = 'It' + msg }
-    //    if (re.test(e.value)) { err.innerHTML = "" } else { err.innerHTML = msg; return false; }
-    //    return true;
-    //}
-
-
-
-    //function checkValidations() {
-    //    var goSubmit = true;
-    //    goSubmit = checkEmpty("NumberPlate") && goSubmit;
-    //    var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
-    //    goSubmit = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && goSubmit;
-
-    //    var reDriverName = /^\w$/;
-    //    goSubmit = checkRegexCar("DriverName","NumberPlate","TotalSlots") && goSubmit;
-
-    //    //var rePhone = /^(\(\+84\)|\(\+84\)0|\+84|\+840|0)\d{9,10}$/;
-    //    var rePhone = /^(09|01)\d{8,9}$/;
-    //    goSubmit = checkRegexCar("DriverPhone", "NumberPlate", "TotalSlots", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", true) && goSubmit;
-    //    return goSubmit;
-    //}
-</script>
-@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post))
+@using (Html.BeginForm("AddCar", "Charity", FormMethod.Post, new { id = "FormAddCar" }))
 {
     <div class="col-md-6">
         <div class="panel panel-orange margin-bottom-20">
@@ -102,28 +53,28 @@
                 <input type="hidden" name="id" value="@Model.CharityID"/>
                 <table class="table">
                     <tr>
-                        <td style="vertical-align: middle">Biển số xe *</td>
+                        <td style="vertical-align: middle">Biển số xe<span class="required">*</span></td>
                         <td>
                             <input type="text" name="NumberPlate" id="NumberPlate" class="form-control" style="width:60%" /></td>
-                        <td><span class="validationMsg" id="valMsgNumberPlate"></span></td>
+                        
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Tổng số chỗ ngồi *</td>
+                        <td style="vertical-align: middle">Tổng số chỗ ngồi<span class="required">*</span></td>
                         <td>
                             <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" style="width:25%"/></td>
-                        <td><span class="validationMsg" id="valMsgTotalSlots"></span></td>
+                        
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Tên tài xế</td>
                         <td>
                             <input type="text" name="DriverName" id="DriverName" class="form-control" style="width:85%"/></td>
-                        <td><span class="validationMsg" id="valMsgDriverName"></span></td>
+                       
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Số điện thoại tài xế</td>
                         <td>
                             <input type="text" name="DriverPhone" id="DriverPhone" class="form-control" style="width:60%"/></td>
-                        <td><span class="validationMsg" id="valMsgDriverPhone"></span></td>
+                        
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Kì thi</td>
@@ -151,5 +102,42 @@
         </div>
         @*<button type="button" onclick="location.href ='/Charity/ManageCarCharity/'" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>*@
     </div>
-   
 }
+   
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#TotalSlots").blur(function () { checkEmpty("TotalSlots") });
+	    //$("#Address").blur(function(){checkEmpty("Address")});
+	    $("#NumberPlate").blur(function () { CheckNumberPlate("NumberPlate", "Xe đã tồn tại trong hệ thống! Vui lòng kiểm tra lại.", true) });
+	    $("#FormAddCar").submit(function (e) {
+	        var isValidated = true;
+	        isValidated = checkEmpty("TotalSlots") && isValidated;
+	        //isValidated = checkEmpty("Address") && isValidated;
+	        isValidated = CheckNumberPlate("NumberPlate", "Xe đã tồn tại trong hệ thống! Vui lòng kiểm tra lại.", true) && isValidated;
+	        if (isValidated) return true;
+	        e.preventDefault();
+	    });
+    });
+
+    function CheckNumberPlate(id, msg, required) {
+        var e = document.getElementById(id);
+        if (checkEmpty(id)) {
+            var isNotExisted = false;
+            $.ajax({
+                url: '/charity/CheckNumberPlate/',
+                data: { code: e.value},
+                type: 'POST',
+                async: false,
+                success: function (results) {
+                    if (results.success == true) {
+                        isNotExisted = results.isNotExisted;
+                    }
+                }
+            });
+            if (!isNotExisted) {
+                createValMsg(e, msg);
+                return false;
+            } else return true;
+        } else return !required;
+    }
+</script>
