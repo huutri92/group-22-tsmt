@@ -89,7 +89,8 @@ namespace TSMT.Controllers
         }
         public ActionResult AddLodge()
         {
-            return View();
+            var ces = db.ChairitiesExams.ToList();
+            return View(ces);
         }
         [HttpPost]
         public ActionResult AddLodge(FormCollection f)
@@ -108,13 +109,13 @@ namespace TSMT.Controllers
             db.Lodges.Add(lodge);
             db.SaveChanges();
 
-            return RedirectToAction("ManageRoom", new { lodgeId = lodge.LodgeID });
+            return RedirectToAction("ManageRoom", new { id = lodge.LodgeID });
 
         }
 
-        public ActionResult DeleteLodge(int lodgeId)
+        public ActionResult DeleteLodge(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
             foreach (var room in rooms)
             {
@@ -130,9 +131,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageLodge");
         }
-        public ActionResult DenieLodge(int lodgeId)
+        public ActionResult DenieLodge(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             lodge.CharityExamID = null;
             lodge.CharityID = null;
             lodge.TotalSlotsInUsed = lodge.TotalSlots;
@@ -148,9 +149,9 @@ namespace TSMT.Controllers
         }
 
 
-        public ActionResult EditLodgeNotCe(int lodgeId)
+        public ActionResult EditLodgeNotCe(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             return View(lodge);
         }
         [HttpPost]
@@ -165,10 +166,10 @@ namespace TSMT.Controllers
             return RedirectToAction("ManageLodge");
 
         }
-        public ActionResult EditLodge(int lodgeId)
+        public ActionResult EditLodge(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
             ViewData["CE"] = db.ChairitiesExams.ToList();
             ViewData["Exam"] = db.Examinations.ToList();
             return View(lodge);
@@ -210,9 +211,9 @@ namespace TSMT.Controllers
             }
         }
 
-        public ActionResult EditLodgeHasCe(int lodgeId)
+        public ActionResult EditLodgeHasCe(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             return View(lodge);
         }
         [HttpPost]
@@ -227,23 +228,23 @@ namespace TSMT.Controllers
             return RedirectToAction("ManageLodge");
 
         }
-        public ActionResult DetailsLodge(int lodgeId)
+        public ActionResult DetailsLodge(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             return View(lodge);
         }
         #endregion
         #region ROOMS
-        public ActionResult ManageRoom(int lodgeId)
+        public ActionResult ManageRoom(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
-            ViewData["roomsCE"] = db.Rooms.Where(r => r.LodgeID == lodgeId && r.CharityExamID != null).ToList();
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
+            ViewData["roomsCE"] = db.Rooms.Where(r => r.LodgeID == id && r.CharityExamID != null).ToList();
             return View(lodge);
         }
-        public ActionResult AddRoom(int lodgeId)
+        public ActionResult AddRoom(int id)
         {
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
+            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
             return View(lodge);
         }
         [HttpPost]
@@ -267,11 +268,11 @@ namespace TSMT.Controllers
 
             db.Rooms.Add(room);
             db.SaveChanges();
-            return RedirectToAction("ManageRoom", new { lodgeId = room.LodgeID });
+            return RedirectToAction("ManageRoom", new { id = room.LodgeID });
         }
-        public ActionResult DeleteRoom(int roomId)
+        public ActionResult DeleteRoom(int id)
         {
-            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
+            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
 
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == room.LodgeID);
             lodge.TotalSlots -= room.TotalSlots;
@@ -284,11 +285,11 @@ namespace TSMT.Controllers
 
             db.Rooms.Remove(room);
             db.SaveChanges();
-            return RedirectToAction("ManageRoom", new { lodgeId = lodge.LodgeID });
+            return RedirectToAction("ManageRoom", new { id = lodge.LodgeID });
         }
-        public ActionResult EditRoom(int roomId)
+        public ActionResult EditRoom(int id)
         {
-            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
+            Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
             return View(room);
         }
         [HttpPost]
@@ -318,7 +319,7 @@ namespace TSMT.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("ManageRoom", new { lodgeId = room.LodgeID });
+            return RedirectToAction("ManageRoom", new { id = room.LodgeID });
         }
         #endregion
         #region CARS
@@ -349,13 +350,24 @@ namespace TSMT.Controllers
         [HttpPost]
         public ActionResult AddCar(FormCollection f)
         {
+            
             Account acc = (Account)Session["acc"];
             Sponsor sp = db.Sponsors.SingleOrDefault(r => r.AccountID == acc.AccountID);
 
             Car car = new Car();
+            string[] listStringNumber = f["NumberPlate"].Split(' ');
+            string numberplate = "";
+            for (int i = 0; i < listStringNumber.Length; i++)
+            {
+                if (!listStringNumber[i].Equals(" "))
+                {
+                    numberplate += listStringNumber[i];
+                }
+                
+            }
             car.SponsorID = sp.SponsorID;
             car.IsApproved = false;
-            car.NumberPlate = f["NumberPlate"];
+            car.NumberPlate = numberplate.ToUpper();
             car.TotalSlots = int.Parse(f["TotalSlots"]);
             car.AvailableSlots = car.TotalSlots;
             car.DriverName = f["DriverName"];
@@ -496,17 +508,17 @@ namespace TSMT.Controllers
 
             return RedirectToAction("ManageFund");
         }
-        public ActionResult DeleteFund(int fundId)
+        public ActionResult DeleteFund(int id)
         {
-            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == fundId);
+            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == id);
 
             db.Funds.Remove(fund);
             db.SaveChanges();
             return RedirectToAction("ManageFund");
         }
-        public ActionResult EditFund(int fundId)
+        public ActionResult EditFund(int id)
         {
-            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == fundId);
+            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == id);
             return View(fund);
         }
         [HttpPost]
@@ -518,9 +530,9 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("ManageFund");
         }
-        public ActionResult DetailsFund(int fundId)
+        public ActionResult DetailsFund(int id)
         {
-            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == fundId);
+            Fund fund = db.Funds.SingleOrDefault(r => r.FundID == id);
             return View(fund);
         }
         #endregion
@@ -735,6 +747,12 @@ namespace TSMT.Controllers
                            FundSponsored = r.FundSponsored,
                        };
             return Json(fund, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CheckNumberPlate(string code)
+        {
+            bool isNotExisted = db.Cars.Count(r => r.NumberPlate == code) == 0;
+            return Json(new { success = true, isNotExisted = isNotExisted });
         }
         #endregion
     }
