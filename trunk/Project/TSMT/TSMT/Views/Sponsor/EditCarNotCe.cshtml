@@ -4,7 +4,8 @@
     ViewBag.Title = "Chỉnh sửa thông tin xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -20,48 +21,62 @@
     </div>
 }
 @Html.Partial("_SponsorSidebarPartial")
-
-
-<div class="col-md-9">
-    <div class="panel panel-green margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa thông tin xe
-            </h3>
-        </div>
-        @using (Html.BeginForm("EditCarNotCe", "Sponsor", FormMethod.Post))
-        {
+@using (Html.BeginForm("EditCarNotCe", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+{
+    <div class="col-md-5">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa thông tin xe
+                </h3>
+            </div>
             <div class="panel-body">
                 <input type="hidden" name="carId" value="@Model.CarID"/>
                 <table class="table table-hover">
                     <tr>
-                        <td>Biển số xe</td>
+                        <td>Biển số xe <span class="required">*</span></td>
                         <td>
-                            <input type="text" name="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
+                            <input type="text" name="NumberPlate" id="NumberPlate" value="@Model.NumberPlate" class="form-control"/></td>
                     </tr>
                     <tr>
-                        <td>Tổng số chỗ ngồi</td>
+                        <td>Tổng số chỗ ngồi <span class="required">*</span></td>
                         <td>
-                            <input type="text" name="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
+                            <input type="text" name="TotalSlots" id="TotalSlots" value="@Model.TotalSlots" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td>Tên tài xế</td>
                         <td>
-                            <input type="text" name="DriverName" value="@Model.DriverName" class="form-control"/></td>
+                            <input type="text" name="DriverName" id="DriverName" value="@Model.DriverName" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td>Số điện thoại tài xế</td>
                         <td>
-                            <input type="text" name="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
+                            <input type="text" name="DriverPhone" id="DriverPhone" value="@Model.DriverPhone" class="form-control"/></td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                             @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
-                            <input type="submit" value="Lưu lại" class="btn btn-info" />
-                            <input type="reset" value="Làm mới" class="btn btn-info" />
-                        </td>
-                    </tr>
+                    
                 </table>
             </div>
-        }
+        </div>
+         <div style="float:right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Lưu lại</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageCar/'" class="btn-u btn-u-default" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>
-</div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var reNumberplate = /^\d\d\D\d-\d{4,5}$/;
+        var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
+        var rePhone = /^(09|01)\d{8,9}$/;
+        $("#TotalSlots").blur(function () { checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) });
+        $("#DriverPhone").blur(function () { checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", false) });
+        $("#NumberPlate").blur(function () { checkRegex("NumberPlate",reNumberplate, "Biển số xe không đúng định dạng! VD: 54X5-12345", true) });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý- không vượt quá 59 chỗ", true) && isValidated;
+            isValidated = checkRegex("DriverPhone", rePhone, "Số điện thoại bắt đầu bằng 09 hoặc 01 và đủ (10 đến 11) số", false) && isValidated;
+            isValidated = checkRegex("NumberPlate", reNumberplate, "Biển số xe không đúng định dạng! VD: 54X5-12345", true) && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
+    </script>

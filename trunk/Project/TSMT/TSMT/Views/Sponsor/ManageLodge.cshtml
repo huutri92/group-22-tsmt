@@ -98,15 +98,14 @@
                                         <td class="add">
                                          @lodge.Address
                                         </td>
-                                        <td>@lodge.Rooms.Count</td>
+                                        <td>@lodge.Rooms.Where(r=>r.LodgeID ==@lodge.LodgeID).Count()</td>
                                         <td>@lodge.TotalSlots</td>
                                         <td>
-                                            @*<button type="button" onclick="openWindowPopup('/sponsor/ViewLodge/', @lodge.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-marker"></i></button>*@
-                                            <a href="#" onclick="openWindowPopup('/Home/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
-                                            <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
-                                            <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
-                                            <a href="@Url.Action("EditLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
-                                            <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @lodge.LodgeID })" class="btn-u btn-u-orange" title="Xóa Nhà"><i class="icon-trash"></i></a>
+                                            <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                            <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
+                                            <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
+                                            <a href="@Url.Action("EditLodge", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-orange" title="Xóa Nhà"><i class="icon-trash"></i></a>
                                         </td>
                                     </tr>
                                         ++counter;
@@ -159,7 +158,7 @@
                                         {
                                             <td><span class="label label-success">Đã tài trợ</span></td>
                                             <td>
-                                                <a href="#" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
                                                 <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"  title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                             </td>
                                         }
@@ -169,11 +168,11 @@
                                             <td>
                                                    <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
                                                 
-                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem"><i class="icon-info"></i></a>
+                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem"><i class="icon-info"></i></a>
                                                 
-                                                <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
+                                                <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
                                                  @*@Html.ActionLink("Hủy tài Trợ", "DenieLodge", new { carId = @item.LodgeID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ căn nhà này?', this.href);" })*@
-                                                <a href="@Url.Action("DenieLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
+                                                <a href="@Url.Action("DenieLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
                                                 @*   <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange"><i class="icon-trash"></i></a>*@
                                             </td>
                                         }

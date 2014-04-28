@@ -49,8 +49,7 @@
                         <th>Kỳ thi</th>
                         <th>Tài Trợ Cho</th>
                         <th>Số Tiền</th>
-                        <th>Phương Thức Tài Trợ</th>
-                        <th>Trạng Thái</th>
+                        <th>Trại Thái</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -76,14 +75,7 @@
                             <td>@item.ChairitiesExam.Examination.Name</td>
                             <td>@item.ChairitiesExam.Charity.Name</td>
                             <td>@item.FundSponsored.ToString("##,### VNĐ")</td>
-                            @if (item.IsOnlineFunding)
-                            {
-                                <td>Tận tay</td>
-                            }
-                            else
-                            {
-                                <td>Chuyển Khoản</td>
-                            }
+                           
                             @if (item.IsApproved)
                             {
                                 <td><span class="label label-success">Đã Gửi</span></td>
@@ -93,8 +85,8 @@
                             {
                                 <td><span class="label label-danger">Chờ Xác Nhận</span></td>
                                 <td>
-                                     <a href="@Url.Action("EditFund", "Sponsor", new { fundId = @item.FundID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                     @Html.ActionLink("Hủy tài Trợ", "DeleteFund", new { fundId = @item.FundID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ số tiền này?', this.href);" })
+                                     <a href="@Url.Action("EditFund", "Sponsor", new { id = @item.FundID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
+                                     <a href="@Url.Action("DeleteFund", "Sponsor", new { id = @item.FundID})" onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ số tiền này?', this.href);" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
                                 </td>
                             }
 

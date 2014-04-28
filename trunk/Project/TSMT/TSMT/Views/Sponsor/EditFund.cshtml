@@ -21,37 +21,34 @@
 @Html.Partial("_SponsorSidebarPartial")
 
 <script type="text/javascript" src="~/Content/js/jquery.js"></script>
-<div class="col-md-9">
-    <div class="panel panel-green margin-bottom-20">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa tiền tài trợ
-            </h3>
-        </div>
-        @using (Html.BeginForm("EditFund", "Sponsor", FormMethod.Post))
-        {
-            <div class="panel-body">
-            <input type="hidden" name="fundId" value="@Model.FundID"/>
-            <table class="table table-hover">
-                <tr>
-                    <td>Số Tiền</td>
-                    <td>
-                        <input type="text" name="FundSponsored" value="@Model.FundSponsored" id ="input"/></td>
-                    <script>
-                        $("#input").priceFormat({ prefix: '', centsLimit: 0 });
-                    </script>
-                    <td>VNĐ</td>
-                </tr>
+@using (Html.BeginForm("EditFund", "Sponsor", FormMethod.Post))
+{
+    <div class="col-md-5">
+        <div class="panel panel-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon-list"></i>Chỉnh sửa tiền tài trợ
+                </h3>
+            </div>
 
-                <tr>
-                    <td colspan="2">
-                         @Html.ActionLink("Quay lại", "ManageCar", null, new { @class = "btn btn-info" })
-                        <input type="submit" value="Lưu lại" class="btn btn-info" />
-                        @*<input type="reset" value="Làm mới" class="btn btn-info" />*@
-                    </td>
-                    <td></td>
-                </tr>
-            </table>
-                </div>
-        }
+            <div class="panel-body">
+                <input type="hidden" name="fundId" value="@Model.FundID"/>
+                <table class="table table-hover">
+                    <tr>
+                        <td>Số Tiền</td>
+                        <td>
+                            <input type="text" name="FundSponsored" value="@Model.FundSponsored" id ="input"/></td>
+                        <script>
+                            $("#input").priceFormat({ prefix: '', centsLimit: 0 });
+                        </script>
+                        <td>VNĐ</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div style="float: right">
+            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Lưu lại</i></button>
+        </div>
+        <button type="button" onclick="location.href ='/Sponsor/ManageFund/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
     </div>
-</div>
+}
