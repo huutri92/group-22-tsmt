@@ -5,7 +5,8 @@
     ViewBag.Active = "AddResource";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,9 +150,10 @@
         </div>
     }
     @Html.Partial("_SponsorSidebarPartial")
-
-    <div class="col-md-9">
-        <form method="post" action="/Sponsor/AddResource">
+    @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+    {
+        <div class="col-md-9">
+            @* <form method="post" action="/Sponsor/AddResource">*@
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
@@ -172,9 +174,9 @@
                             </td>
                             <td>Tổ Chức: </td>
                             <td>
-                                <select id="asd" name="asd"  onchange="callAjaxLodgeCharityid(this.value)" class="form-control"></select>
+                                <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control"></select>
                             </td>
-                            <input type="hidden"  name ="charityid" id ="charityid" />
+                            <input type="hidden" name="charityid" id="charityid" />
                         </tr>
                         <tr>
                             <td>Hình Thức</td>
@@ -188,8 +190,8 @@
                             </td>
                         </tr>
                     </table>
-                    
-                         <div id="Tiền" style="display: none">
+
+                    <div id="Tiền" style="display: none">
                         <table class="table table-hover">
                             <tr>
                                 <td>Số Tiền</td>
@@ -209,51 +211,52 @@
                             @*<button type="button" class="close" data-dismiss="alert">×</button>*@
                             <strong>Bạn không có xe để tài trợ!</strong> Bạn hãy tạo mới xe cho mình.
                         </div>
-                        <table class="table table-hover" id ="showdata">
+                        <table class="table table-hover" id="showdata">
                             @if (((IEnumerable<Car>)ViewData["Car"]).Count() == 0)
                             {
-                                  <tr>
-                                        <td>
-                                            <script type="text/javascript">
-                                                document.getElementById("showdata").style.display = "none";
-                                                document.getElementById("showMessage").style.display = "block";
-                                            </script>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <script type="text/javascript">
+                                            document.getElementById("showdata").style.display = "none";
+                                            document.getElementById("showMessage").style.display = "block";
+                                        </script>
+                                    </td>
+                                </tr>
                             }
-                            else{
-                            <tr>
-                                <td>Xe đã có - Biển Số Xe: 
-                                </td>
-                                <td>
-                                    <select id="carsource" name="carId" onchange="callAjaxcar(this.value)" class="form-control">
-                                        <option value="0" selected>---</option>
-                                        @foreach (var item in ViewData["Car"] as IEnumerable<Car>)
-                                        {
-                                            <option value="@item.CarID">@item.NumberPlate</option>
-                                        }
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>
-                                    <input style="display: none" type="text" id="NumberPlate" name="NumberPlate" readonly="true" class="form-control" /></td>
-                            </tr>
-                            <tr>
-                                <td>Tổng số chỗ ngồi</td>
-                                <td>
-                                    <input type="text" id="TotalSlots" name="TotalSlots" readonly="true" class="form-control" /></td>
-                            </tr>
-                            <tr>
-                                <td>Tên tài xế</td>
-                                <td>
-                                    <input type="text" id="DriverName" name="DriverName" readonly="true" class="form-control" /></td>
-                            </tr>
-                            <tr>
-                                <td>Số điện thoại tài xế</td>
-                                <td>
-                                    <input type="text" id="DriverPhone" name="DriverPhone" readonly="true" class="form-control" /></td>
-                            </tr>
+                            else
+                            {
+                                <tr>
+                                    <td>Xe đã có - Biển Số Xe: 
+                                    </td>
+                                    <td>
+                                        <select id="carsource" name="carId" onchange="callAjaxcar(this.value)" class="form-control">
+                                            <option value="0" selected>---</option>
+                                            @foreach (var item in ViewData["Car"] as IEnumerable<Car>)
+                                            {
+                                                <option value="@item.CarID">@item.NumberPlate</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="display: none">
+                                    <td>
+                                        <input style="display: none" type="text" id="NumberPlate" name="NumberPlate" readonly="true" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng số chỗ ngồi</td>
+                                    <td>
+                                        <input type="text" id="TotalSlots" name="TotalSlots" readonly="true" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Tên tài xế</td>
+                                    <td>
+                                        <input type="text" id="DriverName" name="DriverName" readonly="true" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại tài xế</td>
+                                    <td>
+                                        <input type="text" id="DriverPhone" name="DriverPhone" readonly="true" class="form-control" /></td>
+                                </tr>
                             }
                         </table>
                     </div>
@@ -291,16 +294,16 @@
 
                             </tr>
                         </table>
-                    </div>                    
+                    </div>
                 </div>
             </div>
-               <div style="float: right">
-            <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
-        </div>
-        <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
-        </form>
-    </div>
+            <div style="float: right">
+                <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
+            </div>
+            <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
 
+        </div>
+    }
 </body>
 </html>
 <script type="text/javascript">
@@ -313,4 +316,20 @@
         currentRole = newRole;
     }
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ex = /^[^\-]$/;
+        $("#qwe").blur(function () { checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) });
+        $("#asd").blur(function () { checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) });
+        $("#resource").blur(function () { checkRegex("resource", ex, "VUi lòng chọn tổ chức", true) });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) && isValidated;
+            isValidated = checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) && isValidated;
+            isValidated = checkRegex("resource", ex, "VUi lòng chọn hình thức tài trợ", true) && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
 </script>
