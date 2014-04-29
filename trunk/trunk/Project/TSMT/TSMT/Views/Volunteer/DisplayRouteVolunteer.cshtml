@@ -39,6 +39,7 @@
 <body>
     <div id="route" style="display: none">@ViewData["StarEndPoint"]</div>
     <div id="way" style="display: none">@ViewData["WayPoint"]</div>
+    <div id="pId" style="display: none">@ViewData["ScheduleId"]</div>
     @*<div id="wayEdit" style="display: none">@ViewData["WayPointEdit"]</div>*@
     <div>
         <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
@@ -174,12 +175,13 @@
     }
 
     function callAjaxSave() {
-
-
+        //var id = document.getElementById("pId").parseInt;
+        //var idDiv = document.getElementById("pId");
+        //var id = idDiv.textContent.parseInt;
         $.ajax({
-            url: 'SaveRoute',
+            url: '/Volunteer/SaveRoute',
             type: 'POST',
-            data: { scheduleId: 2, waypoints: test },
+            data: { scheduleId: @ViewData["ScheduleId"] , waypoints: test },
             success: function (r) {
                 alert("Đường đi đã được lưu");
             }

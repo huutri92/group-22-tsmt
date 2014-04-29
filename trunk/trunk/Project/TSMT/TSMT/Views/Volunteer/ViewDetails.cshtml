@@ -44,8 +44,8 @@
                 <tr>
                     <td>@counter</td>
                     <td>@se.Day.ToString("dd/MM/yyyy")</td>
-                    <td>@se.BeginHour.ToShortTimeString()</td>
-                    <td>@se.EndHour.ToShortTimeString()</td>
+                    <td>@se.BeginTime.ToShortTimeString()</td>
+                    <td>@se.EndTime.ToShortTimeString()</td>
                 </tr>            
                     ++counter;
                 }
@@ -79,7 +79,7 @@
                 </tr>
                 <tr>
                     <th style="vertical-align: middle">Xem đường đi</th>
-                    <td><a href="@Url.Action("ViewRoute", "Volunteer")" class="btn-u btn-u-tomato"><i class="icon-location-arrow"></i>&nbsp;Xem đường đi</a></td>
+                    <td><a href="@Url.Action("ViewRountes", "Volunteer", new {id = @Model.ParticipantVolunteerID})" class="btn-u btn-u-tomato"><i class="icon-location-arrow"></i>&nbsp;Xem đường đi</a></td>
                 </tr>
             </table>
         </div>
