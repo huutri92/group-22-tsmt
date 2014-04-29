@@ -185,6 +185,13 @@ namespace TSMT.Controllers
             bool isNotExisted = db.Cars.Count(r => r.NumberPlate == code) == 0;
             return Json(new { success = true, isNotExisted = isNotExisted });
         }
+        [HttpPost]
+        public JsonResult CheckNumberPlateEdit(string code, string oldCode)
+        {
+            bool isNotExisted = db.Cars.Count(r => r.NumberPlate == code && r.NumberPlate != oldCode) == 0;
+            return Json(new { success = true, isNotExisted = isNotExisted });
+        }
+        
 
         [HttpPost]
         public ActionResult AddCar(FormCollection f)

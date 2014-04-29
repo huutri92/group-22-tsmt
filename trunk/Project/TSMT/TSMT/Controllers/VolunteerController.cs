@@ -93,11 +93,11 @@ namespace TSMT.Controllers
                       };
             return Json(lod);
         }
-        public ActionResult ViewRoutes()
-        {
-            return View();
-        }
-        public ActionResult DisplayRoute(int scheduleId = 2)
+        //public ActionResult ViewRoutes()
+        //{
+        //    return View();
+        //}
+        public ActionResult ViewRountes(int id)
         {
             //SchedulesVolunteer schedulesVolunteer = db.SchedulesVolunteers.FirstOrDefault(s => s.ScheduleVolunteerID == scheduleId);
             //if (schedulesVolunteer != null)
@@ -108,7 +108,17 @@ namespace TSMT.Controllers
             //    ViewData["WayPointEdit"] = "";
             //}
 
-            return View();
+            ParticipantVolunteer schedulesVolunteer = db.ParticipantVolunteers.FirstOrDefault(s => s.ParticipantVolunteerID == id);
+            if (schedulesVolunteer != null)
+            {
+                var endPoint = schedulesVolunteer.ExaminationsPaper.Venue.Address;
+                var startPoint = schedulesVolunteer.ExaminationsPaper.Lodge.Address;
+                ViewData["StarEndPoint"] = startPoint + ";" + endPoint;
+                ViewData["WayPoint"] = schedulesVolunteer.WayPoints;
+                ViewData["ScheduleId"] = id;
+                ViewData["WayPointEdit"] = "";
+            }
+            return View("DisplayRouteVolunteer");
         }
         [HttpPost]
         public JsonResult SaveRoute(int scheduleId, string waypoints)
@@ -118,6 +128,11 @@ namespace TSMT.Controllers
             //schedulesVolunteer.WayPoint = waypoints;
             //db.SaveChanges();
             //ViewData["WayPoint"] = schedulesVolunteer.WayPoint;
+            ParticipantVolunteer schedulesVolunteer = db.ParticipantVolunteers.FirstOrDefault(s => s.ParticipantVolunteerID == scheduleId);
+
+            schedulesVolunteer.WayPoints = waypoints;
+            db.SaveChanges();
+            ViewData["WayPoint"] = schedulesVolunteer.WayPoints;
             return Json(new { success = true });
         }
     }
