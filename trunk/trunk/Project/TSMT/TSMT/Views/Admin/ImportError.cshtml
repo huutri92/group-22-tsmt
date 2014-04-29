@@ -1,0 +1,55 @@
+﻿@using TSMT.Controllers
+@{
+    ViewBag.Title = "ImportError";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>ImportError</h2>
+<div class="tab-pane" id="lodge">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Hàng số</th>
+                <th>Tên trường</th>
+                <th>Mã trường</th>
+                <th>Nguyên nhân</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+
+                foreach (var error in TempData["listerror"] as IEnumerable<AdminController.ImportErrors>)
+                {
+                    if (error.SameAddress == null || error.SameCode == null || error.SameName == null)
+                    {
+                        <tr>
+                            <td>@error.Row</td>
+                            <td>@error.Name</td>
+                            <td>@error.Code</td>
+                            @if (error.Name==null)
+                            {
+                                <td>Không có tên trường</td>
+                            }
+                            @if (error.Code==null)
+                            {
+                                <td>Không có mã trường</td>
+                            }
+                            @if (error.Address==null)
+                            {
+                                <td>Không có địa chỉ trường</td>
+                            }
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr id="1">
+                            <td>@error.Row</td>
+                            <td>@error.SameName</td>
+                            <td>@error.SameCode</td>
+                            <td>Trường này đã tồn tại</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

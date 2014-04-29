@@ -31,6 +31,7 @@ namespace TSMT.Controllers
         {
             return View();
         }
+        [HttpPost]
         public ActionResult Importexcel(HttpPostedFileBase file)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
@@ -91,118 +92,109 @@ namespace TSMT.Controllers
                     {
                         dataAdapter.Fill(ds);
                     }
+                    List<ImportErrors> listErrors = new List<ImportErrors>();
+                    ImportErrors imEror = new ImportErrors();
+                    var listUni = db.Universities.ToList();
+                    int tmp = db.Universities.Count();
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
                         University uni = new University();
+                        imEror = new ImportErrors();
                         if (ds.Tables[0].Rows[i]["Name"].ToString() != "")
                         {
                             uni.Name = ds.Tables[0].Rows[i]["Name"].ToString();
                         }
                         else
                         {
-                            break;
+                            imEror.Name = null;
+                            imEror.Address = uni.Address == null ? null : ds.Tables[0].Rows[i]["Address"].ToString();
+                            imEror.Code = uni.UniversityCode == null ? null : ds.Tables[0].Rows[i]["UniversityCode"].ToString();
                         }
                         if (ds.Tables[0].Rows[i]["Address"].ToString() != "")
                         {
-                            uni.Address = "";
+                            uni.Address = ds.Tables[0].Rows[i]["Address"].ToString();
                         }
-                        uni.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "" ? ds.Tables[0].Rows[i]["UniversityCode"].ToString() : null;
+                        else
+                        {
+                            imEror.Address = null;
+                            imEror.Name = uni.Name == null ? null : ds.Tables[0].Rows[i]["Name"].ToString();
+                            imEror.Code = uni.UniversityCode == null ? null : ds.Tables[0].Rows[i]["UniversityCode"].ToString();
+                        }
+                        if (ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "")
+                        {
+                            uni.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString();
+                        }
+                        else
+                        {
+                            imEror.Code = null;
+                            imEror.Name = uni.Name == null ? null : ds.Tables[0].Rows[i]["Name"].ToString();
+                            imEror.Address = uni.Address == null ? null : ds.Tables[0].Rows[i]["Address"].ToString();
+                        }
                         uni.Website = ds.Tables[0].Rows[i]["Website"].ToString() != "" ? ds.Tables[0].Rows[i]["Website"].ToString() : null;
-                        uni.Phone = null;
-                        db.Universities.Add(uni);
-                        db.SaveChanges();
+                        uni.Phone = ds.Tables[0].Rows[i]["Phone"].ToString() != "" ? ds.Tables[0].Rows[i]["Phone"].ToString() : null;
+                        bool flag = true;
+                        if (uni.Name != null && uni.Address != null && uni.UniversityCode != null)
+                        {
+                            for (int j = 0; j < tmp; j++)
+                            {
+                                imEror = new ImportErrors();
+                                if (ds.Tables[0].Rows[i]["Name"].ToString() == listUni[j].Name)
+                                {
+                                    imEror.SameName = uni.Name;
+                                    flag = false;
+                                }
+                                if (ds.Tables[0].Rows[i]["UniversityCode"].ToString() == listUni[j].UniversityCode)
+                                {
+                                    imEror.SameCode = uni.UniversityCode;
+                                    flag = false;
+                                }
+                                if (imEror.SameAddress != null || imEror.SameCode != null || imEror.SameName != null)
+                                {
+                                    imEror.Row = i + 2;
+                                    listErrors.Add(imEror);
+                                    break;
+                                }
+                            }
+                            if (flag)
+                            {
+                                db.Universities.Add(uni);
+                                db.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            imEror.Row = i + 2;
+                            listErrors.Add(imEror);
+                        }
                     }
+                    if (listErrors.Count > 0)
+                    {
+                        TempData["listerror"] = listErrors;
+                        return RedirectToAction("ImportError");
+                    }
+                    return RedirectToAction("ManageUniversity");
                     //ViewBag.message = "Information saved successfully.";
                 }
 
-                else
-                {
-                    ModelState.AddModelError("", "Plese select Excel File.");
-                }
+                ModelState.AddModelError("", "Plese select Excel File.");
             }
 
             return RedirectToAction("ManageUniversity");
         }
-        [HttpPost]
-        public JsonResult ReviewDataImported(HttpPostedFileBase file)
+        public ActionResult ImportError()
         {
-            ImportFromExcel model = new ImportFromExcel();
-            if (Request.Files["FileUpload"].ContentLength > 0)
-            {
-                string fileExtension = Path.GetExtension(Request.Files["FileUpload"].FileName);
-
-                if (fileExtension == ".xls" || fileExtension == ".xlsx")
-                {
-
-                    // Create a folder in App_Data named ExcelFiles because you need to save the file temporarily location and getting data from there. 
-                    string fileLocation = string.Format("{0}/{1}", Server.MapPath("~/Content/UploadedFolder"),
-                        Request.Files["FileUpload"].FileName);
-
-                    if (System.IO.File.Exists(fileLocation))
-                        System.IO.File.Delete(fileLocation);
-
-                    Request.Files["FileUpload"].SaveAs(fileLocation);
-                    string excelConnectionString = string.Empty;
-
-                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation +
-                                            ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                    //connection String for xls file format.
-                    if (fileExtension == ".xls")
-                    {
-                        excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation +
-                                                ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-                    }
-                    //connection String for xlsx file format.
-                    else if (fileExtension == ".xlsx")
-                    {
-
-                        excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation +
-                                                ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                    }
-
-
-
-                    //Create Connection to Excel work book and add oledb namespace
-                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
-                    excelConnection.Open();
-                    DataTable dt = new DataTable();
-
-                    dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                    if (dt == null)
-                    {
-                        return null;
-                    }
-
-                    String[] excelSheets = new String[dt.Rows.Count];
-                    int t = 0;
-                    //excel data saves in temp file here.
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        excelSheets[t] = row["TABLE_NAME"].ToString();
-                        t++;
-                    }
-                    OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
-                    DataSet ds = new DataSet();
-
-                    string query = string.Format("Select * from [{0}]", excelSheets[0]);
-                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
-                    {
-                        dataAdapter.Fill(ds);
-                    }
-
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        model.Name = ds.Tables[0].Rows[i]["Name"].ToString();
-                        model.Address = ds.Tables[0].Rows[i]["Address"].ToString();
-                        model.UniversityCode = ds.Tables[0].Rows[i]["UniversityCode"].ToString();
-                        model.Website = ds.Tables[0].Rows[i]["Website"].ToString();
-                        model.Phone = int.Parse(ds.Tables[0].Rows[i]["Phone"].ToString());
-                        model.IsRemovable = false;
-                    }
-                }
-
-            }
-            return Json(model, JsonRequestBehavior.AllowGet);
+            ViewData["aaa"] = TempData["listerror"];
+            return View();
+        }
+        public class ImportErrors
+        {
+            public string Name { get; set; }
+            public string Code { get; set; }
+            public string Address { get; set; }
+            public int Row { get; set; }
+            public string SameName { get; set; }
+            public string SameCode { get; set; }
+            public string SameAddress { get; set; }
         }
         #endregion
         #region ACCOUNTS
@@ -299,7 +291,7 @@ namespace TSMT.Controllers
         public ActionResult DeleteUniversity(int id)
         {
             University uni = db.Universities.SingleOrDefault(r => r.UniversityID == id);
-            
+
             db.Universities.Remove(uni);
             db.SaveChanges();
             return RedirectToAction("ManageUniversity");
@@ -405,7 +397,7 @@ namespace TSMT.Controllers
         {
             UniversitiesExamination ue = db.UniversitiesExaminations.SingleOrDefault(r => r.UniExamID == id);
 
-            
+
             var ves = db.Venues.Where(r => r.UniExamID == id);
             foreach (Venue ve in ves)
             {
