@@ -1622,106 +1622,140 @@ namespace TSMT.Controllers
         }
         #endregion
         #region MANUAL-ASSIGN
-        //public ActionResult ModelManualAssignToRoom()
-        //{
-        //    ViewData["listRoom"] = db.Rooms.ToList();
-        //    ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
-        //    return View();
-        //}
-        public ActionResult ManualAssignToRoom()
+        public ActionResult ManualAssignToRoom(int id)//ceId
         {
-            //ViewData["listRoom"] = db.Rooms.Where(r=>r.LodgeID == lodgeId).ToList();
-            //ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.RoomID == null).ToList();
-            ViewData["listLodges"] = db.Lodges.ToList();
+            var listLodge = db.Lodges.Where(r => r.CharityExamID == id && r.IsApproved).ToList();
+            List<Lodge> lodges = new List<Lodge>();
+            bool canNotInRoom = false;
+            bool lodExistCan = false;
+            foreach (Lodge lod in listLodge)
+            {
+                foreach (var e in lod.ExaminationsPapers)
+                {
+                    if (e.RoomID == null)
+                    {
+                        canNotInRoom = true;
+                    }
+                    if (canNotInRoom)
+                    {
+                        lodExistCan = true;
+                        break;
+                    }
+                }
+                if (lodExistCan)
+                {
+                    lodges.Add(lod);
+                }
+                canNotInRoom = false;
+                lodExistCan = false;
+            }
+            return View(lodges);
+        }
+
+
+
+        public ActionResult ManualAssignToCar(int id)
+        {
+            ViewData["listCar"] = db.Cars.Where(r=>r.CharityExamID==id && r.IsApproved && r.AvailableSlots!=0).ToList();
+            ViewData["listVolunteer"] = db.ParticipantVolunteers.Where(c=>c.CharityExamID==id &&c.IsApproved).ToList();
+            ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.CarID == null && r.ParticipantVolunteerID == null).ToList();
             return View();
         }
-
-
-
-        public ActionResult ManualAssignToCar()
+        [HttpPost]
+        public JsonResult ResultAjaxLodgeRoom(int id)
         {
-            ViewData["listCar"] = db.Cars.ToList();
-            ViewData["listVolunteer"] = db.Volunteers.ToList();
-            ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CarID == null && r.ParticipantVolunteerID == null).ToList();
-            return View();
+            var rooms = from r in db.Rooms
+                        where r.LodgeID == id && r.AvailableSlots != 0
+                        select new
+                        {
+                            value = r.RoomID,
+                            name = r.RoomName,
+                            capacity = r.AvailableSlots,
+                            gender = r.Gender
+                        };
+            return Json(rooms);
         }
-
-        public JsonResult ResultAjaxLodgeRoom(int id=4)
-        {
-            var exPaper = from r in db.Rooms
-                          where r.LodgeID == id
-                          select new
-                          {
-                              value = r.RoomID,
-                              name = r.RoomName,
-                              capacity = r.AvailableSlots
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
-        }
-
+        [HttpPost]
         public JsonResult ResultAjaxLodgeCandidate(int id)
         {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.LodgeRegisteredID == id && r.RoomID == null
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
+            var candidates = from r in db.ExaminationsPapers
+                             where r.LodgeRegisteredID == id && r.RoomID == null
+                             select new
+                             {
+                                 value = r.CandidateID,
+                                 name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname,
+                                 gender = r.Candidate.Account.Profile.Gender
+                             };
+            return Json(candidates);
         }
-
+        [HttpPost]
         public JsonResult ResultAjaxRoom(int id, int lodgeId)
         {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.RoomID == id && r.LodgeRegisteredID == lodgeId
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
+            var candidate = from r in db.ExaminationsPapers
+                            where r.RoomID == id && r.LodgeRegisteredID == lodgeId
+                            select new
+                            {
+                                value = r.CandidateID,
+                                name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname
+                            };
+            return Json(candidate);
         }
+        [HttpPost]
         public JsonResult ResultAjaxCar(int id)
         {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.CarID == id
-                          select new
-                          {
-                              value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
-                          };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
+            var canOfCar = from r in db.ExaminationsPapers
+                           where r.CarID == id
+                           select new
+                           {
+                               value = r.CandidateID,
+                               name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname
+                           };
+            return Json(canOfCar);
         }
+        [HttpPost]
         public JsonResult ResultAjaxVolunteer(int id)
         {
-            var exPaper = from r in db.ExaminationsPapers
-                          where r.ParticipantVolunteerID == id
+            var pv = db.ParticipantVolunteers.SingleOrDefault(r => r.VolunteerID == id);
+            var canOfVo = from r in db.ExaminationsPapers
+                          where r.ParticipantVolunteerID == pv.ParticipantVolunteerID
                           select new
                           {
                               value = r.CandidateID,
-                              name = r.Candidate.Account.Profile.Lastname
+                              name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname
                           };
-            return Json(exPaper, JsonRequestBehavior.AllowGet);
+            return Json(canOfVo);
         }
         [HttpPost]
         public JsonResult EditAssignRoom(int caId, int roomId)
         {
             var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
+            var room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
             if (roomId == 0)
             {
                 expp.RoomID = null;
+                room.AvailableSlots += 1;
+                if (room.AvailableSlots > room.TotalSlots)
+                {
+                    room.AvailableSlots = room.TotalSlots;
+                }
             }
             else
             {
                 expp.RoomID = roomId;
+                room.AvailableSlots -= 1;
+                if (room.AvailableSlots < 0)
+                {
+                    room.AvailableSlots = 0;
+                }
             }
             db.SaveChanges();
             return Json("");
         }
+        [HttpPost]
         public JsonResult EditAssignCar(int caId, int carId, int voId)
         {
             var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
+            var pv = db.ParticipantVolunteers.SingleOrDefault(r => r.VolunteerID == voId);
             if (carId == 0 && voId == 0)
             {
                 expp.CarID = null;
@@ -1735,7 +1769,7 @@ namespace TSMT.Controllers
             else
             {
                 expp.CarID = null;
-                expp.ParticipantVolunteerID = voId;
+                if (pv != null) expp.ParticipantVolunteerID = pv.ParticipantVolunteerID;
             }
             db.SaveChanges();
             return Json("");
