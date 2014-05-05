@@ -6,6 +6,7 @@
 @using TSMT.Models
 @model ParticipantVolunteer
 
+<script src="/Content/js/TSMTViewOnMap.js"></script>
 
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -23,7 +24,7 @@
 @Html.Partial("_VolunteerSidebarPartial")
 <div class="col-md-9">
     <div class="headline">
-        <h3>Thông tin chi tiết hỗ trợ <b>@Model.ChairitiesExam.Examination.Name</b></h3>
+        <h3>Thông tin chi tiết hỗ trợ @Model.ChairitiesExam.Examination.Name</h3>
     </div>
     <div class="panel panel-pink margin-bottom-20" style="width: 65%">
         <div class="panel-heading">
@@ -71,11 +72,11 @@
                 </tr>
                 <tr>
                     <th style="vertical-align: middle">Địa điểm trọ</th>
-                    <td style="vertical-align: middle">@Model.ExaminationsPaper.Lodge.Address</td>
+                    <td style="vertical-align: middle"><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewPlaces/', @Model.ExamPaperID); return false;">@Model.ExaminationsPaper.Lodge.Address</a></td>
                 </tr>
                 <tr>
                     <th style="vertical-align: middle">Địa điểm thi</th>
-                    <td style="vertical-align: middle">@Model.ExaminationsPaper.Venue.Address</td>
+                    <td style="vertical-align: middle"><a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewPlaces/', @Model.ExamPaperID); return false;">@Model.ExaminationsPaper.Venue.Address</a></td>
                 </tr>
                 <tr>
                     <th style="vertical-align: middle">Xem đường đi</th>
