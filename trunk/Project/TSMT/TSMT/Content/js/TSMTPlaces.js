@@ -30,8 +30,6 @@ function initialize(place) {
     document.getElementById("Address").value = place.text;
     putMarker(place.lat, place.lng);
 
-    
-
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('searchBox'));
 
     var inputAddress = $("#Address");

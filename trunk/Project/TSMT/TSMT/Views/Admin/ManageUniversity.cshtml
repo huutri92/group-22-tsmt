@@ -26,11 +26,12 @@
 @Html.Partial("_AdminSidebarPartial")
 
 <div class="col-md-9">
+
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Danh sách các trường ĐH-CĐ hiện có trong TSMT
+            <h3 class="panel-title"><i class="icon-list"></i>Danh sách các trường ĐH-CĐ
                 <a href="@Url.Action("AddUniversity", "Admin")" class="btn-u btn-u-default"><i class="icon-plus"></i>Tạo mới</a>
-                <div style="float: right" id="TSMTSearching"></div>
+        <div style="float: right" id="TSMTSearching"></div>
             </h3>
         </div>
 
@@ -51,19 +52,16 @@
                 <tbody id="TSMTPaging"></tbody>
             </table>
         </div>
-        @using (Html.BeginForm("Importexcel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" id="FileUpload"
-                name="FileUpload" required data-val="true" data-val-required="please select a file" />
-
-            <input type="submit" id="Submit" class="submit" onclick="" value="Upload" title="Click to upload file" />
-                                                                                                                  
-        }
     </div>
+        <div style="float: right">
+            @using (Html.BeginForm("Importexcel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" id="FileUpload"
+                    name="FileUpload" required data-val="true" data-val-required="please select a file" />
+                <input type="submit" id="Submit" class="submit" onclick="" value="Upload" title="Click to upload file" />
+            }
+        </div>
     <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
-
-
-
 </div>
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
