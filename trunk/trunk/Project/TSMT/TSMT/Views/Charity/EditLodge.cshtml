@@ -45,7 +45,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Model.Address"});
+        initialize({lat:@Model.Latitude, lng: @Model.Longitude, text: "@Html.Raw(@Model.Address)"});
 
         // submit
         $('.popup-confirm').click(function () {

@@ -84,7 +84,7 @@
                                                 {
                                     
                                                    @* @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })*@
-                                                    <a href="@Url.Action("DisplayRoute", "Charity", new { id = @car.CarID })" class="btn-u btn-u-green" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-green" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
                                                 }
                                                 else
                                                 {
@@ -161,7 +161,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("DisplayRoute", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                        <a href="@Url.Action("ViewCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
                                                     }
 
 

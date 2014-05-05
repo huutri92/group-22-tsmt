@@ -150,10 +150,11 @@
         </div>
     }
     @Html.Partial("_SponsorSidebarPartial")
-    @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
-    {
-        <div class="col-md-9">
-            @* <form method="post" action="/Sponsor/AddResource">*@
+    <div class="col-md-9">
+        @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+        {
+        
+@* <form method="post" action="/Sponsor/AddResource">*@
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
@@ -301,9 +302,9 @@
                 <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
             </div>
             <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
-
-        </div>
-    }
+                   
+        }
+    </div>
 </body>
 </html>
 <script type="text/javascript">

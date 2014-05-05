@@ -38,16 +38,16 @@
 
                     <ol>
                         <h4>Tên : @Model.Account.Profile.Lastname @Model.Account.Profile.Firstname</h4>
-
-                        <h5>Năm sinh : @Model.Account.Profile.DateOfBirth</h5>
-                        <h5>Công việc hiện tại : @Model.JobName</h5>
-                        <h5>Về bản thân :</h5>
+                        <h5>Số điện thoại: @Model.Account.Profile.PhoneNumber</h5>
+                        @*<h5>Năm sinh : @Model.Account.Profile.DateOfBirth.Value.</h5>*@
+                        @*<h5>Công việc hiện tại : @Model.JobName</h5>*@
+                        @*<h5>Về bản thân :</h5>*@
                     </ol>
                     
                     <!-- User comments -->
                     <blockquote>
                         <div class="f-caption">
-                            @Model.Description
+                            @*@Model.Description*@
 
                         </div>
                     </blockquote>
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    @Html.ActionLink("Quay lại", "ManageVolunteer", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })
+@*@Html.ActionLink("Quay lại", "ManageVolunteer", new { id = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
 </div>

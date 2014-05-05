@@ -1,6 +1,19 @@
 ﻿@{
-    ViewBag.Title = "Statistics";
+    ViewBag.Title = "Thống kê";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Statistics</h2>
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+<h2>Thống kê</h2>

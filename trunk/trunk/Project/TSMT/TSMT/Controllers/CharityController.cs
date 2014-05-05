@@ -1039,13 +1039,14 @@ namespace TSMT.Controllers
             ViewData["ceId"] = id;
             return View(pes);
         }
-        [HttpPost]
+        
         public JsonResult RemoveVolunteer(int id)
         {
             var pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
             db.ParticipantVolunteers.Remove(pe);
             db.SaveChanges();
-            return Json(new { success = true });
+            //return Json(new { success = true });
+            return Json("", JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult ApproveVolunteer(int id) // peId
@@ -1063,11 +1064,11 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return Json(new { success = true });
         }
-        public ActionResult DetailsVolunteer(int voId)
+        public ActionResult DetailsVolunteer(int id)
         {
-            Volunteer volunteer = db.Volunteers.SingleOrDefault(c => c.VolunteerID == voId);
-            //ViewData["ceId"] = volunteer.CharityExamID;
-            return View(volunteer);
+            Volunteer vo = db.Volunteers.SingleOrDefault(c => c.VolunteerID == id);
+            //ViewData["ceId"] = vo.ParticipantVolunteers.;
+            return View(vo); 
 
         }
         #endregion

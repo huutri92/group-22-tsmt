@@ -59,7 +59,7 @@
                     <tr>
                         <td style="vertical-align: middle">Tài Trợ Cho: </td>
                         <td>
-                            <select id="qwe" onchange="callAjax(this.value)">
+                            <select id="qwe" onchange="callAjax(this.value)" class="form-control" style="width:auto">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                                 {
@@ -69,19 +69,19 @@
                         </td>
                         <td style="vertical-align: middle">Tổ Chức: </td>
                         <td>
-                            <select id="asd" name="asd"></select>
+                            <select id="asd" name="asd" class="form-control"></select>
                         </td>
                     </tr>
                     <tr>
-                        <td>Số Tiền</td>
-                        <td>
-                            <input type="text" name="FundSponsored" id="input" />
+                        <td style="vertical-align: middle">Số Tiền</td>
+                        <td style="vertical-align: middle">
+                            <input type="text" name="FundSponsored" id="input" class="form-control"/>
                             <script>
                                 $("#input").priceFormat({ prefix: '', centsLimit: 0 });
                             </script>
 
                         </td>
-                        <td>VNĐ</td>
+                        <td style="vertical-align: middle">VNĐ</td>
                         <td></td>
                     </tr>
                 </table>
