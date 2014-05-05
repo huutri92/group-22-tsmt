@@ -1,41 +1,23 @@
 ﻿@using TSMT.Models
 
 @{
-    ViewBag.Title = "ViewDetailCharity";
+    ViewBag.Title = "Xem chi tiết Hội từ thiện";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-    }
-</style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script>
-    function initialize() {
 
-        var mapOptions = {
-            zoom: 16,
-            center: BenThanh,
-            mapTypeID: google.maps.MapTypeId.ROADMAP
-        };
 
-        map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
-
-        marker = new google.maps.Marker({
-            position: BenThanh,
-            map: map,
-            title: 'Welcome to Ben Thanh market!',
-            animation: google.maps.Animation.DROP
-        });
-
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
-
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">Hội từ thiện</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li><a href="@Url.Action("ViewCharity", "Home")">Hội từ thiện</a></li>
+                <li class="active">Chi tiết Hội từ thiện</li>
+            </ul>
+        </div>
+    </div>
+}
 
 <!--=== Content Part ===-->
 <div class="container">
@@ -45,7 +27,7 @@
             <!--Blog Post-->
             <div class="blog margin-bottom-20">
                 <h2>@Model.Charity.Name</h2>
-                <h6><b>Số điện thoại: </b>@Model.Charity.PhoneNumber</h6>
+                @*<h6><b>Số điện thoại: </b>@</h6>*@
                 <div class="row margin-bottom-5">
                     <div class="col-md-8">
                         <div class="blog-img" style="width: auto">
@@ -90,27 +72,27 @@
                     <div class="col-md-12">
                         <div class="tab-v2">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#description" data-toggle="tab">Miêu tả</a></li>
-                                <li><a href="#supply" data-toggle="tab">Tài nguyên</a></li>
-                                <li><a href="#map" data-toggle="tab">Bản đồ</a></li>
+                                @*<li class="active"><a href="#description" data-toggle="tab">Miêu tả</a></li>*@
+                                <li class="active"><a href="#supply" data-toggle="tab">Tài nguyên</a></li>
+                                @*<li><a href="#map" data-toggle="tab">Bản đồ</a></li>*@
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="description">
+                                @*<div class="tab-pane active" id="description">
                                     <p>@Model.Charity.FullDescription</p>
-                                </div>
-                                <div class="tab-pane" id="supply">
+                                </div>*@
+                                <div class="tab-pane active" id="supply">
                                     <h4>Các tài nguyên hỗ trợ</h4>
                                     <ul>
-                                        <li>Total Lodge: @Model.TotalSlotsLodges </li>
-                                        <li>Available Lodge: @Model.AvailableSlotsLodges</li>
-                                        <li>Total Vehicle: @Model.TotalSlotsVehicles</li>
-                                        <li>Available Vehicle: @Model.AvailableSlotsLodges</li>
+                                        <li>Tổng chỗ trọ: @Model.TotalSlotsLodges </li>
+                                        <li>Chỗ trọ còn trống: @Model.AvailableSlotsLodges</li>
+                                        <li>Tổng số chỗ ngồi trên xe: @Model.TotalSlotsVehicles</li>
+                                        <li>Số chỗ ngồi còn trống: @Model.AvailableSlotsVehicles</li>
                                     </ul>
                                 </div>
-                                <div class="tab-pane" id="map">
+                               @* <div class="tab-pane" id="map">
                                     Show map....
                                      <div id="map-canvas"></div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
@@ -122,7 +104,7 @@
         <!-- End Left Sidebar -->
 
         <!-- Right Sidebar -->
-        <h3>Advertisement </h3>
+        @*<h3>Quảng cáo </h3>*@
         @*<div class="col-md-3 magazine-page">
             <!-- Search Bar -->
             <div class="headline headline-md">

@@ -62,10 +62,10 @@
                             {
                                 <td><span class="label label-success">Đã duyệt</span></td>
                                 <td>
-                                    @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
+                                  @*  @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
                                     @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
-                                    <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="icon-eye-open"></i></a>
-                                    <a href="@Url.Action("RemoveVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );"  title="Loại tình nguyện viên này" class="btn-u btn-u-red"><i class="icon-remove-sign"></i></a>
+                                  *@  <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="icon-eye-open"></i></a>
+                                    <a href="@Url.Action("RemoveVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href, @item.ParticipantVolunteerID , 'del' );"  title="Loại tình nguyện viên này" class="btn-u btn-u-red"><i class="icon-remove-sign"></i></a>
                                 </td>
                             }
                             else
@@ -207,7 +207,7 @@
     function callAjaxDelete(voId) {
         $.ajax({
             url: '/Charity/RemoveVolunteer/' + voId,
-            type: 'POST',
+            type: 'GET',
             success: function (results) {
                 $("#" + voId).hide(800, function () {
                     $("#" + voId).remove();

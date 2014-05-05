@@ -17,7 +17,7 @@
 #cssmenu {
     /*width: 262px;*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     color: #ffffff;
 }
 
@@ -38,7 +38,7 @@
     background: #fafafa;
     border: solid 1px #eee;
     z-index: 2;
-    font-size: 17px;
+    font-size: 15px;
     /*font-weight: bold;*/
     text-decoration: none;
     color: #777;
@@ -99,7 +99,7 @@
     }
 
     .holder::after {
-        top: 17px;
+        top: 15px;
         border-top: 2px solid #ffffff;
         border-left: 2px solid #ffffff;
     }
