@@ -33,7 +33,7 @@ namespace TSMT.Controllers
             var ar = db.Articles.Where(r => r.ArticleID == arId).ToList();
             ViewData["category"] = db.Categories.ToList();
             ViewData["comment"] = db.Comments.Where(r=> r.ArticleID==arId).ToList();
-            ViewData["user"] = db.Accounts.Where(r => r.AccountID == acc.AccountID).ToList();
+            //ViewData["user"] = db.Accounts.Where(r => r.AccountID == acc.AccountID).ToList();
             return View(ar);
         }
         public ActionResult CategoryNews(int cateId)
