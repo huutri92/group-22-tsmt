@@ -2,11 +2,30 @@
 @using TSMT.Models
 @model IEnumerable<Lodge>
 @{
-    ViewBag.Title = "ManualAssign";
+    ViewBag.Title = "Chế độ sắp tay";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ManualAssign</h2>
+@section Breadcrumbs {
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-10">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
+                <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })">Đợt thi</a></li>
+                <li><a href="@Url.Action("ManageCandidate", "Charity")">Quản lý thí sinh</a></li>
+                <li><a href="@Url.Action("AssignRoom", "Charity", new { id=@ViewData["AssignRoom"]})" >Sắp xếp phòng</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+@Html.Partial("_CharitySidebarPartial")
+
+
+<div class="headline"><h2>Sắp phòng</h2></div>
 <select id="capaRoomA" style="display: none">
     <option>Chọn phòng</option>
 </select>

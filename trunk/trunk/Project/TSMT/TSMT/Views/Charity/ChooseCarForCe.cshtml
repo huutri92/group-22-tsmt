@@ -26,7 +26,7 @@
                     data: { "eId": eId, "carId": carId, "cId": cId },
                     type: 'POST',
                     success: function (results) {
-                        window.location.assign("@Url.Content("~/Charity/ManageCar?ceId=" + @Model.CharityExamID)");
+                        window.location.assign("@Url.Content("~/Charity/ManageCar/" + @Model.CharityExamID)");
                     }
                 });
             } else {
@@ -151,7 +151,7 @@
             @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
             @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
         </div>
-        <a href="@Url.Action("ManageCar", "Charity", new { ceId = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+        <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
     </td>
         </tr>
 </div>

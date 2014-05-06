@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th>Số chỗ còn trống</th>
-                <td>@(@Model.TotalSlots - @Model.AvailableSlots)</td>
+                <td> @Model.AvailableSlots</td>
             </tr>
 
         </table>
@@ -88,8 +88,8 @@
             {
                 <tr>
                     <td>@se.Day.ToString("dd/MM/yyyy")</td>
-                    <td>@se.BeginTime.ToShortTimeString()</td>
-                    <td>@se.EndTime.ToShortTimeString()</td>
+                    <td>@se.BeginTime.AddHours(-1.5).ToShortTimeString()</td>
+                    <td>@se.EndTime.AddHours(-1).ToShortTimeString()</td>
                 </tr>
             }
         </table>
@@ -244,7 +244,7 @@
                         minD = total;
                         var DistanceCount = document.getElementById('TotalDistance');
                         var TimeCount = document.getElementById('TotalTime');
-                        DistanceCount.innerHTML = Math.round(minD) + "kms.";
+                        DistanceCount.innerHTML = Math.round(minD) + " km.";
                         TimeCount.innerHTML = Math.round(time / 60) + " phút.";
                         shortestRoute = [];
                         var s = '';

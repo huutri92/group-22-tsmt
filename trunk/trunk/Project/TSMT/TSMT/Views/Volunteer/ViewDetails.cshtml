@@ -45,8 +45,8 @@
                 <tr>
                     <td>@counter</td>
                     <td>@se.Day.ToString("dd/MM/yyyy")</td>
-                    <td>@se.BeginTime.ToShortTimeString()</td>
-                    <td>@se.EndTime.ToShortTimeString()</td>
+                    <td>@se.BeginTime.AddHours(-1.5).ToShortTimeString()</td>
+                    <td>@se.EndTime.AddHours(-1).ToShortTimeString()</td>
                 </tr>            
                     ++counter;
                 }

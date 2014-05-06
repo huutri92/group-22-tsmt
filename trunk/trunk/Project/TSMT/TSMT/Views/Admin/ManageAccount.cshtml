@@ -43,24 +43,28 @@
                         int counter = 1;
                         foreach (var item in Model)
                         {
+                            if (item.Account.RoleID == 5)
+                            {
+                                continue;
+                            }   
                         <tr>
                             <td>@counter</td>
-                            <td>@item.Account.Profile.Lastname @item.Account.Profile.Firstname </td>
+                            <td>@item.Lastname @item.Firstname</td>
                             <td>@item.Account.Email</td>
-                             <td>@item.PhoneNumber
-                             </td>
+                            <td>@item.PhoneNumber
+                            </td>
                             <td>@if (item.Account.IsActive.Equals(true))
                                 {
-                                <span class="label label-success"><b> Đã kích hoạt</b></span>
+                                <span class="label label-success"><b>Đã kích hoạt</b></span>
                                 }
                                 else
                                 {
-                                <span class="label label-danger"><b> Chưa kích hoạt</b></span>
+                                <span class="label label-danger"><b>Chưa kích hoạt</b></span>
                                 }
                             </td>
                             <td>
-                                <a href="@Url.Action("ViewDetailAccount", "Admin", new { id = @item.ProfileID })" class="btn-u btn-u-default"><i class="icon-info"></i> Xem</a>
-                                <a href="@Url.Action("EditAccount", "Admin", new { id = @item.ProfileID })" class="btn-u btn-u-blue"><i class="icon-edit"></i> Sửa</a>
+                                <a href="@Url.Action("ViewDetailAccount", "Admin", new { id = @item.ProfileID })" class="btn-u btn-u-default"><i class="icon-info"></i>Xem</a>
+                                <a href="@Url.Action("EditAccount", "Admin", new { id = @item.ProfileID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Sửa</a>
                             </td>
                         </tr>
                                 ++counter;

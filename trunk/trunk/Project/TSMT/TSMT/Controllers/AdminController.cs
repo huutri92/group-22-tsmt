@@ -200,7 +200,8 @@ namespace TSMT.Controllers
         #region ACCOUNTS
         public ActionResult ManageAccount()
         {
-            return View(db.Profiles.ToList());
+            var list = db.Profiles.ToList();
+            return View(list);
         }
         public ActionResult ViewDetailAccount()
         {

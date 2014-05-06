@@ -79,6 +79,8 @@ namespace TSMT.Controllers
         public ActionResult ViewDetails(int id) // peId
         {
             ParticipantVolunteer pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
+            ScheduleExam sc = pe.ChairitiesExam.Examination.ScheduleExams.FirstOrDefault();
+            
             return View(pe);
         }
         [HttpPost]
@@ -117,6 +119,11 @@ namespace TSMT.Controllers
                 ViewData["WayPoint"] = schedulesVolunteer.WayPoints;
                 ViewData["ScheduleId"] = id;
                 ViewData["WayPointEdit"] = "";
+                Lodge lodge = new Lodge();
+                lodge =
+                    db.Lodges.FirstOrDefault(l => l.LodgeID == schedulesVolunteer.ExaminationsPaper.LodgeRegisteredID);
+                ViewData["StartPlace"] = lodge.Address;
+                ViewData["EndPlace"] = schedulesVolunteer.ExaminationsPaper.Venue.Address;
             }
             return View("DisplayRouteVolunteer");
         }

@@ -50,7 +50,7 @@ namespace TSMT.Controllers
                     es.Add(e);
                 }
             }
-
+           
             return View(es);
         }
         [HttpPost]
@@ -69,7 +69,7 @@ namespace TSMT.Controllers
             ce.AvailableSlotsVehicles = 0;
             db.ChairitiesExams.Add(ce);
             db.SaveChanges();
-
+            
             return RedirectToAction("ManageCharityExam");
         }
         public JsonResult DeleteCharityExam(int id)
@@ -1910,7 +1910,22 @@ namespace TSMT.Controllers
         }
         public ActionResult ViewVolunteer(int id) // pvId
         {
-            ParticipantVolunteer pv = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
+            
+            ParticipantVolunteer pv = db.ParticipantVolunteers.FirstOrDefault(s => s.ParticipantVolunteerID == id);
+            if (pv != null)
+            {
+                var endPoint = pv.ExaminationsPaper.Venue.Address;
+                var startPoint = pv.ExaminationsPaper.Lodge.Address;
+                ViewData["StarEndPoint"] = startPoint + ";" + endPoint;
+                ViewData["WayPoint"] = pv.WayPoints;
+                ViewData["ScheduleId"] = id;
+                ViewData["WayPointEdit"] = "";
+                Lodge lodge = new Lodge();
+                lodge =
+                    db.Lodges.FirstOrDefault(l => l.LodgeID == pv.ExaminationsPaper.LodgeRegisteredID);
+                ViewData["StartPlace"] = lodge.Address;
+                ViewData["EndPlace"] = pv.ExaminationsPaper.Venue.Address;
+            }
             return View(pv);
         }
         #endregion
