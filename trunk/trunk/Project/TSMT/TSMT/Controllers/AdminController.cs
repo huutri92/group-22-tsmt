@@ -213,9 +213,23 @@ namespace TSMT.Controllers
 
         #endregion
         #region CATEGORIES
+        public ActionResult AddNewCategory()
+        {
+            return View();
+        }
         public ActionResult ManageCategory()
         {
             return View(db.Categories.ToList());
+        }
+        [HttpPost]
+        public ActionResult AddCategory(FormCollection f)
+        {
+            Category cate = new Category();
+            cate.CategoryName = f["cateName"];
+            db.Categories.Add(cate);
+            db.SaveChanges();
+
+            return RedirectToAction("ManageCategory");
         }
         #endregion
         #region POSTS
@@ -380,8 +394,29 @@ namespace TSMT.Controllers
             ViewData["unis"] = db.Universities.ToList();
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
+        public JsonResult LoadExam(int id)
+        {
+            var ex = db.Examinations.ToList();
+            var exams = db.UniversitiesExaminations.ToList();
+            foreach (UniversitiesExamination e in exams)
+            {
+                if (e.UniversityID == id)
+                {
+                    var exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == e.ExaminationID);
+                    ex.Remove(exam);
+                }
+            }
+            var exs = from r in ex
+                     select new
+                     {
+                         value = r.ExaminationID,
+                         name = r.Name
+                     };
+            return Json(exs);
+        }
+        [HttpPost]
         public ActionResult AddUniversityExam(FormCollection f)
         {
             UniversitiesExamination ue = new UniversitiesExamination();
@@ -389,7 +424,6 @@ namespace TSMT.Controllers
             ue.ExaminationID = int.Parse(f["ExaminationID"]);
             db.UniversitiesExaminations.Add(ue);
             db.SaveChanges();
-
             return RedirectToAction("ManageUniversityExam");
         }
 

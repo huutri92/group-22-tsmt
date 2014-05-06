@@ -24,7 +24,7 @@
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("News", "Post")">Tin tức</a></li>
                 <li><a href="@Url.Action("CategoryNews", "Post")">Chuyên mục</a></li>
-               @* <li><a href="@Url.Action("CategoryNews", "Post")" id="categorynew">
+                @* <li><a href="@Url.Action("CategoryNews", "Post")" id="categorynew">
                     <script type="text/javascript">
                         $window.load(document.getElementById("categorynew").textContent = document.getElementById("sadsa").textContent);
                     </script>
@@ -50,7 +50,7 @@
                         <li><i class="icon-plus"></i>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</li>
                         @*<li><i class="icon-comments"></i><a href="#">24 Comments</a></li>*@
                     </ul>
-                    <ul class="list-unstyled list-inline blog-tags">
+                    @*<ul class="list-unstyled list-inline blog-tags">
                         <li>
                             <i class="icon-tags"></i>
                             <a href="#">Technology</a>
@@ -58,7 +58,7 @@
                             <a href="#">Internet</a>
                             <a href="#">Media</a>
                         </li>
-                    </ul>
+                    </ul>*@
                 </div>
 
 
@@ -103,9 +103,9 @@
                                             <a class="pull-left" href="#">
                                                 <img class="media-object" src="Content/img/sliders/elastislide/2.jpg" alt="" />
                                             </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">@item.Account.Profile.Lastname <span>5 hours ago / <a href="#">Reply</a></span></h4>
-                                                <p>@item.Content</p>
+                                            <div class="media-body" id="showCmt">
+                                                <h5 id="username" class="media-heading">@item.Account.Profile.Lastname @item.Account.Profile.Firstname      <span>@cmt.CreatedOn / <a href="#" onclick="setFocus(@item.Account.Profile.Lastname+' '+@item.Account.Profile.Firstname);">Reply</a></span></h5>
+                                                <p id="Cmtcontent">@cmt.Content</p>
                                                 <hr>
                                             </div>
                                         }
@@ -138,6 +138,30 @@
         </div>
     }
 </div>
+<script>
+    
+    function setFocus(name) {
+        document.getElementById("comment").innerHTML(name);
+        document.getElementById("comment").focus();
+    }
+    function callAjaxAddCmt(arId, commentId) {
+        if (Session["acc"] != null) {
+            var cmtContent = document.getElementById("comment").value;
+            $.ajax({
+                url: '/Post/AddComment',
+                type: 'Post',
+                data: { "arId": arId, "comment": cmtContent },
+                success: function(results) {
+                    document.getElementById("showCmt").innerHTML += "<div><p>" +  + "</p><p>" + cmtContent + "</p></div>";
+                    $("#showCmt").slideDown(2000);
+                }
+            });
+        } else {
+            alert("Bạn hãy đăng nhập để tham gia bình luận");
+        }
+        
+    }
+</script>
 
 
 
@@ -236,17 +260,3 @@ foreach (var user in ViewData["user"] as IEnumerable<account>)
 
 }*@
 
-<script>
-    function callAjaxAddCmt(arId, commentId) {
-        var cmtContent = document.getElementById("comment").value;
-        $.ajax({
-            url: 'AddComment',
-            type: 'Post',
-            data: { "arId": arId, "comment": cmtContent },
-            success: function (results) {
-                document.getElementById("showCmt").innerHTML += "<div><p>" + document.getElementById("username").textContent + "</p><p>" + cmtContent + "</p></div>";
-                $("#showCmt").slideDown(2000);
-            }
-        });
-    }
-</script>

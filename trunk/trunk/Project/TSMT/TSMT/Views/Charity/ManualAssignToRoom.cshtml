@@ -220,6 +220,7 @@
 </script>
 
 <div class="col-md-9">
+    <h5>CHọn điểm trọ</h5>
     <select id="cbbLodge" onchange=" callAjaxLodge(this.value,'cbbRoomLeft','cbbRoomRight','capaRoomA','capaRoomB')">
         <option id="index0">Chọn điểm trọ</option>
         @foreach (var item in Model)
@@ -232,7 +233,7 @@
         <div class="col-md-5">
             <label>Thí sinh chưa xếp phòng</label>
             <select id="cbbCandidate" onchange="syncChange('cbbCandidate')" multiple="multiple" size="5" style="width: 275px; height: 250px">
-            <option ></option>
+                <option ></option>
             </select>
         </div>
         <div class="col-md-2">
