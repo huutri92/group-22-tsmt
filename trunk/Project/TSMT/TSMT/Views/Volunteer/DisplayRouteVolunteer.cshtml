@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<h2>DisplayRoute</h2>
 <head>
 
     <meta charset="utf-8" />
@@ -41,7 +40,7 @@
     <div id="way" style="display: none">@ViewData["WayPoint"]</div>
     <div id="pId" style="display: none">@ViewData["ScheduleId"]</div>
     @*<div id="wayEdit" style="display: none">@ViewData["WayPointEdit"]</div>*@
-    <div>
+@*    <div>
         <div id="map_canvas" style="float: left; width: 70%; height: 1000px; margin: 0px; padding: 0px">
         </div>
         <form onreset="resetFunction()">
@@ -52,9 +51,43 @@
             <div id="directionsPanel" style="float: right; width: 30%; height: 1000px;">
             </div>
         </form>
-    </div>
+    </div>*@
+    <div class="panel panel-blue margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-list">&nbsp;Bản đồ đường đi</i></h3>
+        </div>
+        <form onreset="resetFunction()">
+        <div class="panel-body">
 
-
+            <div id="map_canvas" style="width: 100%; height: 500px;"></div>
+            <table class="table table-hover">
+                <tr>
+                    <th>Độ dài đường đi:</th>
+                    <td><span id="TotalDistance"></span></td>
+                </tr>
+                <tr>
+                    <th>Thời gian dự kiến:</th>
+                    <td><span id="TotalTime"></span></td>
+                </tr>
+                <tr>
+                    <th>Địa điểm đón thí sinh (A):</th>
+                    <td>@ViewData["StartPlace"]</td>
+                </tr>
+                <tr>
+                    <th>Địa điểm thi (red place)</th>
+                    <td>@ViewData["EndPlace"]</td>
+                </tr>
+            </table>
+            
+        </div>
+            <div align="center">
+                <button type="reset" value="Reset" class="btn-u btn-u-red"><i class="icon-remove-circle">&nbsp;Làm lại</i></button>
+            <button type="button" class="btn-u btn-u-blue" id="Save" onclick="callAjaxSave(); return false;"><i class="icon-key">&nbsp;Lưu</i></button>
+            </div>
+            
+            </form>
+        </div>
+    <a href="@Url.Action("ViewDetails", "Volunteer", new {id = @ViewData["ScheduleId"]})" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
@@ -87,6 +120,10 @@
             draggable: true
         });
     var directionsDisplay = displayer;
+    var DistanceCount = document.getElementById('TotalDistance');
+    var TimeCount = document.getElementById('TotalTime');
+    var total = 0;
+    var time = 0;
     function calcRoute() {
         if (wpj == "") {
             displayer.setMap(map);
@@ -97,6 +134,13 @@
                 travelMode: google.maps.DirectionsTravelMode.DRIVING
             }, function (result) {
                 displayer.setDirections(result);
+                var myroute = result.routes[0];
+                for(var i = 0; i < myroute.legs.length; i++) {
+                    total += myroute.legs[i].distance.value;
+                    time += myroute.legs[i].duration.value;
+                }
+                DistanceCount.innerHTML = Math.round(total/1000.0) + " km.";
+                TimeCount.innerHTML = Math.round(time / 60) + " phút.";
             });
         } else {
             displayer.setMap(map);
@@ -107,9 +151,21 @@
                 travelMode: google.maps.DirectionsTravelMode.DRIVING
             }, function (result) {
                 displayer.setDirections(result);
+                
+                //for(var i = 0; i < displayer.directions.routes[0].legs.length; i++) {
+                //    total += displayer.directions.routes[0].legs[i].distance.value;
+                //    time += displayer.directions.routes[0].legs[i].duration.value;
+                //}
+                var myroute = result.routes[0];
+                for(var i = 0; i < myroute.legs.length; i++) {
+                    total += myroute.legs[i].distance.value;
+                    time += myroute.legs[i].duration.value;
+                }
+                DistanceCount.innerHTML = Math.round(total/1000.0) + " km.";
+                TimeCount.innerHTML = Math.round(time / 60) + " phút.";
             });
         }
-
+        
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
@@ -130,7 +186,7 @@
                     if (b.length > 0) {
                         for (var k = 0; k < b.length; k++) {
                             waypointsEdit.push(b[k]);
-                        }
+                        }                       
 
                     }
                     if (i != a.length - 1) {
@@ -171,7 +227,7 @@
     google.maps.event.addDomListener(window, 'load', calcRoute);
     function resetFunction() {
         calcRoute();
-        alert("The route will be reset");
+        alert("Đường đi sẽ được trở về như lúc ban đầu");
     }
 
     function callAjaxSave() {
@@ -184,6 +240,7 @@
             data: { scheduleId: @ViewData["ScheduleId"] , waypoints: test },
             success: function (r) {
                 alert("Đường đi đã được lưu");
+                window.location.reload();
             }
         });
     }

@@ -6,7 +6,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-
+<link href="/Content/css/TSMTValidation.css" rel="stylesheet">
+<script type="text/javascript" src="/Content/js/TSMTValidation.js"></script>
 @section Breadcrumbs {
     <div class="breadcrumbs margin-bottom-40">
         <div class="container">
@@ -23,7 +24,7 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-@using (Html.BeginForm("AddRoom", "Charity", FormMethod.Post))
+@using (Html.BeginForm("AddRoom", "Charity", FormMethod.Post, new { id = "FormValidate" }))
 {
     <div class="col-md-5">
         <div class="panel panel-orange margin-bottom-20">
@@ -79,3 +80,19 @@
         @*<button type="button" onclick="location.href ='/Charity/DetailsLodge?lodgeId=' + @Model.LodgeID" class="btn-u btn-u-sea" ><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>*@
     </div>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        var reTotalSlots = /^\d{1,2}$/;
+      
+        $("#TotalSlots").blur(function () { checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý", true) });
+        $("#RoomName").blur(function () { checkEmpty("RoomName") });
+        $("#FormValidate").submit(function (e) {
+            var isValidated = true;
+            isValidated = checkRegex("TotalSlots", reTotalSlots, "Số chỗ ngồi không hợp lý", true) && isValidated;
+            isValidated = checkEmpty("RoomName") && isValidated;
+            if (isValidated) return true;
+            e.preventDefault();
+        });
+    });
+</script>

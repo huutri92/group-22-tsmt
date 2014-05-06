@@ -80,11 +80,13 @@
                             <td>@car.TotalSlots</td>
                             <td>@car.AvailableSlots</td>
                             <td>
-                                @if (car.AvailableSlots < car.TotalSlots)
-                                {
-                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>
-                                }
-                                <a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
+  @if(@car.ChairitiesExam != null)
+  {
+      <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>
+  }
+                                    
+
+                                @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>*@
                                 @if (car.ExaminationsPapers.Count == 0)
                                 {
                                     <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa" style="width:40px;height:30px"><i class="icon-edit"></i></a>

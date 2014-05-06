@@ -2,7 +2,7 @@
 @model TSMT.Models.ExaminationsPaper
 
 @{
-    ViewBag.Title = "Thông tin sinh viên tình nguyện";
+    ViewBag.Title = "Thông tin thí sinh";
 }
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
@@ -20,7 +20,7 @@
 @Html.Partial("_CharitySidebarPartial")
 
 
-<h2 class="title_of_page">Details Volunteer</h2>
+<h2 class="title_of_page">@ViewBag.Titile</h2>
 <div class="inner-page-content inner-testimonial">
     <div class="container">
         <div class="row">
@@ -41,7 +41,7 @@
                                 
 
                                 <h5>Năm sinh : @Model.Candidate.Account.Profile.DateOfBirth</h5>
-                                <h5>Học tại trường: @Model.Candidate.HighSchoolName</h5>
+                                @*<h5>Học tại trường: @Model.Candidate.HighSchoolName</h5>*@
                                 <h5>Trường dự thi : @Model.UniversitiesExamination.University.Name</h5>
                                 <h5>Địa điểm dự thi: @Model.Venue.Address</h5>
                                 @if (Model.GroupID != null)

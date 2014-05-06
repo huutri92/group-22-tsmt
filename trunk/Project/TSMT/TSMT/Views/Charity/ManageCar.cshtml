@@ -80,19 +80,16 @@
                                             <td style="vertical-align:middle">@car.AvailableSlots</td>
 
                                             <td style="vertical-align:middle">
-                                                @if (car.ExaminationsPapers.Count > 0)
+                                                @if (car.ExaminationsPapers.Count <= 0)
                                                 {
-                                    
+                                    <a href="@Url.Action("RemoveCarOutOfCe", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @car.CarID , 'removeOutCe' );" ><i class="icon-remove-sign"></i></a>
                                                    @* @Html.ActionLink("Đường đi", "DisplayRoute", new { id = @car.CarID })*@
-                                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-green" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                    
                                                 }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("RemoveCarOutOfCe", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @car.CarID , 'removeOutCe' );" ><i class="icon-remove-sign"></i></a>
-                                                    @*@Html.ActionLink("Xóa", "RemoveCarOutOfCe", new { id = @car.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @car.CarID + ", 'removeOutCe' );" })*@
-                                                }
+                                                
                                                 @*@Html.ActionLink("Edit", "EditCar", new { carId = @car.CarID })*@
-                                                <a href="@Url.Action("DetailsCar", "Charity", new { carId = @car.CarID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-green" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
+                                                @*<a href="@Url.Action("DetailsCar", "Charity", new { carId = @car.CarID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="icon-info"></i></a>*@
                                                 @*@Html.ActionLink("Chi tiết", "DetailsCar", new { carId = @car.CarID })*@
                                             </td>
 
@@ -153,16 +150,13 @@
                                             {
                                                 <td><span class="label label-success">Đã duyệt</span></td>
                                                 <td>
-                                                     <a href="@Url.Action("DetailsCar", "Charity", new { carId = @item.CarID })" class="btn-u btn-u-pink" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                     <a href="@Url.Action("ViewCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
                                                     @if (item.AvailableSlots == item.TotalSlots)
                                                     {
                                                         <a href="@Url.Action("RemoveCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.CarID , 'removeOut' );" ><i class="icon-trash"></i></a>
                                                        @* @Html.ActionLink("Remove", "RemoveCar", new { id = @item.CarID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.CarID + ", 'removeOut' );" })*@
                                                     }
-                                                    else
-                                                    {
-                                                        <a href="@Url.Action("ViewCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
-                                                    }
+
 
 
                                                 </td>
@@ -171,7 +165,7 @@
                                             {
                                                 <td><span class="label label-danger">Chưa duyệt</span></td>
                                                 <td>
-                                                    <a href="@Url.Action("DetailsCar", "Charity", new { carId = @item.CarID })" class="btn-u btn-u-pink" title="Xem chi tiết"><i class="icon-info"></i></a>
+                                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-blue" title="Xem đường đi trên bản đồ"><i class="icon-map-marker"></i></a>
                                                     <a href="@Url.Action("RemoveCar", "Charity", new { id = @item.CarID })" style="display: none" class="btn-u btn-u-red" title="Xóa xe này"  onclick = "return showPopup('Bạn có chắc chắn muốn xóa ?', this.href, @item.CarID , 'removeOut' );" ><i class="icon-trash"></i></a>
                                                     <a href="@Url.Action("ApproveCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-green" title="Nhận xe này"  onclick = "return callAjaxApprove(@item.CarID);" ><i class="icon-heart"></i></a>
                                                     <a href="@Url.Action("DenieCar", "Charity", new { id = @item.CarID })" class="btn-u btn-u-red" title="Tư chối xe này"  onclick = "return showPopup('Bạn có chắc chắn mún từ chối ?', this.href, @item.CarID , 'remove' );" ><i class="icon-trash"></i></a>
