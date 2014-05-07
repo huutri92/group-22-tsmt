@@ -56,13 +56,13 @@
                         foreach (var item in Model)
                         {
                         <tr id="@item.ParticipantVolunteerID">
-                            <td>@counter</td>
-                            <td>@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</td>
-                            <td>@item.Volunteer.Account.Profile.PhoneNumber</td>
+                            <td style="vertical-align:middle">@counter</td>
+                            <td style="vertical-align:middle">@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</td>
+                            <td style="vertical-align:middle">@item.Volunteer.Account.Profile.PhoneNumber</td>
                             @if (@item.IsApproved)
                             {
-                                <td><span class="label label-success">Đã duyệt</span></td>
-                                <td>
+                                <td style="vertical-align:middle"><span class="label label-success">Đã duyệt</span></td>
+                                <td style="vertical-align:middle">
                                   @*  @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
                                     @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
                                   *@ @* <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="icon-eye-open"></i></a>*@
@@ -71,8 +71,8 @@
                             }
                             else
                             {
-                                <td><span class="label label-danger">Chưa duyệt</span></td>
-                                <td>
+                                <td style="vertical-align:middle"><span class="label label-danger">Chưa duyệt</span></td>
+                                <td style="vertical-align:middle">
                                     @* @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
                                 @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, 
                                 new { style = "display: none", onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
@@ -131,7 +131,7 @@
             var tmp;
 
             for (var i = fromIndex; i < toIndex; ++i) {
-                tmp = "<tr id='tr" + a[i].id + "'><td>" + (i + 1);
+                tmp = "<tr id='tr" + a[i].id + "'><td style="vertical-align:middle">" + (i + 1);
                 tmp += "</td><td>" + a[i].voName;
                 tmp += "</td><td>" + a[i].job;
                 tmp += "</td><td>" + a[i].Description;

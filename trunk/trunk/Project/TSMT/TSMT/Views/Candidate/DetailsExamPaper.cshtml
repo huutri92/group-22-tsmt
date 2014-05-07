@@ -55,16 +55,16 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td>Kỳ thi</td>
-                    <td><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a></td>
+                    <td style="vertical-align:middle">Kỳ thi</td>
+                    <td style="vertical-align:middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a></td>
                 </tr>
                 <tr>
-                    <td>Trường</td>
-                    <td>@Model.UniversitiesExamination.University.Name</td>
+                    <td style="vertical-align:middle">Trường</td>
+                    <td style="vertical-align:middle">@Model.UniversitiesExamination.University.Name</td>
                 </tr>
                 <tr>
-                    <td>Địa điểm thi</td>
-                    <td>
+                    <td style="vertical-align:middle">Địa điểm thi</td>
+                    <td style="vertical-align:middle">
                         @if (Model.LodgeRegisteredID == null)
                         {
                             <a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewVenue/', @Model.VenueID); return false;">@Model.Venue.Address</a>
@@ -87,35 +87,35 @@
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td>Hội từ thiện</td>
-                        <td><a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name</a></td>
+                        <td style="vertical-align:middle">Hội từ thiện</td>
+                        <td style="vertical-align:middle"><a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name</a></td>
                     </tr>
                     <tr>
-                        <td>Địa chỉ trọ</td>
-                        <td>
+                        <td style="vertical-align:middle">Địa chỉ trọ</td>
+                        <td style="vertical-align:middle">
                             <a href="#" title="Hiển thị trên bản đồ" onclick="openWindowPopup('/Home/ViewPlaces/', @Model.ExamPaperID); return false;">@Model.Lodge.Address</a>
                         </td>
                     </tr>
                     <tr>
-                        <td>Phòng trọ</td>
+                        <td style="vertical-align:middle">Phòng trọ</td>
                         @if (Model.RoomID != null)
                         {
-                            <td><a href="/Candidate/ViewRoom/@Model.RoomID">@Model.Room.RoomName</a></td>
+                            <td style="vertical-align:middle"><a href="/Candidate/ViewRoom/@Model.RoomID">@Model.Room.RoomName</a></td>
                         }
                         else
                         {
-                            <td>#Chưa có phòng#</td>
+                            <td style="vertical-align:middle">#Chưa có phòng#</td>
                         }
                     </tr>
                     <tr>
-                        <td>Xe đưa đón</td>
+                        <td style="vertical-align:middle">Xe đưa đón</td>
                         @if (Model.CarID != null)
                         {
-                            <td><a href="/Candidate/ViewCar/@Model.CarID">@Model.Car.NumberPlate</a></td>
+                            <td style="vertical-align:middle"><a href="/Candidate/ViewCar/@Model.CarID">@Model.Car.NumberPlate</a></td>
                         }
                         else
                         {
-                            <td>#Chưa có xe đưa đón#</td>
+                            <td style="vertical-align:middle">#Chưa có xe đưa đón#</td>
                         }
                     </tr>
                 </table>
@@ -137,7 +137,7 @@
                         {
                             <td style="vertical-align: middle">#Chưa có nhóm#</td>
                         }
-                        <td>
+                        <td style="vertical-align:middle">
                             @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
                                 <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })" class="btn-u btn-u-violet">
@@ -182,7 +182,7 @@
                                         </text>
                                     }
                                 </td>
-                                <td>
+                                <td style="vertical-align:middle">
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
 @*           @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })*@
@@ -192,8 +192,8 @@
                             }
                             else // has no group
                             {
-                                <td>Bạn đã gửi lời đề nghị được tham gia vào nhóm <b>@gr.GroupID</b></td>
-                                <td>
+                                <td style="vertical-align:middle">Bạn đã gửi lời đề nghị được tham gia vào nhóm <b>@gr.GroupID</b></td>
+                                <td style="vertical-align:middle">
                                     @*        @Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })*@
                                     <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy yêu cầu</a>
                                 </td>
@@ -206,11 +206,11 @@
                         <tr>
                             @if (Model.GroupID != null) // in a group
                             {
-                                <td>
+                                <td style="vertical-align:middle">
                                     @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Firstname
                                     đã đề nghị được tham gia nhóm
                                 </td>
-                                <td>
+                                <td style="vertical-align:middle">
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
                                         @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = gr.ActiveID, gID = gr.GroupID }, new { @class = "btn btn-info" })
@@ -220,11 +220,11 @@
                             }
                             else // has no group
                             {
-                                <td>
+                                <td style="vertical-align:middle">
                                     @gr.Active.Candidate.Account.Profile.Lastname @gr.Active.Candidate.Account.Profile.Firstname
                                     đã mời bạn tham gia nhóm @gr.GroupID
                                 </td>
-                                <td>
+                                <td style="vertical-align:middle">
                                     @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })
                                     @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
                                 </td>

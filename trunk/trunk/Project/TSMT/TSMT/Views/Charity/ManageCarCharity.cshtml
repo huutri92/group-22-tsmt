@@ -67,19 +67,19 @@
                         foreach (var car in ViewData["carsOfCharity"] as IEnumerable<Car>)
                         {                   
                         <tr id ="@car.CarID">
-                            <td>@counter</td>
-                            <td>@car.NumberPlate</td>
+                            <td style="vertical-align:middle">@counter</td>
+                            <td style="vertical-align:middle">@car.NumberPlate</td>
                             @if (car.CharityExamID == null)
                             {
-                                <td>Chưa thiết lập</td>
+                                <td style="vertical-align:middle">Chưa thiết lập</td>
                             }
                             else
                             {
-                                <td>@car.ChairitiesExam.Examination.Name</td>
+                                <td style="vertical-align:middle">@car.ChairitiesExam.Examination.Name</td>
                             }
-                            <td>@car.TotalSlots</td>
-                            <td>@car.AvailableSlots</td>
-                            <td>
+                            <td style="vertical-align:middle">@car.TotalSlots</td>
+                            <td style="vertical-align:middle">@car.AvailableSlots</td>
+                            <td style="vertical-align:middle">
   @if(@car.ChairitiesExam != null)
   {
       <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>

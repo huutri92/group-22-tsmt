@@ -38,23 +38,23 @@
                 <table class="table table-hover">
                     <tr>
                         <td style="vertical-align: middle">Biển số xe <span class="required">*</span></td>
-                        <td>
+                        <td style="vertical-align:middle">
                             <input type="text" name="NumberPlate" id="NumberPlate" class="form-control" /></td>
                     </tr>
 
                     <tr>
                         <td style="vertical-align: middle">Tổng số chỗ ngồi<span class="required">*</span></td>
-                        <td>
+                        <td style="vertical-align:middle">
                             <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" /></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Tên tài xế</td>
-                        <td>
+                        <td style="vertical-align:middle">
                             <input type="text" name="DriverName" id="DriverName" class="form-control" /></td>
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">Số điện thoại tài xế</td>
-                        <td>
+                        <td style="vertical-align:middle">
                             <input type="text" name="DriverPhone" id="DriverPhone" class="form-control" /></td>
                     </tr>
                 </table>
@@ -71,7 +71,7 @@
     $(document).ready(function () {
         //var ex = /^[^\-]$/;
         var reNumberplate = /^\d\d\D\d-\d{4,5}$/;
-        var reTotalSlots = /^([1-5]\d{1})$/;
+        var reTotalSlots = /^(\d{1}|[1-5]\d{1})$/;
         var rePhone = /^(09|01)\d{8,9}$/;
        @* var email = @Html.Raw("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/");
         var werb =/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;*@

@@ -143,8 +143,14 @@ namespace TSMT.Controllerss
         public ActionResult LeaveCE(int id) // Assumptions: ep dang ko thuoc group nao
         {
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == id);
+
+            //Lodge lodge = db.Lodges.SingleOrDefault(r=>r.LodgeID
+            ++ep.Lodge.AvailableSlots;
+            db.SaveChanges();
+
             ep.CharityExamID = null;
             ep.LodgeRegisteredID = null;
+            
             db.SaveChanges();
             return RedirectToAction("DetailsExamPaper", new { id = id });
         }
@@ -363,6 +369,7 @@ namespace TSMT.Controllerss
         public ActionResult ViewRoom(int id) // rId
         {
             Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
+            
             return View(room);
         }
         #endregion

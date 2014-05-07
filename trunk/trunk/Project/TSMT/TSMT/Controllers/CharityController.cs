@@ -973,7 +973,7 @@ namespace TSMT.Controllers
 
             return RedirectToAction("DetailsLodge", new { id = room.LodgeID });
         }
-        public JsonResult DeleteRoom(int id)
+        public ActionResult DeleteRoom(int id)
         {
             Room room = db.Rooms.SingleOrDefault(r => r.RoomID == id);
             int lodgeId = room.LodgeID;
@@ -996,7 +996,8 @@ namespace TSMT.Controllers
 
             db.Rooms.Remove(room);
             db.SaveChanges();
-            return Json("", JsonRequestBehavior.AllowGet);
+            //return Json("", JsonRequestBehavior.AllowGet);
+            return RedirectToAction("DetailsLodge", new { id = room.LodgeID }); 
         }
         public ActionResult EditRoom(int id)
         {
@@ -1449,51 +1450,131 @@ namespace TSMT.Controllers
             }
             return Json(new { success = true, data = results, IsAssigned = IsAssigned });
         }
-        public ActionResult AssignToCar(int id)
+        public ActionResult AssignToCar(int id) // ceID
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            List<Car> cars = ce.Cars.ToList();
+            List<DataVenueAssignCar> venuesAssignCar = new List<DataVenueAssignCar>();
 
-            var lodges = ce.Lodges.OrderByDescending(r => r.ExaminationsPapers.Count); // lodges of ce order descending by number of candidates
-            List<int> venueIDs = new List<int>();
-            List<ExaminationsPaper> eps = new List<ExaminationsPaper>();
-
-            foreach (Lodge lodge in lodges)
+            List<int> veIDs = new List<int>();
+            DataVenueAssignCar venueAC = new DataVenueAssignCar();
+            foreach (Lodge lodge in ce.Lodges)
             {
-                // ds dia diem thi cua cac thi sinh o lodge nay.
-                venueIDs = lodge.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
-                // sort
-                venueIDs = sortVenues(venueIDs, lodge.LodgeID);
+                // list of venues in this lodge.
+                veIDs = lodge.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
+                foreach (int veID in veIDs)
+                    venuesAssignCar.Add(new DataVenueAssignCar(veID, lodge.LodgeID, db.Venues.SingleOrDefault(r => r.VenueID == veID).ExaminationsPapers.Count));
+            }
 
-                foreach (int veID in venueIDs)
+            int i = 0;
+            Car bestCar = new Car();
+            List<ExaminationsPaper> eps = new List<ExaminationsPaper>();
+            while (i < venuesAssignCar.Count)
+            {
+                // sort by number of candidates take exam at each venue.
+                sortVenues(venuesAssignCar);
+                venueAC = venuesAssignCar[i];
+
+                // candidates of this venue.
+                eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == venueAC.lodgeID && r.VenueID == venueAC.venueID && r.CarID == null && r.ParticipantVolunteerID == null).ToList();
+
+                // at least 04 candidates per venue to be assigned to a car!
+                bestCar = eps.Count < 2 ? null : FindMeTheBestCar(cars, eps.Count, venueAC.lodgeID);
+                if (bestCar != null)
                 {
-                    eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == lodge.LodgeID && r.VenueID == veID).ToList();
-
-                    if (!v2c(eps, lodge.LodgeID, id))
-                        if (!rv2c(eps, lodge.LodgeID, id))
+                    if (bestCar.AvailableSlots < eps.Count)
+                        venuesAssignCar.Add(new DataVenueAssignCar(venueAC.venueID, venueAC.lodgeID, eps.Count - bestCar.AvailableSlots)); // split it into two pieces.
+                    AssignTheCar(eps, bestCar);
+                }
+                else // Volunteers' area
+                {
+                    if (!AssignTheVolunteer(eps, ce.ParticipantVolunteers))
+                    {
+                        db.SaveChanges();
+                        return RedirectToAction("AssignCar", new { id = id });
+                    }
+                }
+                venuesAssignCar.RemoveAt(0);
+            }
+            return RedirectToAction("AssignCar", new { id = id });
+        }
+        protected Car FindMeTheBestCar(List<Car> cars, int quantity, int lodgeId)
+        {
+            // Sort cars by instructions:
+            // Seperate it into 02 list:
+            // The first one is the list of cars which are belong to the lodge.
+            // The second is the list of others. Free cars (not belong to any lodge) included.
+            // Both list are sorted in the order of increasing available slots.
+            Car c1 = new Car();
+            Car c2 = new Car();
+            for (int i = 0; i < cars.Count - 1; ++i)
+            {
+                c1 = cars[i];
+                for (int j = i + 1; j < cars.Count; ++j)
+                {
+                    c2 = cars[i];
+                    // ko co xe nao da co thi sinh
+                    if (c1.ExaminationsPapers.FirstOrDefault() == null && c2.ExaminationsPapers.FirstOrDefault() == null)
+                    {
+                        if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cars, i, j);
+                    }
+                    // 1 trong 2 da co thi sinh
+                    else if (c1.ExaminationsPapers.FirstOrDefault() != null || c2.ExaminationsPapers.FirstOrDefault() != null)
+                    {
+                        if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cars, i, j);
+                    }
+                    // ca 2 xe da co thi sinh
+                    else
+                    {
+                        // ca 2 xe deu cung lodge
+                        if (c1.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID == lodgeId && c2.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID == lodgeId)
                         {
-                            db.SaveChanges();
-                            return RedirectToAction("AssignCar", new { id = id });
+                            if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cars, i, j);
                         }
+                        // 1 trong 2 cung lodge
+                        else if (c1.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID != lodgeId || c2.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID != lodgeId)
+                        {
+                            if (c2.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID == lodgeId) swapCar(cars, i, j);
+                        }
+                        // ca 2 xe deu ko cung lodge
+                        else if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cars, i, j);
+                    }
                 }
             }
-            db.SaveChanges();
 
-            //ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id); // new infor
-            //SchedulesCar sc = new SchedulesCar();
-            //foreach (Car c in ce.Cars.Where(r => r.ExaminationsPapers.Count > 0))
-            //{
-            //    foreach (ScheduleExam se in c.ChairitiesExam.Examination.ScheduleExams)
-            //    {
-            //        sc = new SchedulesCar();
-            //        sc.CarID = c.CarID;
-            //        sc.Day = se.Day;
-            //        sc.ArriveTime = se.BeginHour.AddHours(-1);
-            //        sc.PickUpTime = se.EndHour.AddHours(-0.5);
-            //        db.SchedulesCars.Add(sc);
-            //    }
-            //}
+            Car res = cars.FirstOrDefault(r => r.AvailableSlots >= quantity && Capable(r, lodgeId));
+            if (res == null) res = cars.LastOrDefault(r => r.AvailableSlots > 0 && Capable(r, lodgeId));
+            return res;
+        }
+        protected bool Capable(Car c, int lodgeId)
+        {
+            // neu chua co thi sinh
+            if (c.ExaminationsPapers.FirstOrDefault() == null) return true;
+
+            // neu da co thi sinh nhung ko thuoc lodge nay
+            if (c.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID != lodgeId) return false;
+
+            List<int> venueIDs = c.ExaminationsPapers.Select(r => r.VenueID).Distinct().ToList();
+            if (venueIDs.Count < 3) return true;
+            return false;
+        }
+        protected void swapCar(List<Car> cars, int i, int j)
+        {
+            Car tmp = cars[i];
+            cars[i] = cars[j];
+            cars[j] = tmp;
+        }
+        protected void AssignTheCar(List<ExaminationsPaper> eps, Car car)
+        {
+            ExaminationsPaper ep = new ExaminationsPaper();
+            int quantity = eps.Count < car.AvailableSlots ? eps.Count : car.AvailableSlots;
+            for (int i = 0; i < quantity; ++i)
+            {
+                ep = eps.FirstOrDefault(r => r.CarID == null);
+                ep.CarID = car.CarID;
+                --car.AvailableSlots;
+            }
             db.SaveChanges();
-            return RedirectToAction("AssignCar", new { id = id });
         }
         public ActionResult ResetCars(int id, bool ReAssign)
         {
@@ -1518,126 +1599,44 @@ namespace TSMT.Controllers
             if (!ReAssign) return RedirectToAction("AssignCar", new { id = id });
             else return RedirectToAction("AssignToCar", new { id = id });
         }
-        protected List<int> sortVenues(List<int> vs, int lodgeID)
+        protected void sortVenues(List<DataVenueAssignCar> venuesAssignCar)
         {
-            int tmp;
-            int v1Quantity;
-            int v2Quantity;
-            for (int i = 0; i < vs.Count - 1; ++i)
+            // Sort venues based on its unsorted-candidates.
+            // This function should be called only one time at the beginning of the caller.
+            // And can be change to Quick-Sort procedure to reach to good performance.
+            DataVenueAssignCar tmp;
+            for (int i = 0; i < venuesAssignCar.Count - 1; ++i)
             {
-                tmp = vs[i];
-                v1Quantity = db.Venues.SingleOrDefault(r => r.VenueID == tmp).ExaminationsPapers.Count(r => r.LodgeRegisteredID == lodgeID);
-                for (int j = i + 1; j < vs.Count; ++j)
+                for (int j = i + 1; j < venuesAssignCar.Count; ++j)
                 {
-                    tmp = vs[j];
-                    v2Quantity = db.Venues.SingleOrDefault(r => r.VenueID == tmp).ExaminationsPapers.Count(r => r.LodgeRegisteredID == lodgeID);
-                    if (v1Quantity < v2Quantity)
+                    if (venuesAssignCar[i].quantity < venuesAssignCar[j].quantity)
                     {
-                        tmp = vs[i];
-                        vs[i] = vs[j];
-                        vs[j] = tmp;
+                        tmp = venuesAssignCar[i];
+                        venuesAssignCar[i] = venuesAssignCar[j];
+                        venuesAssignCar[j] = tmp;
                     }
                 }
             }
-            return vs;
         }
-        protected void swapCar(List<int> cs, int i, int j)
+        protected bool AssignTheVolunteer(List<ExaminationsPaper> eps, IEnumerable<ParticipantVolunteer> pvs)
         {
-            int tmp = cs[i];
-            cs[i] = cs[j];
-            cs[j] = tmp;
-        }
-        protected List<int> sortCars(List<int> cs, int lodgeID)
-        {
-            Car c1 = new Car();
-            Car c2 = new Car();
-            int tmp;
-
-            for (int i = 0; i < cs.Count - 1; ++i)
-            {
-                tmp = cs[i];
-                c1 = db.Cars.SingleOrDefault(r => r.CarID == tmp);
-                for (int j = i + 1; j < cs.Count; ++j)
+            ParticipantVolunteer pv = new ParticipantVolunteer();
+            foreach (ExaminationsPaper ep in eps)
+                if (ep.CarID == null && ep.ParticipantVolunteerID == null) // this ep need to be assigned.
                 {
-                    tmp = cs[j];
-                    c2 = db.Cars.SingleOrDefault(r => r.CarID == tmp);
-                    if (c1.ExaminationsPapers.FirstOrDefault() != null && c2.ExaminationsPapers.FirstOrDefault() != null)
-                    { if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cs, i, j); }
-                    else if (c1.ExaminationsPapers.FirstOrDefault() != null || c2.ExaminationsPapers.FirstOrDefault() != null)
-                    { if (c1.ExaminationsPapers.FirstOrDefault() == null) swapCar(cs, i, j); }
-                    else if (c1.AvailableSlots < c2.AvailableSlots) swapCar(cs, i, j);
+                    pv = pvs.FirstOrDefault(r => r.ExamPaperID == null);
+                    if (pv == null) // there is no volunteer available now! --> cannot assigning anymore!
+                    {
+                        db.SaveChanges();
+                        return false;
+                    }
+                    ep.ParticipantVolunteerID = pv.ParticipantVolunteerID;
+                    pv.ExamPaperID = ep.ExamPaperID;
                 }
-            }
-
-            return cs;
+            db.SaveChanges();
+            return true; // assigned all successful!
         }
-        protected List<int> getCars(int lodgeID, int ceID)
-        {
-            List<int> cs = db.Cars.Where(r => r.CharityExamID == ceID && (r.ExaminationsPapers.FirstOrDefault() == null || r.ExaminationsPapers.FirstOrDefault().LodgeRegisteredID == lodgeID)).Select(r => r.CarID).ToList();
-            return sortCars(cs, lodgeID);
-        }
-        protected bool v2c(List<ExaminationsPaper> eps, int lodgeID, int ceID)
-        {
-            Car c = new Car();
-            List<int> cs = getCars(lodgeID, ceID);
-            foreach (int carID in cs)
-            {
-                c = db.Cars.SingleOrDefault(r => r.CarID == carID);
-                if (c.AvailableSlots >= eps.Count)
-                {
-                    foreach (ExaminationsPaper ep in eps) ep.CarID = carID;
-                    c.AvailableSlots -= eps.Count;
-                    return true;
-                }
-            }
 
-            // if cannot use cars, try volunteers.
-            bool IsAssigned = false;
-            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceID);
-            foreach (ParticipantVolunteer pe in ce.ParticipantVolunteers)
-            {
-                if (pe.ExamPaperID == null) // available
-                {
-                    foreach (ExaminationsPaper ep in eps)
-                        if (ep.CarID == null && ep.ParticipantVolunteerID == null) // this ep need to be assigned
-                        {
-                            ep.ParticipantVolunteerID = pe.ParticipantVolunteerID;
-                            pe.ExamPaperID = ep.ExamPaperID;
-                            IsAssigned = true;
-
-
-                            break;
-                        }
-                }
-            }
-
-            return IsAssigned;
-        }
-        protected bool rv2c(List<ExaminationsPaper> eps, int lodgeID, int ceID)
-        {
-            Car c = new Car();
-            List<int> cs = getCars(lodgeID, ceID);
-            foreach (int carID in cs)
-            {
-                c = db.Cars.SingleOrDefault(r => r.CarID == carID);
-                if (c.AvailableSlots > 0)
-                {
-                    List<ExaminationsPaper> eps01 = new List<ExaminationsPaper>();
-                    for (int i = 0; i < c.AvailableSlots; ++i) eps01.Add(eps[i]);
-                    List<ExaminationsPaper> eps02 = new List<ExaminationsPaper>();
-                    for (int i = c.AvailableSlots; i < eps.Count; ++i) eps02.Add(eps[i]);
-
-                    if (!v2c(eps01, lodgeID, ceID))
-                        if (!rv2c(eps01, lodgeID, ceID)) return false;
-
-                    if (!v2c(eps02, lodgeID, ceID))
-                        if (!rv2c(eps02, lodgeID, ceID)) return false;
-
-                    return true;
-                }
-            }
-            return false;
-        }
         #endregion
         #region MANUAL-ASSIGN
         public ActionResult ManualAssignToRoom(int id)//ceId

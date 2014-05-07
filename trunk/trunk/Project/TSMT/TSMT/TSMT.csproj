@@ -169,6 +169,7 @@
     <Compile Include="Models\DataFindFriend.cs" />
     <Compile Include="Models\DataManageCandidate.cs" />
     <Compile Include="Models\DataManageUniversity.cs" />
+    <Compile Include="Models\DataVenueAssignCar.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
