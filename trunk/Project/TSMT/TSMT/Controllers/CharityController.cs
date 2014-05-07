@@ -50,7 +50,7 @@ namespace TSMT.Controllers
                     es.Add(e);
                 }
             }
-           
+
             return View(es);
         }
         [HttpPost]
@@ -69,7 +69,7 @@ namespace TSMT.Controllers
             ce.AvailableSlotsVehicles = 0;
             db.ChairitiesExams.Add(ce);
             db.SaveChanges();
-            
+
             return RedirectToAction("ManageCharityExam");
         }
         public JsonResult DeleteCharityExam(int id)
@@ -129,6 +129,7 @@ namespace TSMT.Controllers
         public ActionResult DetailsCharityExam(int id)
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            ViewData["ceId"] = id;
             return View(ce);
         }
         public ActionResult ManageCarCharity()
@@ -165,10 +166,11 @@ namespace TSMT.Controllers
         public ActionResult ManageCar(int id)
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
-            @ViewData["id"] = ce.CharityExamID;
+            ViewData["id"] = ce.CharityExamID;
             //ViewData["cars"] = db.Cars.Where(r => r.CharityExamID == ceId).ToList();
             ViewData["carsOfCharity"] = ce.Cars.Where(c => c.SponsorID == null);
             ViewData["carsSponsor"] = ce.Cars.Where(e => e.SponsorID != null);
+
             return View(ce);
         }
 
@@ -191,7 +193,7 @@ namespace TSMT.Controllers
             bool isNotExisted = db.Cars.Count(r => r.NumberPlate == code && r.NumberPlate != oldCode) == 0;
             return Json(new { success = true, isNotExisted = isNotExisted });
         }
-        
+
 
         [HttpPost]
         public ActionResult AddCar(FormCollection f)
@@ -570,7 +572,8 @@ namespace TSMT.Controllers
             int? ceId = lodge.CharityExamID;
 
             var rooms = db.Rooms.Where(r => r.LodgeID == lodge.LodgeID);
-            if (rooms != null) {
+            if (rooms != null)
+            {
                 foreach (var room in rooms)
                 {
                     //lodge.TotalRooms -= 1;
@@ -738,7 +741,20 @@ namespace TSMT.Controllers
             {
                 exam.Add(item.Examination);
             }
-            ViewData["Exam"] = exam.Distinct().OrderBy(e => e.Name).ToList();
+            var listLodge = db.Lodges.Where(r => r.Address == lodge.Address).ToList();
+            var listExam = exam.Distinct().OrderBy(e => e.Name).ToList();
+            foreach (var lodgeE in listLodge)
+            {
+                if (lodgeE.ChairitiesExam != null)
+                {
+                    if (lodgeE.ChairitiesExam.Examination != null)
+                    {
+                        listExam.Remove(lodgeE.ChairitiesExam.Examination);
+                    }
+                }
+
+            }
+            ViewData["Exam"] = listExam;
             return View(lodge);
         }
 
@@ -1014,7 +1030,7 @@ namespace TSMT.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("DetailsLodge", new { lodgeId = room.LodgeID });
+            return RedirectToAction("DetailsLodge", new { id = room.LodgeID });
         }
         #endregion
         #region SPONSORS
@@ -1033,13 +1049,13 @@ namespace TSMT.Controllers
         #region VOLUNTEERS
         public ActionResult ManageVolunteer(int id) // ceID
         {
-           
+
 
             var pes = db.ParticipantVolunteers.Where(r => r.CharityExamID == id);
             ViewData["ceId"] = id;
             return View(pes);
         }
-        
+
         public JsonResult RemoveVolunteer(int id)
         {
             var pe = db.ParticipantVolunteers.SingleOrDefault(r => r.ParticipantVolunteerID == id);
@@ -1068,7 +1084,7 @@ namespace TSMT.Controllers
         {
             Volunteer vo = db.Volunteers.SingleOrDefault(c => c.VolunteerID == id);
             //ViewData["ceId"] = vo.ParticipantVolunteers.;
-            return View(vo); 
+            return View(vo);
 
         }
         #endregion
@@ -1076,7 +1092,8 @@ namespace TSMT.Controllers
         public ActionResult ManageCandidate(int id) // ceId
         {
             ViewData["ceId"] = id;
-            return View();
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            return View(ce);
         }
         [HttpPost]
         public JsonResult GetDataManageCandidate(int id)
@@ -1180,7 +1197,7 @@ namespace TSMT.Controllers
             bool IsAssigned = false;
             DataAssignRoom record = new DataAssignRoom();
             List<DataAssignRoom> results = new List<DataAssignRoom>();
-            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id).OrderBy(r=>r.LodgeRegisteredID))
+            foreach (ExaminationsPaper ep in db.ExaminationsPapers.Where(r => r.CharityExamID == id).OrderBy(r => r.LodgeRegisteredID))
             {
                 record = new DataAssignRoom();
                 record.fname = ep.Candidate.Account.Profile.Firstname;
@@ -1205,7 +1222,7 @@ namespace TSMT.Controllers
                     record.room = "Phòng " + ep.Room.RoomName;
                     record.roomLink = "<a href='/Charity/ViewRoom/" + ep.RoomID + "'>" + record.room + "</a>";
                 }
-                
+
                 results.Add(record);
 
                 if (!IsAssigned) IsAssigned = ep.RoomID != null;
@@ -1482,7 +1499,7 @@ namespace TSMT.Controllers
         {
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             var cars = ce.Cars;
-            foreach (Car c in cars) { c.AvailableSlots = c.TotalSlots;  }
+            foreach (Car c in cars) { c.AvailableSlots = c.TotalSlots; }
 
             ParticipantVolunteer pe = new ParticipantVolunteer();
             var eps = ce.ExaminationsPapers;
@@ -1657,8 +1674,8 @@ namespace TSMT.Controllers
 
         public ActionResult ManualAssignToCar(int id)
         {
-            ViewData["listCar"] = db.Cars.Where(r=>r.CharityExamID==id && r.IsApproved && r.AvailableSlots!=0).ToList();
-            ViewData["listVolunteer"] = db.ParticipantVolunteers.Where(c=>c.CharityExamID==id &&c.IsApproved).ToList();
+            ViewData["listCar"] = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved && r.AvailableSlots != 0).ToList();
+            ViewData["listVolunteer"] = db.ParticipantVolunteers.Where(c => c.CharityExamID == id && c.IsApproved).ToList();
             ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.CarID == null && r.ParticipantVolunteerID == null).ToList();
             return View();
         }
@@ -1734,7 +1751,7 @@ namespace TSMT.Controllers
             if (roomId == 0)
             {
                 expp.RoomID = null;
-                room.AvailableSlots += 1;
+                ++room.AvailableSlots;
                 if (room.AvailableSlots > room.TotalSlots)
                 {
                     room.AvailableSlots = room.TotalSlots;
@@ -1743,7 +1760,7 @@ namespace TSMT.Controllers
             else
             {
                 expp.RoomID = roomId;
-                room.AvailableSlots -= 1;
+                --room.AvailableSlots;
                 if (room.AvailableSlots < 0)
                 {
                     room.AvailableSlots = 0;
@@ -1757,20 +1774,39 @@ namespace TSMT.Controllers
         {
             var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
             var pv = db.ParticipantVolunteers.SingleOrDefault(r => r.VolunteerID == voId);
+
             if (carId == 0 && voId == 0)
             {
                 expp.CarID = null;
-                expp.ParticipantVolunteerID = null;
+                if (expp.ParticipantVolunteerID != null)
+                {
+                    var pv1 =
+                        db.ParticipantVolunteers.SingleOrDefault(
+                            r => r.ParticipantVolunteerID == expp.ParticipantVolunteerID);
+                    pv1.ExamPaperID = null;
+                    expp.ParticipantVolunteerID = null;
+                }
             }
             else if (carId != 0 && voId == 0)
             {
                 expp.CarID = carId;
-                expp.ParticipantVolunteerID = null;
+                if (expp.ParticipantVolunteerID != null)
+                {
+                    var pv1 =
+                        db.ParticipantVolunteers.SingleOrDefault(
+                            r => r.ParticipantVolunteerID == expp.ParticipantVolunteerID);
+                    expp.ParticipantVolunteerID = null;
+                    pv1.ExamPaperID = null;
+                }
             }
             else
             {
                 expp.CarID = null;
-                if (pv != null) expp.ParticipantVolunteerID = pv.ParticipantVolunteerID;
+                if (pv != null)
+                {
+                    expp.ParticipantVolunteerID = pv.ParticipantVolunteerID;
+                    pv.ExamPaperID = expp.ExamPaperID;
+                }
             }
             db.SaveChanges();
             return Json("");
@@ -1910,9 +1946,9 @@ namespace TSMT.Controllers
         }
         public ActionResult ViewVolunteer(int id) // pvId
         {
-            
+
             ParticipantVolunteer pv = db.ParticipantVolunteers.FirstOrDefault(s => s.ParticipantVolunteerID == id);
-            if (pv != null)
+            if (pv != null && pv.ExamPaperID != null)
             {
                 var endPoint = pv.ExaminationsPaper.Venue.Address;
                 var startPoint = pv.ExaminationsPaper.Lodge.Address;

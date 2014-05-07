@@ -31,36 +31,38 @@
                 <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Chỉnh sửa thông tin xe
                 </h3>
             </div>
+            <div class="panel-body">
             <input type="hidden" name="carId" value="@Model.CarID"/>
-            <table class="table table-hover">
-                <tr>
-                    <td>Biển số xe</td>
-                    <td>
-                        <input type="text" name="NumberPlate" id="NumberPlate" value="@Model.NumberPlate"/></td>
-                </tr>
-                <tr>
-                    <td>Tổng số chỗ ngồi</td>
-                    <td>
-                        <input type="text" name="TotalSlots" id ="TotalSlots" value="@Model.TotalSlots"/></td>
-                </tr>
-                <tr>
-                    <td>Tên tài xế</td>
-                    <td>
-                        <input type="text" name="DriverName" id ="DriverName" value="@Model.DriverName"/></td>
-                </tr>
-                <tr>
-                    <td>Số điện thoại tài xế</td>
-                    <td>
-                        <input type="text" name="DriverPhone" id ="DriverPhone" value="@Model.DriverPhone"/></td>
-                </tr>
+                <table class="table">
+                    <tr>
+                        <td style="vertical-align: middle">Biển số xe<span class="required">*</span></td>
+                        <td>
+                            <input type="text" name="NumberPlate" id="NumberPlate" class="form-control" value="@Model.NumberPlate"/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle">Tổng số chỗ ngồi<span class="required">*</span></td>
+                        <td>
+                            <input type="text" name="TotalSlots" id ="TotalSlots" class="form-control" value="@Model.TotalSlots"/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle">Tên tài xế</td>
+                        <td>
+                            <input type="text" name="DriverName" id ="DriverName" class="form-control" value="@Model.DriverName"/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle">Số điện thoại tài xế</td>
+                        <td>
+                            <input type="text" name="DriverPhone" id ="DriverPhone" class="form-control" value="@Model.DriverPhone"/></td>
+                    </tr>
         
-                @*                <tr>
+                    @*                <tr>
                     <td colspan="2">
                         <input type="submit" value="Chỉnh sửa" class="btn btn-info" />
                         <input type="reset" value="Làm lại" class="btn btn-info" />
                     </td>
                 </tr>*@
-            </table>
+                </table>
+                </div>
         </div>
         <div style="float: right">
             @*<input type="reset" value="Làm lại" class="btn btn-info" />*@
@@ -120,7 +122,7 @@
                 return false;
             } else
                 removeValMsg(e);
-                return true;
+            return true;
         } else return !required;
     }
 </script>

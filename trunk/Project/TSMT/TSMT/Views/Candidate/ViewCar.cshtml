@@ -85,8 +85,8 @@
             {
                 <tr>
                     <td>@se.Day.ToString("dd/MM/yyyy")</td>
-                    <td>@se.BeginHour.ToShortTimeString()</td>
-                    <td>@se.EndHour.ToShortTimeString()</td>
+                    <td>@se.BeginTime.AddHours(-1.5).ToShortTimeString()</td>
+                    <td>@se.EndTime.AddHours(-1).ToShortTimeString()</td>
                 </tr>
             }
         </table>

@@ -44,8 +44,8 @@
                         {
                         <tr>
                             <td>@item.Day.ToString("dd/MM/yyyy")</td>
-                            <td>@item.BeginHour.ToString("HH:mm")</td>
-                            <td>@item.EndHour.ToString("HH:mm")</td>
+                            <td>@item.BeginTime.ToString("HH:mm")</td>
+                            <td>@item.EndTime.ToString("HH:mm")</td>
                             <td>
                                 <a href="@Url.Action("EditScheduleExam","Admin",new { id = @item.ScheduleExamID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>&nbsp;Sửa</a>
                             </td>

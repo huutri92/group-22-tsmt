@@ -239,9 +239,9 @@
 </script>
 
 <div class="col-md-9">
-    <h5>CHọn điểm trọ</h5>
-    <select id="cbbLodge" onchange=" callAjaxLodge(this.value,'cbbRoomLeft','cbbRoomRight','capaRoomA','capaRoomB')">
-        <option id="index0">Chọn điểm trọ</option>
+    <h5>Chọn điểm trọ</h5>
+    <select id="cbbLodge" onchange=" callAjaxLodge(this.value,'cbbRoomLeft','cbbRoomRight','capaRoomA','capaRoomB')" class="form-control" style="width:auto">
+        <option id="index0">Địa chỉ trọ</option>
         @foreach (var item in Model)
         {
             <option value="@item.LodgeID">@item.Address</option>

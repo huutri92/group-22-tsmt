@@ -63,7 +63,7 @@
                                 <td>
                                     <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-purple1" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
                                     @*<a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>*@
-                                    @if (@item.TotalSlotsLodges == 0 || @item.TotalSlotsVehicles == 0)
+                                    @if (@item.TotalSlotsLodges == 0 && @item.TotalSlotsVehicles == 0)
                                     {
                                     <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Bạn có muốn xóa cái này phải không?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
                                     }

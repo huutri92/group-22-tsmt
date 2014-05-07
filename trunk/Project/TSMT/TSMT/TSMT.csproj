@@ -291,6 +291,7 @@
     <Content Include="Content\css\TSMTPaging.css" />
     <Content Include="Content\css\TSMTPlaces.css" />
     <Content Include="Content\css\TSMTPopup.css" />
+    <Content Include="Content\css\TSMTValidation.css" />
     <Content Include="Content\img\bg-black.png" />
     <Content Include="Content\img\bg-black1.png" />
     <Content Include="Content\img\bg\2.jpg" />
@@ -491,6 +492,7 @@
     <Content Include="Content\js\TSMTJoinInCE.js" />
     <Content Include="Content\js\TSMTPaging.js" />
     <Content Include="Content\js\TSMTPopup.js" />
+    <Content Include="Content\js\TSMTValidation.js" />
     <Content Include="Content\js\TSMTViewOnMap.js" />
     <Content Include="Content\js\waypoints.min.js" />
     <Content Include="Content\plugins\back-to-top.js" />
@@ -2574,6 +2576,9 @@
     <Content Include="Content\css\font\9k-RPmcnxYEPm8CNFsH2gg.woff" />
     <Content Include="Content\css\font\KT3KS9Aol4WfR6Vas8kNcg.woff" />
     <Content Include="Content\css\font\wkfQbvfT_02e2IWO3yYueQ.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Volunteer\ManagePost.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
