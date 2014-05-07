@@ -71,15 +71,9 @@
                                 }
                             </td>
                             <td>@item.FundSponsored.ToString("###,###,###") VND</td>
-
-                            @if (item.IsOnlineFunding)
-                            {
-                                <td>Chuyển giao qua internet</td>
-                            }
-                            else
-                            {
-                                <td>Chuyển giao tận tay</td>
-                            }
+                            
+                                <td>Chuyển khoản</td>
+                            
                             @if (item.IsApproved)
                             {
                                 <td><span class="label label-success">Đã nhận</span></td>
