@@ -26,7 +26,7 @@
 
 @Html.Partial("_VolunteerSidebarPartial")
 
-@using (Html.BeginForm("JoinIn", "Volunteer", FormMethod.Post))
+@using (Html.BeginForm("JoinIn", "Volunteer", FormMethod.Post, new { onsubmit = "return checkTerm();" }))
 {
     <div class="col-md-5">
         <div class="panel panel-pink margin-bottom-20" style="width: 75%">
@@ -38,7 +38,7 @@
                     <tr>
                         <td style="vertical-align: middle">Kỳ thi</td>
                         <td>
-                            <select name="exId" onchange="getCharityName(this.value)" class="form-control" style="width: auto">
+                            <select id="exam" name="exId" onchange="getCharityName(this.value)" class="form-control" style="width: auto">
                                 <option value="null">Đợt thi</option>
                                 @foreach (var item in Model)
                                 {
@@ -73,11 +73,11 @@
             </div>
             <table class="table table-bordered">
                 <tr>
-                    <td>abc</td>
+                    <td>Bạn phải chắc chắn rằng khi tham hỗ trợ thí sinh là phải tham gia đầy đủ và không vắng mặt trong bất cứ ngày thi nào.</td>
 
                 </tr>
                 <tr>
-                    <td><input type="checkbox" />&nbsp;Tôi đồng ý với các điều kiện trên</td>
+                    <td><input id="term" type="checkbox" />&nbsp;Tôi đồng ý với các điều kiện trên</td>
                 </tr>
             </table>
                
@@ -91,6 +91,17 @@
 }
 
 <script type="text/javascript">
+    function checkTerm() {
+        if (document.getElementById("exam").selectedIndex == 0 || document.getElementById("getCharity").selectedIndex == 0) {
+            alert("Bạn chưa chọn đợt thi hoặc hội từ thiện, vui lòng chọn để tiếp tục!");
+            return false;
+        }else if (document.getElementById("term").checked == true) {
+            return true;
+        } else {
+            alert("Bạn chưa xác nhận các điều kiện ràng buộc, vui lòng chọn điều kiện ràng buộc để tiếp tục đăng ký!");
+            return false;
+        }
+    }
     function getCharityName(id) {
         $("#getCharity").empty();
         $("#getCharity").append("<option value='null'>Hội từ thiện</option>");

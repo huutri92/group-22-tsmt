@@ -1,12 +1,12 @@
-﻿@{
+﻿@using TSMT.Models;
+@model TSMT.Models.Volunteer
+@{
     ViewBag.Title = "Tình nguyện viên";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Active = "VolunteerHome";
 }
-
-@using TSMT.Models;
-@model TSMT.Models.Volunteer
-
+<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
+<script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -21,8 +21,7 @@
 }
 @Html.Partial("_VolunteerSidebarPartial")
 
-<link rel="stylesheet" href="~/Content/css/TSMTPopup.css">
-<script type="text/javascript" src="~/Content/js/TSMTPopup.js"></script>
+
 
 <div class="col-md-9">
     @if (Model.ParticipantVolunteers.Count == 0)
@@ -48,7 +47,7 @@
     {
         <div class="panel panel-pink margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list"></i>Thông tin tham gia hỗ trợ
+                <h3 class="panel-title"><i class="icon-list"></i>Thông tin tham gia hỗ trợ tiếp sức mùa thi
                      @if (Model.ParticipantVolunteers.Count < 3)
                      {
                          <a href="@Url.Action("JoinIn", "Volunteer")" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tham gia thêm</a>
@@ -92,8 +91,7 @@
                                         <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
                                         if (item.ExamPaperID == null)
                                         {
-                                        <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-red" title="Rời hội từ thiện" onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" style="width:40px;height:30px"><i class="icon-remove"></i></a>
-@*  @Html.ActionLink("Xóa", "LeaveCE", new { id = item.ParticipantVolunteerID }, new { onclick = " return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" });*@
+                                        <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })"onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" class="btn-u btn-u-red" title="Rời hội từ thiện"  style="width:40px;height:30px"><i class="icon-remove"></i></a>
                                         }
                                     }
                                     else
@@ -112,4 +110,17 @@
     }
 
 </div>
-
+<script type="text/javascript">
+    function callAjaxRemove(carId) {
+        $.ajax({
+            url: '/Charity/RemoveCar/' + carId,
+            type: 'GET',
+            success: function (results) {
+                $("#" + carId).hide(800, function () {
+                    $("#" + carId).remove();
+                });
+            }
+        });
+        return false;
+    }
+</script>
