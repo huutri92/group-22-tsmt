@@ -65,12 +65,12 @@
                                     foreach (var car in ViewData["CarNotSponsored"] as IEnumerable<Car>)
                                     {                   
                                     <tr>
-                                        <td>@counter</td>
-                                        <td>@car.NumberPlate</td>
-                                        <td>@car.TotalSlots</td>
-                                        <td>@car.DriverName</td>
-                                        <td>@car.DriverPhone</td>
-                                        <td>
+                                        <td style="vertical-align:middle">@counter</td>
+                                        <td style="vertical-align:middle">@car.NumberPlate</td>
+                                        <td style="vertical-align:middle">@car.TotalSlots</td>
+                                        <td style="vertical-align:middle">@car.DriverName</td>
+                                        <td style="vertical-align:middle">@car.DriverPhone</td>
+                                        <td style="vertical-align:middle">
                                             <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
                                             <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
                                             <a href="@Url.Action("DeleteCar", "Sponsor", new { id = @car.CarID })" onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" class="btn-u btn-u-red" title="Xóa xe"><i class="icon-remove-sign"></i></a>
@@ -113,21 +113,21 @@
                                     foreach (var item in ViewData["CarSponsored"] as IEnumerable<Car>)
                                     {                   
                                     <tr>
-                                        <td>@count</td>
-                                        <td>@item.ChairitiesExam.Examination.Name</td>
-                                        <td>@item.ChairitiesExam.Charity.Name</td>
-                                        <td>@item.NumberPlate</td>
-                                        <td>@item.AvailableSlots/@item.TotalSlots</td>
+                                        <td style="vertical-align:middle">@count</td>
+                                        <td style="vertical-align:middle">@item.ChairitiesExam.Examination.Name</td>
+                                        <td style="vertical-align:middle">@item.ChairitiesExam.Charity.Name</td>
+                                        <td style="vertical-align:middle">@item.NumberPlate</td>
+                                        <td style="vertical-align:middle">@item.AvailableSlots/@item.TotalSlots</td>
                                         @if (item.IsApproved)
                                         {
-                                            <td><span class="label label-success">Đã tài trợ</span></td>
-                                            <td></td>
+                                            <td style="vertical-align:middle"><span class="label label-success">Đã tài trợ</span></td>
+                                            <td style="vertical-align:middle"></td>
                                             
                                         }
                                         else if (!item.IsApproved)
                                         {
-                                            <td><span class="label label-danger">Chưa xác nhận</span></td>
-                                            <td>
+                                            <td style="vertical-align:middle"><span class="label label-danger">Chưa xác nhận</span></td>
+                                            <td style="vertical-align:middle">
                                                 <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
                                                 <a href="@Url.Action("DenieCar", "Sponsor", new { id = @item.CarID })"onclick = "return showPopup('Bạn có chắc muốn hủy tài trợ?', this.href);" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
                                             </td>

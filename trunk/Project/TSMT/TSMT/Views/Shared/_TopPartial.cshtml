@@ -7,7 +7,7 @@
             @if (Session["acc"] != null)
             {                          
                 <li>
-                    <a>Welcome <strong>@(((Account)Session["acc"]).Profile.Firstname)</strong></a>
+                    <a>Chào <strong>@(((Account)Session["acc"]).Profile.Lastname) @(((Account)Session["acc"]).Profile.Firstname)</strong></a>
                     <i class="icon-angle-down"></i>
                     <ul class="lenguages" style="vertical-align: middle">
                         <li>

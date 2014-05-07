@@ -60,14 +60,15 @@
     </div>
 
     <span class="assigned" style="float: right;">
-        @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
-        @Html.ActionLink("Sắp lại", null, null, new { @class = "btn btn-info", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
+        @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn-u btn-u-red", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
+        @Html.ActionLink("Sắp lại", null, null, new { @class = "btn-u btn-u-purple", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
     </span>
     <span class="notAssigned" style="float: right;">
-        @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn-u btn-u-brown" })
     </span>
 
-    @Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })
+    @*@Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("ManageCandidate", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
     <a href="@Url.Action("AssignRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Đến trang sắp xếp phòng</a>
 
 </div>
