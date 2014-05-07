@@ -20,56 +20,57 @@
             @{
                 foreach (var error in TempData["listerror"] as IEnumerable<AdminController.ImportErrors>)
                 {
-                    <tr>
-                        <td>@if (error.Name != null)
-                            {
-                                @error.Name
-                            }
-                            else
-                            {
-                                @error.SameName
-                            }
-                        </td>
-                        <td>@if (error.Code != null)
-                            {
-                                @error.Code
-                            }
-                            else
-                            {
-                                @error.Code
-                            }
-                        </td>
-                        <td>
-                            @if (error.Address != null)
-                            {
-                                @error.Address
-                            }
-                            else
-                            {
-                                @error.SameAddress
-                            }
-                        </td>
+                <tr>
+                    <td>@if (error.Name != null)
+                        {
+                        @error.Name
+                        }
+                        else
+                        {
+                        @error.SameName
+                        }
+                    </td>
+                    <td>@if (error.Code != null)
+                        {
+                        @error.Code
+                        }
+                        else
+                        {
+                        @error.Code
+                        }
+                    </td>
+                    <td>
+                        @if (error.Address != null)
+                        {
+                            @error.Address
+                        }
+                        else
+                        {
+                            @error.SameAddress
+                        }
+                    </td>
 
-                        @if (error.Name == null)
-                        {
-                            <td>Không có tên trường</td>
-                        }
-                        else if (error.SameName != null)
-                        {
-                            <td>Tên trường đã tồn tại</td>
-                        }
-                        if (error.Code == null)
-                        {
-                            <td>Không có mã trường</td>
-                        }
-                        else if (error.SameCode != null)
-                        {
-                            <td>Mã trường đã tồn tại</td>
-                        } else if (error.Address == null)
-                        {
-                            <td>Không có địa chỉ trường</td>
-                        }
-                    </tr>
+                    @if (string.IsNullOrEmpty(error.Name))
+                    {
+                        <td>Không có tên trường</td>
+                    }
+                    else if (error.SameName != null)
+                    {
+                        <td>Tên trường đã tồn tại</td>
+                    }
+                    @if (string.IsNullOrEmpty(error.Code))
+                    {
+                        <td>Không có mã trường</td>
+                    }
+                    else if (error.SameCode != null)
+                    {
+                        <td>Mã trường đã tồn tại</td>
+                    }
+                    @if (string.IsNullOrEmpty(error.Address))
+                    {
+                        <td>Không có địa chỉ trường</td>
+                    }
+                </tr>
                 }
             }
         </tbody>
