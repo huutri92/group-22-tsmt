@@ -14,6 +14,7 @@
         <div id="route" style="display: none">@ViewData["StarEndPoint"]</div>
     <div id="way" style="display: none">@ViewData["WayPoint"]</div>
     <div id="pId" style="display: none">@ViewData["ScheduleId"]</div>
+      
         <table class="table table-hover">
             <tr>
                 <th>Họ tên</th>
@@ -23,33 +24,64 @@
                 <th>SĐT</th>
                 <td>@Model.Volunteer.Account.Profile.PhoneNumber</td>
             </tr>
-            <tr>
+                           
+                        
+                    
+            
+           
+                                    
+        </table>
+    </div>
+</div>
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin thí sinh được đưa đón</i></h3>
+    </div>
+    <div class="panel-body">
+        @if (Model.ExamPaperID == null)
+        {
+            <p># Chưa được sắp xếp #</p>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <tr>
                 <th>Đưa đón thí sinh</th>
+                    
                 <td>
-                    @if (Model.ExamPaperID == null)
-                    {
-                        <text># Chưa sắp xếp #</text>
-                    } else {
+
 <text>@Model.ExaminationsPaper.Candidate.Account.Profile.Lastname @Model.ExaminationsPaper.Candidate.Account.Profile.Firstname</text>
-                    }
+                    
                 </td>
             </tr>
+                <tr>
+                    <th>Số điện thoại</th>
+                    <td>@Model.ExaminationsPaper.Candidate.Account.Profile.PhoneNumber</td>
+                </tr>
+                </table>
+        }
+    </div>
+</div>
+<div class="panel panel-blue margin-bottom-20">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="icon-list">&nbsp;Lịch trình đưa đón</i></h3>
+    </div>
+    <div class="panel-body">
+        <p>Đợt thi: @Model.ChairitiesExam.Examination.Name (từ ngày @Model.ChairitiesExam.Examination.BeginDate.ToString("dd/MM/yyyy") đến ngày @Model.ChairitiesExam.Examination.EndDate.ToString("dd/MM/yyyy"))</p>
+        <table class="table table-hover">
             <tr>
-                <th>Độ dài đường đi:</th>
-                <td><span id="TotalDistance"></span></td>
+                <th>Ngày thi</th>
+                <th>Giờ đi</th>
+                <th>Giờ đón</th>
             </tr>
-            <tr>
-                <th>Thời gian dự kiến:</th>
-                <td><span id="TotalTime"></span></td>
-            </tr>
-            <tr>
-                <th>Địa điểm đón thí sinh (A):</th>
-                <td>@ViewData["StartPlace"]</td>
-            </tr>
-            <tr>
-                <th>Địa điểm thi (red place)</th>
-                <td>@ViewData["EndPlace"]</td>
-            </tr>
+            @foreach (ScheduleExam se in @Model.ChairitiesExam.Examination.ScheduleExams)
+            {
+                <tr>
+                    <td>@se.Day.ToString("dd/MM/yyyy")</td>
+                    <td>@se.BeginTime.AddHours(-1.5).ToShortTimeString()</td>
+                    <td>@se.EndTime.AddHours(-1).ToShortTimeString()</td>
+                </tr>
+            }
         </table>
     </div>
 </div>
@@ -65,6 +97,24 @@
         else
         {
             <div id="map_canvas" style="width: 100%; height: 500px;"></div>
+             <table class="table table-hover">
+                 <tr>
+                <th>Độ dài đường đi:</th>
+                <td><span id="TotalDistance"></span></td>
+            </tr>
+            <tr>
+                <th>Thời gian dự kiến:</th>
+                <td><span id="TotalTime"></span></td>
+            </tr>
+            <tr>
+                <th>Địa điểm đón thí sinh (A):</th>
+                <td>@ViewData["StartPlace"]</td>
+            </tr>
+            <tr>
+                <th>Địa điểm thi (red place)</th>
+                <td>@ViewData["EndPlace"]</td>
+            </tr>
+                </table>
         }
     </div>
 </div>

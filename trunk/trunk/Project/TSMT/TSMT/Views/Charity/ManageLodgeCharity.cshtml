@@ -69,8 +69,8 @@
                                 foreach (var item in ViewData["lodgesOfCharity"] as IEnumerable<Lodge>)
                                 {
                                 <tr id="@item.LodgeID">
-                                    <td>@counter</td>
-                                    <td>@item.Address</td>
+                                    <td style="vertical-align:middle">@counter</td>
+                                    <td style="vertical-align:middle">@item.Address</td>
                                     @*                                        @if (item.CharityExamID == null)
                                         {
                                             <td>
@@ -83,15 +83,15 @@
                                         
                                         }*@
                                     @*<td>@item.TotalRooms</td>*@
-                                    <td>@item.Rooms.Count</td>
+                                    <td style="vertical-align:middle">@item.Rooms.Count</td>
                                     @*<td>@item.TotalSlots</td>
                                         <td>@item.TotalSlotsInUsed</td>
                                         <td>@item.AvailableSlots</td>*@
-                                    <td>@item.TotalSlots</td>
-                                    <td>
+                                    <td style="vertical-align:middle">@item.TotalSlots</td>
+                                    <td style="vertical-align:middle">
                                         @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
                                         <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
+                                        @*<a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-group"></i></a>*@
                                         <a href="@Url.Action("DetailsLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
                                         <a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="icon-edit" style="width: 40px; height: 30px"></i></a>
                                         <a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>
@@ -129,30 +129,30 @@
                                 foreach (var item in ViewData["lodgesOfCharityExam"] as IEnumerable<Lodge>)
                                 {
                                 <tr id="@item.LodgeID">
-                                    <td>@counterE</td>
-                                    <td>@item.Address</td>
+                                    <td style="vertical-align:middle">@counterE</td>
+                                    <td style="vertical-align:middle">@item.Address</td>
                                     @if (item.CharityExamID == null)
                                     {
-                                        <td>
+                                        <td style="vertical-align:middle">
                                             <span class="label label-danger">Chưa thiết lập</span>
                                         </td>
                                     }
                                     else
                                     {
-                                        <td>@item.ChairitiesExam.Examination.Name</td>
+                                        <td style="vertical-align:middle">@item.ChairitiesExam.Examination.Name</td>
                                         
                                     }
                                     @*<td>@item.TotalRooms</td>*@
-                                    <td>@item.Rooms.Count</td>
+                                    <td style="vertical-align:middle">@item.Rooms.Count</td>
                                     @*<td>@item.TotalSlots</td>
                                         <td>@item.TotalSlotsInUsed</td>
                                         <td>@item.AvailableSlots</td>*@
-                                    <td>@item.TotalSlotsInUsed</td>
-                                    <td>
+                                    <td style="vertical-align:middle">@item.TotalSlotsInUsed</td>
+                                    <td style="vertical-align:middle">
                                         @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
                                         <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-key"></i></a>
-                                        <a href="@Url.Action("DetailsLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
+                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-group"></i></a>
+                                        <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
                                         @*<a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="icon-edit" style="width: 40px; height: 30px"></i></a>*@
                                         @*<a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>*@
                                         @if (item.TotalSlotsInUsed == item.AvailableSlots)

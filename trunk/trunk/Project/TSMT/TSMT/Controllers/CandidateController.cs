@@ -29,8 +29,19 @@ namespace TSMT.Controllerss
         public ActionResult AddExamPaper()
         {
             ViewData["uniExams"] = db.UniversitiesExaminations.ToList();
-            ViewData["Exams"] = db.Examinations.ToList();
             ViewData["venues"] = db.Venues.ToList();
+            Account acc = (Account)Session["acc"];
+            var ex = db.Examinations.ToList();
+            var expp = db.ExaminationsPapers.ToList();
+            foreach (ExaminationsPaper e in expp)
+            {
+                if (e.Candidate.Account.AccountID == acc.AccountID)
+                {
+                    var exam = db.Examinations.SingleOrDefault(r => r.ExaminationID == e.ChairitiesExam.ExamID);
+                    ex.Remove(exam);
+                }
+            }
+            ViewData["Exams"] = ex;
             return View();
         }
         [HttpPost]
@@ -125,6 +136,7 @@ namespace TSMT.Controllerss
 
             ep.LodgeRegisteredID = lodgeId;
             ep.CharityExamID = lodge.CharityExamID;
+            --lodge.AvailableSlots;
             db.SaveChanges();
             return RedirectToAction("DetailsExamPaper", new { id = epId });
         }

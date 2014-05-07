@@ -109,7 +109,8 @@
     </div>
 
     @*@Html.ActionLink("Trở về", "ManageLodge", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("ManageLodge", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    @*<a href="@Url.Action("ManageLodge", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>*@
+    <a onclick="history.back(-1)" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
 

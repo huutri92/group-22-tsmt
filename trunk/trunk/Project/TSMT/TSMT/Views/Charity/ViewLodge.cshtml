@@ -12,6 +12,12 @@
         <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách thí sinh đã đăng kí vào địa điểm trọ này</i></h3>
     </div>
     <div class="panel-body">
+                        @if (Model.ExaminationsPapers.Count == 0)
+        {
+            <p># Chưa được sắp xếp #</p>
+        }
+        else
+                {
         <table class="table table-hover">
             <tr>
                 <th>#</th>
@@ -53,5 +59,6 @@
                 }
             }
         </table>
+                        }
     </div>
 </div>

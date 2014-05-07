@@ -159,7 +159,7 @@
                                             <td><span class="label label-success">Đã tài trợ</span></td>
                                             <td>
                                                 <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
-                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-blue"  title="Xem Chi Tiết"><i class="icon-info"></i></a>
+                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @item.LodgeID })" class="btn-u btn-u-blue"  title="Xem Chi Tiết"><i class="icon-info"></i></a>
                                             </td>
                                         }
                                         else if (!item.IsApproved)

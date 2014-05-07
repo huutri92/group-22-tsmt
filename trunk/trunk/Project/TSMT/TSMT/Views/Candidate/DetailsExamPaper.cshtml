@@ -153,7 +153,7 @@
                                 else // is member
                                 { 
 @*@Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class=""></i>&nbsp;</a>
+                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Rời nhóm</a>
                                 }
                             }
 @*@Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
@@ -213,7 +213,7 @@
                                 <td>
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
-                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = gr.ReceiveID, gID = gr.GroupID }, new { @class = "btn btn-info" })
+                                        @Html.ActionLink("Đồng ý", "AcceptRequest", new { id = gr.ActiveID, gID = gr.GroupID }, new { @class = "btn btn-info" })
                                         @Html.ActionLink("Từ chối", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })
                                     }
                                 </td>

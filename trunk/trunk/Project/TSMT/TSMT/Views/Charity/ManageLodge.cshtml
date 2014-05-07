@@ -45,6 +45,11 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
+                        @if (@Model.Lodges.Count == 0)
+                        {
+                            <p># Chưa có nhà trọ cho đợt thi này #</p> 
+                        }
+                        else {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -90,9 +95,15 @@
                                 }
                             </tbody>
                         </table>
+                        }
 
                     </div>
                     <div class="tab-pane" id="sponsored">
+                        @if (@Model.Lodges.Count(l => l.Sponsor != null) <= 0)
+                        {
+                            <p># Chưa nhận được bất cứ tài trợ nào</p> 
+                        }
+                        else {
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -156,11 +167,12 @@
                                             </td>
                                         }
                                     </tr>
-                                        ++counter;
+                                        ++count;
                                     }
                                 }
                             </tbody>
                         </table>
+                        }
                     </div>
                 </div>
             </div>
