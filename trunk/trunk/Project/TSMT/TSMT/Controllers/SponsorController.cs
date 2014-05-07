@@ -671,8 +671,8 @@ namespace TSMT.Controllers
                         select new
                         {
                             value = r.LodgeID,
-
                             Address = r.Address,
+                            TotalRooms = r.Rooms.Count,
                             TotalSlotsL = r.TotalSlots,
                         };
             return Json(lodge, JsonRequestBehavior.AllowGet);
