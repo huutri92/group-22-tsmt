@@ -57,8 +57,8 @@
             @using (Html.BeginForm("Importexcel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="file" id="FileUpload"
-                    name="FileUpload" required data-val="true" data-val-required="please select a file" />
-                <input type="submit" id="Submit" class="submit" onclick="" value="Upload" title="Click to upload file" />
+                    name="Chọn file excel" required data-val="true" data-val-required="Hãy chọn file excel" />
+                <input type="submit" id="Submit" class="submit" onclick="" value="Nhập" title="Nhập thông tin trường" />
             }
         </div>
     <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>

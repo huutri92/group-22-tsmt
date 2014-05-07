@@ -3,53 +3,77 @@
     ViewBag.Title = "ImportError";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>ImportError</h2>
+<h4>Lỗi khi nhập thông tin trường</h4>
+
 <div class="tab-pane" id="lodge">
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Hàng số</th>
                 <th>Tên trường</th>
                 <th>Mã trường</th>
+                <th>Địa chỉ</th>
                 <th>Nguyên nhân</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @{
-
                 foreach (var error in TempData["listerror"] as IEnumerable<AdminController.ImportErrors>)
                 {
-                    if (error.SameAddress == null || error.SameCode == null || error.SameName == null)
-                    {
-                        <tr>
-                            <td>@error.Row</td>
-                            <td>@error.Name</td>
-                            <td>@error.Code</td>
-                            @if (error.Name==null)
+                    <tr>
+                        <td>@if (error.Name != null)
                             {
-                                <td>Không có tên trường</td>
+                                @error.Name
                             }
-                            @if (error.Code==null)
+                            else
                             {
-                                <td>Không có mã trường</td>
+                                @error.SameName
                             }
-                            @if (error.Address==null)
+                        </td>
+                        <td>@if (error.Code != null)
                             {
-                                <td>Không có địa chỉ trường</td>
+                                @error.Code
                             }
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr id="1">
-                            <td>@error.Row</td>
-                            <td>@error.SameName</td>
-                            <td>@error.SameCode</td>
-                            <td>Trường này đã tồn tại</td>
-                        </tr>
-                    }
+                            else
+                            {
+                                @error.Code
+                            }
+                        </td>
+                        <td>
+                            @if (error.Address != null)
+                            {
+                                @error.Address
+                            }
+                            else
+                            {
+                                @error.SameAddress
+                            }
+                        </td>
+
+                        @if (error.Name == null)
+                        {
+                            <td>Không có tên trường</td>
+                        }
+                        else if (error.SameName != null)
+                        {
+                            <td>Tên trường đã tồn tại</td>
+                        }
+                        if (error.Code == null)
+                        {
+                            <td>Không có mã trường</td>
+                        }
+                        else if (error.SameCode != null)
+                        {
+                            <td>Mã trường đã tồn tại</td>
+                        } else if (error.Address == null)
+                        {
+                            <td>Không có địa chỉ trường</td>
+                        }
+                    </tr>
                 }
             }
         </tbody>
     </table>
+    <a href="@Url.Action("ManageUniversity", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Về trang quản lý trường </a>
 </div>
+
