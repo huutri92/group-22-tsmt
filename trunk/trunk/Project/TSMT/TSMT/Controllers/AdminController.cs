@@ -107,18 +107,8 @@ namespace TSMT.Controllers
                         else
                         {
                             imEror.Name = null;
-                            imEror.Address = uni.Address == null ? null : ds.Tables[0].Rows[i]["Address"].ToString();
-                            imEror.Code = uni.UniversityCode == null ? null : ds.Tables[0].Rows[i]["UniversityCode"].ToString();
-                        }
-                        if (ds.Tables[0].Rows[i]["Address"].ToString() != "")
-                        {
-                            uni.Address = ds.Tables[0].Rows[i]["Address"].ToString();
-                        }
-                        else
-                        {
-                            imEror.Address = null;
-                            imEror.Name = uni.Name == null ? null : ds.Tables[0].Rows[i]["Name"].ToString();
-                            imEror.Code = uni.UniversityCode == null ? null : ds.Tables[0].Rows[i]["UniversityCode"].ToString();
+                            imEror.Address = ds.Tables[0].Rows[i]["Address"].ToString();
+                            imEror.Code = ds.Tables[0].Rows[i]["UniversityCode"].ToString();
                         }
                         if (ds.Tables[0].Rows[i]["UniversityCode"].ToString() != "")
                         {
@@ -127,9 +117,20 @@ namespace TSMT.Controllers
                         else
                         {
                             imEror.Code = null;
-                            imEror.Name = uni.Name == null ? null : ds.Tables[0].Rows[i]["Name"].ToString();
-                            imEror.Address = uni.Address == null ? null : ds.Tables[0].Rows[i]["Address"].ToString();
+                            imEror.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                            imEror.Address = ds.Tables[0].Rows[i]["Address"].ToString();
                         }
+                        if (ds.Tables[0].Rows[i]["Address"].ToString() != "")
+                        {
+                            uni.Address = ds.Tables[0].Rows[i]["Address"].ToString();
+                        }
+                        else
+                        {
+                            imEror.Address = null;
+                            imEror.Name = ds.Tables[0].Rows[i]["Name"].ToString();
+                            imEror.Code = ds.Tables[0].Rows[i]["UniversityCode"].ToString();
+                        }
+
                         uni.Website = ds.Tables[0].Rows[i]["Website"].ToString() != "" ? ds.Tables[0].Rows[i]["Website"].ToString() : null;
                         uni.Phone = ds.Tables[0].Rows[i]["Phone"].ToString() != "" ? ds.Tables[0].Rows[i]["Phone"].ToString() : null;
                         bool flag = true;
@@ -141,14 +142,20 @@ namespace TSMT.Controllers
                                 if (ds.Tables[0].Rows[i]["Name"].ToString() == listUni[j].Name)
                                 {
                                     imEror.SameName = uni.Name;
+                                    imEror.Name = uni.Name;
+                                    imEror.Code = uni.UniversityCode;
+                                    imEror.Address = uni.Address;
                                     flag = false;
                                 }
                                 if (ds.Tables[0].Rows[i]["UniversityCode"].ToString() == listUni[j].UniversityCode)
                                 {
                                     imEror.SameCode = uni.UniversityCode;
+                                    imEror.Code = uni.UniversityCode;
+                                    imEror.Name = uni.Name;
+                                    imEror.Address = uni.Address;
                                     flag = false;
                                 }
-                                if (imEror.SameAddress != null || imEror.SameCode != null || imEror.SameName != null)
+                                if (imEror.SameCode != null || imEror.SameName != null)
                                 {
                                     imEror.Row = i + 2;
                                     listErrors.Add(imEror);
@@ -410,15 +417,15 @@ namespace TSMT.Controllers
                 }
             }
             var exs = from r in ex
-                     select new
-                     {
-                         value = r.ExaminationID,
-                         name = r.Name
-                     };
+                      select new
+                      {
+                          value = r.ExaminationID,
+                          name = r.Name
+                      };
             return Json(exs);
         }
         [HttpPost]
-        public ActionResult AddUniversityExam(FormCollection f)
+        public ActionResult AddNewUniversityExam(FormCollection f)
         {
             UniversitiesExamination ue = new UniversitiesExamination();
             ue.UniversityID = int.Parse(f["UniversityID"]);
