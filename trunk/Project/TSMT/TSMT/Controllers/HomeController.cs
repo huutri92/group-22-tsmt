@@ -48,8 +48,9 @@ namespace TSMT.Controllers
             return View();
         }
 
-        public ActionResult Statistics()
+         public ActionResult Statistics()
         {
+            ViewData["Exam"] = db.Examinations.ToList();
             return View();
         }
         #endregion
@@ -105,6 +106,53 @@ namespace TSMT.Controllers
         public ActionResult Sponsor()
         {
             return View();
+        }
+        #endregion
+		 #region Ajax
+        public JsonResult ShowUniversity(int examId)
+        {
+            var university = from e in db.UniversitiesExaminations
+                             where e.ExaminationID == examId
+                          select new
+                          {
+                              value = e.UniExamID,
+                              name = e.University.Name,
+                          };
+            return Json(university, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ShowCharity(int examId)
+        {
+            var charity = from e in db.ChairitiesExams
+                          where e.ExamID == examId
+                          select new
+                          {
+                              value = e.CharityExamID,
+                              name = e.Charity.Name,
+                          };
+            return Json(charity, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Showvolunteer(int examId)
+        {
+            var volunteer = from e in db.ParticipantVolunteers
+                          where e.ChairitiesExam.ExamID == examId
+                          select new
+                          {
+                              value = e.VolunteerID,
+                              name = e.Volunteer.Account.Profile.Lastname + " " + e.Volunteer.Account.Profile.Firstname,
+                          };
+            return Json(volunteer, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Showcandidate(int examId)
+        {
+            var candidate = from e in db.ExaminationsPapers
+                            where e.ChairitiesExam.ExamID == examId
+                            select new
+                            {
+                                value = e.ExamPaperID,
+                                name = e.Candidate.Account.Profile.Lastname + " " + e.Candidate.Account.Profile.Firstname,
+                            };
+            return Json(candidate, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
