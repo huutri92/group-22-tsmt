@@ -157,18 +157,18 @@
     </div>
 }
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
-        var ex = /^[^\-]$/;
+        var ex = /^[^-]$/;
         
         $("#qwe").blur(function () { checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) });
         $("#asd").blur(function () { checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) });
         $("#FormValidate").submit(function (e) {
             var isValidated = true;
-            isValidated = checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) && isValidated;
+            //isValidated = checkRegex("qwe", ex, "Vui lòng chọn đợt thi", true) && isValidated;
             isValidated = checkRegex("asd", ex, "VUi lòng chọn tổ chức", true) && isValidated;
             if (isValidated) return true;
             e.preventDefault();
         });
     });
-</script>
+</script>*@
