@@ -57,7 +57,7 @@
             @using (Html.BeginForm("Importexcel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="file" id="FileUpload"
-                    name="Chọn file excel" required data-val="true" data-val-required="Hãy chọn file excel" />
+                    name="FileUpload" required data-val="true" data-val-required="Hãy chọn file excel" />
                 <input type="submit" id="Submit" class="submit" onclick="" value="Nhập" title="Nhập thông tin trường" />
             }
         </div>
