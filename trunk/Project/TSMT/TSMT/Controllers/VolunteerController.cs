@@ -43,6 +43,12 @@ namespace TSMT.Controllers
             }
             return View(es);
         }
+        public ActionResult ManagePost()
+        {
+            Account acc = (Account)Session["acc"];
+            var ar = db.Articles.Where(r=>r.CreatedBy==acc.AccountID).ToList();
+            return View(ar);
+        }
         [HttpPost]
         public ActionResult JoinIn(FormCollection f)
         {
