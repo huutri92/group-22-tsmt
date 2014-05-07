@@ -1,8 +1,10 @@
-﻿@{
-    ViewBag.Title = "Thống kê";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using TSMT.Models
+@{
+    ViewBag.Title = "Xem Thống Kê";
+    Layout = "~/Views/Shared/_LayoutStatistic.cshtml";
 }
-
+<script src="~/Content/js/highchart.js"></script>
+<script src="~/Content/js/exporting.js"></script>
 @section Breadcrumbs {
     <div class="breadcrumbs margin-bottom-40">
         <div class="container">
@@ -14,6 +16,175 @@
         </div>
     </div>
 }
+<h1></h1>
+<h5></h5>
+<div class="col-md-12" id="showInformation">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-user"></i>Xem Thống Kê
+            </h3>
+        </div>
+        <div class="panel-body">
+            <h3>Vui Lòng Chọn Kì Thi  Muốn Xem</h3>
+            <table class="table table-hover">
+                <tr>
+                    <td style="vertical-align:middle ; width:100px">Kì Thi </td>
+                    <td style="width: 200px">
+                        <select id="exam"  onchange="showForm1()"  class="form-control" >
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {
+                                <option value="@item.ExaminationID">@item.Name</option>
+                            }
+                        </select>
+                        </td>
+                    <td style="vertical-align:middle">
+                         <a  onclick="viewstatistic()" class="btn btn-info"  id="buttonshow"   style="display: none">Xem Thống Kê</a>
+                    </td>
+                    
+                </tr>
+            </table>
+            <div id="statistic" style="display: none">
+                <h3> DS Các hội từ thiện</h3>
+                <table class="table table-hover">
+                    <tbody id="showcharity">
+                    </tbody>
+                </table>
+                <h3>DS các trường đại học</h3>
+                <table class="table table-hover">
+                    <tbody id="showuniversity">
+                    </tbody>
+                </table>
+                <h3>DS các tình nguyện viên</h3>
+                <table class="table table-hover">
+                    <tbody id="showvolunteer">
+                    </tbody>
+                </table>
+                <h3>DS các thí sinh</h3>
+                <table class="table table-hover">
+                    <tbody id="showcandidate">
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <a href="@Url.Action("Index", "Home")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về trang chủ</a>
+    </div>
 
 
-<h2>Thống kê</h2>
+
+             
+
+            
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#exam").click(function () {
+            var examId = document.getElementById("exam").value;
+            $.ajax({
+                url: 'ShowCharity',
+                data: { "examId": examId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showcharity").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showcharity").append("<tr><td style=\"width: 25%\" class=\"totalnamecharity\" value=\"" + r.value + "\">" + r["name"] + "</td></tr>");
+                    }
+                }
+            });
+
+            $.ajax({
+                url: 'ShowUniversity',
+                data: { "examId": examId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showuniversity").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showuniversity").append("<tr><td style=\"width: 25%\" class=\"totalnameuniversity\" value=\"" + r.value + "\">" + r["name"] + "</td></tr>");
+                    }
+                }
+            });
+            $.ajax({
+                url: 'ShowVolunteer',
+                data: { "examId": examId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showvolunteer").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showvolunteer").append("<tr><td style=\"width: 25%\" class=\"totalnamevolunteer\" value=\"" + r.value + "\">" + r["name"] + "</td></tr>");
+                    }
+                }
+            });
+            $.ajax({
+                url: 'ShowCandidate',
+                data: { "examId": examId },
+                type: 'POST',
+                success: function (results) {
+                    $("#showcandidate").html("");
+                    for (i in results) {
+                        var r = results[i];
+                        $("#showcandidate").append("<tr><td style=\"width: 25%\" class=\"totalnamecandidate\" value=\"" + r.value + "\">" + r["name"] + "</td></tr>");
+                    }
+                }
+            });
+        });
+    });
+    function showForm1() {
+        document.getElementById('buttonshow').style.display = "inline";
+    }
+
+    function viewstatistic() {
+        var charity = document.getElementsByClassName("totalnamecharity").length;
+        var university = document.getElementsByClassName("totalnameuniversity").length;
+        var volunteer = document.getElementsByClassName("totalnamevolunteer").length;
+        var candidate = document.getElementsByClassName("totalnamecandidate").length;
+        var exam = document.getElementById("exam").options[document.getElementById("exam").selectedIndex].textContent;
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Biểu Đồ Thống Kê'
+            },
+            subtitle: {
+                text: 'Kì Thi: ' + exam
+            },
+            xAxis: {
+                categories: [
+                    'Trường ĐH-CĐ',
+                    'Hội Từ Thiện',
+                    'Tình Nguyện Viên',
+                    'Thí Sinh'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Số lượng'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '.',
+                data: [charity, university, volunteer, candidate]
+            }]
+        });
+    }
+    </script>
