@@ -81,7 +81,7 @@
                 <input type="hidden" name="carId" value="@Model.CarID"/>
                 <table class="table table-hover">
                     <tr>
-                        <td style="vertical-align: middle">Tài Trợ Cho: </td>
+                        <td style="vertical-align: middle">Tài Trợ Cho: <span class="required">*</span></td>
                         <td>
                             <select id="qwe" onchange="callAjax(this.value)" class="form-control">
                                 <option value="0" selected>---</option>
@@ -109,7 +109,7 @@
                         
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Tổ Chức: </td>
+                        <td style="vertical-align: middle">Tổ Chức: <span class="required">*</span></td>
                         <td>
                             <select id="asd" name="asd" onchange="callAjaxCharityid(this.value)" class="form-control">
                             </select>

@@ -150,11 +150,10 @@
         </div>
     }
     @Html.Partial("_SponsorSidebarPartial")
-    <div class="col-md-9">
-        @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
-        {
-        
-@* <form method="post" action="/Sponsor/AddResource">*@
+    @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+    {
+        <div class="col-md-9">
+            @* <form method="post" action="/Sponsor/AddResource">*@
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-user"></i>Thông tin tài trợ</h3>
@@ -163,7 +162,7 @@
 
                     <table>
                         <tr>
-                            <td>Tài Trợ Cho: </td>
+                            <td>Tài Trợ Cho: <span class="required">*</span></td>
                             <td>
                                 <select id="qwe" onchange="callAjax(this.value)" class="form-control">
                                     <option value="0" selected>---</option>
@@ -173,14 +172,14 @@
                                     }
                                 </select>
                             </td>
-                            <td>Tổ Chức: </td>
+                            <td>Tổ Chức: <span class="required">*</span></td>
                             <td>
                                 <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control"></select>
                             </td>
                             <input type="hidden" name="charityid" id="charityid" />
                         </tr>
                         <tr>
-                            <td>Hình Thức</td>
+                            <td>Hình Thức <span class="required">*</span></td>
                             <td>
                                 <select id="resource" name="resource" onchange="changeRole(this.options[this.selectedIndex].text);" class="form-control">
                                     <option value="null" selected>---</option>
@@ -195,7 +194,7 @@
                     <div id="Tiền" style="display: none">
                         <table class="table table-hover">
                             <tr>
-                                <td>Số Tiền</td>
+                                <td>Số Tiền <span class="required">*</span></td>
                                 <td>
                                     <input type="text" name="FundSponsored" id="input" class="form-control" />
                                     <script>
@@ -227,7 +226,7 @@
                             else
                             {
                                 <tr>
-                                    <td>Xe đã có - Biển Số Xe: 
+                                    <td>Xe đã có - Biển Số Xe: <span class="required">*</span>
                                     </td>
                                     <td>
                                         <select id="carsource" name="carId" onchange="callAjaxcar(this.value)" class="form-control">
@@ -265,7 +264,7 @@
                     <div id="Chỗ Ở" style="display: none">
                         <table class="table table-hover">
                             <tr>
-                                <td>Chỗ ở đã có - Địa Chỉ: 
+                                <td>Chỗ ở đã có - Địa Chỉ: <span class="required">*</span>
                                 </td>
                                 <td>
                                     <select id="lodgesource" name="lodgeId" onchange="callAjaxlodge(this.value)" class="form-control">
@@ -302,9 +301,9 @@
                 <button type="submit" class="btn-u btn-u-sea"><i class="icon-plus">&nbsp;Tài Trợ</i></button>
             </div>
             <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</button>
-                   
-        }
-    </div>
+
+        </div>
+    }
 </body>
 </html>
 <script type="text/javascript">

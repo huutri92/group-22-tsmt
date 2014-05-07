@@ -57,9 +57,9 @@
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <td style="vertical-align: middle">Tài Trợ Cho: </td>
+                        <td style="vertical-align: middle">Tài Trợ Cho: <span class="required">*</span></td>
                         <td>
-                            <select id="qwe" onchange="callAjax(this.value)" class="form-control" style="width:auto">
+                            <select id="qwe" onchange="callAjax(this.value)">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                                 {
@@ -67,21 +67,21 @@
                                 }
                             </select>
                         </td>
-                        <td style="vertical-align: middle">Tổ Chức: </td>
+                        <td style="vertical-align: middle">Tổ Chức: <span class="required">*</span></td>
                         <td>
-                            <select id="asd" name="asd" class="form-control"></select>
+                            <select id="asd" name="asd"></select>
                         </td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Số Tiền</td>
-                        <td style="vertical-align: middle">
-                            <input type="text" name="FundSponsored" id="input" class="form-control"/>
+                        <td>Số Tiền <span class="required">*</span></td>
+                        <td>
+                            <input type="text" name="FundSponsored" id="input" />
                             <script>
                                 $("#input").priceFormat({ prefix: '', centsLimit: 0 });
                             </script>
 
                         </td>
-                        <td style="vertical-align: middle">VNĐ</td>
+                        <td>VNĐ</td>
                         <td></td>
                     </tr>
                 </table>

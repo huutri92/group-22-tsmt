@@ -40,9 +40,7 @@
                         </div>
             <table class="table table-hover" id="showdata">
                 <thead>
-                    <tr>
-                        <td colspan ="7">Tổng số tiền đã tài trợ : @ViewData["totalfunds"] VND</td>
-                    </tr>
+                    
                      
                     <tr>
                         <th>STT</th>
@@ -94,6 +92,9 @@
                             ++counter;
                         }
                     }
+                    <tr>
+                        <td colspan ="7">Tổng số tiền đã tài trợ : @ViewData["totalfunds"] VNĐ</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
