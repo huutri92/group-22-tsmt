@@ -1479,7 +1479,7 @@ namespace TSMT.Controllers
                 eps = db.ExaminationsPapers.Where(r => r.LodgeRegisteredID == venueAC.lodgeID && r.VenueID == venueAC.venueID && r.CarID == null && r.ParticipantVolunteerID == null).ToList();
 
                 // at least 04 candidates per venue to be assigned to a car!
-                bestCar = eps.Count < 2 ? null : FindMeTheBestCar(cars, eps.Count, venueAC.lodgeID);
+                bestCar = eps.Count < 4 ? null : FindMeTheBestCar(cars, eps.Count, venueAC.lodgeID);
                 if (bestCar != null)
                 {
                     if (bestCar.AvailableSlots < eps.Count)
