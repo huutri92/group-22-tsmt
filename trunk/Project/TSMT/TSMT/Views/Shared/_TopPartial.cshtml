@@ -1,11 +1,26 @@
 ﻿@using TSMT.Models
 
 <!--=== Top ===-->
-<div class="top">
+<div class="topbar">
     <div class="container">
+        <!-- Topbar Navigation -->
         <ul class="loginbar pull-right">
+            <li>
+                <i class="fa fa-globe"></i>
+                <a>Languages</a>
+                <ul class="lenguages">
+                    <li class="active">
+                        <a href="#">English <i class="fa fa-check"></i></a>
+                    </li>
+                    <li><a href="#">Spanish</a></li>
+                    <li><a href="#">Russian</a></li>
+                    <li><a href="#">German</a></li>
+                </ul>
+            </li>
+            <li class="topbar-devider"></li>
             @if (Session["acc"] != null)
-            {                          
+            {               
+                      
                 <li>
                     <a>Chào <strong>@(((Account)Session["acc"]).Profile.Lastname) @(((Account)Session["acc"]).Profile.Firstname)</strong></a>
                     <i class="icon-angle-down"></i>
@@ -23,16 +38,16 @@
                         <li><a href="#">Đổi mật khẩu</a></li>
                     </ul>
                 </li>      
-                <li class="devider"></li>
-                <li><a href="@Url.Action("Logout", "Account")" style="text-align:center"><i class="icon-sign-out"></i><b style="color:red">Thoát</b></a></li>
+@*  <li class="topbar-devider"></li>*@
+                <li><a href="@Url.Action("Logout", "Account")" style="text-align:center"><i class="fa fa-sign-out"></i><b style="color: red">&nbsp;Thoát</b></a></li>
 
                   
             }
             else if (Session["acc"] == null)
             {
-                <li><a href="@Url.Action("Login", "Account")" style="text-align:center"><i class="icon-sign-in"></i>Đăng nhập</a></li>
-                <li class="devider"></li>
-                <li><a href="@Url.Action("Register", "Account", new { area = "" })" style="text-align:center"><i class="icon-sign-users"></i>Đăng ký</a></li>
+                <li><a href="@Url.Action("Login", "Account")" style="text-align:center"><i class="fa fa-sign-in"></i>&nbsp;Đăng nhập</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="@Url.Action("Register", "Account", new { area = "" })" style="text-align:center"><i class="fa fa-info"></i>&nbsp;Đăng ký</a></li>
             }
 
         </ul>

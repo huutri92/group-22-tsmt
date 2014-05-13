@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="~/Content/css/responsive.css">
     <link rel="shortcut icon" href="~/Content/img/favicon.png">
     <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="~/Content/plugins/font-awesome/css/font-awesome.css">
+    
+    <link rel="stylesheet" href="~/Content/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/plugins/flexslider/flexslider.css">
     <link rel="stylesheet" href="~/Content/plugins/bxslider/jquery.bxslider.css">
     <link rel="stylesheet" href="~/Content/plugins/fancybox/source/jquery.fancybox.css">
@@ -24,7 +25,7 @@
     <link rel="stylesheet" href="~/Content/css/pages/portfolio-v2.css">
     <link rel="stylesheet" href="~/Content/css/pages/page_one.css">
     <link href="~/Content/css/pages/page_search.css" rel="stylesheet" />
-
+    <link href="~/Content/css/app.css" rel="stylesheet" />
 
     <script src="~/Content/js/jquery.ui.effect.js"></script>
     <script src="~/Content/js/jquery.ui.effect-fold.js"></script>
@@ -77,7 +78,7 @@
 
 
     <!-- JS Global Compulsory -->
-
+    <script type="text/javascript" src="~/Content/js/app.js"></script>
     <script type="text/javascript" src="~/Content/plugins/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/hover-dropdown.min.js"></script>
@@ -88,14 +89,14 @@
     <script type="text/javascript" src="~/Content/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
     <script type="text/javascript" src="~/Content/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
     <script type="text/javascript" src="~/Content/plugins/jquery.mixitup.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/app.js"></script>
+    
     <script type="text/javascript" src="~/Content/js/pages/portfolio.js"></script>
     <script type="text/javascript" src="~/Content/js/pages/index.js"></script>
 
 
 
 </head>
-<body class="boxed-layout container">
+<body class="header-fixed"> @*header-fixed boxed-layout container*@
     @* <!--=== Style Switcher ===-->
     <i class="style-switcher-btn icon-cogs hidden-xs"></i>
     <div class="style-switcher">
@@ -118,7 +119,7 @@
     <!--/style-switcher-->
     <!--=== End Style Switcher ===-->*@
 
-    @Html.Partial("_TopPartial")
+    
     @Html.Partial("_HeaderPartial")
 
     @RenderSection("Breadcrumbs", required: false)
@@ -127,8 +128,8 @@
             @RenderBody()
         </div>
     </div>
-    @*@Html.Partial("_FooterPartial")*@
-    @*@Html.Partial("_CopyrightPartial")*@
+    @Html.Partial("_FooterPartial")
+    @Html.Partial("_CopyrightPartial")
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
