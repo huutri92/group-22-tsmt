@@ -100,6 +100,18 @@ var App = function () {
         });
     }
 
+
+    function handleHeader() {
+        jQuery(window).scroll(function () {
+            if (jQuery(window).scrollTop() > 100) {
+                jQuery(".header-fixed .header").addClass("header-fixed-shrink");
+            }
+            else {
+                jQuery(".header-fixed .header").removeClass("header-fixed-shrink");
+            }
+        });
+    }
+
     return {
         init: function () {
             handleBootstrap();
@@ -107,6 +119,7 @@ var App = function () {
             handleSearch();
             handleSwitcher();
             handleBoxed();
+            handleHeader();
         },
 
         initSliders: function () {
