@@ -213,6 +213,12 @@
     <Compile Include="Models\Sponsor.cs">
       <DependentUpon>TSMT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Station.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>TSMT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TSMT.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2555,6 +2561,26 @@
     <Content Include="Views\Sponsor\SponsoredAllCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\font\9k-RPmcnxYEPm8CNFsH2gg.woff" />
+    <Content Include="Content\css\font\KT3KS9Aol4WfR6Vas8kNcg.woff" />
+    <Content Include="Content\css\font\wkfQbvfT_02e2IWO3yYueQ.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Volunteer\ManagePost.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LayoutStatistic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ViewStatistic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TSMT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TSMT.Designer.cs</LastGenOutput>
@@ -2574,20 +2600,6 @@
       <DependentUpon>TSMT.edmx</DependentUpon>
       <LastGenOutput>TSMT.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\css\font\9k-RPmcnxYEPm8CNFsH2gg.woff" />
-    <Content Include="Content\css\font\KT3KS9Aol4WfR6Vas8kNcg.woff" />
-    <Content Include="Content\css\font\wkfQbvfT_02e2IWO3yYueQ.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Volunteer\ManagePost.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.eot" />
-    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.ttf" />
-    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontba72.woff" />
-    <Content Include="Content\plugins\font-awesome\fonts\fontawesome-webfontd41d.eot" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

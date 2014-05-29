@@ -28,6 +28,7 @@ namespace TSMT.Controllerss
         }
         public ActionResult AddExamPaper()
         {
+            ViewData["Station"] = db.Stations.ToList();
             ViewData["uniExams"] = db.UniversitiesExaminations.ToList();
             ViewData["venues"] = db.Venues.ToList();
             Account acc = (Account)Session["acc"];
@@ -54,6 +55,8 @@ namespace TSMT.Controllerss
             ep.CandidateID = can.CandidateID;
             ep.UniExamID = int.Parse(f["uniName"]);
             ep.VenueID = int.Parse(f["venueID"]);
+            ep.StatitonID = int.Parse(f["stationid"]);
+            ep.PickUpTime = int.Parse(f["pickupTime"]);
             db.ExaminationsPapers.Add(ep);
             db.SaveChanges();
 
@@ -83,6 +86,18 @@ namespace TSMT.Controllerss
                         };
             return Json(venue, JsonRequestBehavior.AllowGet);
         }
+        //public JsonResult getDay(int id)
+        //{
+        //    var exam = from u in db.Examinations
+        //                where u.ExaminationID == id
+        //                select new
+        //                {
+        //                    value = u.ExaminationID,
+        //                    name = u.BeginDate
+                            
+        //                };
+        //    return Json(exam, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult DeleteExamPaper(int id)
         {

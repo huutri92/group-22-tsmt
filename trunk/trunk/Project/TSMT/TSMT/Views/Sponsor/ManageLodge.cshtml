@@ -62,7 +62,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="notsponsored">
-                         <div id="showMessage" class="alert alert-danger fade in" style="display: none">
+                        <div id="showMessage" class="alert alert-danger fade in" style="display: none">
                             @*<button type="button" class="close" data-dismiss="alert">×</button>*@
                             <strong>Bạn không có nhà để tài trợ!</strong> Bạn hãy nhấn vào nút "Tạo mới" để tạo mới nhà cho mình.
                         </div>
@@ -77,10 +77,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                  @if ((Model.Count(r => r.CharityExamID == null) == 0 ))
+                                @if ((Model.Count(r => r.CharityExamID == null) == 0))
                                 {
                                     <tr>
-                                        <td>
+                                        <td style="vertical-align: middle">
                                             <script type="text/javascript">
                                                 document.getElementById("showdata").style.display = "none";
                                                 document.getElementById("showMessage").style.display = "block";
@@ -88,21 +88,18 @@
                                         </td>
                                     </tr>
                                 }
-                                else{
+                                else
+                                {
                                     int counter = 1;
 
                                     foreach (var lodge in ViewData["LodgesNotSponsored"] as IEnumerable<Lodge>)
                                     {                   
                                     <tr>
-                                        <td>@counter</td>
-                                        <td class="add">
-                                         @lodge.Address
-                                        </td>
-                                        <td>@lodge.Rooms.Where(r=>r.LodgeID ==@lodge.LodgeID).Count()</td>
-                                        <td>@lodge.TotalSlots</td>
-                                        <td>
-                                            <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @lodge.LodgeID )" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
-                                            <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-blue" title="Xem Chi Tiết"><i class="icon-info"></i></a>
+                                        <td style="vertical-align: middle">@counter</td>
+                                        <td style="vertical-align: middle" ><a href="#" title="Xem chi tiết" onclick="window.location.assign('http://localhost:1045/Sponsor/ManageRoom/'+@lodge.LodgeID); return false;">@lodge.Address</a></td>
+                                        <td style="vertical-align: middle">@lodge.Rooms.Where(r => r.LodgeID == @lodge.LodgeID).Count()</td>
+                                        <td style="vertical-align: middle">@lodge.TotalSlots</td>
+                                        <td style="vertical-align: middle">
                                             <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
                                             <a href="@Url.Action("EditLodge", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
                                             <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-orange" title="Xóa Nhà"><i class="icon-trash"></i></a>
@@ -132,10 +129,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ((Model.Count(r => r.CharityExamID != null) == 0 ))
+                                @if ((Model.Count(r => r.CharityExamID != null) == 0))
                                 {
                                     <tr>
-                                        <td>
+                                        <td style="vertical-align: middle">
                                             <script type="text/javascript">
                                                 document.getElementById("showdata1").style.display = "none";
                                                 document.getElementById("showMessage1").style.display = "block";
@@ -143,37 +140,30 @@
                                         </td>
                                     </tr>
                                 }
-                                else{
+                                else
+                                {
                                     int count = 1;
 
                                     foreach (var item in ViewData["LodgesSponsored"] as IEnumerable<Lodge>)
                                     {                   
                                     <tr>
-                                        <td>@count</td>
-                                        <td>@item.ChairitiesExam.Examination.Name</td>
-                                        <td>@item.ChairitiesExam.Charity.Name</td>
-                                        <td  class="addd">@item.Address</td>
-                                        <td>@item.TotalSlotsInUsed/@item.AvailableSlots</td>
+                                        <td style="vertical-align: middle">@count</td>
+                                        <td style="vertical-align: middle">@item.ChairitiesExam.Examination.Name</td>
+                                        <td style="vertical-align: middle">@item.ChairitiesExam.Charity.Name</td>
+                                        <td style="vertical-align: middle"><a href="#" title="Xem chi tiết" onclick="window.location.assign('http://localhost:1045/Sponsor/ManageRoom/'+@item.LodgeID); return false;">@item.Address</a></td>
+                                        <td style="vertical-align: middle">@item.TotalSlotsInUsed/@item.AvailableSlots</td>
                                         @if (item.IsApproved)
                                         {
-                                            <td><span class="label label-success">Đã tài trợ</span></td>
-                                            <td>
-                                                <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
-                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @item.LodgeID })" class="btn-u btn-u-blue"  title="Xem Chi Tiết"><i class="icon-info"></i></a>
-                                            </td>
+                                            <td style="vertical-align: middle"><span class="label label-success">Đã tài trợ</span></td>
+                                            
                                         }
-                                        else if (!item.IsApproved)
+                                        else 
+                                        if (!item.IsApproved)
                                         {
-                                            <td><span class="label label-danger">Chưa xác nhận</span></td>
-                                            <td>
-                                                   <a href="#" onclick="openWindowPopup('/Sponsor/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-red" title="Xem trên bản đồ"><i class="icon-map-marker"></i></a>
-                                                
-                                                <a href="@Url.Action("ManageRoom", "Sponsor", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Xem"><i class="icon-info"></i></a>
-                                                
+                                            <td style="vertical-align: middle"><span class="label label-danger">Chưa xác nhận</span></td>
+                                            <td style="vertical-align: middle">
                                                 <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="icon-edit"></i></a>
-                                                 @*@Html.ActionLink("Hủy tài Trợ", "DenieLodge", new { carId = @item.LodgeID }, new { onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ căn nhà này?', this.href);" })*@
-                                                <a href="@Url.Action("DenieLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
-                                                @*   <a href="@Url.Action("DeleteLodge", "Sponsor", new { lodgeId = @item.LodgeID })" class="btn-u btn-u-orange"><i class="icon-trash"></i></a>*@
+                                                <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="icon-remove"></i></a>
                                             </td>
                                         }
                                     </tr>
@@ -187,9 +177,9 @@
             </div>
         </div>
     </div>
-            @*@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })*@
-<a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default">
-				 <i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    @*@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })*@
+    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default">
+        <i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>
 
 

@@ -47,6 +47,8 @@ namespace TSMT.Models
         public DbSet<Room> Rooms { get; set; }
         public DbSet<ScheduleExam> ScheduleExams { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<University> Universities { get; set; }
         public DbSet<UniversitiesExamination> UniversitiesExaminations { get; set; }
         public DbSet<Venue> Venues { get; set; }

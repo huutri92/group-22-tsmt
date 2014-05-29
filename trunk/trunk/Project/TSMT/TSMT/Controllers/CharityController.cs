@@ -485,10 +485,24 @@ namespace TSMT.Controllers
 
         public ActionResult ChooseCarForCe(int id)
         {
+           
+            
             ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             Account acc = (Account)Session["acc"];
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
             ViewData["Cars"] = db.Cars.Where(o => o.CharityID == charity.CharityID && o.CharityExamID == null).ToList();
+
+            var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
+            var cars = db.Cars.Where(r => r.CharityExamID == id).ToList();
+            var totalslots = 0;
+            foreach (var i in cars)
+            {
+                totalslots += i.TotalSlots;
+            }
+            var totalAvaSlots = totalCadidate - totalslots;
+            ViewData["totalCadidate"] = totalCadidate;
+            ViewData["totalSlots"] = totalslots;
+            ViewBag.totalAvaSlots = totalAvaSlots;
 
             return View(cExam);
         }
@@ -874,6 +888,18 @@ namespace TSMT.Controllers
             }
             ViewData["ceId"] = id;
             ViewData["Lodge"] = listLodge;
+            ViewData["Exam"] = db.ChairitiesExams.Where(r => r.CharityExamID == id).ToList();
+            var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
+            var lodges = db.Lodges.Where(r => r.CharityExamID == id).ToList();
+            var totalslots = 0;
+            foreach (var i in lodges)
+            {
+                totalslots += i.TotalSlotsInUsed;
+            }
+            var totalAvaSlots = totalCadidate - totalslots;
+            ViewData["totalCadidate"] = totalCadidate;
+            ViewData["totalSlots"] = totalslots;
+            ViewBag.totalAvaSlots = totalAvaSlots;
             return View(charity);
         }
 

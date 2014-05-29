@@ -53,6 +53,41 @@ namespace TSMT.Controllers
             ViewData["Exam"] = db.Examinations.ToList();
             return View();
         }
+         public ActionResult ViewStatistic()
+         {
+             var Candidate1 = db.ExaminationsPapers.Count(r => r.ChairitiesExam.ExamID == 1);
+             var Candidate2 = db.ExaminationsPapers.Count(r => r.ChairitiesExam.ExamID == 2);
+             var Candidate3 = db.ExaminationsPapers.Count(r => r.ChairitiesExam.ExamID == 3);
+             ViewData["Candiate1"] = Candidate1;
+             ViewData["Candiate2"] = Candidate2;
+             ViewData["Candiate3"] = Candidate3;
+             var Volunteer1 = db.ParticipantVolunteers.Count(r => r.ChairitiesExam.ExamID == 1);
+             var Volunteer2 = db.ParticipantVolunteers.Count(r => r.ChairitiesExam.ExamID == 2);
+             var Volunteer3 = db.ParticipantVolunteers.Count(r => r.ChairitiesExam.ExamID == 3);
+             ViewData["Volunteer1"] = Volunteer1;
+             ViewData["Volunteer2"] = Volunteer2;
+             ViewData["Volunteer3"] = Volunteer3;
+             var Charity1 = db.ChairitiesExams.Count(r => r.ExamID == 1);
+             var Charity2 = db.ChairitiesExams.Count(r => r.ExamID == 2);
+             var Charity3 = db.ChairitiesExams.Count(r => r.ExamID == 3);
+             ViewData["Charity1"] = Charity1;
+             ViewData["Charity2"] = Charity2;
+             ViewData["Charity3"] = Charity3;
+             var Car1 = db.Cars.Count(r => r.ChairitiesExam.ExamID == 1);
+             var Car2 = db.Cars.Count(r => r.ChairitiesExam.ExamID == 2);
+             var Car3 = db.Cars.Count(r => r.ChairitiesExam.ExamID == 3);
+             ViewData["Car1"] = Car1;
+             ViewData["Car2"] = Car2;
+             ViewData["Car3"] = Car3;
+             var Room1 = db.Rooms.Count(r => r.ChairitiesExam.ExamID == 1);
+             var Room2 = db.Rooms.Count(r => r.ChairitiesExam.ExamID == 2);
+             var Room3 = db.Rooms.Count(r => r.ChairitiesExam.ExamID == 3);
+             ViewData["Room1"] = Room1;
+             ViewData["Room2"] = Room2;
+             ViewData["Room3"] = Room3;
+             ViewData["Exam"] = db.Examinations.ToList();
+             return View();
+         }
         #endregion
         # region LODGE & VENUE
         public ActionResult ViewLodge(int id)
