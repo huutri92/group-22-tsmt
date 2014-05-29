@@ -78,6 +78,7 @@ namespace TSMT.Controllers
                     i.ChairitiesExam = chairitiesExam;
                 }
             }
+            
             ViewData["LodgesNotSponsored"] = db.Lodges.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID == null);
             ViewData["LodgesSponsored"] = db.Lodges.Where(r => r.Sponsor.AccountID == acc.AccountID && r.CharityExamID != null);
             return View(lodges);
@@ -169,9 +170,28 @@ namespace TSMT.Controllers
         public ActionResult EditLodge(int id)
         {
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == id);
+            Charity charity = db.Charities.FirstOrDefault(c => c.CharityID == lodge.CharityID);
             ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == id).ToList();
             ViewData["CE"] = db.ChairitiesExams.ToList();
-            ViewData["Exam"] = db.Examinations.ToList();
+            List<Examination> exam = new List<Examination>();
+            foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
+            {
+                exam.Add(item.Examination);
+            }
+            var listLodge = db.Lodges.Where(r => r.Address == lodge.Address).ToList();
+            var listExam = exam.Distinct().OrderBy(e => e.Name).ToList();
+            foreach (var lodgeE in listLodge)
+            {
+                if (lodgeE.ChairitiesExam != null)
+                {
+                    if (lodgeE.ChairitiesExam.Examination != null)
+                    {
+                        listExam.Remove(lodgeE.ChairitiesExam.Examination);
+                    }
+                }
+
+            }
+            ViewData["Exam"] = listExam;
             return View(lodge);
         }
         [HttpPost]
@@ -186,27 +206,35 @@ namespace TSMT.Controllers
             {
                 listIntId[i] = int.Parse(listStringId[i]);
             }
-
+            Lodge lodgeNew = new Lodge();
             Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-            lodge.AvailableSlots = 0;
-            lodge.TotalSlotsInUsed = 0;
-            List<Room> listRoom = new List<Room>();
-            listRoom = lodge.Rooms.ToList();
-            foreach (var room in listRoom)
-            {
-
-                room.CharityExamID = null;
-                db.SaveChanges();
-            }
-            lodge.CharityExamID = ceId;
-            lodge.CharityID = cId;
+            lodgeNew = lodge;
+            lodgeNew.AvailableSlots = 0;
+            lodgeNew.TotalSlotsInUsed = 0;
+            //List<Room> listRoom = new List<Room>();
+            //listRoom = lodge.Rooms.ToList();
+            //foreach (var room in listRoom)
+            //{
+            //    room.CharityExamID = null;
+            //    db.SaveChanges();
+            //}
+            lodgeNew.CharityExamID = ceId;
+            lodgeNew.CharityID = cId;
+            db.Lodges.Add(lodgeNew);
             db.SaveChanges();
+            Lodge lodgeNewest = db.Lodges.FirstOrDefault(l => l.Address == lodgeNew.Address && l.CharityExamID == lodgeNew.CharityExamID);
             foreach (var i in listIntId)
             {
+                Room roomNew = new Room();
                 Room room = db.Rooms.SingleOrDefault(r => r.RoomID == i);
-                lodge.TotalSlotsInUsed += room.TotalSlots;
-                lodge.AvailableSlots += room.TotalSlots;
-                room.CharityExamID = ceId;
+
+                roomNew = room;
+                roomNew.LodgeID = lodgeNewest.LodgeID;
+                roomNew.CharityExamID = lodgeNewest.CharityExamID;
+
+                lodgeNewest.TotalSlotsInUsed += room.TotalSlots;
+                lodgeNewest.AvailableSlots += room.TotalSlots;
+                db.Rooms.Add(roomNew);
                 db.SaveChanges();
             }
         }
@@ -350,7 +378,7 @@ namespace TSMT.Controllers
         [HttpPost]
         public ActionResult AddCar(FormCollection f)
         {
-            
+
             Account acc = (Account)Session["acc"];
             Sponsor sp = db.Sponsors.SingleOrDefault(r => r.AccountID == acc.AccountID);
 
@@ -363,7 +391,7 @@ namespace TSMT.Controllers
                 {
                     numberplate += listStringNumber[i];
                 }
-                
+
             }
             car.SponsorID = sp.SponsorID;
             car.IsApproved = false;
@@ -384,7 +412,7 @@ namespace TSMT.Controllers
             ViewData["CE"] = db.ChairitiesExams.ToList();
             ViewData["Exam"] = db.Examinations.ToList();
             return View();
-            
+
         }
         [HttpPost]
         public void SponsoredAllCar(int ceId, string carId, int cId)
@@ -397,7 +425,7 @@ namespace TSMT.Controllers
             {
                 listIntId[i] = int.Parse(listStringId[i]);
             }
-            
+
             foreach (var i in listIntId)
             {
                 Car car = db.Cars.SingleOrDefault(r => r.CarID == i);
@@ -451,19 +479,42 @@ namespace TSMT.Controllers
         {
             Car car = db.Cars.SingleOrDefault(r => r.CarID == id);
             ViewData["CE"] = db.ChairitiesExams.ToList();
-            ViewData["Exam"] = db.Examinations.ToList();
+            Charity charity = db.Charities.FirstOrDefault(c => c.CharityID == car.CharityID);
+            List<Examination> exam = new List<Examination>();
+            foreach (var item in ViewData["CE"] as IEnumerable<ChairitiesExam>)
+            {
+                exam.Add(item.Examination);
+            }
+            var listCar = db.Cars.Where(r => r.NumberPlate == car.NumberPlate).ToList();
+            var listExam = exam.Distinct().OrderBy(e => e.Name).ToList();
+            foreach (var CarE in listCar)
+            {
+                if (CarE.ChairitiesExam != null)
+                {
+                    if (CarE.ChairitiesExam.Examination != null)
+                    {
+                        listExam.Remove(CarE.ChairitiesExam.Examination);
+                    }
+                }
+
+            }
+            ViewData["Exam"] = listExam;
             return View(car);
+
 
         }
         [HttpPost]
         public ActionResult EditCar(FormCollection f)
         {
+
+            Car carNew = new Car();
             int carId = int.Parse(f["carId"]);
             Car car = db.Cars.SingleOrDefault(r => r.CarID == carId);
-            car.CharityExamID = int.Parse(f["asd"]);
-            car.CharityID = int.Parse(f["charityid"]);
+            carNew = car;
+            carNew.CharityExamID = int.Parse(f["asd"]);
+            carNew.CharityID = int.Parse(f["charityid"]);
+            db.Cars.Add(carNew);
             db.SaveChanges();
-
             return RedirectToAction("ManageCar");
         }
         #endregion

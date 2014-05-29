@@ -1,0 +1,180 @@
+﻿@using TSMT.Models
+@{
+    ViewBag.Title = "Xem Thống Kê";
+    Layout = "~/Views/Shared/_LayoutStatistic.cshtml";
+}
+<script src="~/Content/js/highchart.js"></script>
+<script src="~/Content/js/exporting.js"></script>
+@section Breadcrumbs {
+    <div class="breadcrumbs margin-bottom-40">
+        <div class="container">
+            <h1 class="pull-left">@ViewBag.Title</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="col-md-12" id="showInformation">
+    <div class="panel panel-green margin-bottom-20">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon-user"></i>Xem Thống Kê
+            </h3>
+        </div>
+       @* <div class="panel-body">
+            <h3>Vui Lòng Chọn Kì Thi  Muốn Xem</h3>
+            <table class="table table-hover">
+                <tr>
+                    <td style="vertical-align:middle ; width:100px">Kì Thi </td>
+                    <td style="width: 200px">
+                        <select id="exam"  onchange="showForm1()"  class="form-control" >
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {
+                                <option value="@item.ExaminationID">@item.Name</option>
+                            }
+                        </select>
+                        </td>
+                    <td style="vertical-align:middle">
+                         <a  onclick="viewstatistic()" class="btn btn-info"  id="buttonshow"   style="display: none">Xem Thống Kê</a>
+                    </td>
+                    
+                </tr>
+            </table>
+            <div id="statistic" style="display: none">
+                <h3> DS Các hội từ thiện</h3>
+                <table class="table table-hover">
+                    <tbody id="showcharity">
+                    </tbody>
+                </table>
+                <h3>DS các trường đại học</h3>
+                <table class="table table-hover">
+                    <tbody id="showuniversity">
+                    </tbody>
+                </table>
+                <h3>DS các tình nguyện viên</h3>
+                <table class="table table-hover">
+                    <tbody id="showvolunteer">
+                    </tbody>
+                </table>
+                <h3>DS các thí sinh</h3>
+                <table class="table table-hover">
+                    <tbody id="showcandidate">
+                    </tbody>
+                </table>
+                </div>
+            </div>*@
+        </div>
+    
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <a href="@Url.Action("Index", "Home")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về trang chủ</a>
+    </div>
+<div id="Candiate1" style="display: none">@ViewData["Candiate1"]</div>
+<div id="Candiate2" style="display: none">@ViewData["Candiate2"]</div>
+<div id="Candiate3" style="display: none">@ViewData["Candiate3"]</div>
+<div id="Volunteer1" style="display: none">@ViewData["Volunteer1"]</div>
+<div id="Volunteer2" style="display: none">@ViewData["Volunteer2"]</div>
+<div id="Volunteer3" style="display: none">@ViewData["Volunteer3"]</div>
+<div id="Charity1" style="display: none">@ViewData["Charity1"]</div>
+<div id="Charity2" style="display: none">@ViewData["Charity2"]</div>
+<div id="Charity3" style="display: none">@ViewData["Charity3"]</div>
+<div id="Car1" style="display: none">@ViewData["Car1"]</div>
+<div id="Car2" style="display: none">@ViewData["Car2"]</div>
+<div id="Car3" style="display: none">@ViewData["Car3"]</div>
+<div id="Room1" style="display: none">@ViewData["Room1"]</div>
+<div id="Room2" style="display: none">@ViewData["Room2"]</div>
+<div id="Room3" style="display: none">@ViewData["Room3"]</div>
+<script type="text/javascript">
+    $(function () {
+       var a = document.getElementById("Candiate1").textContent;
+        var b = document.getElementById("Candiate2").textContent;
+        var c = document.getElementById("Candiate3").textContent;
+        var Candidate1 = parseInt(a);
+        var Candidate2 = parseInt(b);
+        var Candidate3 = parseInt(c);
+
+        var a1 = document.getElementById("Volunteer1").textContent;
+        var b1 = document.getElementById("Volunteer2").textContent;
+        var c1 = document.getElementById("Volunteer3").textContent;
+        var Volunteer1 = parseInt(a1);
+        var Volunteer2 = parseInt(b1);
+        var Volunteer3 = parseInt(c1);
+
+        var a2 = document.getElementById("Charity1").textContent;
+        var b2 = document.getElementById("Charity2").textContent;
+        var c2 = document.getElementById("Charity3").textContent;
+        var Charity1 = parseInt(a2);
+        var Charity2 = parseInt(b2);
+        var Charity3 = parseInt(c2);
+
+        var a3 = document.getElementById("Car1").textContent;
+        var b3 = document.getElementById("Car2").textContent;
+        var c3 = document.getElementById("Car3").textContent;
+        var Car1 = parseInt(a3);
+        var Car2 = parseInt(b3);
+        var Car3 = parseInt(c3);
+
+        var a4 = document.getElementById("Room1").textContent;
+        var b4 = document.getElementById("Room2").textContent;
+        var c4 = document.getElementById("Room3").textContent;
+        var Room1 = parseInt(a4);
+        var Room2 = parseInt(b4);
+        var Room3 = parseInt(c4);
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Biểu Đồ Thống Kê Cho Trang Web "Tiếp Sức Mùa Thi"'
+            },
+            subtitle: {
+                text: 'Năm: 2014'
+            },
+            xAxis: {
+                categories: [
+                    'Số Thí Sinh',
+                    'Số Tình Nguyện Viên',
+                    'Hội từ Thiện',
+                    'Tổng Số Xe Được Huy Động',
+                    'Tổng Số Chỗ Trọ Được Huy Động'
+                    
+                    
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Số Lương'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Đợt 1',
+                data: [Candidate1, Volunteer1, Charity1, Car1, Room1]
+    
+            }, {
+                name: 'Đợt 2',
+                data: [Candidate2, Volunteer2, Charity2, Car2, Room2]
+    
+            }, {
+                name: 'Đợt 3',
+                data: [Candidate3, Volunteer3, Charity3, Car3, Room3]
+            }]
+        });
+    });
+       </script>

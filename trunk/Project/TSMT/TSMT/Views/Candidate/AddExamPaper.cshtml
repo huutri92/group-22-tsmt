@@ -54,6 +54,21 @@
             }
         });
     }
+
+    //function getDay(id) {
+    //    $.ajax({
+    //        url: 'getDay',
+    //        data: { "id": id },
+    //        type: 'GET',
+    //        success: function (results) {
+    //            $("#day").html("");
+    //            for (i in results) {
+    //                var r = results[i];
+    //                $("#day").val(r["name"]);
+    //            }
+    //        }
+    //    });
+    //}
 </script>
 
 @using (Html.BeginForm("AddExamPaper", "Candidate", FormMethod.Post))
@@ -98,6 +113,35 @@
                     }*@
                                 <option value="null">Địa điểm thi</option>
                             </select>
+                        </td>
+                    </tr>
+                    @*<tr>
+                        <td colspan="2" style="width: 100px; vertical-align: middle">
+                            Bạn hãy chọn bến xe và giờ tới để chúng tôi có thể đón bạn tốt nhất !!!
+                        </td>
+                       <td>
+                    <td>
+                        <input type="text" id="day" name="day" class="form-control" /></td>
+                    </tr>*@
+                    <tr>
+                         <td style="width: 100px; vertical-align: middle">Bến xe tới</td>
+                        <td>
+                            <select name="stationid" id="stationid" class="form-control" >
+                                @foreach (var item in ViewData["Station"] as IEnumerable<Station>)
+                                {
+                                    
+                                    <option value="@item.StationID">@item.StationName</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                         <td style="width: 100px; vertical-align: middle">Giờ </td>
+                        <td>
+                            <select id="pickupTime" name="pickupTime" class="form-control">
+                                <option value ="1">11h00 (sáng)</option>
+                                <option value ="2">17h00 (chiều)</option>
+                                </select>
                         </td>
                     </tr>
                     <tr>
