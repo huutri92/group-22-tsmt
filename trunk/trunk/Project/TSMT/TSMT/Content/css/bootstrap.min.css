@@ -3830,14 +3830,14 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
     border-radius: 4px
 }
 
-.navbar-toggle .icon-bar {
+.navbar-toggle .fa fa-bar {
     display: block;
     width: 22px;
     height: 2px;
     border-radius: 1px
 }
 
-.navbar-toggle .icon-bar+.icon-bar {
+.navbar-toggle .fa fa-bar+.fa fa-bar {
     margin-top: 4px
 }
 
@@ -4041,7 +4041,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
     background-color: #ddd
 }
 
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-default .navbar-toggle .fa fa-bar {
     background-color: #ccc
 }
 
@@ -4143,7 +4143,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
     background-color: #333
 }
 
-.navbar-inverse .navbar-toggle .icon-bar {
+.navbar-inverse .navbar-toggle .fa fa-bar {
     background-color: #fff
 }
 
@@ -5637,7 +5637,7 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
     filter: alpha(opacity=90)
 }
 
-.carousel-control .icon-prev,.carousel-control .icon-next,.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right {
+.carousel-control .fa fa-prev,.carousel-control .fa fa-next,.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -5645,7 +5645,7 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
     display: inline-block
 }
 
-.carousel-control .icon-prev,.carousel-control .icon-next {
+.carousel-control .fa fa-prev,.carousel-control .fa fa-next {
     width: 20px;
     height: 20px;
     margin-top: -10px;
@@ -5653,11 +5653,11 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
     font-family: serif
 }
 
-.carousel-control .icon-prev:before {
+.carousel-control .fa fa-prev:before {
     content: '\2039'
 }
 
-.carousel-control .icon-next:before {
+.carousel-control .fa fa-next:before {
     content: '\203a'
 }
 
@@ -5709,7 +5709,7 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom {
 }
 
 @media screen and (min-width: 768px) {
-    .carousel-control .icon-prev,.carousel-control .icon-next {
+    .carousel-control .fa fa-prev,.carousel-control .fa fa-next {
         width:30px;
         height: 30px;
         margin-top: -15px;

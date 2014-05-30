@@ -392,7 +392,7 @@ a.btn-u-lg {
    text-decoration: none;
 }
 
-i.icon-round {
+i.fa fa-round {
    color: #666;
    padding: 7px 0; 
    min-width: 40px;
@@ -403,7 +403,7 @@ i.icon-round {
    border-radius: 50% !important;
 }
 
-i.icon-round-lg {
+i.fa fa-round-lg {
    min-width: 55px;
    font-size: 35px;
    padding: 10px 0;
@@ -412,83 +412,83 @@ i.icon-round-lg {
    border-radius: 50% !important;
 }
 
-i.icon-round-sm {
+i.fa fa-round-sm {
    padding: 5px 0;
    font-size: 16px;
    min-width: 30px;
 }
 
-i.icon-color-blue {
+i.fa fa-color-blue {
    color: #3498db;
    background: none;
    border: solid 1px #3498db;
 }
-i.icon-color-red {
+i.fa fa-color-red {
    color: #e74c3c;
    background: none;
    border: solid 1px #e74c3c;
 }
-i.icon-color-sea {
+i.fa fa-color-sea {
    color: #1abc9c;
    background: none;
    border: solid 1px #1abc9c;
 }
-i.icon-color-green {
+i.fa fa-color-green {
    color: #2ecc71;
    background: none;
    border: solid 1px #2ecc71;
 }
-i.icon-color-yellow {
+i.fa fa-color-yellow {
    color: #f1c40f;
    background: none;
    border: solid 1px #f1c40f;
 }
-i.icon-color-orange {
+i.fa fa-color-orange {
    color: #e67e22;
    background: none;
    border: solid 1px #e67e22;
 }
-i.icon-color-grey {
+i.fa fa-color-grey {
    color: #95a5a6;
    background: none;
    border: solid 1px #95a5a6;
 }
 
-i.icon-bg-red,
-i.icon-bg-sea,
-i.icon-bg-grey,
-i.icon-bg-blue,
-i.icon-bg-green,
-i.icon-bg-yellow,
-i.icon-bg-orange,
-i.icon-bg-default {
+i.fa fa-bg-red,
+i.fa fa-bg-sea,
+i.fa fa-bg-grey,
+i.fa fa-bg-blue,
+i.fa fa-bg-green,
+i.fa fa-bg-yellow,
+i.fa fa-bg-orange,
+i.fa fa-bg-default {
    color: #fff;
    border: none;
    background: #666;
 }
 
-i.icon-bg-blue {
+i.fa fa-bg-blue {
    background: #3498db;
 }
-i.icon-bg-red {
+i.fa fa-bg-red {
    background: #e74c3c;
 }
-i.icon-bg-sea {
+i.fa fa-bg-sea {
    background: #1abc9c;
 }
-i.icon-bg-green {
+i.fa fa-bg-green {
    background: #2ecc71;
 }
-i.icon-bg-yellow {
+i.fa fa-bg-yellow {
    background: #f1c40f;
 }
-i.icon-bg-orange {
+i.fa fa-bg-orange {
    background: #e67e22;
 }
-i.icon-bg-grey {
+i.fa fa-bg-grey {
    background: #95a5a6;
 }
-i.icon-bg-default {
+i.fa fa-bg-default {
    background: #666;
 }
 
@@ -529,15 +529,15 @@ Special styles for displaying the icons and their classes*/
 }
 
 /* Make Font Awesome icons fixed width */
-li [class^="icon-"],
-li [class*=" icon-"] {
+li [class^="fa fa-"],
+li [class*=" fa fa-"] {
   width: 1.25em;
   text-align: center;
   display: inline-block;
 }
-li [class^="icon-"].icon-lg,
-li [class*=" icon-"].icon-lg {
-  /* increased font size for icon-lg */
+li [class^="fa fa-"].fa fa-lg,
+li [class*=" fa fa-"].fa fa-lg {
+  /* increased font size for fa fa-lg */
   width: 1.5625em;
 }
 

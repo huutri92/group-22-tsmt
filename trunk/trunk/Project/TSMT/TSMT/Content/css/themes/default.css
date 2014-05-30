@@ -205,7 +205,7 @@ blockquote:hover {
 
 /*Info Blocks
 ------------------------------------*/
-.info-blocks:hover i.icon-info-blocks {
+.info-blocks:hover i.fa fa-info-blocks {
 	color: #72c02c;
 }
 
@@ -363,7 +363,7 @@ ul.blog-tags a:hover {
 
 /*Icons Page
 ------------------------------------*/
-.icon-page li:hover { 
+.fa fa-page li:hover { 
 	color:#72c02c;
 }
 

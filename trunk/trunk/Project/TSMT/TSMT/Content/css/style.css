@@ -292,10 +292,10 @@
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
-.service .service-icon.icon-cogs {
+.service .service-icon.fa fa-cogs {
 	font-size: 37px;
 }
-.service .service-icon.icon-plane {
+.service .service-icon.fa fa-plane {
 	font-size: 43px;
 }
 
@@ -1272,7 +1272,7 @@ ul.blog-tags a:hover i {
 	text-decoration: underline;
 }
 
-.blog-twitter .blog-twitter-inner i.icon-twitter {
+.blog-twitter .blog-twitter-inner i.fa fa-twitter {
 	top: 2px;
 	color: #bbb;
 	font-size: 18px;
@@ -1608,7 +1608,7 @@ ul.blog-tags a:hover i {
 	margin-bottom: 15px;
 }
 
-.info-blocks:hover i.icon-info-blocks {
+.info-blocks:hover i.fa fa-info-blocks {
 	color: #72c02c;
     -webkit-transition:all 0.2s ease-in-out;
     -moz-transition:all 0.2s ease-in-out;
@@ -1616,7 +1616,7 @@ ul.blog-tags a:hover i {
     transition:all 0.2s ease-in-out;	
 }
 
-.info-blocks i.icon-info-blocks {
+.info-blocks i.fa fa-info-blocks {
 	float: left;
 	color: #777;
 	font-size: 40px;

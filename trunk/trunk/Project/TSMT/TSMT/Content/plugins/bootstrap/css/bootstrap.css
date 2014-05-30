@@ -3775,13 +3775,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle:focus {
   outline: none;
 }
-.navbar-toggle .icon-bar {
+.navbar-toggle .fa fa-bar {
   display: block;
   width: 22px;
   height: 2px;
   border-radius: 1px;
 }
-.navbar-toggle .icon-bar + .icon-bar {
+.navbar-toggle .fa fa-bar + .fa fa-bar {
   margin-top: 4px;
 }
 @media (min-width: 768px) {
@@ -3983,7 +3983,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-toggle:focus {
   background-color: #ddd;
 }
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-default .navbar-toggle .fa fa-bar {
   background-color: #888;
 }
 .navbar-default .navbar-collapse,
@@ -4066,7 +4066,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-toggle:focus {
   background-color: #333;
 }
-.navbar-inverse .navbar-toggle .icon-bar {
+.navbar-inverse .navbar-toggle .fa fa-bar {
   background-color: #fff;
 }
 .navbar-inverse .navbar-collapse,
@@ -5504,8 +5504,8 @@ button.close {
   outline: none;
   opacity: .9;
 }
-.carousel-control .icon-prev,
-.carousel-control .icon-next,
+.carousel-control .fa fa-prev,
+.carousel-control .fa fa-next,
 .carousel-control .glyphicon-chevron-left,
 .carousel-control .glyphicon-chevron-right {
   position: absolute;
@@ -5513,26 +5513,26 @@ button.close {
   z-index: 5;
   display: inline-block;
 }
-.carousel-control .icon-prev,
+.carousel-control .fa fa-prev,
 .carousel-control .glyphicon-chevron-left {
   left: 50%;
 }
-.carousel-control .icon-next,
+.carousel-control .fa fa-next,
 .carousel-control .glyphicon-chevron-right {
   right: 50%;
 }
-.carousel-control .icon-prev,
-.carousel-control .icon-next {
+.carousel-control .fa fa-prev,
+.carousel-control .fa fa-next {
   width: 20px;
   height: 20px;
   margin-top: -10px;
   margin-left: -10px;
   font-family: serif;
 }
-.carousel-control .icon-prev:before {
+.carousel-control .fa fa-prev:before {
   content: '\2039';
 }
-.carousel-control .icon-next:before {
+.carousel-control .fa fa-next:before {
   content: '\203a';
 }
 .carousel-indicators {
@@ -5582,8 +5582,8 @@ button.close {
 @media screen and (min-width: 768px) {
   .carousel-control .glyphicons-chevron-left,
   .carousel-control .glyphicons-chevron-right,
-  .carousel-control .icon-prev,
-  .carousel-control .icon-next {
+  .carousel-control .fa fa-prev,
+  .carousel-control .fa fa-next {
     width: 30px;
     height: 30px;
     margin-top: -15px;
