@@ -33,7 +33,7 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin kỳ thi cho Hội từ thiện</h3>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin kỳ thi cho Hội từ thiện</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -61,11 +61,11 @@
                                 <td>@item.TotalSlotsVehicles</td>
                                 <td>@item.AvailableSlotsVehicles</td>
                                 <td>
-                                    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-purple1" title="Xem Chi Tiết"><i class="icon-eye-open"></i></a>
-                                    @*<a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="icon-edit"></i></a>*@
+                                    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-purple1" title="Xem Chi Tiết"><i class="fa fa-eye"></i></a>
+                                    @*<a href="@Url.Action("EditCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-blue" title="Sửa"><i class="fa fa-pencil-square-o"></i></a>*@
                                     @if (@item.TotalSlotsLodges == 0 && @item.TotalSlotsVehicles == 0)
                                     {
-                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Bạn có muốn xóa cái này phải không?', this.href, @item.CharityExamID , 'del' )"><i class="icon-remove"></i></a>
+                                    <a href="@Url.Action("DeleteCharityExam", "Charity", new { id = @item.CharityExamID })" class="btn-u btn-u-red" title="Hủy Tài Trợ" onclick="return showPopup('Bạn có muốn xóa cái này phải không?', this.href, @item.CharityExamID , 'del' )"><i class="fa fa-trash-o"></i></a>
                                     }
                                     
                                 </td>
@@ -77,10 +77,10 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
     @if(Model.ChairitiesExams.Count < 3)
     {
-        <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-sea" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
+        <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-sea" style="float:right"><i class="fa fa-plus"></i>&nbsp;Tạo mới</a>
     }
 </div>
 <script type="text/javascript">

@@ -30,8 +30,8 @@
         <div class="reg-block-header">
             <h2>Đăng Ký</h2>
             <ul class="list-inline style-icons text-center">
-                <li><a href="@Url.Action("Index", "Home")"><i class="icon-home icon-round icon-round-sm icon-color-grey"></i>&nbsp;Trang Chủ </a></li>
-                <li><a href="@Url.Action("Login", "Account")"><i class="icon-signin icon-round icon-round-sm icon-color-grey"></i>&nbsp;Đăng nhập </a></li>
+                <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Trang Chủ </a></li>
+                <li><a href="@Url.Action("Login", "Account")"><i class="fa fa-signin fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Đăng nhập </a></li>
             </ul>
         </div>
         <form id="register" name="register" method="post" action="/Account/Register">
@@ -42,12 +42,12 @@
             <div class="row margin-bottom-5">
                 <div class="col-md-5">
                     <div class="bg-light">
-                        <h4>1. <i class="icon-user"></i>Thông tin tài khoản</h4>
+                        <h4>1. <i class="fa fa-user"></i>Thông tin tài khoản</h4>
                         <div class="margin-bottom-1">
                             <label>Email<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             @if (TempData["wrongCaptcha"] == null || TempData["emptyCaptcha"] == null)
                             {
                                 <input name="email" type="text" class="form-control" placeholder="Email">
@@ -63,14 +63,14 @@
                             <label>Mật khẩu<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="icon-lock"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                             <input id="password" name="password" type="password" class="form-control" placeholder="Mật khẩu">
                         </div>
                         <div class="margin-bottom-1">
                             <label>Xác thực mật khẩu<span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-car"></i></span>
                             <input type="password" name="confirmPassword" class="form-control" placeholder="Xác thực mật khẩu">
                         </div>
                     </div>
@@ -78,14 +78,14 @@
 
                 <div class="col-md-7">
                     <div class="bg-light">
-                        <h4>2. <i class="icon-lock"></i>Thông tin cá nhân</h4>
+                        <h4>2. <i class="fa fa-lock"></i>Thông tin cá nhân</h4>
                         <div class="row margin-bottom-5">
                             <div class="col-md-6">
                                 <div class="margin-bottom-1">
                                     <label>Họ<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                     <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Họ">
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                     <label>Tên<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                     <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Tên">
                                 </div>
                             </div>
@@ -103,8 +103,8 @@
                                     <label>Giới tính<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon" style="display: none"><i class="icon-female"></i></span>
-                                    <span class="input-group-addon" style="display: none"><i class="icon-male"></i></span>
+                                    <span class="input-group-addon" style="display: none"><i class="fa fa-female"></i></span>
+                                    <span class="input-group-addon" style="display: none"><i class="fa fa-male"></i></span>
                                     <select id="gender" name="gender" class="form-contrl" style="width: auto">
                                         <option value="True">Nữ</option>
                                         <option value="False">Nam</option>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     @*use jquery date picker*@
-                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto">
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                     <label>Số điện thoại<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                     <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                     <label>Địa chỉ<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
                                     <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
                                 </div>
                             </div>
@@ -173,12 +173,12 @@
                 @*<div class="col-md-3"></div>*@
                 <div class="col-md-7">
                     <div class="bg-light">
-                        <h4>3. <i class="icon-info"></i>Thông tin riêng </h4>
+                        <h4>3. <i class="fa fa-info"></i>Thông tin riêng </h4>
                         <div class="margin-bottom-1">
                             <label>Bạn là: <span style="color: red">&nbsp;*</span></label>
                         </div>
                         <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width: auto">
                                 <option value="null">----</option>
                                 @foreach (var item in (List<Role>)ViewData["roles"])
@@ -217,7 +217,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="bg-light">
-                        <h4>4. <i class="icon-picture"></i>Captcha <span style="color: red">&nbsp;*</span> </h4>
+                        <h4>4. <i class="fa fa-picture"></i>Captcha <span style="color: red">&nbsp;*</span> </h4>
                         <div class="margin-bottom-1">
                             <label>Kết quả của phép toán trong hình là</label>
                         </div>

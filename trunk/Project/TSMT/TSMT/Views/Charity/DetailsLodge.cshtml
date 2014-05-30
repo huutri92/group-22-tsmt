@@ -30,8 +30,8 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết nhà trọ và quản lý phòng
-                <a href="@Url.Action("AddRoom", "Charity", new { id = Model.LodgeID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo phòng</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin chi tiết nhà trọ và quản lý phòng
+                <a href="@Url.Action("AddRoom", "Charity", new { id = Model.LodgeID })" class="btn-u btn-u-green"><i class="fa fa-plus"></i>Tạo phòng</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -78,10 +78,10 @@
                                 <td>
                                     @*@Html.ActionLink("Details", "DetailsRoom", new { roomId = @item.RoomID })*@
                                     <a href="@Url.Action("EditRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-blue" title="Chỉnh sửa phòng">
-                                        <i class="icon-edit"></i>
+                                        <i class="fa fa-pencil-square-o"></i>
                                     </a>
                                     <a href="@Url.Action("DeleteRoom", "Charity", new { id = @item.RoomID })" class="btn-u btn-u-red" title="Xóa phóng này">
-                                        <i class="icon-remove-sign"></i>
+                                        <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -92,9 +92,9 @@
         </div>
     </div>
     <div style="float:right">
-        <a href="@Url.Action("AssignLodgetoCe","Charity", new { id = @Model.LodgeID})" class="btn-u btn-u-brown"><i class="icon-building"></i>&nbsp;Sử dụng phòng</a> 
+        <a href="@Url.Action("AssignLodgetoCe","Charity", new { id = @Model.LodgeID})" class="btn-u btn-u-brown"><i class="fa fa-building"></i>&nbsp;Sử dụng phòng</a> 
     </div>
-    <a href="@Url.Action("ManageLodgeCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ManageLodgeCharity", "Charity")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </div>
 @*<h2 class="title_of_page">Chi tiết nhà trọ và quản lý phòng</h2>
 <table>
@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="s-one-item sitem-one">
-                        <i class="icon-gear"></i>
+                        <i class="fa fa-gear"></i>
                         <div class="s-one-caption">
                             <h4>@Html.ActionLink("Manage Room", "ManageRoom", new { lodgeId = @Model.LodgeID })</h4>
                             <p>Description</p>

@@ -29,7 +29,7 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
-                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
@@ -38,7 +38,7 @@
             {
             <h3>Phiếu báo thi đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name!</a>
                 @*@Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn-u btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
-                <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="icon-signout"></i>Rời Hội từ thiện</a>
+                <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="fa fa-signout"></i>Rời Hội từ thiện</a>
             </h3>
             }
             else
@@ -50,7 +50,7 @@
     </div>
     <div class="panel panel-blue margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin phiếu báo thi</i></h3>
+            <h3 class="panel-title"><i class="fa fa-list">&nbsp;Thông tin phiếu báo thi</i></h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -99,7 +99,7 @@
     {
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
+                <h3 class="panel-title"><i class="fa fa-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
@@ -140,7 +140,7 @@
         </div>
         <div class="panel panel-purple margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin riêng</i></h3>
+                <h3 class="panel-title"><i class="fa fa-list">&nbsp;Thông tin riêng</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
@@ -158,23 +158,23 @@
                             @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
                                 <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })" class="btn-u btn-u-violet">
-                                    <i class="icon-eye-open"></i>&nbsp;Xem danh sách nhóm</a> 
+                                    <i class="fa fa-eye"></i>&nbsp;Xem danh sách nhóm</a> 
 
 @*   @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.GroupID }, new { @class = "btn btn-info" })*@
 
                                 if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
                                 {
 @* @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                                <a href="@Url.Action("DeleteGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Xóa nhóm</a>
+                                <a href="@Url.Action("DeleteGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="fa fa-trash-o"></i>&nbsp;Xóa nhóm</a>
                                 }
                                 else // is member
                                 { 
 @*@Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Rời nhóm</a>
+                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="fa fa-trash-o"></i>&nbsp;Rời nhóm</a>
                                 }
                             }
 @*@Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                            <a href="@Url.Action("FindFriend", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-blue"><i class="icon-search"></i>&nbsp;Tìm kiếm bạn bè</a>
+                            <a href="@Url.Action("FindFriend", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-blue"><i class="fa fa-search"></i>&nbsp;Tìm kiếm bạn bè</a>
                         </td>
                     </tr>
                 </table>
@@ -203,7 +203,7 @@
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
 @*           @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })*@
-                                        <a href="@Url.Action("DeleteRequest", "Candidate", new { id = gr.ID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy lời mời</a>
+                                        <a href="@Url.Action("DeleteRequest", "Candidate", new { id = gr.ID })" class="btn-u btn-u-red"><i class="fa fa-times-circle"></i>&nbsp;Hủy lời mời</a>
                                     }
                                 </td>
                             }
@@ -212,7 +212,7 @@
                                 <td style="vertical-align: middle">Bạn đã gửi lời đề nghị được tham gia vào nhóm <b>@gr.GroupID</b></td>
                                 <td style="vertical-align: middle">
                                     @*        @Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })*@
-                                    <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy yêu cầu</a>
+                                    <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="fa fa-times-circle"></i>&nbsp;Hủy yêu cầu</a>
                                 </td>
                             }
                         </tr>
@@ -254,5 +254,5 @@
         </div>
     }
 @*@Html.ActionLink("Quay về trang trước", "Index", null, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("ManageExamPaper", "Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ManageExamPaper", "Candidate")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </div>

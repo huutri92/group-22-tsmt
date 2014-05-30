@@ -41,8 +41,9 @@
         </div>
         <div id="map_canvas" style="width: 100%; height: 100%;"></div>
     </div>
-    <input type="submit" value="Tạo" class="btn btn-info" onclick="return PrepareDataToSubmit()" />
-    @Html.ActionLink("Hủy", "ManageLodgeCharity", new { id = @Model.CharityID }, new { @class = "btn btn-info" })
+    <button type="submit" class="btn-u btn-u-sea" onclick="return PrepareDataToSubmit()" ><i class="fa fa-plus">&nbsp;Tạo</i></button>
+    <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Charity/ManageLodgeCharity/'+ @Model.CharityID "><i class="fa fa-times-circle"></i>&nbsp;Hủy</button>
+   @*@Html.ActionLink("Hủy", "ManageLodgeCharity", new { id = @Model.CharityID }, new { @class = "btn btn-info" })*@
 }
 
 <script type="text/javascript">

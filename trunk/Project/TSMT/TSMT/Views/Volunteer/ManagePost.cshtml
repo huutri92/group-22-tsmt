@@ -22,8 +22,8 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-user"></i>Thông tin bài đăng
-                <a href="@Url.Action("AddNewPost","Post")" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</a> 
+            <h3 class="panel-title"><i class="fa fa-user"></i>Thông tin bài đăng
+                <a href="@Url.Action("AddNewPost","Post")" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>&nbsp;Tạo mới</a> 
             </h3>
         </div>
         <div class="panel-body">
@@ -60,12 +60,12 @@
                             </td>
                             <td>
 @*                               @Html.ActionLink("Details", "EditPost", new { arId = @item.ArticleID }) *@
-                                <a href="@Url.Action("EditPost","Post", new { arId = @item.ArticleID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="icon-eye-open"></i></a>
+                                <a href="@Url.Action("EditPost","Post", new { arId = @item.ArticleID })" class="btn-u btn-u-blue" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
                                 @*@Html.ActionLink("Delete", "DeletePost", new { id = @item.ArticleID }, new { onclick = "return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href," + @item.ArticleID + ", 'del' );" })*@
                                 @if (@item.IsAprroved == false)
                                 {
                                     <a href="@Url.Action("DeletePost", "Post", new {id = @item.ArticleID})" class="btn-u btn-u-red" title="Xóa bài này" onclick = " return showPopup('Bạn có chắc chắn muốn xóa bài đăng này?', this.href, " + @item.ArticleID + ", 'del' );">
-                                        <i class="icon-remove-sign"></i></a>
+                                        <i class="fa fa-trash-o"></i></a>
                                 }
                             </td>
                         </tr>
@@ -78,7 +78,7 @@
     </div>
     @*@Html.ActionLink("Display News", "News", null, new { @class = "btn btn-info" })*@
     @*<button class="btn btn-info" onclick="window.history.back(-1);">Back</button>*@
-    <a href="@Url.Action("Index","Admin")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a> 
+    <a href="@Url.Action("Index","Admin")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay về</a> 
 </div>
 <script>
     function callAjaxDelete(arId) {

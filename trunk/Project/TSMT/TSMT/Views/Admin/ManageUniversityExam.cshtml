@@ -26,8 +26,8 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin đợt thi của các trường ĐH-CĐ năm @DateTime.Now.Year
-                <a href="@Url.Action("AddUniversityExam", "Admin")" class="btn-u btn-u-default"><i class="icon-plus"></i>Tạo mới</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin đợt thi của các trường ĐH-CĐ năm @DateTime.Now.Year
+                <a href="@Url.Action("AddUniversityExam", "Admin")" class="btn-u btn-u-default"><i class="fa fa-plus"></i>Tạo mới</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -56,10 +56,10 @@
                             <td>@item.Examination.BeginDate.ToString("dd/MM/yyyy")</td>
                             <td>@item.Examination.EndDate.ToString("dd/MM/yyyy")</td>
                             <td>
-                                <a href="@Url.Action("ManageVenue", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-yellow"><i class="icon-hand-right"></i>&nbsp;Địa điểm thi</a>
+                                <a href="@Url.Action("ManageVenue", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-yellow"><i class="fa fa-hand-right"></i>&nbsp;Địa điểm thi</a>
                                 @if (item.ExaminationsPapers.Count == 0)
                                 {
-                                    <a href="@Url.Action("DeleteUniversityExam", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="icon-trash"></i>&nbsp;Xóa </a>
+                                    <a href="@Url.Action("DeleteUniversityExam", "Admin", new { id = @item.UniExamID })" class="btn-u btn-u-orange" onclick="return showPopup('Please confirm to delete it.', this.href);"><i class="fa fa-trash"></i>&nbsp;Xóa </a>
                                 }
                             </td>
                         </tr>
@@ -70,5 +70,5 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại </a>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại </a>
 </div>

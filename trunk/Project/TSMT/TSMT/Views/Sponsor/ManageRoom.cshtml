@@ -47,17 +47,17 @@
     <div id="form1" class="panel panel-green margin-bottom-20">
 
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin chi tiết của chỗ trọ
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin chi tiết của chỗ trọ
                 
                      @if (Model.CharityExamID == null)
                      {
-                         <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-blue"><i class="fa fa-pencil-square-o"></i>Chỉnh Sửa</a>
                      }
                      else
                      {
                          if (!Model.IsApproved)
                          {
-                         <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-blue"><i class="icon-edit"></i>Chỉnh Sửa</a>
+                         <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-blue"><i class="fa fa-pencil-square-o"></i>Chỉnh Sửa</a>
                          }
                      }
             </h3>
@@ -117,15 +117,15 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn-u btn-u-default"  id="back1" ><i class="icon-chevron-sign-left"></i>Quay lại</a>
+    <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn-u btn-u-default"  id="back1" ><i class="fa fa-chevron-circle-left"></i>Quay lại</a>
     <input id="buttonshow" type="button" value="Xem Danh Sách Phòng" class="btn-u btn-u-indigo" onclick="showForm2();" />
 
     <div id="form2" style="display: none" class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Quản lý phòng
+            <h3 class="panel-title"><i class="fa fa-list"></i>Quản lý phòng
                 @if (!Model.IsApproved)
                 {
-                    <a href="@Url.Action("AddRoom", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-sea"><i class="icon-plus"></i>Tạo Mới Phòng</a>
+                    <a href="@Url.Action("AddRoom", "Sponsor", new { id = Model.LodgeID })" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>Tạo Mới Phòng</a>
                 }
             </h3>
 
@@ -156,8 +156,8 @@
                             <td>@item.RoomName</td>
                             <td>@item.TotalSlots</td>
                             <td>
-                                <a href="@Url.Action("EditRoom", "Sponsor", new { id = @item.RoomID })" class="btn-u" title="Chỉnh Sửa Phòng"><i class="icon-edit"></i></a>
-                                <a href="@Url.Action("DeleteRoom", "Sponsor", new { id = @item.RoomID })"onclick = "return showPopup('Bạn có chắc sẽ xóa phòng này?', this.href);" class="btn-u btn-u-orange" title="Xóa Phòng"><i class="icon-trash"></i></a>
+                                <a href="@Url.Action("EditRoom", "Sponsor", new { id = @item.RoomID })" class="btn-u" title="Chỉnh Sửa Phòng"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="@Url.Action("DeleteRoom", "Sponsor", new { id = @item.RoomID })"onclick = "return showPopup('Bạn có chắc sẽ xóa phòng này?', this.href);" class="btn-u btn-u-orange" title="Xóa Phòng"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                                 ++counter;
@@ -180,8 +180,8 @@
                             else
                             {
                                 <td>
-                                    <a href="@Url.Action("EditRoom", "Sponsor", new { id = @item.RoomID })" class="btn-u" title="Chỉnh Sửa Phòng"><i class="icon-edit"></i></a>
-                                    <a href="@Url.Action("DeleteRoom", "Sponsor", new { id = @item.RoomID })"onclick = "return showPopup('Bạn có chắc sẽ xóa phòng này?', this.href);" class="btn-u btn-u-orange" title="Xóa Phòng"><i class="icon-trash"></i></a>
+                                    <a href="@Url.Action("EditRoom", "Sponsor", new { id = @item.RoomID })" class="btn-u" title="Chỉnh Sửa Phòng"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a href="@Url.Action("DeleteRoom", "Sponsor", new { id = @item.RoomID })"onclick = "return showPopup('Bạn có chắc sẽ xóa phòng này?', this.href);" class="btn-u btn-u-orange" title="Xóa Phòng"><i class="fa fa-trash"></i></a>
                                 </td>
                             }
                         </tr>
@@ -194,7 +194,7 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn-u btn-u-default"   id="back2" style="display: none"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ManageLodge", "Sponsor")" class="btn-u btn-u-default"   id="back2" style="display: none"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
     <input id="buttonshow2" style="display: none" type="button" value="Ẩn Danh Sách Phòng" class="btn btn-info" onclick="showForm1(); " />
 </div>
 

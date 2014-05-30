@@ -26,8 +26,8 @@
 <div class="col-md-9">
     <div class="panel panel-blue margin-bottom-5">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Tất cả phiếu báo thi của bạn
-                <a href="@Url.Action("AddExamPaper", "Candidate")" class="btn-u btn-u-sea"><i class="icon-plus"></i>Tạo mới</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Tất cả phiếu báo thi của bạn
+                <a href="@Url.Action("AddExamPaper", "Candidate")" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>Tạo mới</a>
             </h3>
             @*@Html.ActionLink("Tạo mới", "AddExamPaper", null, new { @class = "btn btn-info" })*@
 
@@ -73,11 +73,11 @@
                             <td>@item.UniversitiesExamination.Examination.Name</td>
                             <td>@item.Venue.Address</td>
                             <td>
-                                <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-violet" title="Xem chi tiết"><i class="icon-eye-open"></i></a>
+                                <a href="@Url.Action("DetailsExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-violet" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
 
                                 @if (item.GroupID == null)
                                 {
-                                    <a href="@Url.Action("DeleteExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-red" onclick="return showPopup('Please confirm to delete it.', this.href);" title="Xóa"><i class="icon-remove-sign"></i></a>
+                                    <a href="@Url.Action("DeleteExamPaper", "Candidate", new { id = @item.ExamPaperID })" class="btn-u btn-u-red" onclick="return showPopup('Please confirm to delete it.', this.href);" title="Xóa"><i class="fa fa-trash-o"></i></a>
                                 }
                             </td>
                         </tr>

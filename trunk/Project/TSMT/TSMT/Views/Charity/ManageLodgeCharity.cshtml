@@ -35,9 +35,9 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về nhà trọ của hội từ thiện @Model.Name
-                <a href="@Url.Action("AddLodge", "Charity", new { id = @Model.CharityID })" class="btn-u btn-u-sea"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
-                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin về nhà trọ của hội từ thiện @Model.Name
+                <a href="@Url.Action("AddLodge", "Charity", new { id = @Model.CharityID })" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>&nbsp;Tạo mới</a>
+                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="fa fa-pencil"></i>Tạo mới</a>*@
             </h3>
         </div>
         <div class="panel-body">
@@ -89,15 +89,15 @@
                                         <td>@item.AvailableSlots</td>*@
                                     <td style="vertical-align:middle">@item.TotalSlots</td>
                                     <td style="vertical-align:middle">
-                                        @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                        <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        @*<a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-group"></i></a>*@
-                                        <a href="@Url.Action("DetailsLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
-                                        <a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="icon-edit" style="width: 40px; height: 30px"></i></a>
-                                        <a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>
+                                        @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="fa fa-map-marker"></i></button>*@
+                                        <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="fa fa-map-marker"></i></a>
+                                        @*<a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="fa fa-group"></i></a>*@
+                                        <a href="@Url.Action("DetailsLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>
+                                        <a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="fa fa-building-o"></i></a>
                                         @if (item.TotalSlotsInUsed == item.AvailableSlots)
                                         { 
-                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="icon-remove-sign"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="fa fa-trash-o"></i></a>
                                         }
                                     </td>
                                 </tr>
@@ -149,15 +149,15 @@
                                         <td>@item.AvailableSlots</td>*@
                                     <td style="vertical-align:middle">@item.TotalSlotsInUsed</td>
                                     <td style="vertical-align:middle">
-                                        @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                        <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="icon-map-marker"></i></a>
-                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="icon-group"></i></a>
-                                        <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>
-                                        @*<a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="icon-edit" style="width: 40px; height: 30px"></i></a>*@
-                                        @*<a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-building"></i></a>*@
+                                        @*<button class="btn-u btn-u-red"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)"><i class="fa fa-map-marker"></i></button>*@
+                                        <a href="#"  onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-violetRed" title="Xem trên bản đồ" style="width:40px;height:30px"><i class="fa fa-map-marker"></i></a>
+                                        <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="fa fa-group"></i></a>
+                                        <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>
+                                        @*<a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="fa fa-pencil-square-o" style="width: 40px; height: 30px"></i></a>*@
+                                        @*<a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="fa fa-building"></i></a>*@
                                         @if (item.TotalSlotsInUsed == item.AvailableSlots)
                                         { 
-                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="icon-remove-sign"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="fa fa-trash-o"></i></a>
                                         }
                                     </td>
                                 </tr>
@@ -170,7 +170,7 @@
             </div>
         </div>
     </div>
-    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </div>
 
 <script type="text/javascript">

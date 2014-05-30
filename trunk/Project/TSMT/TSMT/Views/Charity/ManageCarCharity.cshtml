@@ -37,8 +37,8 @@
 
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe của hội từ thiện @Model.Name
-                <a href="@Url.Action("AddCar", "Charity", new { id = Model.CharityID })" class="btn-u btn-u-sea"><i class="icon-plus"></i>Tạo mới</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin về xe của hội từ thiện @Model.Name
+                <a href="@Url.Action("AddCar", "Charity", new { id = Model.CharityID })" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>Tạo mới</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -82,16 +82,16 @@
                             <td style="vertical-align:middle">
   @if(@car.ChairitiesExam != null)
   {
-      <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>
+      <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="fa fa-location-arrow"></i></a>
   }
                                     
 
-                                @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>*@
+                                @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>*@
                                 @if (car.ExaminationsPapers.Count == 0)
                                 {
-                                    <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa" style="width:40px;height:30px"><i class="icon-edit"></i></a>
-                                    <a href="@Url.Action("AssignCarCE", "Charity", new { id = @car.CarID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="icon-key"></i></a>
-                                    <a href="@Url.Action("DeleteCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này" style="width:40px;height:30px" onclick = "return showPopup('Bạn muốn xóa chiếc xe này phải không?', this.href, @car.CarID , 'del' );" ><i class="icon-remove-sign"></i></a>
+                                    <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa" style="width:40px;height:30px"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a href="@Url.Action("AssignCarCE", "Charity", new { id = @car.CarID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="fa fa-car"></i></a>
+                                    <a href="@Url.Action("DeleteCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-red" title="Xóa xe này" style="width:40px;height:30px" onclick = "return showPopup('Bạn muốn xóa chiếc xe này phải không?', this.href, @car.CarID , 'del' );" ><i class="fa fa-trash-o"></i></a>
                                 }
                             </td>
                         </tr>
@@ -102,8 +102,8 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("AssignCarsToCe", "Charity")" id="useCar" class="btn-u btn-u-brown" style="float:right"><i class="icon-key"></i>&nbsp;Sử dụng xe</a>
-    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("AssignCarsToCe", "Charity")" id="useCar" class="btn-u btn-u-brown" style="float:right"><i class="fa fa-car"></i>&nbsp;Sử dụng xe</a>
+    <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="fa fa-arrow-circle-left"></i>&nbsp;Quay lại</a>
 </div>
 @if (((IEnumerable<Car>)ViewData["carsOfCharity"]).Count() < 1)
 {
