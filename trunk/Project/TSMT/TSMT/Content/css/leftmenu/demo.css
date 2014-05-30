@@ -130,11 +130,11 @@ a:hover, a:focus {
 	-webkit-font-smoothing: antialiased;
 }
 
-.codrops-icon-drop:before {
+.codrops-fa fa-drop:before {
 	content: "\e001";
 }
 
-.codrops-icon-prev:before {
+.codrops-fa fa-prev:before {
 	content: "\e004";
 }
 
