@@ -32,7 +32,7 @@
 <div class="col-md-9">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin địa điểm thi của @Model.University.Name - @Model.Examination.Name
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin địa điểm thi của @Model.University.Name - @Model.Examination.Name
             </h3>
             <div class="devider"></div>
         </div>
@@ -57,13 +57,13 @@
                                 @item.Address
                             </td>
                             <td>
-                                <a href="#" onclick="openWindowPopup('/home/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="icon-map-marker"></i>&nbsp;Xem trên bản đồ</a>
+                                <a href="#" onclick="openWindowPopup('/home/ViewVenue/', @item.VenueID)" class="btn-u btn-u-red"><i class="fa fa-map-marker"></i>&nbsp;Xem trên bản đồ</a>
                                 <a href="@Url.Action("EditVenue", "Admin", new { id = @item.VenueID })"  class="btn-u btn-u-blue">
-                                    <i class="icon-edit"></i>&nbsp;Sửa </a>
+                                    <i class="fa fa-pencil-square-o"></i>&nbsp;Sửa </a>
                                 @if (item.ExaminationsPapers.Count == 0)
                                 {
                                     <a href="@Url.Action("DeleteVenue", "Admin", new { id = @item.VenueID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có chắc chắn muốn xóa địa điểm thi này không?', this.href);">
-                                    <i class="icon-trash"></i>&nbsp;Xóa </a>
+                                    <i class="fa fa-trash"></i>&nbsp;Xóa </a>
                                 }
                             </td>
                         </tr>
@@ -74,7 +74,7 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-sea" style="float:left"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
-    <a href="@Url.Action("AddVenue", "Admin", new { id = @Model.UniExamID })" class="btn-u btn-u-default" style="float:right"><i class="icon-plus"></i>&nbsp;Tạo mới</a>
+    <a href="@Url.Action("ManageUniversityExam", "Admin")" class="btn-u btn-u-sea" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("AddVenue", "Admin", new { id = @Model.UniExamID })" class="btn-u btn-u-default" style="float:right"><i class="fa fa-plus"></i>&nbsp;Tạo mới</a>
 </div>
 

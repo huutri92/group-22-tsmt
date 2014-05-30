@@ -2,45 +2,59 @@
     ViewBag.Title = "Đăng nhập vào TSMT";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-20">
+    <div class="container">
+        <h1 class="pull-left">@ViewBag.Title</h1>
+        <ul class="pull-right breadcrumb">
+            
+             <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs -->
 
-
-<div class="container">    
-    <div class="reg-block">
-        <div class="reg-block-header">
-            <h2>Đăng Nhập</h2>
-            <ul class="list-inline style-icons text-center">
-                <li><a href="@Url.Action("Index", "Home")"><i class="icon-home icon-round icon-round-sm icon-color-grey"></i> Trang Chủ </a></li>
-                <li><a href="@Url.Action("Register", "Account")"><i class=" icon-info icon-round icon-round-sm icon-color-grey"></i> Đăng Ký </a></li>
-            </ul>
-        </div>
-       @using (Html.BeginForm("Login","Account",FormMethod.Post))
-       {
-           <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-            @*<form action="/Account/Login" method="post">*@
-            <div class="input-group margin-bottom-20">
-                <span class="input-group-addon"><i class="icon-envelope"></i></span>
-                <input type="text" class="form-control" placeholder="Địa chỉ email" id="Email" name="Email">
-            </div>
-            <div class="input-group margin-bottom-20">
-                <span class="input-group-addon"><i class="icon-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Mật khẩu" id="Password" name="Password">
-            </div>
-            <hr>
-           @*  <label class="checkbox">
+<div class="container content">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "reg-page" }))
+            {
+                <div class="reg-header">
+                    <h2>Đăng Nhập</h2>
+                    @*   <ul class="list-inline style-icons text-center">
+                        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa fa-round fa fa-round-sm fa fa-color-grey"></i>Trang Chủ </a></li>
+                        <li><a href="@Url.Action("Register", "Account")"><i class=" fa fa-info fa fa-round fa fa-round-sm fa fa-color-grey"></i>Đăng Ký </a></li>
+                    </ul>*@
+                </div>
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+@*<form action="/Account/Login" method="post">*@
+                <div class="input-group margin-bottom-20">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Địa chỉ email" id="Email" name="Email">
+                </div>
+                <div class="input-group margin-bottom-20">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="Mật khẩu" id="Password" name="Password">
+                </div>
+                <hr>
+@*  <label class="checkbox">
                <input type="checkbox">
                 <p>Lưu trạng thái đăng nhập</p>
                 <a href="#">Quên mật khẩu?</a>
             </label>*@
 
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <button type="submit" class="btn-u btn-block">Đăng nhập</button>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <button type="submit" class="btn-u btn-block">Đăng nhập</button>
+                    </div>
                 </div>
-            </div>
-        @*</form>*@
-       }
-        
-    </div>    
-</div>
+@*</form>*@
+            }
 
+        </div>
+    </div>
+</div>
 

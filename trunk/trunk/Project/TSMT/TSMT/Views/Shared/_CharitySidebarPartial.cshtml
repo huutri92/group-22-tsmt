@@ -3,8 +3,8 @@
 <link href="~/Content/css/leftmenu/styles.css" rel="stylesheet" />
 @*<div class="col-md-3" id="cssmenu">
     <ul>
-        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Khu vực Hội từ thiện</a></li>
-        <li  class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "") has-sub"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="icon-calendar"></i>Quản lý thông tin kỳ thi</a>
+        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Khu vực Hội từ thiện</a></li>
+        <li  class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "") has-sub"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="fa fa-calendar"></i>Quản lý thông tin kỳ thi</a>
             <ul>
                 <li class='has-sub'><a href='#'><span>Product 1</span></a>
                     <ul>
@@ -20,8 +20,8 @@
                 </li>
             </ul>
         </li>
-         <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="icon-bell-alt"></i>Quản lý xe</a></li>
-                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="icon-building"></i>Quản lý chỗ trọ</a></li>
+         <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="fa fa-bell-alt"></i>Quản lý xe</a></li>
+                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="fa fa-building"></i>Quản lý chỗ trọ</a></li>
     </ul>
 </div>*@
 
@@ -30,14 +30,14 @@
     <div class="row tab-v3">
         <div class="col-sm-12">
             <ul class="nav nav-pills nav-stacked">
-                 <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="icon-key"></i>Quản lý xe</a></li>
-                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="icon-building"></i>Quản lý chỗ trọ</a></li>
-                @*<li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Khu vực Hội từ thiện</a></li>*@
+                 <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("ManageCarCharity", "Charity")"><i class="fa fa-car"></i>Quản lý xe</a></li>
+                <li class="@(ViewBag.Active == "ManageLodgeCharity" ? "active" : "")"><a href="@Url.Action("ManageLodgeCharity", "Charity")"><i class="fa fa-building"></i>Quản lý chỗ trọ</a></li>
+                @*<li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Khu vực Hội từ thiện</a></li>*@
                 <li id="cssmenu" class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")">
-                    <a href="@Url.Action("ManageCharityExam", "Charity")" style="width:212px"><i class="icon-calendar"></i>Quản lý thông tin kỳ thi</a>
+                    <a href="@Url.Action("ManageCharityExam", "Charity")" style="width:212px"><i class="fa fa-calendar"></i>Quản lý thông tin kỳ thi</a>
 
                     <ul>
-                        <li class="has-sub"><a href="#" style="width: 212px"><span><i class="icon-list"></i>Các đợt thi</span></a>
+                        <li class="has-sub"><a href="#" style="width: 212px"><span><i class="fa fa-list"></i>Các đợt thi</span></a>
                             <ul>
                                 @{
                                     Account acc = (Account)Session["acc"];
@@ -47,16 +47,16 @@
 
                                 @foreach (var item in ces as IEnumerable<ChairitiesExam>)
                                 {
-                                    <li class="has-sub"><a href="#" style="width: 212px"><i class="icon-circle-arrow-right"></i><span>@item.Examination.Name</span></a>
+                                    <li class="has-sub"><a href="#" style="width: 212px"><i class="fa fa-arrow-circle-right"></i><span>@item.Examination.Name</span></a>
                                         <ul>
                                             @*                                             <li><a href="#" style="width: 212px"><span>DEF</span></a></li>
                                              <li><a href="#" style="width: 212px"><span>ABC</span></a></li>*@
-                                            <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })" style="width:212px"><i class="icon-caret-right"></i><span>Thông tin chi tiết</span></a></li>
-                                             <li ><a href="@Url.Action("ManageVolunteer", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Tình nguyện viên</span></a></li>
-                                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Thí sinh</span></a></li>
-                                            <li><a href="@Url.Action("ManageFunds", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Tiền được tài trợ</span></a></li>
-                                             <li><a href="@Url.Action("ManageLodge", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Chỗ trọ</span></a></li>
-                                            <li class='last'><a href="@Url.Action("ManageCar", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="icon-caret-right"></i><span>Xe</span></a></li>
+                                            <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = item.CharityExamID })" style="width:212px"><i class="fa fa-eye"></i><span>Thông tin chi tiết</span></a></li>
+                                             <li ><a href="@Url.Action("ManageVolunteer", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="fa fa-user"></i><span>Tình nguyện viên</span></a></li>
+                                            <li><a href="@Url.Action("ManageCandidate", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="fa fa-users"></i><span>Thí sinh</span></a></li>
+                                            <li><a href="@Url.Action("ManageFunds", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="fa fa-money"></i><span>Tiền được tài trợ</span></a></li>
+                                             <li><a href="@Url.Action("ManageLodge", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="fa fa-building"></i><span>Chỗ trọ</span></a></li>
+                                            <li class='last'><a href="@Url.Action("ManageCar", "Charity", new { id = item.CharityExamID })" style="width: 212px"><i class="fa fa-car"></i><span>Xe</span></a></li>
                                         </ul>
                                     </li>@*
                                      <li class="has-sub"><a href="#" style="width: 212px"><span>Đợt 2</span></a>
@@ -77,8 +77,8 @@
 
                     </ul>
                 </li>
-                @*<li class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="icon-calendar"></i>Các đợt thi</a>*@
-                @*<li class="@(ViewBag.Active == "ViewCharityStatistics" ? "active" : "")"><a href="@Url.Action("ViewStatistics", "Charity")"><i class="icon-calendar"></i>Xem thống kê</a>*@
+                @*<li class="@(ViewBag.Active == "ManageCharityExam" ? "active" : "")"><a href="@Url.Action("ManageCharityExam", "Charity")"><i class="fa fa-calendar"></i>Các đợt thi</a>*@
+                @*<li class="@(ViewBag.Active == "ViewCharityStatistics" ? "active" : "")"><a href="@Url.Action("ViewStatistics", "Charity")"><i class="fa fa-calendar"></i>Xem thống kê</a>*@
             </ul>
         </div>
     </div>
@@ -125,16 +125,16 @@
     <div class="row tab-v3">
         <div class="col-sm-12">
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Home</a></li>
                     <li class="">
-                        <a href="#" data-toggle="collapse" data-parent="#accordion"><i class="icon-tint"></i>Đợt thi</a>
+                        <a href="#" data-toggle="collapse" data-parent="#accordion"><i class="fa fa-tint"></i>Đợt thi</a>
                     </li>
             <ul class="nav nav-pills nav-stacked">
-                <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+                <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Home</a></li>
                 <li class="panel-group acc-v1">
                     <ul class="panel panel-default">
                         <li class="panel-heading">
-                     <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+                     <li class="@(ViewBag.Active == "ManageCarCharity" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Home</a></li>
                         </li>
                     </ul>
                 </li>
@@ -161,11 +161,11 @@
                     </div>
                 </div>
 
-                <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+                <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="fa fa-rocket"></i>Thống kê</a></li>
             </ul>
         </div>
     </div>
-    @*<i class="icon-cogs" onclick="$('#hehe').toggle('slow'); return false;"></i>
+    @*<i class="fa fa-cogs" onclick="$('#hehe').toggle('slow'); return false;"></i>
 </div>
 
 
@@ -205,9 +205,9 @@
                     <div class="col-md-8">
                         <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
                         <ul class="list-unstyled">
-                            <li><i class="icon-ok color-green"></i>Donec id elit non mi porta gravida at eget metus..</li>
-                            <li><i class="icon-ok color-green"></i>Fusce dapibus, tellus ac cursus comodo egetine..</li>
-                            <li><i class="icon-ok color-green"></i>Food truck quinoa nesciunt laborum eiusmod runch..</li>
+                            <li><i class="fa fa-ok color-green"></i>Donec id elit non mi porta gravida at eget metus..</li>
+                            <li><i class="fa fa-ok color-green"></i>Fusce dapibus, tellus ac cursus comodo egetine..</li>
+                            <li><i class="fa fa-ok color-green"></i>Food truck quinoa nesciunt laborum eiusmod runch..</li>
                         </ul>
                     </div>
                     <div class="col-md-4">
@@ -270,7 +270,7 @@
             
             <div id="cssmenu">
                <ul class="nav nav-pills nav-stacked">
-                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>             
+                    <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Home</a></li>             
 
                     <li class="has-sub">
                         <a href='#'>
@@ -285,7 +285,7 @@
                             }
                         </ul>
                     </li>
-                    <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+                    <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="fa fa-rocket"></i>Thống kê</a></li>
                 </ul>
             </div>
         </div>
@@ -299,7 +299,7 @@
 
 <div id='cssmenu'>
     <ul>
-        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="icon-home"></i>Home</a></li>
+        <li class="@(ViewBag.Active == "CharityHome" ? "active" : "")"><a href="@Url.Action("Index", "Charity")"><i class="fa fa-home"></i>Home</a></li>
         <li class='has-sub'><a href='#'><span>Đợt thi tài trợ</span></a>
             @foreach (var item in ViewData["CharityExamSide"] as IEnumerable<ChairitiesExam>)
             {
@@ -316,7 +316,7 @@
                 </ul>
             }
         </li>
-        <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="icon-rocket"></i>Thống kê</a></li>
+        <li class="@(ViewBag.Active == "Statistics" ? "active" : "")"><a href="@Url.Action("Statistics", "Charity")"><i class="fa fa-rocket"></i>Thống kê</a></li>
         <li class='last'><a href='#'><span>Contact</span></a></li>
     </ul>
 </div>

@@ -34,8 +34,8 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>&nbsp;Danh sách tình nguyện viên đăng ký tham gia hỗ trợ 
-                @*<a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>*@
+            <h3 class="panel-title"><i class="fa fa-list"></i>&nbsp;Danh sách tình nguyện viên đăng ký tham gia hỗ trợ 
+                @*<a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-green"><i class="fa fa-plus"></i>Chọn xe cho đợt thi</a>*@
             </h3>
         </div>
         <div class="panel-body">
@@ -65,8 +65,8 @@
                                 <td style="vertical-align:middle">
                                   @*  @Html.ActionLink("Details", "DetailsVolunteer", new { id = @item.ParticipantVolunteerID })
                                     @Html.ActionLink("Remove", "RemoveVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href," + @item.ParticipantVolunteerID + ", 'del' );" })
-                                  *@ @* <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="icon-eye-open"></i></a>*@
-                                    <a href="@Url.Action("RemoveVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href, @item.ParticipantVolunteerID , 'del' );"  title="Loại tình nguyện viên này" class="btn-u btn-u-red"><i class="icon-remove-sign"></i></a>
+                                  *@ @* <a href="@Url.Action("DetailsVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" title="Xem chi tiết" class="btn-u btn-u-violet" style="width:40px;height:30px" ><i class="fa fa-eye"></i></a>*@
+                                    <a href="@Url.Action("RemoveVolunteer", "Charity", new { id = @item.ParticipantVolunteerID })" onclick = "return showPopup('Bạn có chắc muốn loại tình nguyện viên này?', this.href, @item.ParticipantVolunteerID , 'del' );"  title="Loại tình nguyện viên này" class="btn-u btn-u-red"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             }
                             else
@@ -80,8 +80,8 @@
                                 @Html.ActionLink("Denie", "DenieVolunteer", new { id = @item.ParticipantVolunteerID }, new { onclick = "return showPopup('Are you sure to delete it?', this.href," + @item.ParticipantVolunteerID + ", 'remove' );" })*@
                                    
                                     <a href="@Url.Action("RemoveVolunteer","Charity", new { id = @item.ParticipantVolunteerID })" style = "display: none" onclick = "return showPopup('Are you sure to delete it?', this.href,'+ @item.ParticipantVolunteerID +', 'del' );" class="btn-u"><i class=""></i></a> 
-                                    <a href="@Url.Action("ApproveVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  title="Nhận tình nguyện viên này" onclick = "return callAjaxApprove(@item.ParticipantVolunteerID)"  class="btn-u btn-u-green"><i class="icon-heart"></i></a> 
-                                    <a href="@Url.Action("DenieVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  title="Từ chối tình nguyện viên này"  onclick = "return showPopup('Bạn có chắc muốn từ chối tình nguyện viên này?', this.href,'@item.ParticipantVolunteerID' , 'remove');"  class="btn-u btn-u-red"><i class="icon-trash"></i></a> 
+                                    <a href="@Url.Action("ApproveVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  title="Nhận tình nguyện viên này" onclick = "return callAjaxApprove(@item.ParticipantVolunteerID)"  class="btn-u btn-u-green"><i class="fa fa-heart"></i></a> 
+                                    <a href="@Url.Action("DenieVolunteer","Charity", new { id = @item.ParticipantVolunteerID })"  title="Từ chối tình nguyện viên này"  onclick = "return showPopup('Bạn có chắc muốn từ chối tình nguyện viên này?', this.href,'@item.ParticipantVolunteerID' , 'remove');"  class="btn-u btn-u-red"><i class="fa fa-trash"></i></a> 
 
                                 </td>
                             }
@@ -95,7 +95,7 @@
         </div>
     </div>
     @*@Html.ActionLink("Back to Manage CE", "DetailsCharityExam", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("DetailsCharityExam","Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a> 
+    <a href="@Url.Action("DetailsCharityExam","Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a> 
 </div>
 
 

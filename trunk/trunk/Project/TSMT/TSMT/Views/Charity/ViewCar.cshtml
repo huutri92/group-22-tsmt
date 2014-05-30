@@ -9,7 +9,7 @@
 <h3>Xe @Model.NumberPlate</h3>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin chi tiết</i></h3>
+        <h3 class="panel-title"><i class="fa fa-list">&nbsp;Thông tin chi tiết</i></h3>
     </div>
     <div class="panel-body">
         <table class="table table-hover">
@@ -35,7 +35,7 @@
 </div>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Danh sách các thí sinh được sắp xếp đưa đón</i></h3>
+        <h3 class="panel-title"><i class="fa fa-list">&nbsp;Danh sách các thí sinh được sắp xếp đưa đón</i></h3>
     </div>
     <div class="panel-body">
         @if (Model.ExaminationsPapers.Count == 0)
@@ -81,7 +81,7 @@
 </div>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Lịch trình đưa đón</i></h3>
+        <h3 class="panel-title"><i class="fa fa-list">&nbsp;Lịch trình đưa đón</i></h3>
     </div>
     <div class="panel-body">
         <p>Đợt thi: @Model.ChairitiesExam.Examination.Name (từ ngày @Model.ChairitiesExam.Examination.BeginDate.ToString("dd/MM/yyyy") đến ngày @Model.ChairitiesExam.Examination.EndDate.ToString("dd/MM/yyyy"))</p>
@@ -104,7 +104,7 @@
 </div>
 <div class="panel panel-blue margin-bottom-20">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-list">&nbsp;Bản đồ đường đi</i></h3>
+        <h3 class="panel-title"><i class="fa fa-list">&nbsp;Bản đồ đường đi</i></h3>
     </div>
     <div class="panel-body">
         @if (Model.ExaminationsPapers.Count == 0)
@@ -307,8 +307,8 @@
         }
     </div>
 </div>
-  @*<a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>*@
-<a onclick="history.back(-1)" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+  @*<a href="@Url.Action("ManageCarCharity", "Charity")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>*@
+<a onclick="history.back(-1)" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 <script>
     $(".panel-heading").click(function () {
         $(this.parentNode).find(".panel-body").slideToggle();

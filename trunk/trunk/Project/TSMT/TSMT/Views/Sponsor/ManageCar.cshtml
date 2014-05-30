@@ -27,8 +27,8 @@
 <div class="col-md-9">
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Quản lý xe
-                <a href="@Url.Action("AddCar", "Sponsor")" class="btn-u btn-u-sea"><i class="icon-plus"></i>Tạo Mới Xe</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>Quản lý xe
+                <a href="@Url.Action("AddCar", "Sponsor")" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>Tạo Mới Xe</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -71,9 +71,9 @@
                                         <td style="vertical-align:middle">@car.DriverName</td>
                                         <td style="vertical-align:middle">@car.DriverPhone</td>
                                         <td style="vertical-align:middle">
-                                            <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                            <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="icon-heart"></i></a>
-                                            <a href="@Url.Action("DeleteCar", "Sponsor", new { id = @car.CarID })" onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" class="btn-u btn-u-red" title="Xóa xe"><i class="icon-remove-sign"></i></a>
+                                            <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="fa fa-heart"></i></a>
+                                            <a href="@Url.Action("DeleteCar", "Sponsor", new { id = @car.CarID })" onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" class="btn-u btn-u-red" title="Xóa xe"><i class="fa fa-trash-o"></i></a>
                                         </td>
 
 
@@ -128,8 +128,8 @@
                                         {
                                             <td style="vertical-align:middle"><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td style="vertical-align:middle">
-                                                <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="icon-edit"></i></a>
-                                                <a href="@Url.Action("DenieCar", "Sponsor", new { id = @item.CarID })"onclick = "return showPopup('Bạn có chắc muốn hủy tài trợ?', this.href);" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="icon-remove-sign"></i></a>
+                                                <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @item.CarID })" class="btn-u" title="Chỉnh sửa"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a href="@Url.Action("DenieCar", "Sponsor", new { id = @item.CarID })"onclick = "return showPopup('Bạn có chắc muốn hủy tài trợ?', this.href);" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                         }
                                     </tr>
@@ -145,9 +145,9 @@
         </div>
     </div>
     @*@Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay về</a>
+    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay về</a>
     @if ((Model.Count(r => r.CharityExamID == null) > 1)) // has some cars free.
     {
-    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"  id="sponsoredcar" style="float: right"><i class="icon-heart"></i>&nbsp;Tài trợ nhiều xe</a>
+    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"  id="sponsoredcar" style="float: right"><i class="fa fa-heart"></i>&nbsp;Tài trợ nhiều xe</a>
     }
 </div>

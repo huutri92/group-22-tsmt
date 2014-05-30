@@ -54,7 +54,7 @@
     </div>*@
     <div class="panel panel-blue margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list">&nbsp;Bản đồ đường đi</i></h3>
+            <h3 class="panel-title"><i class="fa fa-list">&nbsp;Bản đồ đường đi</i></h3>
         </div>
         <form onreset="resetFunction()">
         <div class="panel-body">
@@ -81,13 +81,13 @@
             
         </div>
             <div align="center">
-                <button type="reset" value="Reset" class="btn-u btn-u-red"><i class="icon-remove-circle">&nbsp;Làm lại</i></button>
-            <button type="button" class="btn-u btn-u-blue" id="Save" onclick="callAjaxSave(); return false;"><i class="icon-key">&nbsp;Lưu</i></button>
+                <button type="reset" value="Reset" class="btn-u btn-u-red"><i class="fa fa-times-circle">&nbsp;Làm lại</i></button>
+            <button type="button" class="btn-u btn-u-blue" id="Save" onclick="callAjaxSave(); return false;"><i class="fa fa-car">&nbsp;Lưu</i></button>
             </div>
             
             </form>
         </div>
-    <a href="@Url.Action("ViewDetails", "Volunteer", new {id = @ViewData["ScheduleId"]})" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ViewDetails", "Volunteer", new {id = @ViewData["ScheduleId"]})" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 

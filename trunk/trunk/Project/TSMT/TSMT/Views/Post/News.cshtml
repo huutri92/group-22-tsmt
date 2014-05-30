@@ -41,7 +41,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     @foreach (var i in ViewData["category"] as IEnumerable<Category>)
                     {
-                        <li><a href="@Url.Action("CategoryNews", "Post", new { cateId = @i.CategoryID })"><i class="icon-circle-arrow-right"></i>@i.CategoryName</a></li>
+                        <li><a href="@Url.Action("CategoryNews", "Post", new { cateId = @i.CategoryID })"><i class="fa fa-circle-arrow-right"></i>@i.CategoryName</a></li>
                     }
                 </ul>
             </div>
@@ -72,8 +72,8 @@
                 <div class="col-md-4 search-img">
                     <img alt="" src="@item.AvatarImage" class="img-responsive">
                     <ul class="list-unstyled">
-                        <li><i class="icon-double-angle-down"></i>@item.CreatedOn</li>
-                        <li><i class="icon-info-sign"></i>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</li>
+                        <li><i class="fa fa-double-angle-down"></i>@item.CreatedOn</li>
+                        <li><i class="fa fa-info-sign"></i>@item.Account.Profile.Lastname @item.Account.Profile.Firstname</li>
                     </ul>
                 </div>
                 <div class="col-md-8">

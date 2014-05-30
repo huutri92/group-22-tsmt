@@ -7,7 +7,7 @@
         <ul class="loginbar pull-right">
             <li>
                 <i class="fa fa-globe"></i>
-                <a>Languages</a>
+                <a>Thông báo</a>
                 <ul class="lenguages">
                     <li class="active">
                         <a href="#">English <i class="fa fa-check"></i></a>
@@ -23,7 +23,7 @@
                       
                 <li>
                     <a>Chào <strong>@(((Account)Session["acc"]).Profile.Lastname) @(((Account)Session["acc"]).Profile.Firstname)</strong></a>
-                    <i class="icon-angle-down"></i>
+                    <i class="fa fa-angle-down"></i>
                     <ul class="lenguages" style="vertical-align: middle">
                         <li>
                             <a href="@Url.Action("EditAccount", "Account", new { id = ((Account)Session["acc"]).AccountID })" style="text-align:center">Thông tin

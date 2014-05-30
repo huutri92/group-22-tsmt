@@ -25,8 +25,8 @@
 <div class="col-md-5">
     <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>All Categories 
-                <a href="@Url.Action("AddNewCategory", "Admin")" class="btn-u btn-u-green"><i class="icon-plus"></i>Tạo mới</a>
+            <h3 class="panel-title"><i class="fa fa-list"></i>All Categories 
+                <a href="@Url.Action("AddNewCategory", "Admin")" class="btn-u btn-u-green"><i class="fa fa-plus"></i>Tạo mới</a>
             </h3>
             <div class="devider"></div>
 
@@ -51,8 +51,8 @@
                             <td>
                                 @*@Html.ActionLink("Delete", "DeleteCategory", new { id = @item.CategoryID })
                                 @Html.ActionLink("Edit", "EditCategory", new { id = @item.CategoryID })*@
-                                <a href="@Url.Action("EditCategory", "Admin")" class="btn-u btn-u-blue"><i class="icon-edit"></i> Edit </a>
-                                <a href="@Url.Action("DeleteCategory", "Admin")" class="btn-u btn-u-orange"><i class="icon-trash"></i> Delete </a>
+                                <a href="@Url.Action("EditCategory", "Admin")" class="btn-u btn-u-blue"><i class="fa fa-pencil-square-o"></i> Edit </a>
+                                <a href="@Url.Action("DeleteCategory", "Admin")" class="btn-u btn-u-orange"><i class="fa fa-trash"></i> Delete </a>
                             </td>
                         </tr>
                             i = i + 1;
@@ -64,6 +64,6 @@
         @*@Html.ActionLink("Tạo mới", "AddNewCategory", null, new { @class = "btn-u btn-u-red" })*@
         @*<button class="btn-u btn-u-default" onclick="window.history.back(-1);">Back</button>*@
     </div>
-    <a href="#" class="btn-u btn-u-default"><i class="icon-chevron-sign-left" onclick="window.history.back(-1);"></i> Quay lại </a>
-    @*<a href="@Url.Action("AddCategory","Admin")" class="btn-u btn-u-green"><i class="icon-plus"></i> Tạo mới</a>*@
+    <a href="#" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left" onclick="window.history.back(-1);"></i> Quay lại </a>
+    @*<a href="@Url.Action("AddCategory","Admin")" class="btn-u btn-u-green"><i class="fa fa-plus"></i> Tạo mới</a>*@
 </div>
