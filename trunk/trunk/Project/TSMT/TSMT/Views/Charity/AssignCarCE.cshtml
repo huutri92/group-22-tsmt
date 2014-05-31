@@ -1,5 +1,6 @@
 ﻿@using TSMT.Models
 @model TSMT.Models.Car
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Sắp xếp xe phục vụ đợt thi";
@@ -21,7 +22,7 @@
 }
 @Html.Partial("_CharitySidebarPartial")
 
-@using (Html.BeginForm("AssignCarCE", "Charity", FormMethod.Post))
+@using (Html.BeginForm("AssignCarCE", "Charity", FormMethod.Post, new { onsubmit = "return checkDate();" }))
 {
     <div class="col-md-4">
         <div class="panel panel-orange margin-bottom-20">
@@ -34,17 +35,31 @@
                     <tr>
                         <td style="vertical-align: middle">Đợt thi</td>
                         <td>
-                            <select name="CharityExamID" class="form-control" style="width:auto">
+                            <select name="CharityExamID" id="exam" onchange="synChange();" class="form-control" style="width:auto">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
                                 {
                                     if (Model.CharityExamID == item.CharityExamID)
                                     {
-                                    <option value="@item.CharityExamID" selected>@item.Examination.Name</option>
+                                        <option value="@item.CharityExamID" selected>@item.Examination.Name</option>
                                     }
                                     else
                                     {
-                                    <option value="@item.CharityExamID">@item.Examination.Name</option> 
+                                        <option value="@item.CharityExamID">@item.Examination.Name</option> 
+                                    }
+                                }
+                            </select>
+                            <select id="date" name="exId" class="form-control" style="width: auto; display:none">
+                                <option value="0" selected>---</option>
+                                @foreach (var item in ViewData["CharityExam"] as IEnumerable<ChairitiesExam>)
+                                {
+                                    if (Model.CharityExamID == item.CharityExamID)
+                                    {
+                                        <option value="@item.CharityExamID" selected>@item.Examination.BeginDate</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CharityExamID">@item.Examination.BeginDate</option> 
                                     }
                                 }
                             </select>
@@ -60,4 +75,23 @@
         </div>
         @*<button type="button" onclick="location.href ='/Charity/ManageCarCharity/'" class="btn-u btn-u-sea"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>*@
     </div>
+    <script type="text/javascript">
+        function synChange() {
+            if (document.getElementById("exam").selectedIndex == 0) {
+                document.getElementById("date").selectedIndex = 0;
+            } else {
+                document.getElementById("date").selectedIndex = document.getElementById("exam").selectedIndex;
+            }
+        }
+        function checkDate() {
+            var examDate = new Date(document.getElementById("date")[document.getElementById("date").selectedIndex].textContent);
+            var now = new Date;
+            if ((examDate - now) / 86400000 >= 1) {
+                return true;
+            } else {
+                alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể xếp xe được nữa");
+                return false;
+            }
+        }
+    </script>
 }

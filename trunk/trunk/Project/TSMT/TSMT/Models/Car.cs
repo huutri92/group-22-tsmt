@@ -17,6 +17,7 @@ namespace TSMT.Models
         public Car()
         {
             this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
+            this.StationCars = new HashSet<StationCar>();
         }
     
         public int CarID { get; set; }
@@ -33,5 +34,6 @@ namespace TSMT.Models
         public virtual ChairitiesExam ChairitiesExam { get; set; }
         public virtual Sponsor Sponsor { get; set; }
         public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
+        public virtual ICollection<StationCar> StationCars { get; set; }
     }
 }

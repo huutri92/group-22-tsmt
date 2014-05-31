@@ -12,12 +12,17 @@ namespace TSMT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class StationCar
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public StationCar()
+        {
+            this.ExaminationsPapers = new HashSet<ExaminationsPaper>();
+        }
+    
+        public int StationCarIID { get; set; }
+        public Nullable<int> CarID { get; set; }
+    
+        public virtual Car Car { get; set; }
+        public virtual ICollection<ExaminationsPaper> ExaminationsPapers { get; set; }
     }
 }

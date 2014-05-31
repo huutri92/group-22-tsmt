@@ -52,16 +52,26 @@ namespace TSMT.Controllers
         [HttpPost]
         public ActionResult JoinIn(FormCollection f)
         {
-            Account acc = (Account)Session["acc"];
-            Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
-
-            ParticipantVolunteer pe = new ParticipantVolunteer();
-            pe.VolunteerID = vo.VolunteerID;
-            pe.CharityExamID = int.Parse(f["ceId"]);;
-            pe.IsApproved = false;
-            db.ParticipantVolunteers.Add(pe);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            int ceid = int.Parse(f["ceId"]);
+            var exam = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == ceid);
+            var begin = exam.Examination.BeginDate;
+            DateTime now = System.DateTime.Now;
+            var equal = new TimeSpan();
+            equal = now - begin;
+            double totalMilliseconds = equal.TotalMilliseconds;
+            if (Math.Abs((totalMilliseconds / 86400000)) > 3)
+            {
+                Account acc = (Account) Session["acc"];
+                Volunteer vo = db.Volunteers.SingleOrDefault(r => r.AccountID == acc.AccountID);
+                ParticipantVolunteer pe = new ParticipantVolunteer();
+                pe.VolunteerID = vo.VolunteerID;
+                pe.CharityExamID = int.Parse(f["ceId"]);
+                pe.IsApproved = false;
+                db.ParticipantVolunteers.Add(pe);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("ErrorPage");
         }
         [HttpPost]
         public JsonResult getCharityName(int id) //exId

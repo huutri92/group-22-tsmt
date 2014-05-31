@@ -29,7 +29,7 @@
           <EntitySet Name="ScheduleExams" EntityType="TSMTModel.Store.ScheduleExams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Sponsors" EntityType="TSMTModel.Store.Sponsors" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Station" EntityType="TSMTModel.Store.Station" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="TSMTModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StationCar" EntityType="TSMTModel.Store.StationCar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Universities" EntityType="TSMTModel.Store.Universities" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UniversitiesExaminations" EntityType="TSMTModel.Store.UniversitiesExaminations" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Venues" EntityType="TSMTModel.Store.Venues" store:Type="Tables" Schema="dbo" />
@@ -114,6 +114,10 @@
             <End Role="Station" EntitySet="Station" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExaminationsPapers_StationCar1" Association="TSMTModel.Store.FK_ExaminationsPapers_StationCar1">
+            <End Role="StationCar" EntitySet="StationCar" />
+            <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Venues" Association="TSMTModel.Store.FK_ExaminationsPapers_Venues">
             <End Role="Venues" EntitySet="Venues" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
@@ -193,6 +197,10 @@
           <AssociationSet Name="FK_Sponsors_Accounts" Association="TSMTModel.Store.FK_Sponsors_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Sponsors" EntitySet="Sponsors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationCar_Cars1" Association="TSMTModel.Store.FK_StationCar_Cars1">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="StationCar" EntitySet="StationCar" />
           </AssociationSet>
           <AssociationSet Name="FK_UniversityExamination_Examinations" Association="TSMTModel.Store.FK_UniversityExamination_Examinations">
             <End Role="Examinations" EntitySet="Examinations" />
@@ -331,6 +339,7 @@
           <Property Name="ParticipantVolunteerID" Type="int" />
           <Property Name="StatitonID" Type="int" />
           <Property Name="PickUpTime" Type="int" />
+          <Property Name="StationCarID" Type="int" />
         </EntityType>
         <EntityType Name="Funds">
           <Key>
@@ -451,15 +460,12 @@
           <Property Name="StationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="StationName" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="StationCar">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="StationCarIID" />
           </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="StationCarIID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CarID" Type="int" />
         </EntityType>
         <EntityType Name="Universities">
           <Key>
@@ -737,6 +743,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExaminationsPapers_StationCar1">
+          <End Role="StationCar" Type="TSMTModel.Store.StationCar" Multiplicity="0..1" />
+          <End Role="ExaminationsPapers" Type="TSMTModel.Store.ExaminationsPapers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationCar">
+              <PropertyRef Name="StationCarIID" />
+            </Principal>
+            <Dependent Role="ExaminationsPapers">
+              <PropertyRef Name="StationCarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExaminationsPapers_Venues">
           <End Role="Venues" Type="TSMTModel.Store.Venues" Multiplicity="1" />
           <End Role="ExaminationsPapers" Type="TSMTModel.Store.ExaminationsPapers" Multiplicity="*" />
@@ -977,6 +995,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StationCar_Cars1">
+          <End Role="Cars" Type="TSMTModel.Store.Cars" Multiplicity="0..1" />
+          <End Role="StationCar" Type="TSMTModel.Store.StationCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="StationCar">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UniversityExamination_Examinations">
           <End Role="Examinations" Type="TSMTModel.Store.Examinations" Multiplicity="1" />
           <End Role="UniversitiesExaminations" Type="TSMTModel.Store.UniversitiesExaminations" Multiplicity="*" />
@@ -1054,7 +1084,7 @@
           <EntitySet Name="ScheduleExams" EntityType="TSMTModel.ScheduleExam" />
           <EntitySet Name="Sponsors" EntityType="TSMTModel.Sponsor" />
           <EntitySet Name="Stations" EntityType="TSMTModel.Station" />
-          <EntitySet Name="sysdiagrams" EntityType="TSMTModel.sysdiagram" />
+          <EntitySet Name="StationCars" EntityType="TSMTModel.StationCar" />
           <EntitySet Name="Universities" EntityType="TSMTModel.University" />
           <EntitySet Name="UniversitiesExaminations" EntityType="TSMTModel.UniversitiesExamination" />
           <EntitySet Name="Venues" EntityType="TSMTModel.Venue" />
@@ -1114,6 +1144,10 @@
           <AssociationSet Name="FK_ExaminationsPapers_Cars" Association="TSMTModel.FK_ExaminationsPapers_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationCar_Cars1" Association="TSMTModel.FK_StationCar_Cars1">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="StationCar" EntitySet="StationCars" />
           </AssociationSet>
           <AssociationSet Name="FK_ChairitiesExams_Charities" Association="TSMTModel.FK_ChairitiesExams_Charities">
             <End Role="Charities" EntitySet="Charities" />
@@ -1181,6 +1215,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Station" Association="TSMTModel.FK_ExaminationsPapers_Station">
             <End Role="Station" EntitySet="Stations" />
+            <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExaminationsPapers_StationCar1" Association="TSMTModel.FK_ExaminationsPapers_StationCar1">
+            <End Role="StationCar" EntitySet="StationCars" />
             <End Role="ExaminationsPapers" EntitySet="ExaminationsPapers" />
           </AssociationSet>
           <AssociationSet Name="FK_ExaminationsPapers_Venues" Association="TSMTModel.FK_ExaminationsPapers_Venues">
@@ -1299,6 +1337,7 @@
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_Cars_ChairitiesExams" FromRole="Cars" ToRole="ChairitiesExams" />
           <NavigationProperty Name="Sponsor" Relationship="TSMTModel.FK_Cars_Sponsors" FromRole="Cars" ToRole="Sponsors" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="Cars" ToRole="ExaminationsPapers" />
+          <NavigationProperty Name="StationCars" Relationship="TSMTModel.FK_StationCar_Cars1" FromRole="Cars" ToRole="StationCar" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -1391,6 +1430,7 @@
           <Property Name="ParticipantVolunteerID" Type="Int32" />
           <Property Name="StatitonID" Type="Int32" />
           <Property Name="PickUpTime" Type="Int32" />
+          <Property Name="StationCarID" Type="Int32" />
           <NavigationProperty Name="Candidate" Relationship="TSMTModel.FK_ExamsPaper_Candidates" FromRole="ExaminationsPapers" ToRole="Candidates" />
           <NavigationProperty Name="Car" Relationship="TSMTModel.FK_ExaminationsPapers_Cars" FromRole="ExaminationsPapers" ToRole="Cars" />
           <NavigationProperty Name="ChairitiesExam" Relationship="TSMTModel.FK_ExaminationsPapers_ChairitiesExams" FromRole="ExaminationsPapers" ToRole="ChairitiesExams" />
@@ -1399,6 +1439,7 @@
           <NavigationProperty Name="ParticipantVolunteer" Relationship="TSMTModel.FK_ExaminationsPapers_ParticipantVolunteer" FromRole="ExaminationsPapers" ToRole="ParticipantVolunteer" />
           <NavigationProperty Name="Room" Relationship="TSMTModel.FK_ExaminationsPapers_Rooms" FromRole="ExaminationsPapers" ToRole="Rooms" />
           <NavigationProperty Name="Station" Relationship="TSMTModel.FK_ExaminationsPapers_Station" FromRole="ExaminationsPapers" ToRole="Station" />
+          <NavigationProperty Name="StationCar" Relationship="TSMTModel.FK_ExaminationsPapers_StationCar1" FromRole="ExaminationsPapers" ToRole="StationCar" />
           <NavigationProperty Name="Venue" Relationship="TSMTModel.FK_ExaminationsPapers_Venues" FromRole="ExaminationsPapers" ToRole="Venues" />
           <NavigationProperty Name="UniversitiesExamination" Relationship="TSMTModel.FK_ExamsPaper_UniversityExamination" FromRole="ExaminationsPapers" ToRole="UniversitiesExaminations" />
           <NavigationProperty Name="Actives" Relationship="TSMTModel.FK_GroupRequest_ExaminationsPapers" FromRole="ExaminationsPapers" ToRole="GroupRequest" />
@@ -1555,15 +1596,14 @@
           <Property Name="StationName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_Station" FromRole="Station" ToRole="ExaminationsPapers" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="StationCar">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="StationCarIID" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="StationCarIID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CarID" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="TSMTModel.FK_StationCar_Cars1" FromRole="StationCar" ToRole="Cars" />
+          <NavigationProperty Name="ExaminationsPapers" Relationship="TSMTModel.FK_ExaminationsPapers_StationCar1" FromRole="StationCar" ToRole="ExaminationsPapers" />
         </EntityType>
         <EntityType Name="University">
           <Key>
@@ -1778,6 +1818,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StationCar_Cars1">
+          <End Role="Cars" Type="TSMTModel.Car" Multiplicity="0..1" />
+          <End Role="StationCar" Type="TSMTModel.StationCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="StationCar">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ChairitiesExams_Charities">
           <End Role="Charities" Type="TSMTModel.Charity" Multiplicity="1" />
           <End Role="ChairitiesExams" Type="TSMTModel.ChairitiesExam" Multiplicity="*" />
@@ -1979,6 +2031,18 @@
             </Principal>
             <Dependent Role="ExaminationsPapers">
               <PropertyRef Name="StatitonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaminationsPapers_StationCar1">
+          <End Role="StationCar" Type="TSMTModel.StationCar" Multiplicity="0..1" />
+          <End Role="ExaminationsPapers" Type="TSMTModel.ExaminationsPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationCar">
+              <PropertyRef Name="StationCarIID" />
+            </Principal>
+            <Dependent Role="ExaminationsPapers">
+              <PropertyRef Name="StationCarID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2273,6 +2337,7 @@
                 <ScalarProperty Name="ParticipantVolunteerID" ColumnName="ParticipantVolunteerID" />
                 <ScalarProperty Name="StatitonID" ColumnName="StatitonID" />
                 <ScalarProperty Name="PickUpTime" ColumnName="PickUpTime" />
+                <ScalarProperty Name="StationCarID" ColumnName="StationCarID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2407,14 +2472,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TSMTModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="StationCars">
+            <EntityTypeMapping TypeName="TSMTModel.StationCar">
+              <MappingFragment StoreEntitySet="StationCar">
+                <ScalarProperty Name="StationCarIID" ColumnName="StationCarIID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

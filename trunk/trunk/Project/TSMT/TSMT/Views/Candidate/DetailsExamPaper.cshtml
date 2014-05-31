@@ -7,7 +7,56 @@
 @model ExaminationsPaper
 
 <script src="/Content/js/TSMTViewOnMap.js"></script>
+<script type="text/javascript">
+    function checkDate() {
+        var examDate = new Date(document.getElementById("date").textContent);
+        var now = new Date;
+        if ((examDate - now) / 86400000 >= 3) {
+            return true;
+        } else {
+            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể đăng ký được nữa");
+            return false;
+        }
+    }
+</script>
+<script src="/Content/js/jquery-1.6.4.js"></script>
+<script src="/Content/js/jquery-ui-1.10.3.js"></script>
+<script src="/Content/js/jquery.signalR-1.1.3.js"></script>
 
+<!-- duong dan de tu dong sinh ra cac file ho tro ket noi cua SignalR -->
+<script src="/signalr/hubs"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var hub = $.connection.COUNTING; // khai bao connection vao bien (xem ben CountingHub.cs)
+
+        // Ham cua client co kieu: hub.client.TenHam
+
+        hub.client.counted = function (count) { // vua co mot click, nhan thong tin tu server va show ra.
+            $("#count").text(count);
+        };
+
+        hub.client.getInfo = function (count) { // ham nay co y nghia 
+            $("#count").text(count);
+        };
+
+        // tuong tu nhu $(document).ready()
+        // ham nay co y nghia la connection da ket noi thanh cong
+        // va nhung code viet trong ham nay bat dau duoc thuc hien.
+        $.connection.hub.start().done(function () {
+            $("#status").text("Connected!"); // thong bao da ket noi thanh cong
+
+            // sau khi ket noi thanh cong, client ko tu dong lay thong tin moi tu server
+            // cho nen client phai goi thong tin moi. Thong thuong thi xai AJAX
+            // nhung demo luon SignalR de phong phu
+            // Ham nay se goi ham "getCount" cua server (xem ben CountingHub.cs)
+            hub.server.getCount();
+
+            $("#clickme").click(function () { // khi button "clickme" duoc bam thi ham nay duoc goi
+                hub.server.goCount(); // goi ham "goCount" cua server (xem ben CountingHub.cs)
+            });
+        });
+    });
+</script>
 @section Breadcrumbs {
     <div class="breadcrumbs margin-bottom-20">
         <div class="container">
@@ -29,7 +78,11 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
+<<<<<<< .mine
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();"class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
+=======
                 <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>
+>>>>>>> .r418
             </h3>
         }
         else
@@ -56,7 +109,9 @@
             <table class="table table-hover">
                 <tr>
                     <td style="vertical-align: middle">Kỳ thi</td>
-                    <td style="vertical-align: middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a></td>
+                    <td style="vertical-align: middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a>
+                        <div id="date" style="display: none">@Model.UniversitiesExamination.Examination.BeginDate</div>
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle">Trường</td>
