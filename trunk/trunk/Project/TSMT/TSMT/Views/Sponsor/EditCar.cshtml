@@ -66,9 +66,26 @@
             });
         }
     }
+    function synChange() {
+        if (document.getElementById("qwe").selectedIndex == 0) {
+            document.getElementById("date").selectedIndex = 0;
+        } else {
+            document.getElementById("date").selectedIndex = document.getElementById("qwe").selectedIndex;
+        }
+    }
+    function checkDate() {
+        var examDate = new Date(document.getElementById("date")[document.getElementById("date").selectedIndex].textContent);
+        var now = new Date;
+        if ((examDate - now) / 86400000 >= 1) {
+            return true;
+        } else {
+            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể tài trợ được nữa");
+            return false;
+        }
+    }
 </script>
 
-@using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post, new { id = "FormValidate" }))
+@using (Html.BeginForm("EditCar", "Sponsor", FormMethod.Post, new { id = "FormValidate" , onsubmit = "return checkDate();"}))
 {
     <div class="col-md-5">
         <div class="panel panel-green margin-bottom-20">
@@ -83,23 +100,45 @@
                     <tr>
                         <td style="vertical-align: middle">Tài Trợ Cho: <span class="required">*</span></td>
                         <td>
-                            <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                            <select id="qwe" onchange="callAjax(this.value);synChange();" class="form-control">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                                 {
                                     if (Model.CharityExamID == null)
                                     { 
-                                    <option value="@item.ExaminationID">@item.Name</option>
+                                        <option value="@item.ExaminationID">@item.Name</option>
                                     }
                                     else
                                     {
                                         if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
                                         {
-                                    <option value="@item.ExaminationID" selected="selected">@item.Name</option>
+                                            <option value="@item.ExaminationID" selected="selected">@item.Name</option>
                                         }
                                         else
                                         {
-                                    <option value="@item.ExaminationID">@item.Name</option>
+                                            <option value="@item.ExaminationID">@item.Name</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                            <select id="date" style="display:none " class="form-control">
+                                <option value="0" selected>---</option>
+                                @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                                {
+                                    if (Model.CharityExamID == null)
+                                    { 
+                                    <option value="@item.ExaminationID">@item.BeginDate</option>
+                                    }
+                                    else
+                                    {
+                                        if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
+                                        {
+                                    <option value="@item.ExaminationID" selected="selected">@item.BeginDate</option>
+                                        }
+                                        else
+                                        {
+                                    <option value="@item.ExaminationID">@item.BeginDate</option>
                                         }
                                     }
 
