@@ -53,8 +53,6 @@
                         <th>Kì thi</th>
                         <th>Tổng số chỗ</th>
                         <th>Số chỗ còn trống</th>
-                        @*<th>Tên tài xế</th>
-                                    <th>SĐT tài xế</th>*@
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -77,28 +75,31 @@
                             {
                                 <td style="vertical-align: middle">@car.ChairitiesExam.Examination.Name</td>
                             }
-@*<<<<<<< .mine
+                            @*
                             <td style="vertical-align: middle">@car.TotalSlots</td>
                             <td style="vertical-align: middle">@car.AvailableSlots</td>
                             <td style="vertical-align: middle">
                                 @if (@car.ChairitiesExam != null)
                                 {
-                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>
+                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="fa fa-location-arrow"></i></a>
                                 }
+<<<<<<< .mine
+=======
 =======*@
-                            <td style="vertical-align:middle">@car.TotalSlots</td>
-                            <td style="vertical-align:middle">@car.AvailableSlots</td>
-                            <td style="vertical-align:middle">
-  @if(@car.ChairitiesExam != null)
-  {
-      <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="fa fa-location-arrow"></i></a>
-  }
+                            <td style="vertical-align: middle">@car.TotalSlots</td>
+                            <td style="vertical-align: middle">@car.AvailableSlots</td>
+                            <td style="vertical-align: middle">
+                                @if (@car.ChairitiesExam != null)
+                                {
+                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="fa fa-location-arrow"></i></a>
+                                }
 
                                     
 
 @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>*@
+@*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>*@
 
-                                @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>*@
+@*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>*@
 
                                 @if (car.ExaminationsPapers.Count == 0)
                                 {
