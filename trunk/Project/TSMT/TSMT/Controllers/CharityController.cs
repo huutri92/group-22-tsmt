@@ -918,6 +918,7 @@ namespace TSMT.Controllers
             ViewData["ceId"] = id;
             ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             ViewData["ExamName"] = cExam.Examination.Name;
+            ViewData["BeginDate"] = cExam.Examination.BeginDate;
             ViewData["rooms"] = db.Rooms.Where(r => r.LodgeID == lodgeId).ToList();
             Lodge lodge = db.Lodges.FirstOrDefault(l => l.LodgeID == lodgeId);
             return View(lodge);
@@ -1668,31 +1669,32 @@ namespace TSMT.Controllers
         public ActionResult ManualAssignToRoom(int id)//ceId
         {
             var listLodge = db.Lodges.Where(r => r.CharityExamID == id && r.IsApproved).ToList();
-            List<Lodge> lodges = new List<Lodge>();
-            bool canNotInRoom = false;
-            bool lodExistCan = false;
-            foreach (Lodge lod in listLodge)
-            {
-                foreach (var e in lod.ExaminationsPapers)
-                {
-                    if (e.RoomID == null)
-                    {
-                        canNotInRoom = true;
-                    }
-                    if (canNotInRoom)
-                    {
-                        lodExistCan = true;
-                        break;
-                    }
-                }
-                if (lodExistCan)
-                {
-                    lodges.Add(lod);
-                }
-                canNotInRoom = false;
-                lodExistCan = false;
-            }
-            return View(lodges);
+            //List<Lodge> lodges = new List<Lodge>();
+            //bool canNotInRoom = false;
+            //bool lodExistCan = false;
+            //foreach (Lodge lod in listLodge)
+            //{
+            //    foreach (var e in lod.ExaminationsPapers)
+            //    {
+            //        if (e.RoomID == null)
+            //        {
+            //            canNotInRoom = true;
+            //        }
+            //        if (canNotInRoom)
+            //        {
+            //            lodExistCan = true;
+            //            break;
+            //        }
+            //    }
+            //    if (lodExistCan)
+            //    {
+            //        lodges.Add(lod);
+            //    }
+            //    canNotInRoom = false;
+            //    lodExistCan = false;
+            //}
+            ViewData["listLodges"] = listLodge;
+            return View(listLodge);
         }
 
 
@@ -1708,7 +1710,7 @@ namespace TSMT.Controllers
         public JsonResult ResultAjaxLodgeRoom(int id)
         {
             var rooms = from r in db.Rooms
-                        where r.LodgeID == id && r.AvailableSlots != 0
+                        where r.LodgeID == id
                         select new
                         {
                             value = r.RoomID,
@@ -1988,6 +1990,73 @@ namespace TSMT.Controllers
                 ViewData["EndPlace"] = pv.ExaminationsPaper.Venue.Address;
             }
             return View(pv);
+        }
+        #endregion
+        #region ASSIGN-CARS-STATION
+        public ActionResult AssignCarForStation(int id) // ceID
+        {
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            return View(ce);
+        }
+        [HttpPost]
+        public JsonResult GetDataAssignCarForStation(int id) // ceID
+        {
+
+            DataAssignCarForStation record = new DataAssignCarForStation();
+            List<DataAssignCarForStation> results = new List<DataAssignCarForStation>();
+            var eps = db.ExaminationsPapers.Where(r => r.CharityExamID == id);
+            foreach (var item in eps)
+            {
+                record = new DataAssignCarForStation();
+                record.fname = item.Candidate.Account.Profile.Firstname;
+                record.name = item.Candidate.Account.Profile.Lastname + " " + record.fname;
+                record.nameLink = "<a href='/Charity/ViewExamPaper/" + item.ExamPaperID + "'>" + record.name + "</a>";
+
+                record.station = item.Station.StationName;
+
+                record.pickuptime = item.PickUpTime == 1 ? "11h00 (sáng)" : "17h00 (chiều)";
+
+                if (item.StationCarID == null)
+                {
+                    record.transport = "#Chưa được sắp#";
+                }
+                else
+                {
+                    record.transport = item.StationCar.Car.NumberPlate;
+                }
+                results.Add(record);
+
+            }
+            return Json(new { success = true, data = results });
+        }
+        public ActionResult AssignToCarForStation(int id)
+        {
+            var CountStation = db.Stations.Count();
+            var cars = db.Cars.Where(r => r.CharityExamID == id).ToList();
+            for (int j = 0; j < CountStation; ++j)
+            {
+                var Candidates = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.StatitonID == j).ToList();
+                var CandidatesCount = db.ExaminationsPapers.Count(r => r.CharityExamID == id && r.StatitonID == j);
+                foreach (var i in cars)
+                {
+                    if (i.TotalSlots >= CandidatesCount)
+                    {
+                        StationCar sc = new StationCar();
+                        sc.CarID = i.CarID;
+                        db.StationCars.Add(sc);
+                        db.SaveChanges();
+                        foreach (var e in Candidates)
+                        {
+                            e.StationCarID = sc.StationCarIID;
+                        }
+                        cars.Remove(i);
+                        db.SaveChanges();
+                        break;
+                    }
+
+                }
+            }
+            return RedirectToAction("AssignCarForStation", new { id = id });
         }
         #endregion
     }

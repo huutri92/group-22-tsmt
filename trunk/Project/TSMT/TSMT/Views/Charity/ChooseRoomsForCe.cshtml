@@ -52,34 +52,41 @@
     //}
 
 
-
-    $(document).ready(function () {
-        $("#saveall").click(function () {
+    $(document).ready(function() {
+        $("#saveall").click(function() {
             var eId;
             var roomId = "";
             var lodgeId = document.getElementById("lodgeId").value;
             var cId = document.getElementById("charityid").value;
             var eId = document.getElementById("charityexamid").value;
-            $("[id*=tableroom] input:checked").each(function () {
+            $("[id*=tableroom] input:checked").each(function() {
 
                 roomId += $(this).val() + "-";
 
             });
-            if (roomId != "") {
-                //eId = parseInt(document.getElementById("qwe").value);
-                $.ajax({
-                    url: 'ChooseRoomsForCe',
-                    data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
-                    type: 'POST',
-                    success: function (results) {
-                        window.location.assign("@Url.Content("~/Charity/ManageLodge/" + @ViewData["ceId"])");
+            var examDate = new Date(document.getElementById("exam").textContent);
+            var now = new Date;
+            if ((examDate - now) / 86400000 >= 1) {
+                if (roomId != "") {
+                    //eId = parseInt(document.getElementById("qwe").value);
+                    $.ajax({
+                        url: 'ChooseRoomsForCe',
+                        data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
+                        type: 'POST',
+                        success: function(results) {
+                            window.location.assign("@Url.Content("~/Charity/ManageLodge/" + @ViewData["ceId"])");
 
-                    }
-                });
+                        }
+                    });
                 } else {
                     eId = 0;
                     alert("No item has been selected.");
                 }
+                return true;
+            } else {
+                alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể xếp chỗ trọ được nữa");
+                return false;
+            }
 
         });
     });
@@ -90,7 +97,7 @@
 
 <script type="text/javascript">
     function checkAll(source) {
-                checkboxes = document.getElementsByName('charityexamid');
+        checkboxes = document.getElementsByName('charityexamid');
         for (var i = 0, n = checkboxes.length; i < n; i++) {
             checkboxes[i].checked = source.checked;
         }
@@ -121,12 +128,13 @@
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-list"></i>Chọn phòng 
             </h3>
-
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td >Dùng Cho Kì Thi: </td><td colspan="3"><b>@ViewData["ExamName"]</b> </td>
+                    <td>Dùng Cho Kì Thi: </td>
+                    <td colspan="3"><b>@ViewData["ExamName"]</b><div id="date">@ViewData["BeginDate"]</div>
+                    </td>
                     @*<td>
                         <select id="qwe" class="form-control">
                             <option value="0" selected>---</option>
@@ -181,8 +189,8 @@
                 </tr>
                 <tr>
                     <td>Địa chỉ</td>
-                    <td >
-                   <b>@Model.Address</b> </td>
+                    <td>
+                        <b>@Model.Address</b> </td>
                 </tr>
                 <tr>
                     <td colspan="4">Vui lòng chọn phòng bên dưới để sử dụng cho kì thi</td>
@@ -204,14 +212,14 @@
                     foreach (var item in ViewData["rooms"] as IEnumerable<Room>)
                     {
                            
-                        <tr>
-                            <td>
-                                <input class="roomid"   type="checkbox" name ="charityexamid" value="@item.RoomID" />
-                            </td>
+                    <tr>
+                        <td>
+                            <input class="roomid"   type="checkbox" name ="charityexamid" value="@item.RoomID" />
+                        </td>
 
-                            <td>@item.RoomName</td>
-                            <td>@item.TotalSlots</td>
-                        </tr>
+                        <td>@item.RoomName</td>
+                        <td>@item.TotalSlots</td>
+                    </tr>
                        
                     }
                 }
@@ -219,6 +227,17 @@
             </table>
         </div>
     </div>
+<<<<<<< .mine
+
+    <div style="float: right">
+        @*<button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="icon-ok-sign"></i>&nbsp;Chọn</button>*@
+        <a href="#" class="btn-u btn-u-green" id="saveall"><i class="icon-ok-sign"></i>&nbsp;Chọn</a>
+        <a href="@Url.Action("ChooseLodgeForCe", "Charity", new { id = ViewData["ceId"] })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Hủy</a>
+        @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
+        @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
+    </div>
+
+=======
                     
                         <div style="float: right">
                             @*<button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="fa fa-ok-sign"></i>&nbsp;Chọn</button>*@
@@ -228,6 +247,7 @@
                             @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
                         </div>
                     
+>>>>>>> .r418
 </div>
 
 

@@ -27,7 +27,7 @@
     //        });
     //    }
     //}
-   
+
 
     //function callAjaxLodgeCharityid(id) {
     //    if (id == 0) {
@@ -40,7 +40,7 @@
     //            type: 'GET',
     //            success: function (results) {
     //                $("#charityid").html("");
-                    
+
     //                for (i in results) {
     //                    var r = results[i];
     //                    $("#charityid").val(r["charityid"]);
@@ -52,32 +52,38 @@
     //}
 
 
-
-    $(document).ready(function () {
-        $("#saveall").click(function () {
+    $(document).ready(function() {
+        $("#saveall").click(function() {
             var eId;
-            var roomId ="";
+            var roomId = "";
             var lodgeId = document.getElementById("lodgeId").value;
             var cId = document.getElementById("charityid").value;
-            $("[id*=tableroom] input:checked").each(function () {
+            $("[id*=tableroom] input:checked").each(function() {
 
                 roomId += $(this).val() + "-";
-                
+
             });
-            if (roomId != "") {
-                eId = parseInt(document.getElementById("qwe").value);
-                $.ajax({
-                    url: '/Charity/AssignLodgetoCeC',
-                    data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
-                    type: 'POST',
-                    success: function (results) {
-                        window.location.assign("@Url.Content("~/Charity/ManageLodgeCharity")");
+            var examDate = new Date(document.getElementById("date")[document.getElementById("date").selectedIndex].textContent);
+            var now = new Date;
+            if ((examDate - now) / 86400000 >= 1) {
+                if (roomId != "") {
+                    eId = parseInt(document.getElementById("qwe").value);
+                    $.ajax({
+                        url: '/Charity/AssignLodgetoCeC',
+                        data: { "eId": eId, "roomId": roomId, "lodgeId": lodgeId, "cId": cId },
+                        type: 'POST',
+                        success: function(results) {
+                            window.location.assign("@Url.Content("~/Charity/ManageLodgeCharity")");
 
                     }
                 });
             } else {
                 eId = 0;
                 alert("Không thể sử dụng nhà trọ này vì không đủ thông tin");
+                }
+            } else {
+                alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể chỗ trọ được nữa");
+                return false;
             }
 
         });
@@ -120,23 +126,44 @@
                 <tr>
                     <td style="vertical-align:middle">Dùng Cho: </td>
                     <td>
-                        <select id="qwe" class="form-control" style="width:auto">
+                        <select id="qwe" class="form-control" onchange="synChange();" style="width:auto">
                             <option value="0" selected>---</option>
                             @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                             {
                                 if (Model.CharityExamID == null)
                                 { 
-                                <option value="@item.ExaminationID">@item.Name</option>
+                                    <option value="@item.ExaminationID">@item.Name</option>
                                 }
                                 else
                                 {
                                     if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
                                     {
-                                <option value="@item.ExaminationID" selected="selected">@item.Name</option>
+                                        <option value="@item.ExaminationID" selected="selected">@item.Name</option>
                                     }
                                     else
                                     {
-                                <option value="@item.ExaminationID">@item.Name</option>
+                                        <option value="@item.ExaminationID">@item.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <select id="date" class="form-control" style="width:auto;display: ">
+                            <option value="0" selected>---</option>
+                            @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
+                            {
+                                if (Model.CharityExamID == null)
+                                { 
+                                <option value="@item.ExaminationID">@item.BeginDate</option>
+                                }
+                                else
+                                {
+                                    if (item.ExaminationID == Model.ChairitiesExam.Examination.ExaminationID)
+                                    {
+                                <option value="@item.ExaminationID" selected="selected">@item.BeginDate</option>
+                                    }
+                                    else
+                                    {
+                                <option value="@item.ExaminationID">@item.BeginDate</option>
                                     }
                                 }
                             }
@@ -226,6 +253,24 @@
 
     </div>
 </div>
-
+<script type="text/javascript">
+    function synChange() {
+        if (document.getElementById("qwe").selectedIndex == 0) {
+            document.getElementById("date").selectedIndex = 0;
+        } else {
+            document.getElementById("date").selectedIndex = document.getElementById("qwe").selectedIndex;
+        }
+    }
+    function checkDate() {
+        var examDate = new Date(document.getElementById("date")[document.getElementById("date").selectedIndex].textContent);
+        var now = new Date;
+        if ((examDate - now) / 86400000 >= 3) {
+            return true;
+        } else {
+            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể xếp xe được nữa");
+            return false;
+        }
+    }
+    </script>
 
 

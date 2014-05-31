@@ -34,6 +34,7 @@ namespace TSMT.Models
         public Nullable<int> ParticipantVolunteerID { get; set; }
         public Nullable<int> StatitonID { get; set; }
         public Nullable<int> PickUpTime { get; set; }
+        public Nullable<int> StationCarID { get; set; }
     
         public virtual Candidate Candidate { get; set; }
         public virtual Car Car { get; set; }
@@ -43,6 +44,7 @@ namespace TSMT.Models
         public virtual ParticipantVolunteer ParticipantVolunteer { get; set; }
         public virtual Room Room { get; set; }
         public virtual Station Station { get; set; }
+        public virtual StationCar StationCar { get; set; }
         public virtual Venue Venue { get; set; }
         public virtual UniversitiesExamination UniversitiesExamination { get; set; }
         public virtual ICollection<GroupRequest> Actives { get; set; }

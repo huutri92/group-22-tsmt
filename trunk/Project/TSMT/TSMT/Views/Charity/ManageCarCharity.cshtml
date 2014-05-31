@@ -67,16 +67,25 @@
                         foreach (var car in ViewData["carsOfCharity"] as IEnumerable<Car>)
                         {                   
                         <tr id ="@car.CarID">
-                            <td style="vertical-align:middle">@counter</td>
-                            <td style="vertical-align:middle">@car.NumberPlate</td>
+                            <td style="vertical-align: middle">@counter</td>
+                            <td style="vertical-align: middle">@car.NumberPlate</td>
                             @if (car.CharityExamID == null)
                             {
-                                <td style="vertical-align:middle">Chưa thiết lập</td>
+                                <td style="vertical-align: middle">Chưa thiết lập</td>
                             }
                             else
                             {
-                                <td style="vertical-align:middle">@car.ChairitiesExam.Examination.Name</td>
+                                <td style="vertical-align: middle">@car.ChairitiesExam.Examination.Name</td>
                             }
+<<<<<<< .mine
+                            <td style="vertical-align: middle">@car.TotalSlots</td>
+                            <td style="vertical-align: middle">@car.AvailableSlots</td>
+                            <td style="vertical-align: middle">
+                                @if (@car.ChairitiesExam != null)
+                                {
+                                    <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="icon-location-arrow"></i></a>
+                                }
+=======
                             <td style="vertical-align:middle">@car.TotalSlots</td>
                             <td style="vertical-align:middle">@car.AvailableSlots</td>
                             <td style="vertical-align:middle">
@@ -84,9 +93,14 @@
   {
       <a href="@Url.Action("ViewCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-violetRed" title="Xem đường đi trên bản đồ" style="width:40px;height:30px"><i class="fa fa-location-arrow"></i></a>
   }
+>>>>>>> .r418
                                     
 
+<<<<<<< .mine
+@*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="icon-eye-open"></i></a>*@
+=======
                                 @*<a href="@Url.Action("DetailsCarCharity", "Charity", new { id = @car.CarID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>*@
+>>>>>>> .r418
                                 @if (car.ExaminationsPapers.Count == 0)
                                 {
                                     <a href="@Url.Action("EditCar", "Charity", new { id = @car.CarID })" class="btn-u btn-u-blue" title="Chỉnh sửa" style="width:40px;height:30px"><i class="fa fa-pencil-square-o"></i></a>

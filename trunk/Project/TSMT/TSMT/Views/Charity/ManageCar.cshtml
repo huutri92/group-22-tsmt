@@ -17,6 +17,16 @@
     $(document).ready(function () {
         $('.popup-confirm').addClass("popup-remove");
     });
+    function checkDate() {
+        var examDate = new Date(document.getElementById("date").textContent);
+        var now = new Date;
+        if ((examDate - now) / 86400000 >= 1) {
+            return true;
+        } else {
+            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể xếp xe được nữa");
+            return false;
+        }
+    }
 </script>
 
 @section Breadcrumbs {
@@ -43,8 +53,14 @@
 <div class="col-md-9">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
+<<<<<<< .mine
+            <div id="date" style="display: none">@Model.Examination.BeginDate</div>
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin về xe của kì thi @Model.Examination.Name
+                <a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" onclick="return checkDate();" class="btn-u btn-u-green"><i class="icon-plus"></i>Chọn xe cho đợt thi</a>
+=======
             <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin về xe của kì thi @Model.Examination.Name
                 <a href="@Url.Action("ChooseCarForCe", "Charity", new { id = Model.CharityExamID })" class="btn-u btn-u-dark-blue"><i class="fa fa-check-square-o"></i>Chọn xe cho đợt thi</a>
+>>>>>>> .r418
             </h3>
 
         </div>
