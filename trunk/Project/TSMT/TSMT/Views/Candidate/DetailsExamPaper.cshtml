@@ -78,11 +78,7 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
-<<<<<<< .mine
-                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();"class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
-=======
-                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>
->>>>>>> .r418
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
