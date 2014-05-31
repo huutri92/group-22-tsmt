@@ -26,7 +26,7 @@
 
 @using (Html.BeginForm("AddRoom", "Charity", FormMethod.Post, new { id = "FormValidate" }))
 {
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-list"></i>&nbsp;Tạo mới phòng
@@ -34,7 +34,7 @@
             </div>
             <div class="panel-body">
                 <input type="hidden" name="lodgeId" value="@Model.LodgeID"/>
-                <table>
+                <table class="table">
                     @*<tr>
                         <td>Tên phòng</td>
                         <td>

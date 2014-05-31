@@ -75,7 +75,7 @@
     </span>
     <span class="notAssigned" style="float: right">
         @*@Html.ActionLink("Sắp phòng", "AssignToRoom", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })*@
-        <a href="@Url.Action("AssignToRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="fa fa-sort-by-attributes-alt"></i>&nbsp;Sắp phòng</a>
+        <a href="@Url.Action("AssignToRoom", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-violet"><i class="fa fa-sort"></i>&nbsp;Sắp phòng</a>
     </span>
 
     <a href="@Url.Action("ManageCandidate", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>

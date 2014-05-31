@@ -22,7 +22,7 @@
 
 @using (Html.BeginForm("EditRoom", "Charity", FormMethod.Post))
 {
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-list"></i>&nbsp;Chỉnh sửa phòng
@@ -30,9 +30,9 @@
             </div>
             <div class="panel-body">
                 <input type="hidden" name="roomId" value="@Model.RoomID"/>
-                <table>
+                <table class="table">
                     <tr>
-                        <td style="vertical-align: middle">Tổng số chỗ *</td>
+                        <td style="vertical-align: middle">Tổng số chỗ <span style="color:red"><b>*</b></span></td>
                         <td>
                             <input type="text" name="TotalSlots" id="TotalSlots" class="form-control" /></td>
                         @*<td><span class="validationMsg" id="valMsgNumberPlate"></span></td>*@
