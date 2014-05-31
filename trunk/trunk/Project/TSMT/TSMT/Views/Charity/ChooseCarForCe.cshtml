@@ -60,12 +60,10 @@
 @*<input type="hidden" id="lodgeId" value="@Model.LodgeID"/>*@
 
 
-<div class="col-md-9">
+<div class="col-md-6">
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin xe của Kì Thi 
-            </h3>
-
+            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin xe của Kì Thi </h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -83,52 +81,47 @@
                     </td>
                     <td colspan="5">@ViewData["totalSlots"]</td>
                 </tr>
-                                @if (ViewBag.totalAvaSlots > 0)
-                                {
-                                    <tr>
-                                    <td>Số Chỗ Ngồi Còn Thiếu</td>
-                                    <td>@ViewData["totalAvaSlots"]</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                        </tr>
-                                    <tr>
-                                    <td colspan="6" style="text-align: center; color:red"><B>Bạn hãy chọn thêm xe cho đợt này!</B> </td>
-                                    </tr>
-                                }
-                                else
-                                {
-                                    <tr>
-                                    <td colspan="5" style="text-align: center; color:red"><B>Hiện tại đã đủ xe để đáp ứng cho đợt này!</B> </td>
+                @if (ViewBag.totalAvaSlots > 0)
+                {
+                    <tr>
+                        <td>Số Chỗ Ngồi Còn Thiếu</td>
+                        <td>@ViewData["totalAvaSlots"]</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: red"><b>Bạn hãy chọn thêm xe cho đợt này!</b> </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: red"><b>Hiện tại đã đủ xe để đáp ứng cho đợt này!</b> </td>
 
-                                    </tr>
-                                }
+                    </tr>
+                }
             </table>
 
         </div>
     </div>
-     <div class="panel panel-orange margin-bottom-20">
+    <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Bạn có thể chọn các xe dưới đây ! Để tài trợ cho Kì Thi
+            <h3 class="panel-title"><i class="fa fa-list"></i>Bạn có thể chọn các xe dưới đây ! Để tài trợ cho Kì Thi
             </h3>
-
         </div>
         <div class="panel-body">
+            <input type="hidden"  value="@Model.CharityID" id ="charityid" />
+            <input type="hidden"  value="@Model.CharityExamID" id ="charityExamid" />
             <table class="table table-hover">
-               
-                    <input type="hidden"  value="@Model.CharityID" id ="charityid" />
-                    <input type="hidden"  value="@Model.CharityExamID" id ="charityExamid" />
                 <tr>
                     <td colspan="2">Vui lòng chọn xe bên dưới để sử dụng cho kì thi</td>
                 </tr>
-
-
-
             </table>
             <table id="tableroom" class="table table-hover">
                 <tr>
                     <td>
-                          <input class="carid2"   type="checkbox" name ="charityexamid2"  />
+                        <input class="carid2" type="checkbox" name="charityexamid2" />
                     </td>
                     <td>Biển Số Xe</td>
                     <td>Tổng Số Chỗ</td>
@@ -161,16 +154,19 @@
 
         </div>
     </div>
-    <tr>
-        <td colspan="4">
-            <div style="float: right">
-                <button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="icon-pencil"></i>&nbsp;Chọn</button>
-                @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
-                @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
+     <div style="float: right">
+                <button type="submit" value="Chọn" class="btn-u btn-u-purple" id="saveall"><i class="fa fa-check"></i>&nbsp;Chọn</button>
+                <button type="button" onclick="location.href='/Charity/ManageCar/'+ @Model.CharityExamID" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</button>
             </div>
-            <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
+   @* <table>
+        <tr>
+        <td colspan="4">
+           
+            <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
         </td>
     </tr>
+    </table>
+    *@
 </div>
 
 
