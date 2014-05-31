@@ -47,7 +47,7 @@
         function checkDate() {
             var examDate = new Date(document.getElementById("date")[document.getElementById("date").selectedIndex].textContent);
             var now = new Date;
-            if ((examDate - now) / 86400000 >= 3) {
+            if ((examDate - now) / 86400000 >= 1) {
                 return true;
             } else {
                 alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể xếp xe được nữa");
@@ -132,12 +132,6 @@
             <input type="hidden"  value="@Model.CharityID" id ="charityid" />
             <input type="hidden"  value="@Model.CharityExamID" id ="charityExamid" />
             <table class="table table-hover">
-<<<<<<< .mine
-
-                <input type="hidden"  value="@Model.CharityID" id ="charityid" />
-                <input type="hidden"  value="@Model.CharityExamID" id ="charityExamid" />
-=======
->>>>>>> .r418
                 <tr>
                     <td colspan="2">Vui lòng chọn xe bên dưới để sử dụng cho kì thi</td>
                 </tr>
@@ -178,24 +172,21 @@
 
         </div>
     </div>
-     <div style="float: right">
-                <button type="submit" value="Chọn" class="btn-u btn-u-purple" id="saveall"><i class="fa fa-check"></i>&nbsp;Chọn</button>
-                <button type="button" onclick="location.href='/Charity/ManageCar/'+ @Model.CharityExamID" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</button>
-            </div>
-   @* <table>
+    <div style="float: right">
+        <button type="submit" value="Chọn" class="btn-u btn-u-purple" id="saveall"><i class="fa fa-check"></i>&nbsp;Chọn</button>
+        <button type="button" onclick="location.href='/Charity/ManageCar/'+ @Model.CharityExamID" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</button>
+    </div>
+    @* <table>
         <tr>
         <td colspan="4">
-<<<<<<< .mine
             <div style="float: right">
                 <button type="submit" value="Chọn" onclick="" class="btn-u btn-u-green" id="saveall"><i class="icon-pencil"></i>&nbsp;Chọn</button>
                 @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
-                @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
-            </div>
+    @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
+    @*</div>
             <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
-=======
-           
+          
             <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
->>>>>>> .r418
         </td>
     </tr>
     </table>
