@@ -58,8 +58,8 @@
                 <table class="table table-hover">
                     <tr>
                         <td style="vertical-align: middle">Tài Trợ Cho: <span class="required">*</span></td>
-                        <td>
-                            <select id="qwe" onchange="callAjax(this.value)">
+                        <td style="vertical-align:middle">
+                            <select id="qwe" onchange="callAjax(this.value)" class="form-control" style="width:auto">
                                 <option value="0" selected>---</option>
                                 @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                                 {
@@ -68,29 +68,30 @@
                             </select>
                         </td>
                         <td style="vertical-align: middle">Tổ Chức: <span class="required">*</span></td>
-                        <td>
-                            <select id="asd" name="asd"></select>
+                        <td style="vertical-align:middle">
+                            <select id="asd" name="asd" class="form-control" style="width:auto"></select>
                         </td>
                     </tr>
                     <tr>
-                        <td>Số Tiền <span class="required">*</span></td>
-                        <td>
-                            <input type="text" name="FundSponsored" id="input" />
+                        <td style="vertical-align: middle">Số Tiền <span class="required">*</span></td>
+                        <td style="vertical-align: middle">
+                            <input type="text" name="FundSponsored" id="input"  class="form-control"/>
                             <script>
                                 $("#input").priceFormat({ prefix: '', centsLimit: 0 });
                             </script>
 
                         </td>
-                        <td>VNĐ</td>
-                        <td></td>
+                        <td style="vertical-align: middle">VNĐ</td>
+                        <td style="vertical-align:middle"></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div style="float: right">
-            <button type="submit" class="btn-u btn-u-sea"><i class="fa fa-plus">&nbsp;Tài trợ</i></button>
+            <button type="submit" class="btn-u btn-u-dark-blue"><i class="fa fa-gift">&nbsp;Tài trợ</i></button>
+             <button type="button" onclick="location.href ='/Sponsor/ManageFund/'" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</button>
         </div>
-        <button type="button" onclick="location.href ='/Sponsor/ManageFund/'" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>
+       
     </div>
 }
 @*<script type="text/javascript">

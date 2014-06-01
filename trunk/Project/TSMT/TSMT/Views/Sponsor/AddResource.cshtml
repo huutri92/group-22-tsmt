@@ -169,18 +169,18 @@
     @Html.Partial("_SponsorSidebarPartial")
     @using (Html.BeginForm("AddResource", "Sponsor", FormMethod.Post, new { id = "FormValidate", onsubmit = "return checkDate();" }))
     {
-        <div class="col-md-9">
+        <div class="col-md-6">
             @* <form method="post" action="/Sponsor/AddResource">*@
             <div class="panel panel-green">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-user"></i>Thông tin tài trợ</h3>
+                    <h3 class="panel-title"><i class="fa fa-info-circle"></i>Thông tin tài trợ</h3>
                 </div>
                 <div class="panel-body">
-
-                    <table>
+                    <input type="hidden" name="charityid" id="charityid" />
+                    <table class="table">
                         <tr>
-                            <td>Tài Trợ Cho: <span class="required">*</span></td>
-                            <td>
+                            <td style="vertical-align:middle">Tài Trợ Cho: <span class="required" style="color:red">*</span></td>
+                            <td style="vertical-align:middle">
                                 <select id="qwe" onchange="callAjax(this.value);synChange();" class="form-control">
                                     <option value="0" selected>---</option>
                                     @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
@@ -196,16 +196,16 @@
                                     }
                                 </select>
                             </td>
-                            <td>Tổ Chức: <span class="required">*</span></td>
-                            <td>
+                            <td style="vertical-align:middle">Tổ Chức: <span class="required">*</span></td>
+                            <td style="vertical-align:middle">
                                 <select id="asd" name="asd" onchange="callAjaxLodgeCharityid(this.value)" class="form-control"></select>
-                            </td>
-                            <input type="hidden" name="charityid" id="charityid" />
+                            </td >
+                            
                         </tr>
                         <tr>
-                            <td>Hình Thức <span class="required">*</span></td>
-                            <td>
-                                <select id="resource" name="resource" onchange="changeRole(this.options[this.selectedIndex].text);" class="form-control">
+                            <td style="vertical-align:middle">Hình Thức <span class="required">*</span></td>
+                            <td colspan="3" style="vertical-align:middle">
+                                <select id="resource" name="resource" onchange="changeRole(this.options[this.selectedIndex].text);" class="form-control" style="width:auto">
                                     <option value="null" selected>---</option>
                                     <option value="1">Tiền</option>
                                     <option value="2">Xe</option>
@@ -216,16 +216,16 @@
                     </table>
 
                     <div id="Tiền" style="display: none">
-                        <table class="table table-hover">
+                        <table class="table">
                             <tr>
-                                <td>Số Tiền <span class="required">*</span></td>
-                                <td>
-                                    <input type="text" name="FundSponsored" id="input" class="form-control" />
+                                <td style="vertical-align:middle">Số Tiền <span class="required">*</span></td>
+                                <td style="vertical-align:middle;text-align:right">
+                                    <input type="text" name="FundSponsored" id="input" class="form-control"/>
                                     <script>
                                         $("#input").priceFormat({ prefix: '', centsLimit: 0 });
                                     </script>
                                 </td>
-                                <td>VNĐ</td>
+                                <td style="vertical-align:middle;text-align:left">VNĐ</td>
                             </tr>
                         </table>
                     </div>
@@ -322,9 +322,10 @@
                 </div>
             </div>
             <div style="float: right">
-                <button type="submit" class="btn-u btn-u-sea"><i class="fa fa-plus">&nbsp;Tài Trợ</i></button>
+                <button type="submit" class="btn-u btn-u-dark-blue"><i class="fa fa-gift">&nbsp;Tài Trợ</i></button>
+                <button type="button" class="btn-u btn-u-red" onclick="location.href ='/Sponsor/Index/'"><i class="fa fa-times"></i>&nbsp;Hủy</button>
             </div>
-            <button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>
+            @*<button type="button" onclick="location.href ='/Sponsor/Index/'" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>*@
 
         </div>
     }

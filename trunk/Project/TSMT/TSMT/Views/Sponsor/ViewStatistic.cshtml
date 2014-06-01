@@ -1,30 +1,49 @@
 ﻿@using TSMT.Models
 @{
     ViewBag.Title = "Xem Thống Kê";
+    ViewBag.Active = "ViewStatistic";
     Layout = "~/Views/Shared/_LayoutStatistic.cshtml";
 }
 
 <script src="~/Content/js/highchart.js"></script>
 <script src="~/Content/js/exporting.js"></script>
 
+
+@section Breadcrumbs {
+        <!--=== Breadcrumbs ===-->
+        <div class="breadcrumbs margin-bottom-25">
+            <div class="container">
+                <h1 class="pull-left">@ViewBag.Title</h1>
+                <ul class="pull-right breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                    <li><a href="@Url.Action("Index", "Sponsor")">Nhà tài trợ</a></li>
+                    <li class="active">@ViewBag.Title</li>
+                </ul>
+            </div>
+        </div>
+    }
+
+
+@Html.Partial("_SponsorSidebarPartial")
+
 <h1></h1>
 <h5></h5>
 <div class="col-md-9" id="showInformation">
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-user"></i>Xem Thống Kê
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Xem Thống Kê
             </h3>
         </div>
         <div class="panel-body">
-            <h3>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</h3>
+            <h3>Vui Lòng Chọn Kì Thi và Tổ Chức Muốn Xem</h3>
             <table class="table table-hover">
                 @* <tr>
-                        <td>Vui Lòng Chọ Kì Thi và Tổ Chức Muốn Xem</td>
+                        <td>Vui Lòng Chọn Kì Thi và Tổ Chức Muốn Xem</td>
                     </tr>*@
                 <tr>
                     <td style="vertical-align:middle">Kì Thi </td>
-                    <td>
-                        <select id="qwe" onchange="callAjax(this.value)" class="form-control">
+                    <td style="vertical-align:middle">
+                        <select id="qwe" onchange="callAjax(this.value)" class="form-control" style="width:auto">
                             <option value="0" selected>---</option>
                             @foreach (var item in ViewData["Exam"] as IEnumerable<Examination>)
                             {
@@ -32,8 +51,8 @@
                             }
                         </select>
                     </td>
-                    <td style=""vertical-align: middle">Tổ Chức: </td>
-                    <td>
+                    <td style="vertical-align: middle">Tổ Chức: </td>
+                    <td style="vertical-align:middle">
                         <select id="ceId" onchange="showForm1()" name="ceId" class="form-control"></select>
                     </td>
                 </tr>
@@ -41,12 +60,12 @@
             </table>
 
             <div id="Resource" style="display: none">
-                <h3>Xe</h3>
+                <h3><i class="fa fa-car"></i>&nbsp;Xe</h3>
                 <table class="table table-hover">
                     <tbody id="showcar">
                     </tbody>
                 </table>
-                <h3>Nhà</h3>
+                <h3><i class="fa fa-building-o"></i>&nbsp;Nhà</h3>
                 <table class="table table-hover">
                     <tbody id="showlodge">
                     </tbody>
@@ -62,13 +81,14 @@
            
         </div>
     </div>
-    <a href="@Url.Action("Index", "Sponsor")" class="btn btn-info"  id="back1" >Quay lại</a>
-    <a  onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" class="btn btn-info"  id="buttonshow" style="display: none; float:right" >Xem Thống Kê</a>
+    @*<a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"  id="back1"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>*@
+    <button type="button" class="btn-u btn-u-default" onclick="location.href='/Sponsor/Index/'" ><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>
+    <a  onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" class="btn-u btn-u-dark-blue"  id="buttonshow" style="display: none; float:right" ><i class="fa fa-bar-chart-o"></i> Xem Thống Kê</a>
     @*<input id="buttonshow" type="button" value="Xem Thống Kê" name="Xem Thống Kê" onclick="viewcarstatistic(); viewcarstatisticlodge(); showForm2();" onchange="" style="display: none" class="btn btn-info" />*@
 </div>
  <div id="chart" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
            <div id="chartlodge" style="display: none; min-width: 810px; height: 400px; margin: 0 auto"></div>
-<a href="@Url.Action("Index", "Sponsor")" class="btn btn-info"  id="back2" style="display: none">Quay lại</a>
+<a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"  id="back2" style="display: none"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 
             
 
@@ -105,7 +125,7 @@
                 type: 'POST',
                 success: function (results) {
                     $("#showcar").html("");
-                    $("#showcar").append("<tr><td> Biển Số Xe</td><td>Tổng Số Chỗ Ngồi</td><td>Số Chỗ Ngồi Còn Trống</td></tr>");
+                    $("#showcar").append("<tr><td> <b>Biển Số Xe</b></td><td><b>Tổng Số Chỗ Ngồi</b></td><td> <b>Số Chỗ Ngồi Còn Trống</b></td></tr>");
 
                     for (i in results) {
                         var r = results[i];
@@ -120,7 +140,7 @@
                 type: 'POST',
                 success: function (results) {
                     $("#showlodge").html("");
-                    $("#showlodge").append("<tr><td>Địa Chỉ</td><td>Tổng Số Chỗ</td><td>Số Chỗ Ở Còn Trống</td></tr>");
+                    $("#showlodge").append("<tr><td><b>Địa Chỉ</b></td><td><b>Tổng Số Chỗ</b></td><td><b>Số Chỗ Ở Còn Trống</b></td></tr>");
 
                     for (i in results) {
                         var r = results[i];

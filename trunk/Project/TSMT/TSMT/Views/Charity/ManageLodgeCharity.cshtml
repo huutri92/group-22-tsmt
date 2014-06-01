@@ -154,7 +154,7 @@
                                         <a href="#"  onclick="openWindowPopup('/charity/ViewLodge/', @item.LodgeID)" class="btn-u btn-u-green" title="Xem danh sách sinh viên" style="width:40px;height:30px"><i class="fa fa-group"></i></a>
                                         <a href="@Url.Action("DetailLodgeCE", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-violet" title="Xem Chi Tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>
                                         @*<a href="@Url.Action("EditLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-blue" title="Sửa Địa Chỉ"><i class="fa fa-pencil-square-o" style="width: 40px; height: 30px"></i></a>*@
-                                        @*<a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="fa fa-building"></i></a>*@
+                                        @*<a href="@Url.Action("AssignLodgetoCe", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-brown" title="Sử dụng" style="width:40px;height:30px"><i class="fa fa-building-o"></i></a>*@
                                         @if (item.TotalSlotsInUsed == item.AvailableSlots)
                                         { 
                                             <a href="@Url.Action("DeleteLodge", "Charity", new { id = @item.LodgeID })" class="btn-u btn-u-red" title="Xóa nhà trọ này" style="width:40px;height:30px" onclick = "return showPopup('Bạn có chắc chắn muốn xóa địa điểm trọ này không?', this.href, @item.LodgeID , 'del' );"><i class="fa fa-trash-o"></i></a>
