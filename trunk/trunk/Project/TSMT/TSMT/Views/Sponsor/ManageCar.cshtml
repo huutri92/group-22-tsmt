@@ -72,7 +72,7 @@
                                         <td style="vertical-align:middle">@car.DriverPhone</td>
                                         <td style="vertical-align:middle">
                                             <a href="@Url.Action("EditCarNotCe", "Sponsor", new { id = @car.CarID })" class="btn-u" title="Chỉnh sửa"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="fa fa-heart"></i></a>
+                                            <a href="@Url.Action("EditCar", "Sponsor", new { id = @car.CarID })" class="btn-u btn-u-dark-blue" title="Tài Trợ"><i class="fa fa-gift"></i></a>
                                             <a href="@Url.Action("DeleteCar", "Sponsor", new { id = @car.CarID })" onclick = "return showPopup('Bạn có chắc sẽ xóa xe này?', this.href);" class="btn-u btn-u-red" title="Xóa xe"><i class="fa fa-trash-o"></i></a>
                                         </td>
 
@@ -148,6 +148,6 @@
     <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay về</a>
     @if ((Model.Count(r => r.CharityExamID == null) > 1)) // has some cars free.
     {
-    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"  id="sponsoredcar" style="float: right"><i class="fa fa-heart"></i>&nbsp;Tài trợ nhiều xe</a>
+    <a href="@Url.Action("SponsoredAllCar", "Sponsor")" class="btn-u btn-u-red"  id="sponsoredcar" style="float: right"><i class="fa fa-gift"></i>&nbsp;Tài trợ nhiều xe</a>
     }
 </div>
