@@ -44,7 +44,7 @@ a .fa fa-rotate-90:before,a .fa fa-rotate-180:before,a .fa fa-rotate-270:before,
 .fa fa-music:before{content:"\f001";}
 .fa fa-search:before{content:"\f002";}
 .fa fa-envelope-alt:before{content:"\f003";}
-.fa fa-heart:before{content:"\f004";}
+.fa fa-gift:before{content:"\f004";}
 .fa fa-star:before{content:"\f005";}
 .fa fa-star-empty:before{content:"\f006";}
 .fa fa-user:before{content:"\f007";}
@@ -170,7 +170,7 @@ a .fa fa-rotate-90:before,a .fa fa-rotate-180:before,a .fa fa-rotate-270:before,
 .fa fa-thumbs-up-alt:before{content:"\f087";}
 .fa fa-thumbs-down-alt:before{content:"\f088";}
 .fa fa-star-half:before{content:"\f089";}
-.fa fa-heart-empty:before{content:"\f08a";}
+.fa fa-gift-empty:before{content:"\f08a";}
 .fa fa-signout:before{content:"\f08b";}
 .fa fa-linkedin-sign:before{content:"\f08c";}
 .fa fa-pushpin:before{content:"\f08d";}
