@@ -57,7 +57,7 @@
         <div class="panel-body">
             <div class="tab-v1">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#notsponsored" data-toggle="tab">Chổ Ở Chưa Tài Trợ</a></li>
+                    <li class="active"><a href="#notsponsored" data-toggle="tab">Chổ Ở Của Tôi</a></li>
                     <li><a href="#sponsored" data-toggle="tab">Chỗ Ở Đã Tài Trợ</a></li>
                 </ul>
                 <div class="tab-content">
@@ -102,7 +102,7 @@
                                         <td style="vertical-align: middle">
                                             <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
                                             <a href="@Url.Action("EditLodge", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="fa fa-heart"></i></a>
-                                            <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-orange" title="Xóa Nhà"><i class="fa fa-trash"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-orange" title="Xóa Nhà"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                         ++counter;
@@ -163,7 +163,7 @@
                                             <td style="vertical-align: middle"><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td style="vertical-align: middle">
                                                 <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
-                                                <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="fa fa-remove"></i></a>
+                                                <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                         }
                                     </tr>
