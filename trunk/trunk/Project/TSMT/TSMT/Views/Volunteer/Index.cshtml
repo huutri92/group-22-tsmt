@@ -45,7 +45,7 @@
     }
     else
     {
-        <div class="panel panel-pink margin-bottom-20">
+        <div class="panel panel-purple margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin tham gia hỗ trợ tiếp sức mùa thi
                      @if (Model.ParticipantVolunteers.Count < 3)
@@ -88,7 +88,7 @@
                                 <td style="vertical-align: middle">
                                     @if (item.IsApproved)
                                     {
-                                        <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-purple" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>
+                                        <a href="@Url.Action("ViewDetails", "Volunteer", new { id = item.ParticipantVolunteerID })" class="btn-u btn-u-brown" title="Xem chi tiết" style="width:40px;height:30px"><i class="fa fa-eye"></i></a>
                                         if (item.ExamPaperID == null)
                                         {
                                         <a href="@Url.Action("LeaveCE", "Volunteer", new { id = item.ParticipantVolunteerID })"onclick=" return showPopup('Bạn có chắc chắn muốn rời hội từ thiện không?', this.href)" class="btn-u btn-u-red" title="Rời hội từ thiện"  style="width:40px;height:30px"><i class="fa fa-trash-o"></i></a>

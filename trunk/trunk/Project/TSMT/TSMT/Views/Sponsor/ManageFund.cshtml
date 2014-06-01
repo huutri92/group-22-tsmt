@@ -29,7 +29,7 @@
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-list"></i>Quản lý tiền
-                <a href="@Url.Action("AddFund", "Sponsor")" class="btn-u btn-u-green"><i class="fa fa-pencil"></i>Tài Trợ</a>
+                <a href="@Url.Action("AddFund", "Sponsor")" class="btn-u btn-u-blue"><i class="fa fa-pencil"></i>Tài Trợ</a>
             </h3>
 
         </div>
@@ -55,7 +55,7 @@
                      @if ((Model.Count(r => r.FundID != null) == 0 ))
                                 {
                                     <tr>
-                                        <td>
+                                        <td style="vertical-align:middle">
                                             <script type="text/javascript">
                                                 document.getElementById("showdata").style.display = "none";
                                                 document.getElementById("showMessage").style.display = "block";
@@ -69,21 +69,21 @@
                         {
                             
                         <tr>
-                            <td>@counter</td>
-                            <td>@item.ChairitiesExam.Examination.Name</td>
-                            <td>@item.ChairitiesExam.Charity.Name</td>
-                            <td>@item.FundSponsored.ToString("##,### VNĐ")</td>
+                            <td style="vertical-align:middle">@counter</td>
+                            <td style="vertical-align:middle">@item.ChairitiesExam.Examination.Name</td>
+                            <td style="vertical-align:middle">@item.ChairitiesExam.Charity.Name</td>
+                            <td style="vertical-align:middle">@item.FundSponsored.ToString("##,### VNĐ")</td>
                            
                             @if (item.IsApproved)
                             {
-                                <td><span class="label label-success">Đã Gửi</span></td>
-                                <td></td>
+                                <td style="vertical-align:middle"><span class="label label-success">Đã Gửi</span></td>
+                                <td style="vertical-align:middle"></td>
                             }
                             else
                             {
-                                <td><span class="label label-danger">Chờ Xác Nhận</span></td>
-                                <td>
-                                     <a href="@Url.Action("EditFund", "Sponsor", new { id = @item.FundID })" class="btn-u" title="Chỉnh sửa"><i class="fa fa-pencil-square-o"></i></a>
+                                <td style="vertical-align:middle"><span class="label label-danger">Chờ Xác Nhận</span></td>
+                                <td style="vertical-align:middle">
+                                     <a href="@Url.Action("EditFund", "Sponsor", new { id = @item.FundID })" class="btn-u btn-u-dark" title="Chỉnh sửa"><i class="fa fa-pencil-square-o"></i></a>
                                      <a href="@Url.Action("DeleteFund", "Sponsor", new { id = @item.FundID})" onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ số tiền này?', this.href);" class="btn-u btn-u-red" title="Hủy tài trợ"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             }
@@ -93,13 +93,13 @@
                         }
                     }
                     <tr>
-                        <td colspan ="7">Tổng số tiền đã tài trợ : @ViewData["totalfunds"] VNĐ</td>
+                        <td colspan ="7">Tổng số tiền đã tài trợ : <span style="color:black"><b>@ViewData["totalfunds"] VNĐ</b></span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
     </div>
-    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-info" })
+    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay về</a>
 </div>
 

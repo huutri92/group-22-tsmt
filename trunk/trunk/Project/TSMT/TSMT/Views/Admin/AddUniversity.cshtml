@@ -27,7 +27,7 @@
 
 @using (Html.BeginForm("AddUniversity", "Admin", FormMethod.Post, new { id = "FormAddUniversity" }))
 {
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="panel panel-red margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-list"></i>Tạo mới thông tin cho trường Đại học / Cao đẳng
@@ -36,17 +36,17 @@
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <td style="vertical-align: middle;max-width:100px" >Tên trường<span class="required">*</span></td>
+                        <td style="vertical-align: middle;max-width:100px" >Tên trường<span class="required"> *</span></td>
                         <td>
                             <input type="text" id="Name" name="Name" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Địa chỉ<span class="required">*</span></td>
+                        <td style="vertical-align: middle">Địa chỉ<span class="required"> *</span></td>
                         <td>
                             <input type="text" id="Address" name="Address" class="form-control" /></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">Mã trường<span class="required">*</span></td>
+                        <td style="vertical-align: middle">Mã trường<span class="required"> *</span></td>
                         <td>
                             <input type="text" id="UniversityCode" name="UniversityCode" class="form-control" style="width:100px" /></td>
                     </tr>
@@ -68,11 +68,12 @@
         @*<a href="@Url.Action("", "", new { id =  })" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>&nbsp;Thêm</a>*@
         <div style="float: right">
             @*<input type="reset" value="Reset" class="btn btn-info" />*@
-            <button type="submit" class="btn-u btn-u-default"><i class="fa fa-plus"></i>&nbsp;Tạo</button>
+            <button type="submit" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>&nbsp;Tạo</button>
+        <button type="button" class="btn-u btn-u-red" onclick="location.href = '/admin/ManageUniversity'"><i class="fa fa-times" ></i>&nbsp;Hủy </button>
+
             @*<button type="reset" class="btn-u btn-u-blue"><i class="fa fa-eraser"></i>&nbsp;Làm lại</button>*@
         </div>
 
-        <button type="button" class="btn-u btn-u-sea" onclick="location.href = '/admin/ManageUniversity'"><i class="fa fa-chevron-circle-left" ></i>&nbsp;Quay lại </button>
        @* <input type="button" value="Cancel" class="btn btn-info" onclick="location.href = '/admin/ManageUniversity'" />*@
            @*<a href="@Url.Action("ManageUniversity", "Admin")" class="btn-u btn-u-sea"><i class="fa fa-chevron-circle-left" onclick="location.href = '/admin/ManageUniversity'"></i>&nbsp;Quay lại </a>*@
     </div>

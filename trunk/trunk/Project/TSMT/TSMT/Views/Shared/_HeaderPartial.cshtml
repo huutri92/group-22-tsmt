@@ -8,9 +8,9 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="fa fa-bar"></span>
-                    <span class="fa fa-bar"></span>
-                    <span class="fa fa-bar"></span>
+                    <span class="fa fa-bars"></span>
+                   @* <span class="fa fa-bars"></span>
+                    <span class="fa fa-bars"></span>*@
                 </button>
                 <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "" })">
                     @if (Session["acc"] != null)
@@ -28,7 +28,7 @@
                         <img src="~/Content/img/logo1-default.png" alt="Logo">
                                 break;
                             case 4://volunteer
-                        <img src="~/Content/img/logo1-orange.png" alt="Logo">
+                        <img src="~/Content/img/logo1-purple.png" alt="Logo">
                                 break;
                             case 5://admin
                         <img src="~/Content/img/logo1-red.png" alt="Logo">

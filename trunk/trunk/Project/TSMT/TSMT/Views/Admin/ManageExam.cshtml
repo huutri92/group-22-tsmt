@@ -58,10 +58,10 @@
                         <td>@item.BeginDate.ToString("dd/MM/yyyy")</td>
                         <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
                         <td>
-                            <a href="@Url.Action("ManageScheduleExam","Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-yellow"><i class="fa fa-hand-right"></i> Chi tiết lịch thi</a>
+                            <a href="@Url.Action("ManageScheduleExam","Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-purple"><i class="fa fa-angle-double-right"></i> Chi tiết lịch thi</a>
                             @if (item.ChairitiesExams.Count == 0 && item.UniversitiesExaminations.Count == 0)
                             {
-                                <a href="@Url.Action("DeleteExam", "Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-orange" onclick="return showPopup('Bạn có chắc chắc muốn xoá <strong>@item.Name (@DateTime.Now.Year)</strong> không?', this.href);"><i class="fa fa-trash"></i> Xoá đợt thi</a>
+                                <a href="@Url.Action("DeleteExam", "Admin", new { id = @item.ExaminationID })" class="btn-u btn-u-red" onclick="return showPopup('Bạn có chắc chắc muốn xoá <strong>@item.Name (@DateTime.Now.Year)</strong> không?', this.href);"><i class="fa fa-trash-o"></i> Xoá đợt thi</a>
                             }
                         </td>
                     </tr>
@@ -71,5 +71,5 @@
             </table>
         </div>
     </div>
-    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-sea"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại </a>
+    <a href="@Url.Action("Index", "Admin")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại </a>
 </div>

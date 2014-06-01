@@ -65,7 +65,7 @@
 
 
     <span class="assigned" style="float: right">
-        @Html.ActionLink("Sắp tay", "ManualAssignToRoom", new { id = @Model.CharityExamID }, new { @class="btn-u btn-u-pink" })
+        @Html.ActionLink("Sắp tay", "ManualAssignToRoom", new { id = @Model.CharityExamID }, new { @class="btn-u btn-u-dark-blue" })
        
 
         @Html.ActionLink("Xoá kết quả hiện tại", null, null, new { @class = "btn-u btn-u-red", onclick = "return showPopup('Xác nhận xoá kết quả sắp phòng:', '/Charity/ResetRooms/" + @Model.CharityExamID + "?ReAssign=false')" })
