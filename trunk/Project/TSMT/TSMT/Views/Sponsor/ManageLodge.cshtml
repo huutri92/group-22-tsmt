@@ -51,7 +51,7 @@
     <div class="panel panel-green margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin chỗ trọ
-                  <a href="@Url.Action("AddLodge", "Sponsor")" class="btn-u btn-u-sea"><i class="fa fa-plus"></i>Tạo mới</a>
+                  <a href="@Url.Action("AddLodge", "Sponsor")" class="btn-u btn-u-blue"><i class="fa fa-plus"></i>Tạo mới</a>
             </h3>
         </div>
         <div class="panel-body">
@@ -100,9 +100,15 @@
                                         <td style="vertical-align: middle">@lodge.Rooms.Where(r => r.LodgeID == @lodge.LodgeID).Count()</td>
                                         <td style="vertical-align: middle">@lodge.TotalSlots</td>
                                         <td style="vertical-align: middle">
-                                            <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
+
+                                            <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-dark" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
+                                            <a href="@Url.Action("EditLodge", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-dark-blue" title="Tài Trợ"><i class="fa fa-gift"></i></a>
+                                            <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-red" title="Xóa Nhà"><i class="fa fa-trash-o"></i></a>
+
+                                          @*  <a href="@Url.Action("EditLodgeNotCe", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
                                             <a href="@Url.Action("EditLodge", "Sponsor", new { id = @lodge.LodgeID })" class="btn-u btn-u-pink" title="Tài Trợ"><i class="fa fa-heart"></i></a>
                                             <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @lodge.LodgeID })" @*onclick = "return showPopup('Bạn có chắc sẽ xóa chỗ trọ này?', this.href);"*@ class="btn-u btn-u-orange" title="Xóa Nhà"><i class="fa fa-trash-o"></i></a>
+*@
                                         </td>
                                     </tr>
                                         ++counter;
@@ -162,8 +168,13 @@
                                         {
                                             <td style="vertical-align: middle"><span class="label label-danger">Chưa xác nhận</span></td>
                                             <td style="vertical-align: middle">
-                                                <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
+
+                                                <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u btn-u-dark" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
                                                 <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="fa fa-trash-o"></i></a>
+
+                                            @*    <a href="@Url.Action("EditLodgeHasCe", "Sponsor", new { id = @item.LodgeID })" class="btn-u" title="Sửa Địa Chỉ"><i class="fa fa-edit"></i></a>
+                                                <a href="@Url.Action("DeleteLodge", "Sponsor", new { id = @item.LodgeID })"onclick = "return showPopup('Bạn có chắc sẽ hủy tài trợ chỗ trọ này?', this.href);" class="btn-u btn-u-red" title="Hủy Tài Trợ"><i class="fa fa-trash-o"></i></a>
+*@
                                             </td>
                                         }
                                     </tr>
@@ -178,8 +189,7 @@
         </div>
     </div>
     @*@Html.ActionLink("Back to Index", "Index", null, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default">
-        <i class="fa fa-chevron-sign-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("Index", "Sponsor")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </div>
 
 
