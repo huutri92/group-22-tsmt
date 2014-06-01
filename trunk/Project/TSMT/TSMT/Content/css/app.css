@@ -755,7 +755,7 @@ li [class*=" fa fa-"] {
 .bg-light {
     padding: 10px 15px;
     margin-bottom: 10px;
-    background: #fcfcfc;
+    background: rgb(88, 95, 105);
     border: solid 1px #e5e5e5;
 }
 
