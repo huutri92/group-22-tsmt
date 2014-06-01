@@ -22,266 +22,284 @@
     }
 </script>
 
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-20">
+    <div class="container">
+        <h1 class="pull-left">@ViewBag.Title</h1>
+        <ul class="pull-right breadcrumb">
+            
+             <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+            <li class="active">Đăng ký</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs -->
 
 
-
-<div class="container">
+@*<div class="container">
     <div class="reg-block" style="width: 800px">
-        <div class="reg-block-header">
-            <h2>Đăng Ký</h2>
-            <ul class="list-inline style-icons text-center">
-                <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Trang Chủ </a></li>
-                <li><a href="@Url.Action("Login", "Account")"><i class="fa fa-signin fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Đăng nhập </a></li>
-            </ul>
-        </div>
-        <form id="register" name="register" method="post" action="/Account/Register">
-            @{
-                Account acc = (Account)TempData["acc"];
-                Profile pro = (Profile)TempData["pro"];
-            }
-            <div class="row margin-bottom-5">
-                <div class="col-md-5">
-                    <div class="bg-light">
-                        <h4>1. <i class="fa fa-user"></i>Thông tin tài khoản</h4>
-                        <div class="margin-bottom-1">
-                            <label>Email<span style="color: red">&nbsp;*</span></label>
-                        </div>
-                        <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            @if (TempData["wrongCaptcha"] == null || TempData["emptyCaptcha"] == null)
-                            {
-                                <input name="email" type="text" class="form-control" placeholder="Email">
-                            }
-                            else if (TempData["wrongCaptcha"] != null || TempData["emptyCaptcha"] != null)
-                            {                               
-                                <input  name="email" type="text" class="form-control" placeholder="Email"  value="@acc.Email">
-                            }
-
-
-                        </div>
-                        <div class="margin-bottom-1">
-                            <label>Mật khẩu<span style="color: red">&nbsp;*</span></label>
-                        </div>
-                        <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input id="password" name="password" type="password" class="form-control" placeholder="Mật khẩu">
-                        </div>
-                        <div class="margin-bottom-1">
-                            <label>Xác thực mật khẩu<span style="color: red">&nbsp;*</span></label>
-                        </div>
-                        <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                            <input type="password" name="confirmPassword" class="form-control" placeholder="Xác thực mật khẩu">
-                        </div>
-                    </div>
+        <div class="reg-block-header">*@
+<div class="container content">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <form  id="register" name="register" method="post" action="/Account/Register" class="reg-page" style="width:800px">
+                <div class="reg-header">
+                    <h2>Đăng Ký</h2>
+                   @* <ul class="list-inline style-icons text-center">
+                        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Trang Chủ </a></li>
+                        <li><a href="@Url.Action("Login", "Account")"><i class="fa fa-signin fa fa-round fa fa-round-sm fa fa-color-grey"></i>&nbsp;Đăng nhập </a></li>
+                    </ul>*@
                 </div>
-
-                <div class="col-md-7">
-                    <div class="bg-light">
-                        <h4>2. <i class="fa fa-lock"></i>Thông tin cá nhân</h4>
-                        <div class="row margin-bottom-5">
-                            <div class="col-md-6">
+              
+                    @{
+                        Account acc = (Account)TempData["acc"];
+                        Profile pro = (Profile)TempData["pro"];
+                    }
+                    <div class="row margin-bottom-5">
+                        <div class="col-md-5">
+                            <div class="bg-light">
+                                <h4>1. <i class="fa fa-user"></i>Thông tin tài khoản</h4>
                                 <div class="margin-bottom-1">
-                                    <label>Họ<span style="color: red">&nbsp;*</span></label>
+                                    <label>Email<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Họ">
+                                    @if (TempData["wrongCaptcha"] == null || TempData["emptyCaptcha"] == null)
+                                    {
+                                        <input name="email" type="text" class="form-control" placeholder="Email">
+                                    }
+                                    else if (TempData["wrongCaptcha"] != null || TempData["emptyCaptcha"] != null)
+                                    {                               
+                                        <input  name="email" type="text" class="form-control" placeholder="Email"  value="@acc.Email">
+                                    }
+
+
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Tên<span style="color: red">&nbsp;*</span></label>
+                                    <label>Mật khẩu<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Tên">
+                                    <input id="password" name="password" type="password" class="form-control" placeholder="Mật khẩu">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="margin-bottom-1">
-                                    <label>Giới tính<span style="color: red">&nbsp;*</span></label>
-                                </div>
-                                <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon" style="display: none"><i class="fa fa-female"></i></span>
-                                    <span class="input-group-addon" style="display: none"><i class="fa fa-male"></i></span>
-                                    <select id="gender" name="gender" class="form-contrl" style="width: auto">
-                                        <option value="True">Nữ</option>
-                                        <option value="False">Nam</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="margin-bottom-1">
-                                    <label>Ngày sinh<span style="color: red">&nbsp;*</span></label>
-                                </div>
-                                <div class="input-group margin-bottom-5">
-                                    @*use jquery date picker*@
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="margin-bottom-1">
-                                    <label>Số điện thoại<span style="color: red">&nbsp;*</span></label>
-                                </div>
-                                <div class="input-group margin-bottom-5">
-                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <div class="margin-bottom-1">
-                                    <label>Địa chỉ<span style="color: red">&nbsp;*</span></label>
+                                    <label>Xác thực mật khẩu<span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
                                     <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                    <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                    <input type="password" name="confirmPassword" class="form-control" placeholder="Xác thực mật khẩu">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="bg-light">
+                                <h4>2. <i class="fa fa-lock"></i>Thông tin cá nhân</h4>
+                                <div class="row margin-bottom-5">
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Họ<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Họ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Tên<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Tên">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Giới tính<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <span class="input-group-addon"><i class="fa fa-female"></i></span>
+                                            <span class="input-group-addon" style="display: none"><i class="fa fa-male"></i></span>
+                                            <select id="gender" name="gender" class="form-control" style="width: auto;color:black">
+                                                <option value="True">Nữ</option>
+                                                <option value="False">Nam</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Ngày sinh<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            @*use jquery date picker*@
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input id="dateOfBirth" name="dateOfBirth" type="date" min="1940-01-01" max="2014-12-31" class="form-control" style="width: auto">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Số điện thoại<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="margin-bottom-1">
+                                            <label>Địa chỉ<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                            <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Tỉnh/Thành phố<span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <select id="province" name="province" class="form-control" onchange="callAjax(this.value)" style="width: auto">
+                                                <option value="0" selected>Tỉnh/Thành phố</option>
+                                                @foreach (var item in (List<Province>)ViewData["provinces"])
+                                                {
+                                                    <option value="@item.ProvinceID">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="margin-bottom-1">
+                                            <label>Quận/Huyện <span style="color: red">&nbsp;*</span></label>
+                                        </div>
+                                        <div class="input-group margin-bottom-5">
+                                            <select id="district" name="district" class="form-control" style="width: auto">
+                                                <option value="0" selected>Quận/Huyện</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-3"></div>*@
+                        <div class="col-md-7">
+                            <div class="bg-light">
+                                <h4>3. <i class="fa fa-info"></i>Thông tin riêng </h4>
                                 <div class="margin-bottom-1">
-                                    <label>Tỉnh/Thành phố<span style="color: red">&nbsp;*</span></label>
+                                    <label>Bạn là: <span style="color: red">&nbsp;*</span></label>
                                 </div>
                                 <div class="input-group margin-bottom-5">
-                                    <select id="province" name="province" class="form-control" onchange="callAjax(this.value)" style="width: auto">
-                                        <option value="0" selected>Tỉnh/Thành phố</option>
-                                        @foreach (var item in (List<Province>)ViewData["provinces"])
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width: auto">
+                                        <option value="null">----</option>
+                                        @foreach (var item in (List<Role>)ViewData["roles"])
                                         {
-                                            <option value="@item.ProvinceID">@item.Name</option>
+                                            if (item.RoleID == 5) { break; }
+                                            <option value="@item.RoleID">@item.RoleName</option>
+                                    
                                         }
                                     </select>
                                 </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="margin-bottom-1">
-                                    <label>Quận/Huyện <span style="color: red">&nbsp;*</span></label>
-                                </div>
-                                <div class="input-group margin-bottom-5">
-                                    <select id="district" name="district" class="form-control" style="width: auto">
-                                        <option value="0" selected>Quận/Huyện</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-
-                        </div>
-                    </div>
-                </div>
-
-                @*<div class="col-md-3"></div>*@
-                <div class="col-md-7">
-                    <div class="bg-light">
-                        <h4>3. <i class="fa fa-info"></i>Thông tin riêng </h4>
-                        <div class="margin-bottom-1">
-                            <label>Bạn là: <span style="color: red">&nbsp;*</span></label>
-                        </div>
-                        <div class="input-group margin-bottom-5">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <select id="role" name="role" class="form-control" onchange="changeRole(this.options[this.selectedIndex].value);" style="width: auto">
-                                <option value="null">----</option>
-                                @foreach (var item in (List<Role>)ViewData["roles"])
-                                {
-                                    if (item.RoleID == 5) { break; }
-                                    <option value="@item.RoleID">@item.RoleName</option>
-                                    
-                                }
-                            </select>
-                        </div>
-                        <div id="1" class="input-group margin-bottom-5" style="display: none">
-                          @*  <div class="margin-bottom-1">
+                                <div id="1" class="input-group margin-bottom-5" style="display: none">
+                                    @*  <div class="margin-bottom-1">
                                 <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Thí sinh</b></span></label>
                             </div>*@
 
-                        </div>
-                        <div id="2" class="input-group margin-bottom-5" style="display: none">
-                           @* <div class="margin-bottom-1">
+                                </div>
+                                <div id="2" class="input-group margin-bottom-5" style="display: none">
+                                    @* <div class="margin-bottom-1">
                                 <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Hội từ thiện</b></span></label>
                             </div>
                             charity*@
-                        </div>
-                        <div id="3" class="input-group margin-bottom-5" style="display: none">
-                            @*<div class="margin-bottom-1">
+                                </div>
+                                <div id="3" class="input-group margin-bottom-5" style="display: none">
+                                    @*<div class="margin-bottom-1">
                                 <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Tình nguyện viên</b></span></label>
                             </div>
                             volunteer*@
-                        </div>
-                        <div id="4" class="input-group margin-bottom-5" style="display: none">
-                           @* <div class="margin-bottom-1">
+                                </div>
+                                <div id="4" class="input-group margin-bottom-5" style="display: none">
+                                    @* <div class="margin-bottom-1">
                                 <label>Thông tin thêm dành riêng cho <span style="color: blue"><b>Nhà tài trợ</b></span></label>
                             </div>
                             sponsor*@
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="bg-light">
-                        <h4>4. <i class="fa fa-picture"></i>Captcha <span style="color: red">&nbsp;*</span> </h4>
-                        <div class="margin-bottom-1">
-                            <label>Kết quả của phép toán trong hình là</label>
-                        </div>
-                        <div id="captcha">
-                            <a href="@Url.Action("Register", "Account")">
-                                <img alt="Captcha" src="@Url.Action("CaptchaImage")" style="" /></a>
+                        <div class="col-md-5">
+                            <div class="bg-light">
+                                <h4>4. <i class="fa fa-picture"></i>Captcha <span style="color: red">&nbsp;*</span> </h4>
+                                <div class="margin-bottom-1">
+                                    <label>Kết quả của phép toán trong hình là</label>
+                                </div>
+                                <div id="captcha">
+                                    <a href="@Url.Action("Register", "Account")">
+                                        <img alt="Captcha" src="@Url.Action("CaptchaImage")" style="" /></a>
 
-                            <input id="inputCaptcha" type="text" name="inputCaptcha" />
+                                    <input id="inputCaptcha" type="text" name="inputCaptcha" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <hr>
-            @*    <label class="checkbox">
+                    <hr>
+                    @*    <label class="checkbox">
                 <input type="checkbox">
                 <p>I read <a target="_blank" href="page_terms.html">Terms and Conditions</a></p>
             </label>*@
-            <div class="col-md-12">
-                <span style="color:red">*</span> bắt buộc phải điền
-            </div>
-            <div class="row margin-bottom-1">
-                <div class="col-md-3"></div>
-                
-               @* <div class="col-md-2">
+                    <div class="col-md-12">
+                        <span style="color: red">*</span> bắt buộc phải điền
+                    </div>
+                    <div class="row margin-bottom-1">
+                        <div class="col-md-3"></div>
+
+                        @* <div class="col-md-2">
                     <button type="button" class="btn-u btn-u-red btn-block" value="Reset">&nbsp;Đặt lại</button>
                 </div>*@
-                <div class="col-md-2">
-                    <button type="submit" class="btn-u btn-u-blue btn-block" name="submit" value="Submit">&nbsp;Đăng ký</button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn-u btn-u-default btn-block">&nbsp;Hủy</button>
-                </div>
-                <div class="col-md-2">
-                </div>
-            </div>
-        </form>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn-u btn-u-blue btn-block" name="submit" value="Submit">&nbsp;Đăng ký</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn-u btn-u-default btn-block">&nbsp;Hủy</button>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </form>
 
-        <div class="row-margin-bottom-1">
-            @if (TempData["emptyCaptcha"] != null)
-            {
-                <div id="formAlertNull" class="alert alert-danger alert-dismissable" style="width: 300px">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Error!</strong> Captcha rỗng. Hãy nhập lại!.
-                </div>   
-            }
-            @if (TempData["wrongCaptcha"] != null)
-            {
-                <div id="formAlert" class="alert alert-danger alert-dismissable" style="width: 300px">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Error!</strong> Kết quả không đúng. Hãy nhập lại!.
-                </div> 
-            }
+                <div class="row-margin-bottom-1">
+                    @if (TempData["emptyCaptcha"] != null)
+                    {
+                        <div id="formAlertNull" class="alert alert-danger alert-dismissable" style="width: 300px">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Error!</strong> Captcha rỗng. Hãy nhập lại!.
+                        </div>   
+                    }
+                    @if (TempData["wrongCaptcha"] != null)
+                    {
+                        <div id="formAlert" class="alert alert-danger alert-dismissable" style="width: 300px">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Error!</strong> Kết quả không đúng. Hãy nhập lại!.
+                        </div> 
+                    }
+                </div>
         </div>
     </div>
-</div>
+ </div>
 
-
-<script type="text/javascript">
-    var currentRole = null;
-    function changeRole(newRole) {
-        if (currentRole !== null) {
-            document.getElementById(currentRole).style.display = 'none';
+    <script type="text/javascript">
+        var currentRole = null;
+        function changeRole(newRole) {
+            if (currentRole !== null) {
+                document.getElementById(currentRole).style.display = 'none';
+            }
+            document.getElementById(newRole).style.display = 'inline';
+            currentRole = newRole;
         }
-        document.getElementById(newRole).style.display = 'inline';
-        currentRole = newRole;
-    }
-</script>
+    </script>
