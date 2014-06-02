@@ -486,8 +486,8 @@ namespace TSMT.Controllers
 
         public ActionResult ChooseCarForCe(int id)
         {
-           
-            
+
+
             ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             Account acc = (Account)Session["acc"];
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
@@ -1026,7 +1026,7 @@ namespace TSMT.Controllers
             db.Rooms.Remove(room);
             db.SaveChanges();
             //return Json("", JsonRequestBehavior.AllowGet);
-            return RedirectToAction("DetailsLodge", new { id = room.LodgeID }); 
+            return RedirectToAction("DetailsLodge", new { id = room.LodgeID });
         }
         public ActionResult EditRoom(int id)
         {
@@ -1696,6 +1696,7 @@ namespace TSMT.Controllers
             //    lodExistCan = false;
             //}
             ViewData["listLodges"] = listLodge;
+            ViewData["ceID"] = id;
             return View(listLodge);
         }
 
@@ -1703,9 +1704,10 @@ namespace TSMT.Controllers
 
         public ActionResult ManualAssignToCar(int id)
         {
-            ViewData["listCar"] = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved && r.AvailableSlots != 0).ToList();
+            ViewData["listCar"] = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved).ToList();
             ViewData["listVolunteer"] = db.ParticipantVolunteers.Where(c => c.CharityExamID == id && c.IsApproved).ToList();
             ViewData["listCandidate"] = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.CarID == null && r.ParticipantVolunteerID == null).ToList();
+            ViewData["ceId"] = id;
             return View();
         }
         [HttpPost]
@@ -1743,9 +1745,31 @@ namespace TSMT.Controllers
                             select new
                             {
                                 value = r.CandidateID,
-                                name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname
+                                name = r.Candidate.Account.Profile.Lastname + " " + r.Candidate.Account.Profile.Firstname,
+                                gender = r.Candidate.Account.Profile.Gender
                             };
             return Json(candidate);
+        }
+        [HttpPost]
+        public JsonResult ResultAjaxRoomCap(int id)
+        {
+            var cap = from r in db.Rooms
+                      where r.RoomID == id
+                      select new
+                      {
+                          value = r.AvailableSlots,
+                      };
+            return Json(cap);
+        }
+        public JsonResult ResultAjaxCarCap(int id)
+        {
+            var cap = from r in db.Cars
+                      where r.CarID == id
+                      select new
+                      {
+                          value = r.AvailableSlots,
+                      };
+            return Json(cap);
         }
         [HttpPost]
         public JsonResult ResultAjaxCar(int id)
@@ -1776,24 +1800,45 @@ namespace TSMT.Controllers
         public JsonResult EditAssignRoom(int caId, int roomId)
         {
             var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
-            var room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
-            if (roomId == 0)
+            if (roomId != 0 && expp.RoomID != null)
             {
+
+                if (expp.RoomID != roomId)
+                {
+                    var room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
+                    var oldRoom = db.Rooms.SingleOrDefault(r => r.RoomID == expp.RoomID);
+                    ++oldRoom.AvailableSlots;
+                    expp.RoomID = roomId;
+                    --room.AvailableSlots;
+                    if (room.AvailableSlots < 0)
+                    {
+                        room.AvailableSlots = 0;
+                    }
+                }
+                db.SaveChanges();
+
+            }
+            if (expp.RoomID == null && roomId != 0)
+            {
+                expp.RoomID = roomId;
+                var room = db.Rooms.SingleOrDefault(r => r.RoomID == roomId);
+                --room.AvailableSlots;
+                if (room.AvailableSlots < 0)
+                {
+                    room.AvailableSlots = 0;
+                }
+                db.SaveChanges();
+            }
+            if (roomId == 0 && expp.RoomID != null)
+            {
+                var room = db.Rooms.SingleOrDefault(r => r.RoomID == expp.RoomID);
                 expp.RoomID = null;
                 ++room.AvailableSlots;
                 if (room.AvailableSlots > room.TotalSlots)
                 {
                     room.AvailableSlots = room.TotalSlots;
                 }
-            }
-            else
-            {
-                expp.RoomID = roomId;
-                --room.AvailableSlots;
-                if (room.AvailableSlots < 0)
-                {
-                    room.AvailableSlots = 0;
-                }
+                db.SaveChanges();
             }
             db.SaveChanges();
             return Json("");
@@ -1801,41 +1846,74 @@ namespace TSMT.Controllers
         [HttpPost]
         public JsonResult EditAssignCar(int caId, int carId, int voId)
         {
-            var expp = db.ExaminationsPapers.SingleOrDefault(r => r.CandidateID == caId);
-            var pv = db.ParticipantVolunteers.SingleOrDefault(r => r.VolunteerID == voId);
+            var expp = db.ExaminationsPapers.FirstOrDefault(r => r.CandidateID == caId);
+            //var pv = db.ParticipantVolunteers.FirstOrDefault(r => r.VolunteerID == voId);
 
             if (carId == 0 && voId == 0)
             {
-                expp.CarID = null;
                 if (expp.ParticipantVolunteerID != null)
                 {
                     var pv1 =
-                        db.ParticipantVolunteers.SingleOrDefault(
+                        db.ParticipantVolunteers.FirstOrDefault(
                             r => r.ParticipantVolunteerID == expp.ParticipantVolunteerID);
                     pv1.ExamPaperID = null;
                     expp.ParticipantVolunteerID = null;
                 }
+                if (expp.CarID != null)
+                {
+                    var car = db.Cars.FirstOrDefault(r => r.CarID == expp.CarID);
+                    ++car.AvailableSlots;
+                }
+                expp.CarID = null;
+                db.SaveChanges();
             }
-            else if (carId != 0 && voId == 0)
+            if (carId != 0 && voId == 0)
             {
-                expp.CarID = carId;
                 if (expp.ParticipantVolunteerID != null)
                 {
                     var pv1 =
-                        db.ParticipantVolunteers.SingleOrDefault(
+                        db.ParticipantVolunteers.FirstOrDefault(
                             r => r.ParticipantVolunteerID == expp.ParticipantVolunteerID);
                     expp.ParticipantVolunteerID = null;
                     pv1.ExamPaperID = null;
+                    db.SaveChanges();
                 }
-            }
-            else
-            {
-                expp.CarID = null;
-                if (pv != null)
+                var car = db.Cars.FirstOrDefault(r => r.CarID == carId);
+                if (expp.CarID != null && car.CarID != expp.CarID)
                 {
-                    expp.ParticipantVolunteerID = pv.ParticipantVolunteerID;
-                    pv.ExamPaperID = expp.ExamPaperID;
+                    var car1 = db.Cars.FirstOrDefault(r => r.CarID == expp.CarID);
+                    ++car1.AvailableSlots;
+                    expp.CarID = carId;
+                    --car.AvailableSlots;
+                    if (car.AvailableSlots < 0)
+                    {
+                        car.AvailableSlots = 0;
+                    }
+                    db.SaveChanges();
                 }
+                if(expp.CarID==null)
+                {
+                    expp.CarID = carId;
+                    --car.AvailableSlots;
+                    if (car.AvailableSlots < 0)
+                    {
+                        car.AvailableSlots = 0;
+                    }
+                    db.SaveChanges();
+                }
+                
+            }
+            if (voId != 0 && carId == 0)
+            {
+                if (expp.CarID != null)
+                {
+                    var car = db.Cars.FirstOrDefault(r => r.CarID == expp.CarID);
+                    ++car.AvailableSlots;
+                }
+                var pv = db.ParticipantVolunteers.FirstOrDefault(r => r.VolunteerID == voId);
+                pv.ExamPaperID = expp.ExamPaperID;
+                expp.ParticipantVolunteerID = pv.ParticipantVolunteerID;
+                db.SaveChanges();
             }
             db.SaveChanges();
             return Json("");
