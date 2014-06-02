@@ -31,15 +31,16 @@
         <option value="@item.LodgeID">@item.Address</option>
     }
 </select>
-<select id="capaRoomA" style="display:">
+<select id="capaRoomA" style="display: none">
     <option>Chọn phòng</option>
 </select>
 <select id="capaRoomB" style="display: none">
     <option>Chọn phòng</option>
-
 </select>
 <script>
     function callAjax(id, cbbId, cbbRoomA, cbbRoomB) {
+        var split = id.split(",");
+        var exId = parseInt(split[0]);
         if (document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex != 0 && document.getElementById(cbbRoomA).selectedIndex == document.getElementById(cbbRoomB).selectedIndex) {
             alert("Phòng này đã được chọn, hãy chọn phòng khác");
             document.getElementById(cbbRoomA).selectedIndex = 0;
@@ -47,20 +48,59 @@
             var lodgeId = document.getElementById("cbbLodge").value;
             $.ajax({
                 url: '/Charity/ResultAjaxRoom',
-                data: { "id": id, "lodgeId": lodgeId },
+                data: { "id": exId, "lodgeId": lodgeId },
                 type: 'POST',
                 success: function (results) {
                     $("#" + cbbId).html("");
                     var r;
                     for (i in results) {
                         r = results[i];
-                        $("#" + cbbId).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                        $("#" + cbbId).append("<option value=\"" + r.value + "\," + r.gender + "\">" + r["name"] + "</option>");
                     }
                 }
             });
         }
+        
+        
     }
-
+    function capacityA(id) {
+        var split = id.split(",");
+        var exId = parseInt(split[0]);
+        if (document.getElementById("cbbRoomLeft").selectedIndex != 0) {
+            $.ajax({
+                url: '/Charity/ResultAjaxRoomCap',
+                data: { "id": exId },
+                type: 'POST',
+                success: function (results) {
+                    $("#avaiA").html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#avaiA").append("<div id=\"\cappA\">" + r.value + "</div>");
+                    }
+                }
+            });
+        } else { $("#avaiA").html(""); }
+    }
+    function capacityB(id) {
+        var split = id.split(",");
+        var exId = parseInt(split[0]);
+        if (document.getElementById("cbbRoomRight").selectedIndex != 0) {
+            $.ajax({
+                url: '/Charity/ResultAjaxRoomCap',
+                data: { "id": exId },
+                type: 'POST',
+                success: function (results) {
+                    $("#avaiB").html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#avaiB").append("<div id=\"\cappB\">" + r.value + "</div>");
+                    }
+                }
+            });
+        } else { $("#avaiB").html(""); }
+    }
     function callAjaxLodge(id, cbbRoomA, cbbRoomB, capA, capB) {
         $("#cbbCandidate").html("");
         $("#listboxCandidate2").html("");
@@ -78,10 +118,11 @@
             type: 'POST',
             success: function (results) {
                 $("#cbbCandidate").html("");
+                $("#cbbCandidateGender").html("");
                 var r;
                 for (i in results) {
                     r = results[i];
-                    $("#cbbCandidate").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    $("#cbbCandidate").append("<option value=\"" + r.value + "\," + r.gender + "\">" + r["name"] + "</option>");
                 }
             }
         });
@@ -101,8 +142,8 @@
                 $("#" + capB).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
                 for (i in results) {
                     r = results[i];
-                    $("#" + cbbRoomA).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-                    $("#" + cbbRoomB).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    $("#" + cbbRoomA).append("<option value=\"" + r.value + "\," + r.gender + "\">" + r["name"] + "</option>");
+                    $("#" + cbbRoomB).append("<option value=\"" + r.value + "\," + r.gender + "\">" + r["name"] + "</option>");
                     $("#" + capA).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
                     $("#" + capB).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
                 }
@@ -113,7 +154,7 @@
 
 
 
-    function AddRemoveA(fromSourceId, toSourceId, capacity) {
+    function AddRemoveA(fromSourceId, toSourceId, capacity, room) {
         //if (document.getElementById("cbbRoomLeft").value == document.getElementById("cbbRoomRight").value) {
         //    alert("Chọn 2 phòng khác nhau để xếp thí sinh");
         //} else
@@ -121,18 +162,55 @@
         //    alert("Chọn phòng bên phải để xếp thí sinh");
         //}
         //else {
-        var length = document.getElementById(toSourceId).length;
-        var capcity = parseInt($("#" + capacity).val());
 
-        if ($('#' + fromSourceId + ' :selected').length <= capcity - length) {
-            var srcFrom = $("#" + fromSourceId)[0];
-            var srcTo = $("#" + toSourceId)[0];
-            $('#' + fromSourceId + ' :selected').each(function (i, item) {
-                srcTo.appendChild(item);
-            });
-        } else {
-            alert("Số thí sinh phải nhỏ hơn tiêu chuẩn phòng");
+        //var length = document.getElementById(toSourceId).length;
+        var aa = document.getElementById(room).value;
+        var split = aa.split(",");
+        var genderRoom = split[1];
+        var flag = true;
+        var bb = document.getElementById(fromSourceId).selectedOptions;
+        var canGender;
+        for (var i = 0; i < $('#' + fromSourceId + ' :selected').length; i++) {
+            var value = bb[i].value;
+            var split2 = value.split(",");
+            canGender = split2[1];
+            if (canGender != genderRoom) {
+                flag = false; break;
+            }
         }
+        if (!flag) {
+            alert("Không thể xếp thí sinh khác giới tính chung một phòng!");
+        } else {
+            var capcity = parseInt(document.getElementById(capacity).textContent);
+            var selected = $('#cbbCandidate' + ' :selected').length;
+            if ($('#' + fromSourceId + ' :selected').length <= capcity) {
+                var srcFrom = $("#" + fromSourceId)[0];
+                var srcTo = $("#" + toSourceId)[0];
+                $('#' + fromSourceId + ' :selected').each(function (i, item) {
+                    srcTo.appendChild(item);
+                });
+            } else {
+                alert("Số thí sinh phải nhỏ hơn tiêu chuẩn phòng");
+            }
+            if (toSourceId == "listboxCandidate1") {
+                var sum = parseInt(document.getElementById("avaiA").textContent);
+                var newcap = sum - selected;
+                if (newcap < 0) {
+                    newcap = 0;
+                }
+                $("#avaiA").html("");
+                $("#avaiA").append("<div id=\"\cappA\">" + newcap + "</div>");
+            } else {
+                var capcity1 = parseInt(document.getElementById("avaiB").textContent);
+                var newcap1 = capcity1 - selected;
+                if (newcap1 < 0) {
+                    newcap1 = 0;
+                }
+                $("#avaiB").html("");
+                $("#avaiB").append("<div id=\"\cappB\">" + newcap1 + "</div>");
+            }
+        }
+
         //}
     }
     function AddRemoveB(fromSourceId, toSourceId) {
@@ -146,7 +224,21 @@
         //var lengthA = document.getElementById("listboxCandidate1").length;
         //var capcityA = parseInt($("#capaRoomA").val());
         //if ($('#' + fromSourceId + ' :selected').length <= capcityA - lengthA) {
-        $("#capaRoomA").val(Number($('#' + fromSourceId + ' :selected').length) + $("#capaRoomA").val());
+        if (fromSourceId == "listboxCandidate1") {
+            var capcity = parseInt(document.getElementById("avaiA").textContent);
+            var selected = $('#' + fromSourceId + ' :selected').length;
+            var newcap = capcity + selected;
+            $("#avaiA").html("");
+            $("#avaiA").append("<div id=\"\cappA\">" + newcap + "</div>");
+        } else {
+            var capcity1 = parseInt(document.getElementById("avaiB").textContent);
+            var selected1 = $('#' + fromSourceId + ' :selected').length;
+            var newcap1 = capcity1 + selected1;
+            $("#avaiB").html("");
+            $("#avaiB").append("<div id=\"\cappB\">" + newcap1 + "</div>");
+        }
+
+        //$("#capaRoomA").val(Number($('#' + fromSourceId + ' :selected').length) + $("#capaRoomA").val());
         var srcFrom = $("#" + fromSourceId)[0];
         var srcTo = $("#" + toSourceId)[0];
         $('#' + fromSourceId + ' :selected').each(function (i, item) {
@@ -161,75 +253,90 @@
 
 
     function saveListCandidate() {
-
         var listRoomA = document.getElementById("listboxCandidate1");
         var listRoomB = document.getElementById("listboxCandidate2");
         var listCandidate = document.getElementById("cbbCandidate");
         var caId;
         var roomId;
-        var roomIdA = $("#cbbRoomLeft").val();
-        var roomIdB = $("#cbbRoomRight").val();
+        var aa = document.getElementById("cbbRoomLeft").value;
+        var split3 = aa.split(",");
+        var roomIdA = parseInt(split3[0]);
+        var bb = document.getElementById("cbbRoomRight").value;
+        var split4 = bb.split(",");
+        var roomIdB = parseInt(split4[0]);
         if (listCandidate.length != 0) {
             for (var c = 0; c < listCandidate.length; c++) {
                 caId = listCandidate[c].value;
+                var split = caId.split(",");
+                var id = parseInt(split[0]);
                 roomId = 0;
                 $.ajax({
                     url: '/Charity/EditAssignRoom',
-                    data: { "caId": caId, "roomId": roomId },
+                    data: { "caId": id, "roomId": roomId },
                     type: 'Post',
                 });
             }
         }
-        if (listRoomB.length != 0 && listRoomA.length != 0) {
+        if (listRoomB.length != 0 || listRoomA.length != 0) {
 
             for (var i = 0; i < listRoomA.length; i++) {
                 caId = document.getElementById("listboxCandidate1")[i].value;
+                var split1 = caId.split(",");
+                var id1 = parseInt(split1[0]);
+                roomId = 0;
                 roomId = roomIdA;
                 $.ajax({
                     url: '/Charity/EditAssignRoom',
-                    data: { "caId": caId, "roomId": roomId },
+                    data: { "caId": id1, "roomId": roomId },
                     type: 'Post',
                 });
             }
 
             for (var x = 0; x < listRoomB.length; x++) {
                 caId = document.getElementById("listboxCandidate2")[x].value;
+                var split2 = caId.split(",");
+                var id2 = parseInt(split2[0]);
                 roomId = roomIdB;
                 $.ajax({
                     url: '/Charity/EditAssignRoom',
-                    data: { "caId": caId, "roomId": roomId },
+                    data: { "caId": id2, "roomId": roomId },
                     type: 'Post',
                 });
             }
             // alert("Lưu thành công");
         }
 
-        if (listRoomA.length == 0) {
-            for (var a = 0; a < listRoomB.length; a++) {
-                caId = document.getElementById("listboxCandidate2")[a].value;
-                roomId = roomIdB;
-                $.ajax({
-                    url: '/Charity/EditAssignRoom',
-                    data: { "caId": caId, "roomId": roomId },
-                    type: 'Post',
-                });
-            }
-            //alert("Lưu thành công");
-        }
-        if (listRoomB.length == 0) {
-            for (var b = 0; b < listRoomA.length; b++) {
-                caId = document.getElementById("listboxCandidate1")[b].value;
-                roomId = roomIdA;
-                $.ajax({
-                    url: '/Charity/EditAssignRoom',
-                    data: { "caId": caId, "roomId": roomId },
-                    type: 'Post',
-                });
-            }
+        //if (listRoomA.length == 0) {
+        //    for (var a = 0; a < listRoomB.length; a++) {
+        //        caId = document.getElementById("listboxCandidate2")[a].value;
+        //        var split3 = caId.split(",");
+        //        var id3 = parseInt(split3[0]);
+        //        roomId = roomIdB;
+        //        $.ajax({
+        //            url: '/Charity/EditAssignRoom',
+        //            data: { "caId": id3, "roomId": roomId },
+        //            type: 'Post',
+        //        });
+        //    }
+        //    //alert("Lưu thành công");
+        //}
+        //if (listRoomB.length == 0) {
+        //    for (var b = 0; b < listRoomA.length; b++) {
+        //        caId = document.getElementById("listboxCandidate1")[b].value;
+        //        var split4 = caId.split(",");
+        //        var id4 = parseInt(split4[0]);
+        //        roomId = roomIdA;
+        //        $.ajax({
+        //            url: '/Charity/EditAssignRoom',
+        //            data: { "caId": id4, "roomId": roomId },
+        //            type: 'Post',
+        //        });
+        //    }
 
-        }
+        //}
 
         alert("Lưu thành công");
+        location.reload();
     }
 
     function syncChange(id) {
@@ -260,36 +367,42 @@
 </script>
 
 <div class="col-md-12" style="padding-top: 35px">
-
-
     <div class="row margin-bottom-10">
         <div class="col-md-3">
             <div class="view view-tenth">
-                <select id="cbbRoomLeft" onchange=" callAjax(this.value, 'listboxCandidate1','cbbRoomLeft','cbbRoomRight'),syncChange('cbbRoomLeft')">
+                <select id="cbbRoomLeft" onchange=" callAjax(this.value, 'listboxCandidate1','cbbRoomLeft','cbbRoomRight'),syncChange('cbbRoomLeft'),capacityA(this.value)">
                     <option id="index1" value="0">Chọn phòng</option>
                 </select>
                 <select id="listboxCandidate1" multiple="multiple" size="5" style="width: 220px; height: 180px">
                 </select>
-                <span id="avaiA"></span>
+                <div>
+                    <table>
+                        <tr>
+                            <td>Số chỗ còn trống:</td>
+                            <td>
+                                <div id="avaiA"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-1">
             <div style="padding-bottom: 15px; padding-top: 70px">
-                <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'capaRoomA');" value="<<<<<" />
+                <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'avaiA', 'cbbRoomLeft');" value="<<<<<" />
             </div>
             <div style="padding-bottom: 15px">
                 <input type="button" id="btnA" onclick="AddRemoveB('listboxCandidate1', 'cbbCandidate');" value=">>>>>" />
             </div>
         </div>
         <div class="col-md-3">
-
             <label>Thí sinh chưa xếp phòng</label>
             <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 220px; height: 200px">
             </select>
         </div>
         <div class="col-md-1">
             <div style="padding-bottom: 15px; padding-top: 70px">
-                <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'capaRoomB');" value=">>>>>" />
+                <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'avaiB', 'cbbRoomRight');" value=">>>>>" />
             </div>
             <div style="padding-bottom: 15px">
                 <input type="button" id="btnE" onclick="AddRemoveB('listboxCandidate2', 'cbbCandidate');" value="<<<<<" />
@@ -297,16 +410,30 @@
         </div>
         <div class="col-md-3">
             <div class="view view-tenth">
-                <select id="cbbRoomRight" onchange=" callAjax(this.value, 'listboxCandidate2','cbbRoomRight','cbbRoomLeft'),syncChange('cbbRoomRight') ">
+                <select id="cbbRoomRight" onchange=" callAjax(this.value, 'listboxCandidate2','cbbRoomRight','cbbRoomLeft'),syncChange('cbbRoomRight'),capacityB(this.value) ">
                     <option id="index2" value="0">Chọn phòng</option>
-                </select><span id="avaiB"></span>
+                </select>
                 <select id="listboxCandidate2" multiple="multiple" size="5" style="width: 220px; height: 180px">
                 </select>
+                <div>
+                    <table>
+                        <tr>
+                            <td>Số chỗ còn trống:</td>
+                            <td>
+                                <div id="avaiB"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <input type="submit" value="Lưu lại" class="btn-info" onclick=" saveListCandidate()" />
+    <div style="margin-top: 55px">
+        <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceID"] })" class="btn-u btn-u-default" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+        <input type="submit" value="Lưu lại" class="btn-u btn-u-sea" style="float: right;margin-right: 635px" onclick="saveListCandidate()" />
+    </div>
 </div>
+
 
 
 @*<div class="col-md-1" style="padding-left: 36px">
