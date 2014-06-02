@@ -7,56 +7,7 @@
 @model ExaminationsPaper
 
 <script src="/Content/js/TSMTViewOnMap.js"></script>
-<script type="text/javascript">
-    function checkDate() {
-        var examDate = new Date(document.getElementById("date").textContent);
-        var now = new Date;
-        if ((examDate - now) / 86400000 >= 3) {
-            return true;
-        } else {
-            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể đăng ký được nữa");
-            return false;
-        }
-    }
-</script>
-<script src="/Content/js/jquery-1.6.4.js"></script>
-<script src="/Content/js/jquery-ui-1.10.3.js"></script>
-<script src="/Content/js/jquery.signalR-1.1.3.js"></script>
 
-<!-- duong dan de tu dong sinh ra cac file ho tro ket noi cua SignalR -->
-<script src="/signalr/hubs"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var hub = $.connection.COUNTING; // khai bao connection vao bien (xem ben CountingHub.cs)
-
-        // Ham cua client co kieu: hub.client.TenHam
-
-        hub.client.counted = function (count) { // vua co mot click, nhan thong tin tu server va show ra.
-            $("#count").text(count);
-        };
-
-        hub.client.getInfo = function (count) { // ham nay co y nghia 
-            $("#count").text(count);
-        };
-
-        // tuong tu nhu $(document).ready()
-        // ham nay co y nghia la connection da ket noi thanh cong
-        // va nhung code viet trong ham nay bat dau duoc thuc hien.
-        $.connection.hub.start().done(function () {
-            $("#status").text("Connected!"); // thong bao da ket noi thanh cong
-
-            // sau khi ket noi thanh cong, client ko tu dong lay thong tin moi tu server
-            // cho nen client phai goi thong tin moi. Thong thuong thi xai AJAX
-            // nhung demo luon SignalR de phong phu
-            // Ham nay se goi ham "getCount" cua server (xem ben CountingHub.cs)
-            hub.server.getCount();
-
-            $("#clickme").click(function () { // khi button "clickme" duoc bam thi ham nay duoc goi
-                hub.server.goCount(); // goi ham "goCount" cua server (xem ben CountingHub.cs)
-            });
-        });
-    });
-</script>
 @section Breadcrumbs {
     <div class="breadcrumbs margin-bottom-20">
         <div class="container">
@@ -78,15 +29,7 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
-
-
-                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();"class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>
-
-              @*  <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>*@
-
-
-             @*   <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();" class="btn-u btn-u-orange"><i class="fa fa-search"></i>Đăng ký ngay</a>*@
-
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
@@ -95,7 +38,7 @@
             {
             <h3>Phiếu báo thi đã được đăng ký vào Hội từ thiện <a href="#" title="Xem thông tin của Hội từ thiện @Model.ChairitiesExam.Charity.Name" onclick="">@Model.ChairitiesExam.Charity.Name!</a>
                 @*@Html.ActionLink("Rời khỏi hội từ thiện", "LeaveCE", new { id = Model.ExamPaperID }, new { @class = "btn-u btn-u-default", @onclick = "return showPopup('Please confirm to leave them.', this.href)" })*@
-                <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="fa fa-signout"></i>Rời Hội từ thiện</a>
+                <a href="@Url.Action("LeaveCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-purple" onclick = "return showPopup('Please confirm to leave them.', this.href)" })><i class="icon-signout"></i>Rời Hội từ thiện</a>
             </h3>
             }
             else
@@ -107,15 +50,16 @@
     </div>
     <div class="panel panel-blue margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list">&nbsp;Thông tin phiếu báo thi</i></h3>
+            <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin phiếu báo thi</i></h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
                     <td style="vertical-align: middle">Kỳ thi</td>
-                    <td style="vertical-align: middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name</a>
-                        <div id="date" style="display: none">@Model.UniversitiesExamination.Examination.BeginDate</div>
-                    </td>
+                    <td style="vertical-align: middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name 
+                        (@Model.UniversitiesExamination.Examination.BeginDate.ToString("dd/MM/yyyy") -
+                        @Model.UniversitiesExamination.Examination.EndDate.ToString("dd/MM/yyyy"))
+                                                       </a></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle">Trường</td>
@@ -139,17 +83,29 @@
                     <td style="vertical-align: middle">@Model.Station.StationName</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: middle">GIờ</td>
+                    <td style="vertical-align: middle">Giờ xe rước tại bến</td>
 
                     @if (Model.PickUpTime == 1)
                     {
-                        <td style="vertical-align: middle">11h00(sáng)</td>
+                        <td style="vertical-align: middle">11h00 sáng (@Model.UniversitiesExamination.Examination.BeginDate.AddDays(-2).ToString("dd/MM/yyyy"))</td>
                     }
                     else
                     {
-                        <td style="vertical-align: middle">17h00(chiều)</td>
+                        <td style="vertical-align: middle">17h00 chiều (@Model.UniversitiesExamination.Examination.BeginDate.AddDays(-2).ToString("dd/MM/yyyy"))</td>
                     }
 
+                </tr>
+                <tr>
+                         <td style="vertical-align: middle">Xe đón tại bến xe</td>
+                    @if (Model.StationCarID == null)
+                    {
+                         <td style="vertical-align: middle">#Chưa được sắp#</td>
+                    }
+                    else
+                    {
+                            <td style="vertical-align: middle">@Model.StationCar.Car.NumberPlate</td>
+                    }
+                 
                 </tr>
             </table>
         </div>
@@ -158,7 +114,7 @@
     {
         <div class="panel panel-orange margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
+                <h3 class="panel-title"><i class="icon-list">&nbsp;Hỗ trợ của nhà từ thiện</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
@@ -199,7 +155,7 @@
         </div>
         <div class="panel panel-purple margin-bottom-20">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list">&nbsp;Thông tin riêng</i></h3>
+                <h3 class="panel-title"><i class="icon-list">&nbsp;Thông tin riêng</i></h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
@@ -217,23 +173,23 @@
                             @if (Model.GroupID != null) // has group --> can invite, or being asked by a Candidate
                             {
                                 <a href="@Url.Action("ViewGroup", "Candidate", new { id = Model.GroupID })" class="btn-u btn-u-violet">
-                                    <i class="fa fa-eye"></i>&nbsp;Xem danh sách nhóm</a> 
+                                    <i class="icon-eye-open"></i>&nbsp;Xem danh sách nhóm</a> 
 
 @*   @Html.ActionLink("Xem danh sách nhóm", "ViewGroup", new { id = Model.GroupID }, new { @class = "btn btn-info" })*@
 
                                 if (Model.Group.OwnerID == Model.ExamPaperID) // is owner
                                 {
 @* @Html.ActionLink("Xoá nhóm", "DeleteGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                                <a href="@Url.Action("DeleteGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="fa fa-trash-o"></i>&nbsp;Xóa nhóm</a>
+                                <a href="@Url.Action("DeleteGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Xóa nhóm</a>
                                 }
                                 else // is member
                                 { 
 @*@Html.ActionLink("Rời nhóm", "LeaveGroup", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="fa fa-trash-o"></i>&nbsp;Rời nhóm</a>
+                                <a href="@Url.Action("LeaveGroup", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-red"><i class="icon-remove-sign"></i>&nbsp;Rời nhóm</a>
                                 }
                             }
 @*@Html.ActionLink("Tìm kiếm bạn bè", "FindFriend", new { id = Model.ExamPaperID }, new { @class = "btn btn-info" })*@
-                            <a href="@Url.Action("FindFriend", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-blue"><i class="fa fa-search"></i>&nbsp;Tìm kiếm bạn bè</a>
+                            <a href="@Url.Action("FindFriend", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-blue"><i class="icon-search"></i>&nbsp;Tìm kiếm bạn bè</a>
                         </td>
                     </tr>
                 </table>
@@ -262,7 +218,7 @@
                                     @if (Model.ExamPaperID == Model.Group.OwnerID) // is owner --> has permission to approve or deny
                                     {
 @*           @Html.ActionLink("Huỷ lời mời", "DeleteRequest", new { id = gr.ID }, new { @class = "btn btn-info" })*@
-                                        <a href="@Url.Action("DeleteRequest", "Candidate", new { id = gr.ID })" class="btn-u btn-u-red"><i class="fa fa-times-circle"></i>&nbsp;Hủy lời mời</a>
+                                        <a href="@Url.Action("DeleteRequest", "Candidate", new { id = gr.ID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy lời mời</a>
                                     }
                                 </td>
                             }
@@ -271,7 +227,7 @@
                                 <td style="vertical-align: middle">Bạn đã gửi lời đề nghị được tham gia vào nhóm <b>@gr.GroupID</b></td>
                                 <td style="vertical-align: middle">
                                     @*        @Html.ActionLink("Huỷ yêu cầu", "DeleteRequest", new { id = Model.ExamPaperID, gID = gr.GroupID }, new { @class = "btn btn-info" })*@
-                                    <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="fa fa-times-circle"></i>&nbsp;Hủy yêu cầu</a>
+                                    <a href="@Url.Action("DeleteRequest", "Candidate", new { id = Model.ExamPaperID, gID = gr.GroupID })" class="btn-u btn-u-red"><i class="icon-remove-circle"></i>&nbsp;Hủy yêu cầu</a>
                                 </td>
                             }
                         </tr>
@@ -313,5 +269,5 @@
         </div>
     }
 @*@Html.ActionLink("Quay về trang trước", "Index", null, new { @class = "btn btn-info" })*@
-    <a href="@Url.Action("ManageExamPaper", "Candidate")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ManageExamPaper", "Candidate")" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
 </div>

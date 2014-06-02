@@ -1,5 +1,5 @@
 ﻿@using TSMT.Models
-@model TSMT.Models.Charity
+@model TSMT.Models.ChairitiesExam
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,8 +18,6 @@
             <ul class="pull-right breadcrumb">
                 <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li><a href="@Url.Action("Index", "Charity")">Hội từ thiện</a></li>
-                <li><a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })">Đợt thi</a></li>
-                <li><a href="@Url.Action("ManageLodge", "Charity", new { id = @ViewData["ceId"] })">Quản lý chỗ ở</a></li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
         </div>
@@ -30,19 +28,18 @@
 <div class="col-md-9">
 
 
-    <div class="panel panel-orange margin-bottom-20">
+     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-list"></i>Thông tin nhà trọ của Kì Thi 
+            <h3 class="panel-title"><i class="icon-list"></i>Thông tin chỗ trọ của Kì Thi 
             </h3>
 
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <td colspan="5">Kì thi: @Model.Name</td>
+                    <td colspan="5">Kì thi: @Model.Examination.Name</td>
                     <td></td>
                 </tr>
-
                 <tr>
                     <td>Số Thi Sinh Tham Gia Đợt Này
                     </td>
@@ -53,26 +50,26 @@
                     </td>
                     <td colspan="5">@ViewData["totalSlots"]</td>
                 </tr>
-                @if (ViewBag.totalAvaSlots > 0)
-                {
-                    <tr>
-                        <td>Số Chỗ Trọ Còn Thiếu</td>
-                        <td>@ViewData["totalAvaSlots"]</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" style="text-align: center; color: red"><b>Bạn hãy chọn thêm nhà trọ cho đợt này!</b> </td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: red"><b>Hiện tại đã đủ chỗ trọ để đáp ứng cho đợt này!</b> </td>
+                                @if (ViewBag.totalAvaSlots > 0)
+                                {
+                                    <tr>
+                                    <td>Số Chỗ Trọ Còn Thiếu</td>
+                                    <td>@ViewData["totalAvaSlots"]</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                        </tr>
+                                    <tr>
+                                    <td colspan="6" style="text-align: center; color:red"><B>Bạn hãy chọn thêm chỗ trọ cho đợt này!</B> </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                    <td colspan="5" style="text-align: center; color:red"><B>Hiện tại đã đủ chỗ trọ để đáp ứng cho đợt này!</B> </td>
 
-                    </tr>
-                }
+                                    </tr>
+                                }
             </table>
 
         </div>
@@ -80,8 +77,8 @@
 
     <div class="panel panel-orange margin-bottom-20">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i>Thông tin về nhà trọ của @Model.Name
-                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="fa fa-pencil"></i>Tạo mới</a>*@
+            <h3 class="panel-title"><i class="icon-list"></i>Bạn có thể chọn các nhà trọ dưới đây ! Để tài trợ thêm cho Kì Thi
+                @* <a href="@Url.Action("AddCar", "Charity", new { ceId = Model.CharityExamID })" class="btn-u btn-u-green"><i class="icon-pencil"></i>Tạo mới</a>*@
             </h3>
 
         </div>
@@ -108,20 +105,20 @@
 
                                     foreach (var item in ViewData["Lodge"] as IEnumerable<Lodge>)
                                     {
-                                    <tr id="@item.LodgeID">
-                                        <td>@counter</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Rooms.Count</td>
-                                        <td>@item.TotalSlots</td>
-                                        <td>
-                                            @*<button class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="fa fa-map-marker"></i></button>*@
-                                            <a href="#" class="btn-u btn-u-red" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="fa fa-map-marker"></i></a>
-                                            @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
-                                            @*@Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})*@
-                                            <a href="@Url.Action("ChooseRoomsForCe", "Charity", new { lodgeId = @item.LodgeID, id = @ViewData["ceId"] })" class="btn-u btn-u-dark-blue" title="Sử dụng"><i class="fa fa-check-circle"></i></a>
-                                        </td>
+                                        <tr id="@item.LodgeID">
+                                            <td>@counter</td>
+                                            <td>@item.Address</td>                                       
+                                            <td>@item.Rooms.Count</td>
+                                            <td>@item.TotalSlots</td>
+                                            <td>
+                                                @*<button class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
+                                                <a href="#" class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></a> 
+                                                @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
+                                                @*@Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})*@
+                                                <a href="@Url.Action("ChooseRoomsForCe", "Charity", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})" class="btn-u btn-u-pink" title="Sử dụng"><i class="icon-heart"></i></a>
+                                            </td>
 
-                                    </tr>
+                                        </tr>
                                         ++counter;
                                     }
                                 }
@@ -134,7 +131,7 @@
 
         </div>
     </div>
-    <a href="@Url.Action("ManageLodge", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("ManageLodge", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
     @*@Html.ActionLink("Quay lại ", "ManageLodge", new { ceId = @ViewData["ceId"] }, new { @class = "btn btn-info" })*@
 </div>
 
