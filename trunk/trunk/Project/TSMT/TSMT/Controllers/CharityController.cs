@@ -1786,7 +1786,7 @@ namespace TSMT.Controllers
         [HttpPost]
         public JsonResult ResultAjaxVolunteer(int id)
         {
-            var pv = db.ParticipantVolunteers.SingleOrDefault(r => r.VolunteerID == id);
+            var pv = db.ParticipantVolunteers.FirstOrDefault(r => r.VolunteerID == id);
             var canOfVo = from r in db.ExaminationsPapers
                           where r.ParticipantVolunteerID == pv.ParticipantVolunteerID
                           select new
@@ -1909,6 +1909,7 @@ namespace TSMT.Controllers
                 {
                     var car = db.Cars.FirstOrDefault(r => r.CarID == expp.CarID);
                     ++car.AvailableSlots;
+                    expp.CarID = null;
                 }
                 var pv = db.ParticipantVolunteers.FirstOrDefault(r => r.VolunteerID == voId);
                 pv.ExamPaperID = expp.ExamPaperID;
