@@ -176,6 +176,7 @@
         <button type="submit" value="Chọn" class="btn-u btn-u-purple" id="saveall"><i class="fa fa-check"></i>&nbsp;Chọn</button>
         <button type="button" onclick="location.href='/Charity/ManageCar/'+ @Model.CharityExamID" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</button>
     </div>
+     <a href="@Url.Action("ManageCar", "Charity", new { id = @Model.CharityExamID})" class="btn-u btn-u-default"><i class="icon-chevron-sign-left"></i>&nbsp;Quay lại</a>
     @* <table>
         <tr>
         <td colspan="4">

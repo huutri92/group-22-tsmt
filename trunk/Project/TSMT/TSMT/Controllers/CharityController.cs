@@ -386,7 +386,6 @@ namespace TSMT.Controllers
             {
                 ce.AvailableSlotsVehicles = 0;
             }
-            car.IsApproved = false;
             car.CharityExamID = null;
             db.SaveChanges();
             return Json("", JsonRequestBehavior.AllowGet);
@@ -2129,7 +2128,7 @@ namespace TSMT.Controllers
                         cars[i] = cars[j];
                         cars[j] = tmp;
                     }
-            for (int j = 0; j < CountStation; ++j)
+            for (int j = 1; j <= CountStation; ++j)
             {
                 var Candidates = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.StatitonID == j).ToList();
                 var CandidatesCount = db.ExaminationsPapers.Count(r => r.CharityExamID == id && r.StatitonID == j);
@@ -2152,6 +2151,17 @@ namespace TSMT.Controllers
 
                 }
             }
+            return RedirectToAction("AssignCarForStation", new { id = id });
+        }
+
+        public ActionResult Reset(int id)
+        {
+            var DelCan = db.ExaminationsPapers.Where(r => r.CharityExamID == id).ToList();
+            foreach (var c in DelCan)
+            {
+                c.StationCarID = null;
+            }
+            db.SaveChanges();
             return RedirectToAction("AssignCarForStation", new { id = id });
         }
         #endregion
