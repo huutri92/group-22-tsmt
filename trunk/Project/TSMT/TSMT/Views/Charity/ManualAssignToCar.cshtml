@@ -2,11 +2,8 @@
     ViewBag.Title = "Sắp xe cho thí sinh";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @using Microsoft.Ajax.Utilities
 @using TSMT.Models
-
-
 @section Breadcrumbs {
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs margin-bottom-40">
@@ -21,7 +18,6 @@
         </div>
     </div>
 }
-
 <select id="capaCarA" style="display: none">
     <option></option>
     @foreach (var item in ViewData["listCar"] as IEnumerable<Car>)
@@ -39,113 +35,102 @@
 <script>
     function callAjax(id, cbbId, capaId, cbbVo, carA, carB) {
         document.getElementById(cbbVo).selectedIndex = 0;
-        $.ajax({
-            url: '/Charity/ResultAjaxCar',
-            data: { "id": id },
-            type: 'POST',
-            success: function (results) {
-                $("#" + cbbId).html("");
-                var r;
-                for (i in results) {
-                    r = results[i];
-                    $("#" + cbbId).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-                }
-            }
-        });
-    }
-
-    function callAjaxLodge(id, cbbRoomA, cbbRoomB, capA, capB) {
-        $("#cbbCandidate").html("");
-        $("#listboxCandidate1").html("");
-        if (document.getElementById("cbbLodge").selectedIndex == 0) {
-            $("#cbbCandidate").html("");
+        if (document.getElementById(carA).selectedIndex != 0 && document.getElementById(carA).selectedIndex != 0 && document.getElementById(carA).selectedIndex == document.getElementById(carB).selectedIndex) {
+            alert("Xe này đã được chọn, hãy chọn xe khác");
+            document.getElementById(carA).selectedIndex = 0;
         }
-        $.ajax({
-            url: '/Charity/ResultAjaxLodgeCandidate',
-            data: { "id": id },
-            type: 'POST',
-            success: function (results) {
-                $("#cbbCandidate").html("");
-                var r;
-                for (i in results) {
-                    r = results[i];
-                    $("#cbbCandidate").append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+        else {
+            $.ajax({
+                url: '/Charity/ResultAjaxCar',
+                data: { "id": id },
+                type: 'POST',
+                success: function (results) {
+                    $("#" + cbbId).html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#" + cbbId).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    }
                 }
-            }
-        });
-        $.ajax({
-            url: '/Charity/ResultAjaxLodgeRoom',
-            data: { "id": id },
-            type: 'POST',
-            success: function (results) {
-                $("#" + cbbRoomA).html("");
-                $("#" + cbbRoomB).html("");
-                $("#" + capA).html("");
-                $("#" + capB).html("");
-                var r;
-                $("#" + cbbRoomA).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
-                $("#" + cbbRoomB).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
-                $("#" + capA).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
-                $("#" + capB).append("<option value=\"" + 0 + "\">" + "Chọn phòng" + "</option>");
-                for (i in results) {
-                    r = results[i];
-                    $("#" + cbbRoomA).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-                    $("#" + cbbRoomB).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-                    $("#" + capA).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
-                    $("#" + capB).append("<option value=\"" + r.capacity + "\">" + r.capacity + "</option>");
+            });
+        }
+        
+        
+    }
+    function capacityA(id) {
+        if (document.getElementById("cbbCarLeft").selectedIndex != 0) {
+            $.ajax({
+                url: '/Charity/ResultAjaxCarCap',
+                data: { "id": id },
+                type: 'POST',
+                success: function(results) {
+                    $("#avaiA").html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#avaiA").append("<div id=\"\cappA\">" + r.value + "</div>");
+                    }
                 }
-            }
-        });
-
+            });
+        } else {
+             $("#avaiA").html("");
+        }
+    }
+    function capacityB(id)
+    {
+        if (document.getElementById("cbbCarRight").selectedIndex != 0 ) {
+            $.ajax({
+                url: '/Charity/ResultAjaxCarCap',
+                data: { "id": id },
+                type: 'POST',
+                success: function(results) {
+                    $("#avaiB").html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#avaiB").append("<div id=\"\cappB\">" + r.value + "</div>");
+                    }
+                }
+            });
+        } else {
+             $("#avaiB").html("");
+        }
     }
 
     function callAjaxVolunteer(id, cbbId, cbbCar, voA, voB, quantity) {
-        //document.getElementById(quantity).textContent = null;
-        $("#" + cbbId).empty();
-        document.getElementById(cbbCar).selectedIndex = 0;
-        $.ajax({
-            url: '/Charity/ResultAjaxVolunteer',
-            data: { "id": id },
-            type: 'POST',
-            success: function (results) {
-                $("#" + cbbId).html("");
-                var r;
-                for (i in results) {
-                    r = results[i];
-                    $("#" + cbbId).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
-                }
-
+        if (document.getElementById(voA).selectedIndex != 0 && document.getElementById(voA).selectedIndex != 0 && document.getElementById(voA).selectedIndex == document.getElementById(voB).selectedIndex) {
+            alert("Tình nguyện viên này đã được chọn, hãy chọn người khác");
+            document.getElementById(voA).selectedIndex = 0;
+        } else {
+            $("#" + cbbId).empty();
+            document.getElementById(cbbCar).selectedIndex = 0;
+            if (voA == "cbbVoLeft") {
+                $("#avaiA").html("");
+            } else {
+                $("#avaiB").html("");
             }
-        });
-    }
+            $.ajax({
+                url: '/Charity/ResultAjaxVolunteer',
+                data: { "id": id },
+                type: 'POST',
+                success: function (results) {
+                    $("#" + cbbId).html("");
+                    var r;
+                    for (i in results) {
+                        r = results[i];
+                        $("#" + cbbId).append("<option value=\"" + r.value + "\">" + r["name"] + "</option>");
+                    }
 
-    function callAjaxCapacity(spanid, capaId, candidate, remain) {
-        $("#" + spanid).empty();
-        $("#" + spanid).append(document.getElementById(capaId).value);
-        //if (document.getElementById(candidate).length == 0) {
-        //    $("#" + remain).empty();
-        //}
-        //else {
-        //    var length = getElementById(candidate).length;
-        //    var capcity = parseInt(document.getElementById(capaId).value);
-        //    $("#" + remain).empty();
-        //    $("#" + remain).append(capcity - length);
-        //}
-    }
+                }
+            });
+        }
 
+    }
 
     function AddRemoveA(fromSourceId, toSourceId, capacity, cbbcar, cbbvolunteer) {
-        //if (document.getElementById("cbbCarLeft").value == document.getElementById("cbbCarRight").value) {
-        //    alert("Chọn 2 phòng khác nhau để xếp thí sinh");
-        //} else
-        //if (document.getElementById("cbbCarRight").selectedIndex == 0) {
-        //    alert("Chọn phòng bên phải để xếp thí sinh");
-        //}
-        //else {
         var car = document.getElementById(cbbcar);
         var volunteer = document.getElementById(cbbvolunteer);
-        var length = document.getElementById(toSourceId).length;
-        var capcity = parseInt($("#" + capacity).val());
+        var capcity = parseInt(document.getElementById(capacity).textContent);
         if (car.selectedIndex == 0 && volunteer.selectedIndex != 0) {
             if ($('#' + fromSourceId + ' :selected').length <= 1 && document.getElementById(toSourceId).length == 0) {
                 var srcCaFrom = $("#" + fromSourceId)[0];
@@ -162,50 +147,81 @@
                 alert("Chọn 1 xe hoặc 1 tình nguyện viên");
             }
             else
-                if ($('#' + fromSourceId + ' :selected').length <= capcity - length) {
+                if ($('#' + fromSourceId + ' :selected').length <= capcity) {
+                    var selected = $('#cbbCandidate' + ' :selected').length;
                     var srcFrom = $("#" + fromSourceId)[0];
                     var srcTo = $("#" + toSourceId)[0];
                     $('#' + fromSourceId + ' :selected').each(function (i, item) {
                         srcTo.appendChild(item);
                     });
+                    if (toSourceId == "listboxCandidate1") {
+                        var sum = parseInt(document.getElementById("avaiA").textContent);
+                        var newcap = sum - selected;
+                        if (newcap < 0) {
+                            newcap = 0;
+                        }
+                        $("#avaiA").html("");
+                        $("#avaiA").append("<div id=\"\cappA\">" + newcap + "</div>");
+                    } else {
+                        var capcity1 = parseInt(document.getElementById("avaiB").textContent);
+                        var newcap1 = capcity1 - selected;
+                        if (newcap1 < 0) {
+                            newcap1 = 0;
+                        }
+                        $("#avaiB").html("");
+                        $("#avaiB").append("<div id=\"\cappB\">" + newcap1 + "</div>");
+                    }
                 } else {
                     alert("Xe đã đủ thí sinh không thể xếp thêm");
                 }
-        //}
+        
     }
 
     function AddRemoveB(fromSourceId, toSourceId) {
-        //if (document.getElementById("cbbCarLeft").value == document.getElementById("cbbCarRight").value) {
-        //    alert("Chọn 2 phòng khác nhau để xếp thí sinh");
-        //} else 
-        //if (document.getElementById("cbbCarLeft").selectedIndex == 0) {
-        //    alert("Chọn phòng bên trái để xếp thí sinh");
-        //}
-        //else {
-        //var lengthA = document.getElementById("listboxCandidate1").length;
-        //var capcityA = parseInt($("#capaCarA").val());
-        //if ($('#' + fromSourceId + ' :selected').length <= capcityA - lengthA) {
+        if (fromSourceId == "listboxCandidate1") {
+            var capcity = parseInt(document.getElementById("avaiA").textContent);
+            var selected = $('#' + fromSourceId + ' :selected').length;
+            var newcap = capcity + selected;
+            if (document.getElementById("cbbVoLeft").selectedIndex == 0) {
+                $("#avaiA").html("");
+                $("#avaiA").append("<div id=\"\cappA\">" + newcap + "</div>");
+            } else {
+                $("#avaiA").html("");
+            }
+        } else {
+            var capcity1 = parseInt(document.getElementById("avaiB").textContent);
+            var selected1 = $('#' + fromSourceId + ' :selected').length;
+            var newcap1 = capcity1 + selected1;
+            if (document.getElementById("cbbVoRight").selectedIndex == 0) {
+                $("#avaiB").html("");
+                $("#avaiB").append("<div id=\"\cappB\">" + newcap1 + "</div>");
+            } else {
+                $("#avaiB").html("");
+            }
+        }
         var srcFrom = $("#" + fromSourceId)[0];
         var srcTo = $("#" + toSourceId)[0];
         $('#' + fromSourceId + ' :selected').each(function (i, item) {
             srcTo.appendChild(item);
         });
-        //} else {
-        //    alert("Phòng đã đủ thí sinh không thể xếp thêm");
-        //}
-        // }
+
     }
 
 
     function saveListCandidate() {
         var voLeft = document.getElementById("cbbVoLeft");
         var carLeft = document.getElementById("cbbCarLeft");
+        var voRight = document.getElementById("cbbVoRight");
+        var carRight = document.getElementById("cbbCarRight");
         var listCarA = document.getElementById("listboxCandidate1");
+        var listCarB = document.getElementById("listboxCandidate2");
         var listCandidate = document.getElementById("cbbCandidate");
         var caId;
         var carId;
         var carIdA = $("#cbbCarLeft").val();
         var voIdA = $("#cbbVoLeft").val();
+        var carIdB = $("#cbbCarRight").val();
+        var voIdB = $("#cbbVoRight").val();
         var voId;
         if (listCandidate.length != 0) {
             for (var c = 0; c < listCandidate.length; c++) {
@@ -219,8 +235,8 @@
                 });
             }
         }
-        if (listCandidate.length != 0 && listCarA.length != 0) {
-            for (var i = 0; i < listCarA.length; i++) {
+        if (listCarB.length != 0 || listCarA.length != 0) {
+            for (var x = 0; x < listCarA.length; x++) {
                 if (voLeft.selectedIndex == 0 && carLeft.selectedIndex != 0) {
                     voId = 0;
                     carId = carIdA;
@@ -228,59 +244,63 @@
                     carId = 0;
                     voId = voIdA;
                 }
-                caId = document.getElementById("listboxCandidate1")[i].value;
+                caId = document.getElementById("listboxCandidate1")[x].value;
                 $.ajax({
                     url: '/Charity/EditAssignCar',
                     data: { "caId": caId, "carId": carId, "voId": voId },
                     type: 'Post',
                 });
             }
-
-            for (var x = 0; x < listCandidate.length; x++) {
-                caId = listCandidate[x].value;
-                carId = 0;
-                voId = 0;
-                caId = document.getElementById("cbbCandidate")[x].value;
-                $.ajax({
-                    url: '/Charity/EditAssignCar',
-                    data: { "caId": caId, "carId": carId, "voId": voId },
-                    type: 'Post',
-                });
-            }
-        }
-
-        if (listCarA.length == 0) {
-            for (var j = 0; j < listCandidate.length; j++) {
-                caId = listCandidate[j].value;
-                carId = 0;
-                voId = 0;
-                caId = document.getElementById("cbbCandidate")[j].value;
-                $.ajax({
-                    url: '/Charity/EditAssignCar',
-                    data: { "caId": caId, "carId": carId, "voId": voId },
-                    type: 'Post',
-                });
-            }
-        }
-        if (listCarA.length != 0) {
-            for (var k = 0; k < listCarA.length; k++) {
-                if (voLeft.selectedIndex == 0 && carLeft.selectedIndex != 0) {
+            for (var i = 0; i < listCarB.length; i++) {
+                if (voRight.selectedIndex == 0 && carRight.selectedIndex != 0) {
                     voId = 0;
-                    carId = carIdA;
+                    carId = carIdB;
                 } else {
                     carId = 0;
-                    voId = voIdA;
+                    voId = voIdB;
                 }
-                caId = document.getElementById("listboxCandidate1")[k].value;
+                caId = document.getElementById("listboxCandidate2")[i].value;
                 $.ajax({
                     url: '/Charity/EditAssignCar',
                     data: { "caId": caId, "carId": carId, "voId": voId },
                     type: 'Post',
                 });
             }
+
         }
 
+        //if (listCarA.length == 0) {
+        //    for (var j = 0; j < listCandidate.length; j++) {
+        //        caId = listCandidate[j].value;
+        //        carId = 0;
+        //        voId = 0;
+        //        caId = document.getElementById("cbbCandidate")[j].value;
+        //        $.ajax({
+        //            url: '/Charity/EditAssignCar',
+        //            data: { "caId": caId, "carId": carId, "voId": voId },
+        //            type: 'Post',
+        //        });
+        //    }
+        //}
+        //if (listCarA.length != 0) {
+        //    for (var k = 0; k < listCarA.length; k++) {
+        //        if (voLeft.selectedIndex == 0 && carLeft.selectedIndex != 0) {
+        //            voId = 0;
+        //            carId = carIdA;
+        //        } else {
+        //            carId = 0;
+        //            voId = voIdA;
+        //        }
+        //        caId = document.getElementById("listboxCandidate1")[k].value;
+        //        $.ajax({
+        //            url: '/Charity/EditAssignCar',
+        //            data: { "caId": caId, "carId": carId, "voId": voId },
+        //            type: 'Post',
+        //        });
+        //    }
+        //}
         alert("Lưu thành công");
+        location.reload();
     }
 
     function syncChange(id) {
@@ -308,41 +328,17 @@
     }
 </script>
 
-<div class="col-md-9">
+<div class="col-md-12">
     <div class="row margin-bottom-10">
-        <div class="col-md-5">
-            <label>Thí sinh chưa xếp xe</label>
-            <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 275px; height: 250px">
-                @foreach (var item in ViewData["listCandidate"] as IEnumerable<ExaminationsPaper>)
-                {
-                    <option value="@item.CandidateID">@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-2">
-            <div style="padding-bottom: 15px; padding-top: 70px">
-                <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'capaCarA', 'cbbCarLeft', 'cbbVoLeft');" value=">>>>>" />
-            </div>
-            <div style="padding-bottom: 15px">
-                <input type="button" id="btnA" onclick="AddRemoveB('listboxCandidate1', 'cbbCandidate');" value="<<<<<" />
-            </div>
-            @* <div style="padding-bottom: 15px; padding-top: 200px">
-                <input type="button" id="btnE" onclick="AddRemoveB('listboxCandidate2', 'cbbCandidate');" value="<<<<<" />
-            </div>
-            <div style="padding-bottom: 15px">
-                <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'capaCarB', 'cbbCarRight', 'cbbVoRight');" value=">>>>>" />
-            </div>*@
-        </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
             <div class="view view-tenth">
-                <select id="cbbCarLeft" onchange=" callAjax(this.value, 'listboxCandidate1','capaCarA','cbbVoLeft','cbbCarLeft','cbbCarRight'),syncChange('cbbCarLeft'),callAjaxCapacity('quantity1','capaCarA','listboxCandidate1','remain1');">
+                <select id="cbbCarLeft" onchange=" callAjax(this.value, 'listboxCandidate1','capaCarA','cbbVoLeft','cbbCarLeft','cbbCarRight'),syncChange('cbbCarLeft'),capacityA(this.value);">
                     <option id="index1">Chọn xe</option>
                     @foreach (var item in ViewData["listCar"] as IEnumerable<Car>)
                     {
                         <option value="@item.CarID">@item.NumberPlate</option>
                     }
                 </select>
-                @*//<span>Số chỗ ngồi:</span><span id="quantity1" style="padding-left: 3px"></span>*@
                 <select id="cbbVoLeft" style="" onchange=" callAjaxVolunteer(this.value, 'listboxCandidate1','cbbCarLeft','cbbVoLeft','cbbVoRight','quantity1')">
                     <option id="index4">Tình nguyện viên</option>
                     @foreach (var item in ViewData["listVolunteer"] as IEnumerable<ParticipantVolunteer>)
@@ -350,35 +346,82 @@
                         <option value="@item.VolunteerID">@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</option>
                     }
                 </select>
-                <select id="listboxCandidate1" multiple="multiple" size="5" style="width: 275px; height: 250px">
+                <select id="listboxCandidate1" multiple="multiple" size="5" style="width: 220px; height: 180px">
                 </select>
+                <div>
+                    <table>
+                        <tr>
+                            <td>Số chỗ còn trống:</td>
+                            <td>
+                                <div id="avaiA"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            @*<div style="padding-bottom: 15px; padding-top: 70px">
-                <input type="button" id="btnC" onclick="AddRemoveA('listboxCandidate2', 'listboxCandidate1', 'capaCarA', 'cbbCarLeft', 'cbbVoLeft');" value="Lên" />
-                <input type="button" id="btnD" onclick="AddRemoveA('listboxCandidate1', 'listboxCandidate2', 'capaCarB', 'cbbCarRight', 'cbbVoRight');" value="Xuống" />
-            </div>*@
-            @*<div class="view view-tenth">
-                <select id="cbbCarRight" onchange=" callAjax(this.value, 'listboxCandidate2','capaCarB','cbbVoRight','cbbCarRight','cbbCarLeft'),syncChange('cbbCarRight'),callAjaxCapacity('quantity2','capaCarB','listboxCandidate2','remain2'); ">
-                <option id="index2">Chọn xe</option>
-                @foreach (var item in ViewData["listCar"] as IEnumerable<Car>)
+        </div>
+        <div class="col-md-1">
+            <div style="padding-bottom: 15px; padding-top: 70px">
+                <input type="button" id="btnB" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate1', 'avaiA', 'cbbCarLeft', 'cbbVoLeft');" value="<<<<<" />
+            </div>
+            <div style="padding-bottom: 15px">
+                <input type="button" id="btnA" onclick="AddRemoveB('listboxCandidate1', 'cbbCandidate');" value=">>>>>" />
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label>Thí sinh chưa xếp xe</label>
+            <select id="cbbCandidate" onchange="" multiple="multiple" size="5" style="width: 220px; height: 200px">
+                @foreach (var item in ViewData["listCandidate"] as IEnumerable<ExaminationsPaper>)
                 {
-                    <option value="@item.CarID">@item.NumberPlate</option>
+                    <option value="@item.CandidateID">@item.Candidate.Account.Profile.Lastname @item.Candidate.Account.Profile.Firstname</option>
                 }
             </select>
-            <span>Số chỗ ngồi:</span><span id="quantity2" style="padding-left: 3px"></span>
-            <select id="cbbVoRight" style="" onchange=" callAjaxVolunteer(this.value, 'listboxCandidate2','cbbCarRight','cbbVoRight','cbbVoLeft','quantity2')">
-                <option id="index3">Tình nguyện viên</option>
-                @foreach (var item in ViewData["listVolunteer"] as IEnumerable<Volunteer>)
-                {
-                    <option value="@item.VolunteerID">@item.Account.Profile.Lastname</option>
-                }
-            </select>
-                <select id="listboxCandidate2" multiple="multiple" size="5" style="width: 300px; height: 180px">
+        </div>
+        <div class="col-md-1">
+            <div style="padding-bottom: 15px; padding-top: 70px">
+                <input type="button" id="btnF" onclick="AddRemoveA('cbbCandidate', 'listboxCandidate2', 'avaiB', 'cbbCarRight', 'cbbVoRight');" value=">>>>>" />
+            </div>
+            <div style="padding-bottom: 15px">
+                <input type="button" id="btnE" onclick="AddRemoveB('listboxCandidate2', 'cbbCandidate');" value="<<<<<" />
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="view view-tenth">
+                <select id="cbbCarRight" onchange=" callAjax(this.value, 'listboxCandidate2','capaCarB','cbbVoRight','cbbCarRight','cbbCarLeft'),syncChange('cbbCarRight'),capacityB(this.value);">
+                    <option id="index2">Chọn xe</option>
+                    @foreach (var item in ViewData["listCar"] as IEnumerable<Car>)
+                    {
+                        <option value="@item.CarID">@item.NumberPlate</option>
+                    }
                 </select>
-            </div>*@
+                <select id="cbbVoRight" style="" onchange=" callAjaxVolunteer(this.value, 'listboxCandidate2','cbbCarRight','cbbVoRight','cbbVoLeft','quantity2')">
+                    <option id="index3">Tình nguyện viên</option>
+                    @foreach (var item in ViewData["listVolunteer"] as IEnumerable<ParticipantVolunteer>)
+                    {
+                        <option value="@item.VolunteerID">@item.Volunteer.Account.Profile.Lastname @item.Volunteer.Account.Profile.Firstname</option>
+                    }
+                </select>
+                <select id="listboxCandidate2" multiple="multiple" size="5" style="width: 220px; height: 180px">
+                </select>
+                <div>
+                    <table>
+                        <tr>
+                            <td>Số chỗ còn trống:</td>
+                            <td>
+                                <div id="avaiB"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <input type="submit" value="Lưu lại" class="btn-info" onclick=" saveListCandidate()" />
+</div>
+<div style="margin-top: 155px">
+    <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+    <input type="submit" value="Lưu lại" class="btn-u btn-u-sea" style="float: right; margin-right: 635px" onclick="saveListCandidate()" />
 </div>
 
 
