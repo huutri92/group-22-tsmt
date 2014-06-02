@@ -299,8 +299,10 @@
         //        });
         //    }
         //}
+        location.reload();
         alert("Lưu thành công");
         location.reload();
+        //location.reload(true);
     }
 
     function syncChange(id) {
@@ -420,7 +422,7 @@
     </div>
 </div>
 <div style="margin-top: 155px">
-    <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
+    <a href="@Url.Action("AssignCar", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default" style="float:left"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
     <input type="submit" value="Lưu lại" class="btn-u btn-u-sea" style="float: right; margin-right: 635px" onclick="saveListCandidate()" />
 </div>
 
