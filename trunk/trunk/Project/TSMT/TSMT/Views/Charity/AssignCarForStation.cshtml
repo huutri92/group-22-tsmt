@@ -67,6 +67,7 @@
         @Html.ActionLink("Sắp xe", "AssignToCar", new { id = @Model.CharityExamID }, new { @class = "btn-u btn-u-brown" })
     </span>
     <span style="float: right;">
+         @Html.ActionLink("Xóa kết quả sắp xe hiện tại", "Reset", new { id = @Model.CharityExamID }, new { @class = "btn-u btn-u-brown" })
     @Html.ActionLink("Sắp xe", "AssignToCarForStation", new { id = @Model.CharityExamID }, new { @class = "btn-u btn-u-blue" })
     </span>
     @*@Html.ActionLink("Quay lại", "ManageCandidate", new { id = @Model.CharityExamID }, new { @class = "btn btn-info" })*@
