@@ -60,6 +60,7 @@
     </div>
 
     <span class="assigned" style="float: right;">
+        @Html.ActionLink("Sắp tay", "ManualAssignToCar", new { id = @Model.CharityExamID }, new { @class="btn-u btn-u-pink" })
         @Html.ActionLink("Xoá kết quả sắp xe hiện tại", null, null, new { @class = "btn-u btn-u-red", onclick = "return showPopup('Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=false')" })
         @Html.ActionLink("Sắp lại", null, null, new { @class = "btn-u btn-u-purple", onclick = "return showPopup('Sắp lại xe sẽ xoá kết quả sắp xe hiện tại.</br>Xác nhận xoá kết quả sắp xe:', '/Charity/ResetCars/" + @Model.CharityExamID + "?ReAssign=true')" })
     </span>
