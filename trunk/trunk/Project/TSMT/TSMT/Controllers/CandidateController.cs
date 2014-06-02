@@ -86,18 +86,22 @@ namespace TSMT.Controllerss
                         };
             return Json(venue, JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult getDay(int id)
-        //{
-        //    var exam = from u in db.Examinations
-        //                where u.ExaminationID == id
-        //                select new
-        //                {
-        //                    value = u.ExaminationID,
-        //                    name = u.BeginDate
-                            
-        //                };
-        //    return Json(exam, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult getDay(int id)
+        {
+            var exam = from u in db.Examinations
+                       where u.ExaminationID == id
+                       select new
+                       {
+                           value = u.ExaminationID,
+                           name = u.BeginDate.Day,
+                           name1 = u.BeginDate.Month,
+                           name2 = u.BeginDate.Year
+
+
+                       };
+
+            return Json(exam, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DeleteExamPaper(int id)
         {

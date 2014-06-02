@@ -205,6 +205,7 @@ namespace TSMT.Controllers
             car.AvailableSlots = car.TotalSlots;
             car.DriverName = f["DriverName"];
             car.DriverPhone = f["DriverPhone"];
+            
             if (int.Parse(f["CharityExamID"]) != 0)
             {
                 car.CharityExamID = int.Parse(f["CharityExamID"]);
@@ -493,7 +494,7 @@ namespace TSMT.Controllers
             ViewData["Cars"] = db.Cars.Where(o => o.CharityID == charity.CharityID && o.CharityExamID == null).ToList();
 
             var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
-            var cars = db.Cars.Where(r => r.CharityExamID == id).ToList();
+            var cars = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved ==true).ToList();
             var totalslots = 0;
             foreach (var i in cars)
             {
@@ -871,6 +872,7 @@ namespace TSMT.Controllers
         public ActionResult ChooseLodgeForCe(int id)
         {
             Account acc = (Account)Session["acc"];
+            ChairitiesExam cExam = db.ChairitiesExams.FirstOrDefault(c => c.CharityExamID == id);
             Charity charity = db.Charities.FirstOrDefault(c => c.AccountID == acc.AccountID);
             List<Lodge> listLodge = new List<Lodge>();
             listLodge = db.Lodges.Where(l => l.CharityID == charity.CharityID && l.CharityExamID == null).ToList();
@@ -890,7 +892,7 @@ namespace TSMT.Controllers
             ViewData["Lodge"] = listLodge;
             ViewData["Exam"] = db.ChairitiesExams.Where(r => r.CharityExamID == id).ToList();
             var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
-            var lodges = db.Lodges.Where(r => r.CharityExamID == id).ToList();
+            var lodges = db.Lodges.Where(r => r.CharityExamID == id && r.IsApproved== true).ToList();
             var totalslots = 0;
             foreach (var i in lodges)
             {
@@ -900,7 +902,7 @@ namespace TSMT.Controllers
             ViewData["totalCadidate"] = totalCadidate;
             ViewData["totalSlots"] = totalslots;
             ViewBag.totalAvaSlots = totalAvaSlots;
-            return View(charity);
+            return View(cExam);
         }
 
         //public ActionResult ChooseRoomsForCe(int lodgeId, int id)
@@ -2031,8 +2033,23 @@ namespace TSMT.Controllers
         }
         public ActionResult AssignToCarForStation(int id)
         {
+            var DelCan = db.ExaminationsPapers.Where(r => r.CharityExamID == id).ToList();
+            foreach (var c in DelCan)
+            {
+                c.StationCarID = null;
+            }
+            db.SaveChanges();
             var CountStation = db.Stations.Count();
             var cars = db.Cars.Where(r => r.CharityExamID == id).ToList();
+            Car tmp = new Car();
+            for (int i = 0; i < cars.Count; ++i)
+                for (int j = i + 1; j < cars.Count; ++j)
+                    if (cars[i].TotalSlots > cars[j].TotalSlots)
+                    {
+                        tmp = cars[i];
+                        cars[i] = cars[j];
+                        cars[j] = tmp;
+                    }
             for (int j = 0; j < CountStation; ++j)
             {
                 var Candidates = db.ExaminationsPapers.Where(r => r.CharityExamID == id && r.StatitonID == j).ToList();
