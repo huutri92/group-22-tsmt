@@ -112,10 +112,10 @@
                                             <td>@item.TotalSlots</td>
                                             <td>
                                                 @*<button class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></button>*@
-                                                <a href="#" class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="icon-map-marker"></i></a> 
+                                                <a href="#" class="btn-u btn-u-blue" title="Xem trên bản đồ" onclick="openWindowPopup('/Home/ViewLodge/', @item.LodgeID)"><i class="fa fa-map-marker"></i></a> 
                                                 @*@Html.ActionLink("Details", "DetailsLodge", new { lodgeId = @item.LodgeID })*@
                                                 @*@Html.ActionLink("Sử dụng", "ChooseRoomsForCe", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})*@
-                                                <a href="@Url.Action("ChooseRoomsForCe", "Charity", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})" class="btn-u btn-u-pink" title="Sử dụng"><i class="icon-heart"></i></a>
+                                                <a href="@Url.Action("ChooseRoomsForCe", "Charity", new { lodgeId = @item.LodgeID , id = @ViewData["ceId"]})" class="btn-u btn-u-pink" title="Sử dụng"><i class="fa fa-check"></i></a>
                                             </td>
 
                                         </tr>

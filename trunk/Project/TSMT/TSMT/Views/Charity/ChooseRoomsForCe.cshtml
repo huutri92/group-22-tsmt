@@ -64,7 +64,7 @@
                 roomId += $(this).val() + "-";
 
             });
-            var examDate = new Date(document.getElementById("exam").textContent);
+            var examDate = new Date(document.getElementById("date").textContent);
             var now = new Date;
             if ((examDate - now) / 86400000 >= 1) {
                 if (roomId != "") {
@@ -227,7 +227,6 @@
             </table>
         </div>
     </div>
-<<<<<<< .mine
 
     <div style="float: right">
         @*<button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="icon-ok-sign"></i>&nbsp;Chọn</button>*@
@@ -237,17 +236,7 @@
         @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
     </div>
 
-=======
                     
-                        <div style="float: right">
-                            @*<button type="submit" value="Chọn" class="btn-u btn-u-green" id="saveall"><i class="fa fa-ok-sign"></i>&nbsp;Chọn</button>*@
-                            <a href="#" class="btn-u btn-u-green" id="saveall"><i class="fa fa-check"></i>&nbsp;Chọn</a> 
-                            <a href="@Url.Action("ChooseLodgeForCe", "Charity", new { id = ViewData["ceId"] })" class="btn-u btn-u-red"><i class="fa fa-times"></i>&nbsp;Hủy</a>
-                            @*<input type="submit" value="Chọn" class="btn-u btn-u-default" id="saveall" />*@
-                            @*<input type="reset" value="Làm lại" class="btn-u btn-u-blue" />*@
-                        </div>
-                    
->>>>>>> .r418
 </div>
 
 

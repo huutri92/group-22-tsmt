@@ -7,7 +7,18 @@
 @model ExaminationsPaper
 
 <script src="/Content/js/TSMTViewOnMap.js"></script>
-
+<script type="text/javascript">
+    function checkDate() {
+        var examDate = new Date(document.getElementById("date").textContent);
+        var now = new Date;
+        if ((examDate - now) / 86400000 >= 3) {
+            return true;
+        } else {
+            alert("Đã hoàn tất đăng ký cho đợt thi này, bạn không thể đăng ký được nữa");
+            return false;
+        }
+    }
+</script>
 @section Breadcrumbs {
     <div class="breadcrumbs margin-bottom-20">
         <div class="container">
@@ -29,7 +40,7 @@
         {
             <h3>Phiếu báo thi chưa được đăng ký vào Hội từ thiện nào!
                 @*@Html.ActionLink("Đăng ký ngay!", "JoinInCE", new { id = Model.ExamPaperID }, new { @class = "btn btn-u-orange" })*@
-                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
+                <a href="@Url.Action("JoinInCE", "Candidate", new { id = Model.ExamPaperID })" onclick="return checkDate();" class="btn-u btn-u-orange"><i class="icon-search"></i>Đăng ký ngay</a>
             </h3>
         }
         else
@@ -57,9 +68,11 @@
                 <tr>
                     <td style="vertical-align: middle">Kỳ thi</td>
                     <td style="vertical-align: middle"><a href="#" title="Xem lịch thi @Model.UniversitiesExamination.Examination.Name" onclick="">@Model.UniversitiesExamination.Examination.Name 
-                        (@Model.UniversitiesExamination.Examination.BeginDate.ToString("dd/MM/yyyy") -
-                        @Model.UniversitiesExamination.Examination.EndDate.ToString("dd/MM/yyyy"))
-                                                       </a></td>
+                                                           (@Model.UniversitiesExamination.Examination.BeginDate.ToString("dd/MM/yyyy") -
+                                                           @Model.UniversitiesExamination.Examination.EndDate.ToString("dd/MM/yyyy"))
+                                                       </a>
+                        <div id="date" style="display: none">@Model.UniversitiesExamination.Examination.BeginDate</div>
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle">Trường</td>
