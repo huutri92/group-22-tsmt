@@ -71,7 +71,7 @@ namespace TSMT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("ErrorPage");
+            return RedirectToAction("ErrorPage", "Home");
         }
         [HttpPost]
         public JsonResult getCharityName(int id) //exId
