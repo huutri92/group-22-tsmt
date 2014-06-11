@@ -78,7 +78,7 @@
         </div>
     </div>
     <a href="@Url.Action("Index", "Charity")" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
-    @if(Model.ChairitiesExams.Count < 3)
+    @if (Model.ChairitiesExams.Count < 3)
     {
         <a href="@Url.Action("AddCharityExam", "Charity")" class="btn-u btn-u-sea" style="float:right"><i class="fa fa-plus"></i>&nbsp;Tạo mới</a>
     }

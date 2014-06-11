@@ -50,17 +50,34 @@
     </div>
 
     <div style="float: right">
-@*<<<<<<< .mine
+        <script type="text/javascript">
+            function sendMeassge() {
+                $.ajax({
+                    url: '/Charity/Send',
+                    data: { id: @ViewData["ceId"] },
+                    type: 'POST',
+                    success: function (results) {
+                        if (results.success == true) {
+                            alert("Gửi tin nhắn thành công");
+                        } else {
+                            alert("Gửi tin nhắn thất bại");
+                        }
+                    }
+                });
+            }
+        </script>
+        @*<<<<<<< .mine
         <a href="@Url.Action("AssignCarForStation", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-blue"><i class="icon-key"></i>&nbsp;Đến trang sắp xe đón</a>
         <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-violet"><i class="icon-building"></i>&nbsp;Đến trang sắp xếp phòng</a>
         <a href="@Url.Action("AssignCar", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-brown"><i class="icon-key"></i>&nbsp;Đến trang sắp xếp xe cho đợt thi</a>
 =======*@
-           <a href="@Url.Action("AssignCarForStation", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-blue"><i class="fa fa-car"></i>&nbsp;Đến trang sắp xe đón</a>
+        <button type="submit" onclick="sendMeassge();" class="btn-u btn-u-dark-blue"><i class="fa fa-gift">&nbsp;Gửi tin nhắn</i></button>
+        <a href="@Url.Action("AssignCarForStation", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-blue"><i class="fa fa-car"></i>&nbsp;Đến trang sắp xe đón</a>
         <a href="@Url.Action("AssignRoom", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-violet"><i class="fa fa-building-o"></i>&nbsp;Đến trang sắp xếp phòng</a>
         <a href="@Url.Action("AssignCar", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-brown"><i class="fa fa-car"></i>&nbsp;Đến trang sắp xếp xe</a>
 
     </div>
-    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Về trang quản lý chung</a>
+    <a href="@Url.Action("DetailsCharityExam", "Charity", new { id = @ViewData["ceId"] })" class="btn-u btn-u-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</a>
 </div>
 
 <link rel="stylesheet" href="~/Content/css/TSMTPaging.css">
