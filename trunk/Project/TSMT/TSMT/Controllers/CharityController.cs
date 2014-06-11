@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Management;
 using TSMT.Models;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace TSMT.Controllers
 {
@@ -24,6 +25,15 @@ namespace TSMT.Controllers
         {
             Account acc = (Account)Session["acc"];
             Charity charity = db.Charities.SingleOrDefault(r => r.AccountID == acc.AccountID);
+            var a = db.ChairitiesExams.FirstOrDefault(r => r.Charity.AccountID == acc.AccountID);
+            if (a != null)
+            {
+                ViewData["year"] = a.Examination.EndDate.Year;
+            }
+            else
+            {
+                ViewData["year"] = 0;
+            }
             return View(charity);
         }
         public ActionResult AddCharityExam()
@@ -205,7 +215,7 @@ namespace TSMT.Controllers
             car.AvailableSlots = car.TotalSlots;
             car.DriverName = f["DriverName"];
             car.DriverPhone = f["DriverPhone"];
-            
+
             if (int.Parse(f["CharityExamID"]) != 0)
             {
                 car.CharityExamID = int.Parse(f["CharityExamID"]);
@@ -493,7 +503,7 @@ namespace TSMT.Controllers
             ViewData["Cars"] = db.Cars.Where(o => o.CharityID == charity.CharityID && o.CharityExamID == null).ToList();
 
             var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
-            var cars = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved ==true).ToList();
+            var cars = db.Cars.Where(r => r.CharityExamID == id && r.IsApproved == true).ToList();
             var totalslots = 0;
             foreach (var i in cars)
             {
@@ -891,7 +901,7 @@ namespace TSMT.Controllers
             ViewData["Lodge"] = listLodge;
             ViewData["Exam"] = db.ChairitiesExams.Where(r => r.CharityExamID == id).ToList();
             var totalCadidate = db.ExaminationsPapers.Count(r => r.CharityExamID == id);
-            var lodges = db.Lodges.Where(r => r.CharityExamID == id && r.IsApproved== true).ToList();
+            var lodges = db.Lodges.Where(r => r.CharityExamID == id && r.IsApproved == true).ToList();
             var totalslots = 0;
             foreach (var i in lodges)
             {
@@ -1124,6 +1134,12 @@ namespace TSMT.Controllers
             ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
             return View(ce);
         }
+        public ActionResult SendMessage(int id) // ceId
+        {
+            ViewData["ceId"] = id;
+            ChairitiesExam ce = db.ChairitiesExams.SingleOrDefault(r => r.CharityExamID == id);
+            return View(ce);
+        }
         [HttpPost]
         public JsonResult GetDataManageCandidate(int id)
         {
@@ -1173,6 +1189,53 @@ namespace TSMT.Controllers
 
             ViewData["ceId"] = ep.CharityExamID;
             return View(ep);
+
+        }
+        [HttpPost]
+        public JsonResult Send(int id)
+        {
+            var msg = db.ExaminationsPapers.Where(r => r.CharityExamID == id);
+            const string APIKey = "C03545396ADF470678A5BD4C14CE77";//Dang ky tai khoan tai esms.vn de lay key
+            const string SecretKey = "F70CC0A5A18EDE7F691B44AC1CCD9F";
+            string message = "Ky thi sap bat dau, ban hay den ";
+            foreach (ExaminationsPaper ex in msg)
+            {
+
+                string phone = ex.Candidate.Account.Profile.PhoneNumber;
+                string sta = ex.Station.StationName;
+                string car = ex.StationCar.Car.NumberPlate;
+                var time = (int)ex.PickUpTime;
+                if (time == 1)
+                {
+                    message = message + sta + " vao luc 11h, xe don ban la " + car +
+                              ", mong ban den dung gio. Website TSMT chuc ban thanh cong";
+                }
+                else
+                {
+                    message = message + sta + " vao luc 17h, xe don ban la " + car +
+                              ", mong ban den dung gio. Website TSMT chuc ban thanh cong";
+                }
+                var url = "http://api.esms.vn/MainService.svc/xml/SendMultipleSMS/" + phone + "/" + message + "/"
+                    + APIKey + "/" + SecretKey;
+                var req = (HttpWebRequest)WebRequest.Create(url);
+                var res = req.GetResponse();
+
+                XmlTextReader reader = new XmlTextReader(url);
+
+                // Skip non-significant whitespace  
+                reader.WhitespaceHandling = WhitespaceHandling.Significant;
+
+                // Read nodes one at a time  
+                //while (reader.Read())
+                //{                
+                //    System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", reader.NodeType.ToString(), reader.Name,reader.Value);                
+                //}
+                using (var reader1 = new System.IO.StreamReader(res.GetResponseStream(), System.Text.Encoding.UTF8))
+                {
+                    string responseText = reader1.ReadToEnd();
+                }
+            }
+            return Json(new { success = true });
 
         }
         #endregion
@@ -1890,7 +1953,7 @@ namespace TSMT.Controllers
                     }
                     db.SaveChanges();
                 }
-                if(expp.CarID==null)
+                if (expp.CarID == null)
                 {
                     expp.CarID = carId;
                     --car.AvailableSlots;
@@ -1900,7 +1963,7 @@ namespace TSMT.Controllers
                     }
                     db.SaveChanges();
                 }
-                
+
             }
             if (voId != 0 && carId == 0)
             {
@@ -2153,6 +2216,7 @@ namespace TSMT.Controllers
             }
             return RedirectToAction("AssignCarForStation", new { id = id });
         }
+<<<<<<< .mine
 
         public ActionResult Reset(int id)
         {
@@ -2164,6 +2228,20 @@ namespace TSMT.Controllers
             db.SaveChanges();
             return RedirectToAction("AssignCarForStation", new { id = id });
         }
+
+=======
+
+        public ActionResult Reset(int id)
+        {
+            var DelCan = db.ExaminationsPapers.Where(r => r.CharityExamID == id).ToList();
+            foreach (var c in DelCan)
+            {
+                c.StationCarID = null;
+            }
+            db.SaveChanges();
+            return RedirectToAction("AssignCarForStation", new { id = id });
+        }
+>>>>>>> .r445
         #endregion
     }
 }

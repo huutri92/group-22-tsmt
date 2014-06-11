@@ -149,15 +149,23 @@ namespace TSMT.Controllerss
         {
             int epId = int.Parse(f["epId"]);
             ExaminationsPaper ep = db.ExaminationsPapers.SingleOrDefault(r => r.ExamPaperID == epId);
+            var begin = ep.UniversitiesExamination.Examination.BeginDate;
+            DateTime now = System.DateTime.Now;
+            var equal = new TimeSpan();
+            equal = now - begin;
+            double totalMilliseconds = equal.TotalMilliseconds;
+            if (Math.Abs((totalMilliseconds/86400000)) > 3)
+            {
+                int lodgeId = int.Parse(f["lodgeId"]);
+                Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
 
-            int lodgeId = int.Parse(f["lodgeId"]);
-            Lodge lodge = db.Lodges.SingleOrDefault(r => r.LodgeID == lodgeId);
-
-            ep.LodgeRegisteredID = lodgeId;
-            ep.CharityExamID = lodge.CharityExamID;
-            --lodge.AvailableSlots;
-            db.SaveChanges();
-            return RedirectToAction("DetailsExamPaper", new { id = epId });
+                ep.LodgeRegisteredID = lodgeId;
+                ep.CharityExamID = lodge.CharityExamID;
+                --lodge.AvailableSlots;
+                db.SaveChanges();
+                return RedirectToAction("DetailsExamPaper", new {id = epId});
+            }
+            return RedirectToAction("ErrorPage", "Home");
         }
         public ActionResult LeaveCE(int id) // Assumptions: ep dang ko thuoc group nao
         {

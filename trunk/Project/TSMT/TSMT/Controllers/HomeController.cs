@@ -32,7 +32,10 @@ namespace TSMT.Controllers
         {
             return View();
         }
-
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
         public ActionResult Blog()
         {
             return RedirectToAction("News", "Post");

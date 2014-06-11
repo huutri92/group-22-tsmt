@@ -264,11 +264,11 @@ namespace TSMT.Controllers
                 record.code = u.UniversityCode;
                 record.address = u.Address;
                 record.actions = "<a href='/Admin/EditUniversity/" + u.UniversityID + "'";
-                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='icon-edit'></i></a>";
+                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='fa fa-eye'></i></a>";
                 record.actions = "<a href='/Admin/EditUniversity/" + u.UniversityID + "'";
-                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='icon-edit'></i></a>";
+                record.actions += " class='btn-u btn-u-blue' title='Thay đổi thông tin trường ĐHCĐ'><i class='fa fa-eye'></i></a>";
                 record.actions += "<a href='/Admin/DeleteUniversity/" + u.UniversityID + "'";
-                if (u.UniversitiesExaminations.Count == 0) record.actions += " class='btn-u btn-u-red' title='Xoá thông tin trường ĐHCĐ'><i class='icon-remove'></i></a>";
+                if (u.UniversitiesExaminations.Count == 0) record.actions += " class='btn-u btn-u-red' title='Xoá thông tin trường ĐHCĐ'><i class='fa fa-trash'></i></a>";
                 results.Add(record);
             }
             return Json(new { success = true, data = results });
